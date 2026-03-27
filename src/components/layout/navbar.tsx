@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -58,7 +59,8 @@ export function Navbar() {
         </nav>
 
         {/* Desktop CTA */}
-        <div className="hidden lg:block relative z-50">
+        <div className="hidden lg:flex items-center gap-4 relative z-50">
+          <ThemeToggle />
           <Link
             href="/contact"
             className="px-6 py-2.5 bg-foreground text-background text-sm font-medium rounded-full hover:opacity-90 transition-opacity"
@@ -68,13 +70,16 @@ export function Navbar() {
         </div>
 
         {/* Mobile Toggle */}
-        <button
-          className="lg:hidden relative z-50 p-2 text-foreground"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden relative z-50">
+          <ThemeToggle />
+          <button
+            className="p-2 text-foreground"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
