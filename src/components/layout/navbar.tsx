@@ -13,6 +13,7 @@ const navLinks = [
   { name: "Visual Marketing", href: "/visual-marketing" },
   { name: "Events & Decor", href: "/events" },
   { name: "Store", href: "/store" },
+  { name: "Video Gallery", href: "/video-gallery" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
