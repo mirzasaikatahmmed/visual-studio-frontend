@@ -3,8 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { LenisProvider } from "@/providers/lenis-provider";
-import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,9 +36,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LenisProvider>
-            <Navbar />
-            <main className="min-h-screen pt-24">{children}</main>
-            <Footer />
+
+            <main className="">{children}</main>
+
           </LenisProvider>
         </ThemeProvider>
       </body>

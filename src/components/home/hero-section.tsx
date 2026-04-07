@@ -44,13 +44,19 @@ export function HeroSection() {
         >
           <Link 
             href="/portfolio" 
-            className="px-8 py-4 bg-white text-black font-medium rounded-full hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+            className="px-8 py-4 bg-white text-black font-bold uppercase tracking-widest text-xs hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
           >
-            View Portfolio <ArrowRight size={18} />
+            View Portfolio <ArrowRight size={16} />
+          </Link>
+          <Link 
+            href="/#services" 
+            className="px-8 py-4 bg-transparent border border-white text-white font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-colors flex items-center justify-center"
+          >
+            Explore Services
           </Link>
           <Link 
             href="/contact" 
-            className="px-8 py-4 bg-transparent border border-white text-white font-medium rounded-full hover:bg-white/10 transition-colors flex items-center justify-center"
+            className="px-8 py-4 bg-transparent border border-white/50 text-white font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-colors flex items-center justify-center"
           >
             Book a Session
           </Link>

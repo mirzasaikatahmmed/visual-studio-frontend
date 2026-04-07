@@ -8,7 +8,7 @@ export default function Home() {
       <HeroSection />
 
       {/* Services Highlight */}
-      <section className="py-24 bg-background">
+      <section id="services" className="py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-4 uppercase tracking-tighter">Our Expertise</h2>
@@ -86,6 +86,37 @@ export default function Home() {
                ))}
             </div>
          </div>
+      </section>
+
+      {/* Resources & Booking Section */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Pricing Guide */}
+            <div className="p-12 border border-border flex flex-col items-center text-center bg-muted/20">
+               <h3 className="text-3xl font-bold uppercase tracking-tight mb-4">Pricing Guide</h3>
+               <p className="text-muted-foreground mb-8">Download our comprehensive brochure detailing packages, add-ons, and process.</p>
+               <a 
+                 href="#" 
+                 className="px-8 py-3 bg-foreground text-background font-bold tracking-widest uppercase text-sm rounded-full hover:opacity-90 transition-opacity"
+               >
+                 Download PDF
+               </a>
+            </div>
+            
+            {/* Booking Calendar Placeholder */}
+            <div className="p-12 border border-border flex flex-col items-center text-center bg-muted/20">
+               <h3 className="text-3xl font-bold uppercase tracking-tight mb-4">Schedule a Call</h3>
+               <p className="text-muted-foreground mb-8">Book a free 15-minute consultation to discuss your vision and requirements.</p>
+               <a 
+                 href="/contact" 
+                 className="px-8 py-3 bg-transparent border border-foreground text-foreground font-bold tracking-widest uppercase text-sm rounded-full hover:bg-muted transition-colors"
+               >
+                 Open Calendar
+               </a>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* FAQ Section */}
