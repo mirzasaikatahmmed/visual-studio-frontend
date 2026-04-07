@@ -6,15 +6,15 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const images = [
-  "https://picsum.photos/seed/portfolio1/800/1200",
-  "https://picsum.photos/seed/portfolio2/800/800",
-  "https://picsum.photos/seed/portfolio3/800/1000",
-  "https://picsum.photos/seed/portfolio4/800/1400",
-  "https://picsum.photos/seed/portfolio5/800/900",
-  "https://picsum.photos/seed/portfolio6/800/1100",
-  "https://picsum.photos/seed/portfolio7/800/1300",
-  "https://picsum.photos/seed/portfolio8/800/850",
-  "https://picsum.photos/seed/portfolio9/800/1050"
+  "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800&auto=format&fit=crop", // Wedding Couple
+  "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=800&auto=format&fit=crop", // Elegant Setup
+  "https://images.unsplash.com/photo-1554048665-8c34fbc46098?q=80&w=800&auto=format&fit=crop", // Albums/Detail
+  "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?q=80&w=800&auto=format&fit=crop", // Luxury Hero View
+  "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800&auto=format&fit=crop", // Floral Decor
+  "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop", // Wedding Lighting
+  "https://images.unsplash.com/photo-1478146896981-b80fe463b330?q=80&w=800&auto=format&fit=crop", // Aesthetic Rustic
+  "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop", // Modern Minimal Event
+  "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=800&auto=format&fit=crop"  // Corporate Coffee Style
 ];
 
 export default function PortfolioPage() {
