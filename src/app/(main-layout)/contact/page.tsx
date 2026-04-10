@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import { HeroSection } from "@/components/hero-section";
 
 export const metadata = {
   title: "Contact & Booking | Visual Studio",
@@ -7,15 +8,13 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="flex flex-col min-h-screen pt-24">
-      
-      {/* Header */}
-      <section className="container mx-auto px-4 py-16 max-w-5xl text-center">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter uppercase mb-6">Get In Touch</h1>
-        <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Whether you're ready to book a session, need a custom quote, or just have a few questions, our team is here to help.
-        </p>
-      </section>
+    <div className="flex flex-col min-h-screen pb-20">
+      <HeroSection 
+        subtitle="Book A Session"
+        title="Get In Touch"
+        desc="Whether you're ready to book a session, need a custom quote, or just have a few questions, our team is here to help."
+        image="https://images.unsplash.com/photo-1596524430615-b46475ddff6e?q=80&w=2000&auto=format&fit=crop"
+      />
 
       {/* Main Content */}
       <section className="pb-24">

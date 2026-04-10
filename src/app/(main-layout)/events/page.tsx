@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CheckCircle2, Star, Sparkles, MoveRight } from "lucide-react";
+import { HeroSection } from "@/components/hero-section";
 
 export const metadata = {
   title: "Events & Decorations | Visual Studio",
@@ -29,25 +30,26 @@ const packages = [
 
 export default function EventsPage() {
   return (
-    <div className="flex flex-col min-h-screen pt-24 pb-20">
+    <div className="flex flex-col min-h-screen pb-20">
+      <HeroSection 
+        subtitle={
+          <span className="flex items-center justify-center gap-2">
+            <Sparkles size={16} /> POWERED BY DREAMS DECOR
+          </span>
+        }
+        title="Unforgettable Events"
+        desc="Transforming ordinary spaces into breathtaking atmospheres. Watch your visions come to life with our premium event decoration services."
+        image="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2000&auto=format&fit=crop"
+      />
       
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 text-center max-w-4xl mb-24">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border mb-6">
-          <Sparkles size={16} />
-          <span className="text-sm font-medium tracking-widest uppercase">Powered by Dreams Decor</span>
-        </div>
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase mb-6">Unforgettable Events</h1>
-        <p className="text-xl text-muted-foreground mb-10">
-          Transforming ordinary spaces into breathtaking atmospheres. Watch your visions come to life with our premium event decoration services.
-        </p>
+      <div className="flex justify-center mt-8 mb-16">
         <Link 
           href="/contact" 
           className="px-8 py-4 bg-foreground text-background font-medium rounded-full hover:opacity-90 transition-opacity uppercase tracking-widest text-sm inline-flex items-center gap-2"
         >
           Book Consultation <MoveRight size={18} />
         </Link>
-      </section>
+      </div>
 
       {/* Before / After Transformation */}
       <section className="py-20 bg-muted/20">
