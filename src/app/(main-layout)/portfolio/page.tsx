@@ -74,7 +74,7 @@ export default function PortfolioPage() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="flex flex-wrap items-center gap-2 bg-[#18181A]/80 backdrop-blur-3xl p-1.5 rounded-full border border-white/10 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.1),inset_-1px_-1px_2px_rgba(0,0,0,0.5)] self-start md:self-auto shrink-0"
+            className="flex items-center gap-2 bg-[#18181A]/80 backdrop-blur-3xl p-1.5 rounded-full border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.5)] self-start md:self-auto shrink-0 max-w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           >
             {categories.map((cat) => (
               <button
@@ -98,17 +98,18 @@ export default function PortfolioPage() {
         </div>
 
         {/* Masonry Grid */}
-        <motion.div layout className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+        <motion.div layout className="columns-2 lg:columns-3 gap-2 md:gap-4 space-y-2 md:space-y-4">
           <AnimatePresence mode="popLayout">
             {filteredData.map((item, idx) => (
               <motion.div
                 key={item.src}
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                custom={idx}
+                initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4 }}
-                className="break-inside-avoid relative group overflow-hidden rounded-[2rem] cursor-pointer border border-white/5 bg-[#111]"
+                transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="break-inside-avoid relative group overflow-hidden rounded-2xl md:rounded-[2rem] cursor-pointer border border-white/5 bg-[#111]"
                 onClick={() => setSelectedIndex(idx)}
               >
                 <div 
@@ -139,9 +140,13 @@ export default function PortfolioPage() {
 
         {/* Cinematic Pixieset Call to Action */}
         <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{
+             hidden: { opacity: 0 },
+             visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+          }}
           className="mt-32 relative overflow-hidden rounded-[3rem] p-12 md:p-20 text-center border border-white/10"
         >
           {/* Glass background layers */}
@@ -150,22 +155,23 @@ export default function PortfolioPage() {
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-fuchsia-600/30 blur-[120px] rounded-full" />
           <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-purple-600/20 blur-[120px] rounded-full" />
           
-          <div className="relative z-10 max-w-3xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-6 uppercase tracking-tighter text-white">
+          <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
+            <motion.h2 variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} className="text-4xl md:text-5xl font-extrabold mb-6 uppercase tracking-tighter text-white">
               Full Client <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-purple-400">Galleries</span>
-            </h2>
-            <p className="text-white/60 text-lg mb-10 leading-relaxed font-medium">
+            </motion.h2>
+            <motion.p variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} className="text-white/60 text-lg mb-10 leading-relaxed font-medium">
               We deliver all our final, high-resolution masterpieces through beautiful, private online galleries powered by Pixieset. 
               View our complete, uncurated stories to witness our true consistency across entire events.
-            </p>
-            <a 
+            </motion.p>
+            <motion.a 
+              variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
               href="https://visualstudionyc.pixieset.com/portfolio/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-5 bg-white text-black rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] transition-all duration-300"
             >
               Explore Pixieset <ExternalLink size={18} />
-            </a>
+            </motion.a>
           </div>
         </motion.div>
       </div>
@@ -188,7 +194,7 @@ export default function PortfolioPage() {
             </button>
             
             <button 
-              className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white transition-transform hover:scale-110 z-50 bg-white/5 border border-white/10 rounded-full backdrop-blur-md"
+              className="hidden md:block absolute left-6 md:left-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white transition-transform hover:scale-110 z-50 bg-white/5 border border-white/10 rounded-full backdrop-blur-md"
               onClick={(e) => { e.stopPropagation(); handlePrev(); }}
             >
               <ChevronLeft size={32} />
@@ -201,12 +207,22 @@ export default function PortfolioPage() {
                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                 exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
                 transition={{ duration: 0.5, type: "spring", bounce: 0 }}
-                className="relative max-w-[90vw] max-h-[85vh] flex flex-col items-center"
+                className="relative max-w-[90vw] max-h-[85vh] flex flex-col items-center touch-none cursor-grab active:cursor-grabbing"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={1}
+                onDragEnd={(e, { offset, velocity }) => {
+                  if (offset.x > 50 || velocity.x > 500) {
+                    handlePrev();
+                  } else if (offset.x < -50 || velocity.x < -500) {
+                    handleNext();
+                  }
+                }}
               >
                 <img 
                   src={filteredData[selectedIndex].src} 
                   alt={filteredData[selectedIndex].title} 
-                  className="max-w-full max-h-[80vh] object-contain shadow-[0_20px_60px_rgba(0,0,0,0.8)] rounded-lg border border-white/10" 
+                  className="max-w-full max-h-[80vh] object-contain shadow-[0_20px_60px_rgba(0,0,0,0.8)] rounded-lg border border-white/10 pointer-events-none" 
                 />
                 <div className="mt-6 text-center">
                   <h3 className="text-white text-xl font-bold tracking-widest uppercase">{filteredData[selectedIndex].title}</h3>
@@ -216,7 +232,7 @@ export default function PortfolioPage() {
             </AnimatePresence>
 
             <button 
-              className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white transition-transform hover:scale-110 z-50 bg-white/5 border border-white/10 rounded-full backdrop-blur-md"
+              className="hidden md:block absolute right-6 md:right-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white transition-transform hover:scale-110 z-50 bg-white/5 border border-white/10 rounded-full backdrop-blur-md"
               onClick={(e) => { e.stopPropagation(); handleNext(); }}
             >
               <ChevronRight size={32} />

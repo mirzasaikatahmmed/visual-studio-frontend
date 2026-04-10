@@ -34,9 +34,9 @@ export function Navbar() {
   return (
     <header className="fixed top-0 w-full z-50 transition-all duration-300 pt-4 px-4 md:pt-6">
       <div
-        className={`container max-w-[95%] xl:max-w-7xl mx-auto flex items-center justify-between px-4 lg:px-8 rounded-full relative z-50 transition-all duration-500 
-          bg-[#18181A]/80 backdrop-blur-[40px]
-          shadow-[inset_2px_2px_4px_-1px_rgba(255,255,255,0.3),inset_-2px_-2px_4px_-1px_rgba(255,255,255,0.15),0_15px_30px_rgba(0,0,0,0.6)]
+        className={`container max-w-[95%] xl:max-w-7xl mx-auto flex items-center justify-between px-8 lg:px-10 rounded-[2rem] relative z-50 transition-all duration-500 
+          bg-[#18181A]/40 backdrop-blur-md
+          border-2 border-white/20 shadow-[inset_1px_1px_3px_rgba(255,255,255,0.2),inset_-1px_-1px_3px_rgba(255,255,255,0.05),0_10px_30px_rgba(0,0,0,0.25)]
           ${isScrolled ? "py-3" : "py-5"}
         `}
       >

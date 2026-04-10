@@ -18,7 +18,7 @@ export function HeroSection() {
 
   const letterAnim: Variants = {
     hidden: { opacity: 0, y: 30, filter: "blur(5px)" },
-    visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { type: "spring", stiffness: 100, damping: 10 } }
+    visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { type: "spring" as const, stiffness: 100, damping: 10 } }
   };
 
   return (
@@ -27,9 +27,9 @@ export function HeroSection() {
       <motion.div 
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
+        transition={{ duration: 1.5, ease: "easeOut" as const }}
         className="absolute inset-0 z-0 bg-cover bg-center brightness-[0.3]"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2000&auto=format&fit=crop')" }}
+        style={{ backgroundImage: "url('/hero-bg.png')" }}
       />
       
       <div className="container relative z-10 mx-auto px-4 flex flex-col items-center text-center">
@@ -38,7 +38,7 @@ export function HeroSection() {
         <div className="relative group cursor-default mx-auto inline-block text-center flex-col items-center justify-start">
           {/* Background Masked Layer (Fades IN on hover) */}
           <div 
-            className="absolute inset-0 text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6 uppercase flex flex-col items-center justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-0 pointer-events-none"
+            className="absolute inset-0 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6 uppercase flex flex-col items-center justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-0 pointer-events-none"
             style={{
                backgroundImage: "url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1500&auto=format&fit=crop')", // Gorgeous bright wedding details
                backgroundSize: "cover",
@@ -49,8 +49,8 @@ export function HeroSection() {
                color: "transparent"
             }}
           >
-            <div className="w-full whitespace-nowrap">Capturing Moments.</div>
-            <div className="w-full whitespace-nowrap">Creating Experiences.</div>
+            <div className="w-full leading-tight">Capturing Moments.</div>
+            <div className="w-full leading-tight">Creating Experiences.</div>
           </div>
 
           {/* Foreground Animated Layer (Fades OUT on hover) */}
@@ -58,16 +58,16 @@ export function HeroSection() {
             variants={container}
             initial="hidden"
             animate="visible"
-            className="relative z-10 flex flex-col items-center justify-start text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6 uppercase group-hover:opacity-0 transition-opacity duration-700 pointer-events-none"
+            className="relative z-10 flex flex-col items-center justify-start text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6 uppercase group-hover:opacity-0 transition-opacity duration-700 pointer-events-none"
           >
-            <div className="text-white w-full whitespace-nowrap">
+            <div className="text-white w-full leading-tight flex flex-wrap justify-center">
               {line1.split("").map((char, index) => (
                 <motion.span variants={letterAnim} key={`l1-${index}`} className="inline-block whitespace-pre">
                   {char}
                 </motion.span>
               ))}
             </div>
-            <div className="text-white opacity-80 w-full whitespace-nowrap">
+            <div className="text-white opacity-80 w-full leading-tight flex flex-wrap justify-center">
               {line2.split("").map((char, index) => (
                 <motion.span variants={letterAnim} key={`l2-${index}`} className="inline-block whitespace-pre">
                   {char}
@@ -83,7 +83,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 1.5 }}
           className="text-base md:text-xl text-gray-200 max-w-2xl mb-10 font-medium px-4"
         >
-          A Creative Studio dedicated to timeless wedding photography and breathtaking event decorations.
+          A Creative Studio dedicated to timeless Desi weddings and other ceremonies.
         </motion.p>
         
         <motion.div 
