@@ -7,7 +7,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-24">{children}</main>
+      <main className="min-h-screen flex flex-col">{children}</main>
       <Footer />
       <WhatsAppButton />
     </>

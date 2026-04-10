@@ -45,7 +45,7 @@ export default function Home() {
               <div className="aspect-[4/5] relative overflow-hidden bg-muted mb-6 w-full">
                  <div 
                   className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                  style={{ backgroundImage: "url('https://images.unsplash.com/photo-1554048665-8c34fbc46098?q=80&w=800&auto=format&fit=crop')" }}
+                  style={{ backgroundImage: "url('/images/premium_photo_album.png')" }}
                 />
               </div>
               <h3 className="text-2xl font-bold mb-2 uppercase tracking-tight">Premium Albums</h3>

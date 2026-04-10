@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Camera, Users, Award } from "lucide-react";
+import { HeroSection } from "@/components/hero-section";
 
 export const metadata = {
   title: "About Us | Visual Studio",
@@ -8,22 +9,19 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen pt-24 pb-20">
-      
-      {/* Header */}
-      <section className="container mx-auto px-4 max-w-4xl pt-16 pb-24 text-center">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter uppercase mb-6">Our Story</h1>
-        <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-          We are visual storytellers. From grand South Asian weddings to high-end corporate campaigns, we capture the essence of every moment.
-        </p>
-        <div className="w-24 h-1 bg-foreground mx-auto"></div>
-      </section>
+    <div className="flex flex-col min-h-screen pb-20">
+      <HeroSection 
+        subtitle="Behind The Lens"
+        title="Our Story"
+        desc="We are visual storytellers. From grand South Asian weddings to high-end corporate campaigns, we capture the essence of every moment."
+        image="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2000&auto=format&fit=crop"
+      />
 
       {/* Main Content */}
       <section className="container mx-auto px-4 max-w-6xl mb-24">
          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="aspect-[4/5] bg-muted relative overflow-hidden">
-               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1554048665-8c34fbc46098?q=80&w=800')" }} />
+               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=800&auto=format&fit=crop')" }} />
                {/* Touch of Desi aesthetic via description of the team and styling */}
                <div className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-sm p-6 border border-border">
                   <h3 className="text-xl font-bold uppercase tracking-widest text-center">The Creators</h3>
