@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { ArrowRight, X, CheckCircle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { HeroSection } from "@/components/hero-section";
 
 const storeItems = [
   { 
@@ -72,42 +74,37 @@ export default function StorePage() {
     <div className="bg-[#0a0a0a] min-h-screen text-white font-sans selection:bg-white selection:text-black">
       
       {/* Hero Section */}
-      <section className="relative h-[60vh] md:h-[70vh] w-full flex flex-col justify-center items-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div 
-            className="w-full h-full bg-cover bg-center opacity-40 scale-105 transform translate-z-0"
-            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2000&auto=format&fit=crop')" }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/50" />
-        </div>
-        
-        <div className="relative z-10 text-center px-4 max-w-3xl mt-20">
-          <p className="text-xs md:text-sm tracking-[0.3em] text-white/70 uppercase mb-4">The Print Shop</p>
-          <h1 className="text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-6 leading-tight">Preserve Your <br/> Legacy</h1>
-          <p className="text-lg md:text-xl text-white/60 font-light max-w-xl mx-auto">
-             Transform your digital memories into physical heirlooms. Museum-quality albums and prints crafted for a lifetime.
-          </p>
-        </div>
-      </section>
+      <HeroSection 
+        subtitle="The Print Shop"
+        title={<>Preserve Your <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-purple-600">Legacy</span></>}
+        desc="Transform your digital memories into physical heirlooms. Museum-quality albums and prints crafted for a lifetime."
+        image="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2000&auto=format&fit=crop"
+      />
 
       {/* Main Store Area */}
-      <section className="container mx-auto px-4 py-24 max-w-6xl">
+      <section className="container mx-auto px-4 py-24 max-w-6xl overflow-hidden">
         <div className="flex flex-col gap-32">
           {storeItems.map((item, idx) => (
-            <div key={item.id} className={`flex flex-col ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 md:gap-24 items-center group`}>
-              
+            <motion.div 
+              key={item.id} 
+              className={`flex flex-col ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 md:gap-24 items-center group`}
+              initial={{ opacity: 0, y: 80 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
               {/* Image Container */}
-              <div className="w-full md:w-1/2 overflow-hidden relative aspect-[4/5] md:aspect-square bg-neutral-900 cursor-pointer" onClick={() => openCheckout(item)}>
+              <div className="w-full md:w-1/2 overflow-hidden relative aspect-[4/5] md:aspect-square bg-neutral-900 cursor-pointer rounded-2xl shadow-[0_0_40px_rgba(217,70,239,0.05)] hover:shadow-[0_0_60px_rgba(217,70,239,0.15)] transition-shadow" onClick={() => openCheckout(item)}>
                 <div 
-                  className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-[1.5s] group-hover:scale-110"
                   style={{ backgroundImage: `url('${item.image}')` }}
                 />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/0 transition-colors duration-500" />
               </div>
 
               {/* Text Container */}
               <div className="w-full md:w-1/2 flex flex-col justify-center">
-                <p className="text-xs tracking-[0.2em] text-white/50 mb-4">{item.category}</p>
+                <p className="text-xs tracking-[0.2em] text-fuchsia-400/80 mb-4 font-bold">{item.category}</p>
                 <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight mb-6">{item.name}</h2>
                 <p className="text-white/70 font-light text-lg leading-relaxed mb-10 max-w-md">
                   {item.desc}
@@ -117,14 +114,14 @@ export default function StorePage() {
                   <span className="text-2xl font-light tracking-wide">{item.price}</span>
                   <button 
                     onClick={() => openCheckout(item)}
-                    className="flex items-center gap-3 px-8 py-4 bg-white text-black text-sm uppercase tracking-[0.2em] font-semibold hover:bg-neutral-200 transition-colors"
+                    className="flex items-center gap-3 px-8 py-4 bg-white text-black text-sm uppercase tracking-[0.2em] font-semibold hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all rounded-full"
                   >
                     Purchase <ArrowRight size={16} />
                   </button>
                 </div>
               </div>
 
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -141,7 +138,7 @@ export default function StorePage() {
         
         {/* Slide-in Panel */}
         <div 
-          className={`absolute top-0 right-0 h-full w-full md:w-[450px] bg-[#0f0f0f] border-l border-white/10 flex flex-col transform transition-transform duration-500 ease-in-out ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}
+          className={`absolute top-0 right-0 h-full w-full md:w-[450px] bg-[#0a0a0a] border-l border-white/10 flex flex-col transform transition-transform duration-500 ease-in-out ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}
         >
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-white/10">
@@ -160,11 +157,11 @@ export default function StorePage() {
                      {/* Product Summary */}
                      <div className="flex gap-6 mb-10 pb-10 border-b border-white/10">
                        <div 
-                         className="w-24 h-32 bg-cover bg-center shrink-0 border border-white/10" 
+                         className="w-24 h-32 bg-cover bg-center shrink-0 border border-white/10 rounded-md" 
                          style={{ backgroundImage: `url('${selectedItem.image}')` }}
                        />
                        <div className="flex flex-col justify-center">
-                         <p className="text-[10px] tracking-[0.2em] text-white/50 mb-2">{selectedItem.category}</p>
+                         <p className="text-[10px] tracking-[0.2em] text-fuchsia-400/80 mb-2">{selectedItem.category}</p>
                          <h4 className="text-lg font-bold uppercase tracking-tight mb-2 leading-tight">{selectedItem.name}</h4>
                          <span className="text-white/80">{selectedItem.price}</span>
                        </div>
@@ -194,7 +191,7 @@ export default function StorePage() {
                            <span className="text-sm uppercase tracking-wider text-white/50">Total</span>
                            <span className="text-2xl font-light">{selectedItem.price}</span>
                          </div>
-                         <button type="submit" className="w-full py-4 bg-white text-black font-bold uppercase tracking-[0.2em] text-sm hover:bg-neutral-200 transition-colors">
+                         <button type="submit" className="w-full py-4 bg-white text-black font-bold uppercase tracking-[0.2em] text-sm hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all rounded-full">
                            Complete Order
                          </button>
                        </div>
@@ -202,7 +199,7 @@ export default function StorePage() {
                    </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full text-center animate-in fade-in zoom-in duration-500 py-20">
-                     <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mb-6">
+                     <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(34,197,94,0.3)]">
                        <CheckCircle size={40} className="text-green-500" />
                      </div>
                      <h2 className="text-2xl font-bold uppercase tracking-widest mb-4">Order Received</h2>
