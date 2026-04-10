@@ -1,4 +1,5 @@
 import { Play } from "lucide-react";
+import { HeroSection } from "@/components/hero-section";
 
 export const metadata = {
   title: "Video Gallery | Visual Studio",
@@ -7,15 +8,13 @@ export const metadata = {
 
 export default function VideoGalleryPage() {
   return (
-    <div className="flex flex-col min-h-screen pt-24 pb-20">
-      
-      {/* Header */}
-      <section className="container mx-auto px-4 py-16 text-center max-w-4xl">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter uppercase mb-6">Video Portfolio</h1>
-        <p className="text-xl text-muted-foreground mb-8">
-          Cinematic storytelling, commercial reels, and breathtaking event coverage. 
-        </p>
-      </section>
+    <div className="flex flex-col min-h-screen pb-20">
+      <HeroSection 
+        subtitle="Our Films"
+        title="Video Portfolio"
+        desc="Cinematic storytelling, commercial reels, and breathtaking event coverage."
+        image="https://images.unsplash.com/photo-1528697203043-733dafdaa316?q=80&w=2000&auto=format&fit=crop"
+      />
 
       {/* Video Grid */}
       <section className="pb-24">
