@@ -76,7 +76,7 @@ export default function StorePage() {
       {/* Hero Section */}
       <HeroSection 
         subtitle="The Print Shop"
-        title={<>Preserve Your <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-purple-600">Legacy</span></>}
+        title={<>Preserve Your <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">Legacy</span></>}
         desc="Transform your digital memories into physical heirlooms. Museum-quality albums and prints crafted for a lifetime."
         image="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2000&auto=format&fit=crop"
       />
@@ -94,7 +94,7 @@ export default function StorePage() {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               {/* Image Container */}
-              <div className="w-full md:w-1/2 overflow-hidden relative aspect-[4/5] md:aspect-square bg-neutral-900 cursor-pointer rounded-2xl shadow-[0_0_40px_rgba(217,70,239,0.05)] hover:shadow-[0_0_60px_rgba(217,70,239,0.15)] transition-shadow" onClick={() => openCheckout(item)}>
+              <div className="w-full md:w-1/2 overflow-hidden relative aspect-[4/5] md:aspect-square bg-neutral-900 cursor-pointer rounded-2xl shadow-[0_0_40px_rgba(221,148,84,0.05)] hover:shadow-[0_0_60px_rgba(221,148,84,0.15)] transition-shadow" onClick={() => openCheckout(item)}>
                 <div 
                   className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-[1.5s] group-hover:scale-110"
                   style={{ backgroundImage: `url('${item.image}')` }}
@@ -104,7 +104,7 @@ export default function StorePage() {
 
               {/* Text Container */}
               <div className="w-full md:w-1/2 flex flex-col justify-center">
-                <p className="text-xs tracking-[0.2em] text-fuchsia-400/80 mb-4 font-bold">{item.category}</p>
+                <p className="text-xs tracking-[0.2em] text-brand-400/80 mb-4 font-bold">{item.category}</p>
                 <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight mb-6">{item.name}</h2>
                 <p className="text-white/70 font-light text-lg leading-relaxed mb-10 max-w-md">
                   {item.desc}
@@ -161,7 +161,7 @@ export default function StorePage() {
                          style={{ backgroundImage: `url('${selectedItem.image}')` }}
                        />
                        <div className="flex flex-col justify-center">
-                         <p className="text-[10px] tracking-[0.2em] text-fuchsia-400/80 mb-2">{selectedItem.category}</p>
+                         <p className="text-[10px] tracking-[0.2em] text-brand-400/80 mb-2">{selectedItem.category}</p>
                          <h4 className="text-lg font-bold uppercase tracking-tight mb-2 leading-tight">{selectedItem.name}</h4>
                          <span className="text-white/80">{selectedItem.price}</span>
                        </div>
@@ -217,3 +217,7 @@ export default function StorePage() {
     </div>
   );
 }
+
+
+
+

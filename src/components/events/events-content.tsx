@@ -86,7 +86,7 @@ export function EventsContent() {
                <div className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.5s] group-hover:scale-110" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800&auto=format&fit=crop')" }} />
                <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white px-4 py-2 text-sm font-bold uppercase tracking-widest border border-white/10 rounded-full">Before Setup</div>
             </motion.div>
-            <motion.div variants={itemVariants} className="relative aspect-[4/3] bg-muted overflow-hidden group rounded-2xl border border-white/5 shadow-[0_0_40px_rgba(217,70,239,0.1)] hover:shadow-[0_0_60px_rgba(217,70,239,0.2)] transition-shadow">
+            <motion.div variants={itemVariants} className="relative aspect-[4/3] bg-muted overflow-hidden group rounded-2xl border border-white/5 shadow-[0_0_40px_rgba(221,148,84,0.1)] hover:shadow-[0_0_60px_rgba(221,148,84,0.2)] transition-shadow">
                <div className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.5s] group-hover:scale-110" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop')" }} />
                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md text-black px-4 py-2 text-sm font-bold uppercase tracking-widest border border-black/10 rounded-full">After Dreams Decor</div>
             </motion.div>
@@ -156,10 +156,10 @@ export function EventsContent() {
               <motion.div 
                 key={idx} 
                 variants={itemVariants}
-                className={`p-8 border rounded-3xl flex flex-col transition-all duration-300 hover:-translate-y-2 ${pkg.popular ? "border-fuchsia-500/50 shadow-[0_0_40px_rgba(217,70,239,0.15)] bg-background relative" : "border-border bg-transparent"}`}
+                className={`p-8 border rounded-3xl flex flex-col transition-all duration-300 hover:-translate-y-2 ${pkg.popular ? "border-brand-500/50 shadow-[0_0_40px_rgba(221,148,84,0.15)] bg-background relative" : "border-border bg-transparent"}`}
               >
                 {pkg.popular && (
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white px-4 py-1 text-xs font-bold uppercase tracking-widest rounded-full shadow-lg">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-brand-500 to-brand-600 text-white px-4 py-1 text-xs font-bold uppercase tracking-widest rounded-full shadow-lg">
                     Most Popular
                   </div>
                 )}
@@ -168,7 +168,7 @@ export function EventsContent() {
                 <ul className="space-y-4 mb-10 flex-1">
                   {pkg.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <CheckCircle2 size={20} className={pkg.popular ? "text-fuchsia-400 shrink-0 mt-0.5" : "text-muted-foreground shrink-0 mt-0.5"} />
+                      <CheckCircle2 size={20} className={pkg.popular ? "text-brand-400 shrink-0 mt-0.5" : "text-muted-foreground shrink-0 mt-0.5"} />
                       <span className={pkg.popular ? "text-foreground" : "text-muted-foreground"}>{feature}</span>
                     </li>
                   ))}
@@ -189,7 +189,7 @@ export function EventsContent() {
 
       {/* Testimonials */}
       <section className="py-24 relative overflow-hidden text-center bg-black">
-        <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-900/20 via-black to-indigo-900/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-900/20 via-black to-indigo-900/20" />
          <motion.div 
             className="container relative z-10 mx-auto px-4 max-w-4xl"
             variants={scaleVariants}
@@ -197,7 +197,7 @@ export function EventsContent() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
          >
-            <div className="flex justify-center gap-1 mb-8 text-fuchsia-400">
+            <div className="flex justify-center gap-1 mb-8 text-brand-400">
               {[1,2,3,4,5].map(i => <Star key={i} fill="currentColor" size={24} />)}
             </div>
             <h4 className="text-2xl md:text-4xl font-medium leading-relaxed mb-8 text-white">
@@ -209,3 +209,6 @@ export function EventsContent() {
     </>
   );
 }
+
+
+

@@ -20,24 +20,43 @@ const navLinks = [
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      setIsScrolling(true);
+      
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        setIsScrolling(false);
+      }, 400);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout);
+    };
   }, []);
 
+  const isHidden = isScrolled && isScrolling && !isMenuOpen;
+
   return (
-    <header className="fixed top-0 w-full z-50 transition-all duration-300 pt-4 px-4 md:pt-6">
+    <header 
+      className={`fixed top-0 w-full z-50 transition-all duration-700 pt-2 px-2 md:pt-6 md:px-4 ${
+        isHidden ? "-translate-y-full opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
+      }`}
+    >
       <div
-        className={`container max-w-[95%] xl:max-w-7xl mx-auto flex items-center justify-between px-8 lg:px-10 rounded-[2rem] relative z-50 transition-all duration-500 
+        className={`container max-w-[95%] xl:max-w-7xl mx-auto flex items-center justify-between px-5 md:px-8 lg:px-10 rounded-full md:rounded-[2rem] relative z-50 transition-all duration-500 
           bg-[#18181A]/40 backdrop-blur-md
           border-2 border-white/20 shadow-[inset_1px_1px_3px_rgba(255,255,255,0.2),inset_-1px_-1px_3px_rgba(255,255,255,0.05),0_10px_30px_rgba(0,0,0,0.25)]
-          ${isScrolled ? "py-3" : "py-5"}
+          ${isScrolled ? "py-2 md:py-3" : "py-3 md:py-5"}
         `}
       >
         <Link href="/" className="text-xl md:text-2xl font-extrabold tracking-tighter uppercase relative z-50 text-white">
@@ -59,8 +78,8 @@ export function Navbar() {
                 {isActive && (
                   <motion.div
                     layoutId="navbar-indicator"
-                    className="absolute bottom-1 left-[15%] right-[15%] h-[3px] bg-fuchsia-300 rounded-full"
-                    style={{ boxShadow: "0 -4px 20px 8px rgba(232, 121, 249, 0.45)" }}
+                    className="absolute bottom-1 left-[15%] right-[15%] h-[3px] bg-brand-400 rounded-full"
+                    style={{ boxShadow: "0 -4px 20px 8px rgba(221, 148, 84, 0.45)" }}
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   />
                 )}
@@ -127,3 +146,4 @@ export function Navbar() {
     </header>
   );
 }
+
