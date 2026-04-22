@@ -4,6 +4,18 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-brand-50: #fbf5f0;
+  --color-brand-100: #f5e7db;
+  --color-brand-200: #ead0b8;
+  --color-brand-300: #e0b48f;
+  --color-brand-400: #dd9454;
+  --color-brand-500: #ce7b38;
+  --color-brand-600: #be612a;
+  --color-brand-700: #9e4a24;
+  --color-brand-800: #803d24;
+  --color-brand-900: #673320;
+  --color-brand-950: #38180e;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);

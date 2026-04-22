@@ -28,7 +28,7 @@ export function HeroSection() {
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" as const }}
-        className="absolute inset-0 z-0 bg-cover bg-center brightness-[0.3]"
+        className="absolute inset-0 z-0 bg-cover bg-center brightness-[0.5]"
         style={{ backgroundImage: "url('/hero-bg.png')" }}
       />
       
@@ -83,7 +83,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 1.5 }}
           className="text-base md:text-xl text-gray-200 max-w-2xl mb-10 font-medium px-4"
         >
-          A Creative Studio dedicated to timeless Desi weddings and other ceremonies.
+          Cinematic storytelling for every culture, every love, every moment.
         </motion.p>
         
         <motion.div 
@@ -132,3 +132,5 @@ export function HeroSection() {
     </section>
   );
 }
+
+

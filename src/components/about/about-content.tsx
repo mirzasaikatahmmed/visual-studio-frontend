@@ -30,11 +30,11 @@ export function AboutContent() {
            whileInView="visible"
            viewport={{ once: true, margin: "-100px" }}
          >
-            <motion.div variants={itemVariants} className="aspect-[4/5] bg-muted relative overflow-hidden rounded-2xl group shadow-[0_0_40px_rgba(217,70,239,0.1)]">
+            <motion.div variants={itemVariants} className="aspect-[4/5] bg-muted relative overflow-hidden rounded-2xl group shadow-[0_0_40px_rgba(221,148,84,0.1)]">
                <div className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.5s] group-hover:scale-105" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=800&auto=format&fit=crop')" }} />
                {/* Touch of Desi aesthetic via description of the team and styling */}
                <div className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-md p-6 border border-white/10 rounded-xl transform translate-y-2 opacity-90 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                  <h3 className="text-xl font-bold uppercase tracking-widest text-center text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-purple-600">The Creators</h3>
+                  <h3 className="text-xl font-bold uppercase tracking-widest text-center text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">The Creators</h3>
                </div>
             </motion.div>
             
@@ -52,12 +52,12 @@ export function AboutContent() {
                 variants={containerVariants}
                >
                   <motion.div variants={itemVariants} className="group">
-                    <Camera size={32} className="mb-4 text-fuchsia-400 group-hover:scale-110 group-hover:text-fuchsia-300 transition-all duration-300" />
+                    <Camera size={32} className="mb-4 text-brand-400 group-hover:scale-110 group-hover:text-brand-300 transition-all duration-300" />
                     <h4 className="text-4xl font-bold mb-2">500+</h4>
                     <p className="text-sm uppercase tracking-widest text-muted-foreground font-bold group-hover:text-foreground transition-colors">Weddings Captured</p>
                   </motion.div>
                   <motion.div variants={itemVariants} className="group">
-                    <Award size={32} className="mb-4 text-fuchsia-400 group-hover:scale-110 group-hover:text-fuchsia-300 transition-all duration-300" />
+                    <Award size={32} className="mb-4 text-brand-400 group-hover:scale-110 group-hover:text-brand-300 transition-all duration-300" />
                     <h4 className="text-4xl font-bold mb-2">10 Yrs</h4>
                     <p className="text-sm uppercase tracking-widest text-muted-foreground font-bold group-hover:text-foreground transition-colors">Of Excellence</p>
                   </motion.div>
@@ -68,7 +68,7 @@ export function AboutContent() {
 
       {/* Philosophy */}
       <section className="bg-black text-white py-32 text-center relative overflow-hidden">
-         <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-900/20 via-black to-indigo-900/20" />
+         <div className="absolute inset-0 bg-gradient-to-br from-brand-900/20 via-black to-indigo-900/20" />
          <motion.div 
            className="container mx-auto px-4 max-w-4xl relative z-10"
            initial={{ opacity: 0, scale: 0.95 }}
@@ -76,7 +76,7 @@ export function AboutContent() {
            viewport={{ once: true, margin: "-100px" }}
            transition={{ duration: 0.8, ease: "easeOut" }}
          >
-           <h2 className="text-3xl font-bold uppercase tracking-widest mb-12 text-fuchsia-400">Our Philosophy</h2>
+           <h2 className="text-3xl font-bold uppercase tracking-widest mb-12 text-brand-400">Our Philosophy</h2>
            <p className="text-2xl md:text-4xl leading-relaxed font-light text-white/90">
              "We don't just use our cameras to take pictures; we use them to see the world completely. Every client, every event, and every brand has a unique soul waiting to be unveiled."
            </p>
@@ -85,3 +85,6 @@ export function AboutContent() {
     </>
   );
 }
+
+
+

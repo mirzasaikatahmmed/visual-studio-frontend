@@ -46,32 +46,32 @@ export function ContactContent() {
                 
                 <div className="space-y-8 mb-12">
                    <motion.div variants={itemVariants} className="flex gap-4 group">
-                      <div className="w-14 h-14 bg-muted rounded-full flex items-center justify-center shrink-0 group-hover:bg-fuchsia-500/10 group-hover:text-fuchsia-400 transition-colors">
+                      <div className="w-14 h-14 bg-muted rounded-full flex items-center justify-center shrink-0 group-hover:bg-brand-500/10 group-hover:text-brand-400 transition-colors">
                         <Phone size={24} />
                       </div>
                       <div className="flex flex-col justify-center">
-                        <h4 className="font-bold uppercase tracking-widest text-sm mb-1 group-hover:text-fuchsia-400 transition-colors">Call Us</h4>
+                        <h4 className="font-bold uppercase tracking-widest text-sm mb-1 group-hover:text-brand-400 transition-colors">Call Us</h4>
                         <p className="text-muted-foreground">+1 (555) 123-4567</p>
                         <p className="text-xs text-foreground/50 mt-1 uppercase tracking-wider">Mon-Fri, 9am - 6pm EST</p>
                       </div>
                    </motion.div>
                    
                    <motion.div variants={itemVariants} className="flex gap-4 group">
-                      <div className="w-14 h-14 bg-muted rounded-full flex items-center justify-center shrink-0 group-hover:bg-fuchsia-500/10 group-hover:text-fuchsia-400 transition-colors">
+                      <div className="w-14 h-14 bg-muted rounded-full flex items-center justify-center shrink-0 group-hover:bg-brand-500/10 group-hover:text-brand-400 transition-colors">
                         <Mail size={24} />
                       </div>
                       <div className="flex flex-col justify-center">
-                        <h4 className="font-bold uppercase tracking-widest text-sm mb-1 group-hover:text-fuchsia-400 transition-colors">Email Inquiry</h4>
+                        <h4 className="font-bold uppercase tracking-widest text-sm mb-1 group-hover:text-brand-400 transition-colors">Email Inquiry</h4>
                         <p className="text-muted-foreground">booking@visualstudio.com</p>
                       </div>
                    </motion.div>
 
                    <motion.div variants={itemVariants} className="flex gap-4 group">
-                      <div className="w-14 h-14 bg-muted rounded-full flex items-center justify-center shrink-0 group-hover:bg-fuchsia-500/10 group-hover:text-fuchsia-400 transition-colors">
+                      <div className="w-14 h-14 bg-muted rounded-full flex items-center justify-center shrink-0 group-hover:bg-brand-500/10 group-hover:text-brand-400 transition-colors">
                         <MapPin size={24} />
                       </div>
                       <div className="flex flex-col justify-center">
-                        <h4 className="font-bold uppercase tracking-widest text-sm mb-1 group-hover:text-fuchsia-400 transition-colors">Studio Location</h4>
+                        <h4 className="font-bold uppercase tracking-widest text-sm mb-1 group-hover:text-brand-400 transition-colors">Studio Location</h4>
                         <p className="text-muted-foreground">123 Creative Avenue, Suite 100<br/>New York, NY 10001</p>
                       </div>
                    </motion.div>
@@ -100,28 +100,28 @@ export function ContactContent() {
                 viewport={{ once: true, margin: "-50px" }}
                 className="bg-background p-8 md:p-12 border border-border shadow-[0_0_40px_rgba(0,0,0,0.05)] rounded-3xl relative"
               >
-                 <div className="absolute top-0 right-0 w-64 h-64 bg-fuchsia-500/5 blur-[100px] pointer-events-none rounded-full" />
+                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 blur-[100px] pointer-events-none rounded-full" />
                  <motion.h2 variants={rightItemVariants} className="text-3xl font-bold uppercase tracking-tight mb-10">Send an Inquiry</motion.h2>
                  <form className="space-y-6 relative z-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <motion.div variants={rightItemVariants} className="space-y-2">
                          <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">First Name</label>
-                         <input type="text" className="w-full bg-muted/50 border border-border px-5 py-4 outline-none focus:border-fuchsia-500/50 focus:ring-1 focus:ring-fuchsia-500/50 transition-all rounded-xl" required />
+                         <input type="text" className="w-full bg-muted/50 border border-border px-5 py-4 outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all rounded-xl" required />
                       </motion.div>
                       <motion.div variants={rightItemVariants} className="space-y-2">
                          <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Last Name</label>
-                         <input type="text" className="w-full bg-muted/50 border border-border px-5 py-4 outline-none focus:border-fuchsia-500/50 focus:ring-1 focus:ring-fuchsia-500/50 transition-all rounded-xl" required />
+                         <input type="text" className="w-full bg-muted/50 border border-border px-5 py-4 outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all rounded-xl" required />
                       </motion.div>
                     </div>
                     
                     <motion.div variants={rightItemVariants} className="space-y-2">
                        <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Email Address</label>
-                       <input type="email" className="w-full bg-muted/50 border border-border px-5 py-4 outline-none focus:border-fuchsia-500/50 focus:ring-1 focus:ring-fuchsia-500/50 transition-all rounded-xl" required />
+                       <input type="email" className="w-full bg-muted/50 border border-border px-5 py-4 outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all rounded-xl" required />
                     </motion.div>
 
                     <motion.div variants={rightItemVariants} className="space-y-2">
                        <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Inquiry Type</label>
-                       <select className="w-full bg-muted/50 border border-border px-5 py-4 outline-none focus:border-fuchsia-500/50 focus:ring-1 focus:ring-fuchsia-500/50 transition-all rounded-xl appearance-none cursor-pointer">
+                       <select className="w-full bg-muted/50 border border-border px-5 py-4 outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all rounded-xl appearance-none cursor-pointer">
                           <option>Brand Photography</option>
                           <option>Event Decoration Setup</option>
                           <option>Portrait Session</option>
@@ -132,7 +132,7 @@ export function ContactContent() {
 
                     <motion.div variants={rightItemVariants} className="space-y-2">
                        <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Message Details</label>
-                       <textarea rows={5} className="w-full bg-muted/50 border border-border px-5 py-4 outline-none focus:border-fuchsia-500/50 focus:ring-1 focus:ring-fuchsia-500/50 transition-all rounded-xl resize-none" placeholder="Tell us about your date, location, and vision..." required></textarea>
+                       <textarea rows={5} className="w-full bg-muted/50 border border-border px-5 py-4 outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all rounded-xl resize-none" placeholder="Tell us about your date, location, and vision..." required></textarea>
                     </motion.div>
 
                     <motion.button 
@@ -171,3 +171,4 @@ export function ContactContent() {
     </>
   );
 }
+
