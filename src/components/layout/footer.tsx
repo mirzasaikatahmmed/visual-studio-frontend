@@ -43,10 +43,10 @@ export function Footer() {
               <input 
                 type="email" 
                 placeholder="Enter your email" 
-                className="bg-transparent border-b border-foreground/50 flex-1 py-3 px-2 outline-none focus:border-fuchsia-400 transition-colors placeholder:text-foreground/40"
+                className="bg-transparent border-b border-foreground/50 flex-1 py-3 px-2 outline-none focus:border-brand-400 transition-colors placeholder:text-foreground/40"
                 required
               />
-              <button type="submit" className="border-b border-foreground font-bold tracking-widest uppercase text-sm hover:text-fuchsia-400 hover:border-fuchsia-400 transition-colors">
+              <button type="submit" className="border-b border-foreground font-bold tracking-widest uppercase text-sm hover:text-brand-400 hover:border-brand-400 transition-colors">
                 Subscribe
               </button>
             </form>
@@ -55,14 +55,14 @@ export function Footer() {
           {/* Instagram Teaser / Poster */}
           <motion.div variants={itemVariants}>
              <h3 className="text-3xl font-bold uppercase tracking-tight mb-4 flex items-center gap-3">
-               <Instagram size={28} className="text-fuchsia-400" /> @visualstudio
+               <Instagram size={28} className="text-brand-400" /> @visualstudio
              </h3>
              <div className="grid grid-cols-3 gap-2 mt-8">
                 <div className="aspect-square bg-cover bg-center grayscale hover:grayscale-0 transition-all cursor-pointer hover:scale-105 duration-500" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=400')" }} />
                 <div className="aspect-square bg-cover bg-center grayscale hover:grayscale-0 transition-all cursor-pointer hover:scale-105 duration-500" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=400')" }} />
                 <div className="aspect-square bg-cover bg-center grayscale hover:grayscale-0 transition-all cursor-pointer hover:scale-105 duration-500" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=400')" }} />
              </div>
-             <a href="#" className="inline-flex items-center gap-2 mt-6 font-bold tracking-widest uppercase text-sm border-b border-foreground pb-1 hover:text-fuchsia-400 hover:border-fuchsia-400 transition-colors">
+             <a href="#" className="inline-flex items-center gap-2 mt-6 font-bold tracking-widest uppercase text-sm border-b border-foreground pb-1 hover:text-brand-400 hover:border-brand-400 transition-colors">
                Follow on Instagram <ArrowUpRight size={16} />
              </a>
           </motion.div>
@@ -79,7 +79,7 @@ export function Footer() {
            </motion.div>
            
            <motion.div variants={itemVariants}>
-              <h4 className="font-bold uppercase tracking-widest text-sm mb-6 text-fuchsia-400">Explore</h4>
+              <h4 className="font-bold uppercase tracking-widest text-sm mb-6 text-brand-400">Explore</h4>
               <ul className="space-y-3 text-foreground/70">
                  <li><Link href="/portfolio" className="hover:text-white transition-colors hover:translate-x-2 inline-block transform duration-300">Portfolio</Link></li>
                  <li><Link href="/visual-marketing" className="hover:text-white transition-colors hover:translate-x-2 inline-block transform duration-300">Visual Marketing</Link></li>
@@ -89,27 +89,27 @@ export function Footer() {
            </motion.div>
            
            <motion.div variants={itemVariants}>
-              <h4 className="font-bold uppercase tracking-widest text-sm mb-6 text-fuchsia-400">Contact</h4>
+              <h4 className="font-bold uppercase tracking-widest text-sm mb-6 text-brand-400">Contact</h4>
               <ul className="space-y-4 text-foreground/70">
                  <li className="flex items-start gap-3 hover:text-white transition-colors group cursor-pointer">
-                   <MapPin size={18} className="shrink-0 mt-1 group-hover:text-fuchsia-400 transition-colors" />
+                   <MapPin size={18} className="shrink-0 mt-1 group-hover:text-brand-400 transition-colors" />
                    <span>123 Creative Avenue, Suite 100<br/>New York, NY 10001</span>
                  </li>
                  <li className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
-                   <Mail size={18} className="group-hover:text-fuchsia-400 transition-colors" /> hello@visualstudio.com
+                   <Mail size={18} className="group-hover:text-brand-400 transition-colors" /> hello@visualstudio.com
                  </li>
                  <li className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
-                   <Phone size={18} className="group-hover:text-fuchsia-400 transition-colors" /> +1 (555) 123-4567
+                   <Phone size={18} className="group-hover:text-brand-400 transition-colors" /> +1 (555) 123-4567
                  </li>
               </ul>
            </motion.div>
 
            <motion.div variants={itemVariants}>
-              <h4 className="font-bold uppercase tracking-widest text-sm mb-6 text-fuchsia-400">Resources</h4>
+              <h4 className="font-bold uppercase tracking-widest text-sm mb-6 text-brand-400">Resources</h4>
               <ul className="space-y-3 text-foreground/70">
-                 <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2 font-medium hover:translate-x-2 transform duration-300"><ArrowUpRight size={14} className="text-fuchsia-400"/> Client Portal</a></li>
-                 <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2 font-medium hover:translate-x-2 transform duration-300"><ArrowUpRight size={14} className="text-fuchsia-400"/> Download Pricing PDF</a></li>
-                 <li><Link href="/faq" className="hover:text-white transition-colors flex items-center gap-2 font-medium hover:translate-x-2 transform duration-300"><ArrowUpRight size={14} className="text-fuchsia-400"/> FAQ & Booking Guide</Link></li>
+                 <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2 font-medium hover:translate-x-2 transform duration-300"><ArrowUpRight size={14} className="text-brand-400"/> Client Portal</a></li>
+                 <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2 font-medium hover:translate-x-2 transform duration-300"><ArrowUpRight size={14} className="text-brand-400"/> Download Pricing PDF</a></li>
+                 <li><Link href="/faq" className="hover:text-white transition-colors flex items-center gap-2 font-medium hover:translate-x-2 transform duration-300"><ArrowUpRight size={14} className="text-brand-400"/> FAQ & Booking Guide</Link></li>
               </ul>
            </motion.div>
         </motion.div>
@@ -127,3 +127,4 @@ export function Footer() {
     </footer>
   );
 }
+

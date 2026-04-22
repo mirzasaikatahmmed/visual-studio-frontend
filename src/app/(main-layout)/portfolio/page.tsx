@@ -57,10 +57,10 @@ export default function PortfolioPage() {
   }, [selectedIndex, handleNext, handlePrev]);
 
   return (
-    <div className="min-h-screen pb-24 bg-background selection:bg-fuchsia-500/30">
+    <div className="min-h-screen pb-24 bg-background selection:bg-brand-500/30">
       <HeroSection 
         subtitle="Our Work"
-        title={<>Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-purple-600">Portfolio</span></>}
+        title={<>Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">Portfolio</span></>}
         desc="A curated exhibition of our finest visual stories. Explore the moments we've frozen in time across luxury weddings, brand campaigns, and creative events."
         image="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2000&auto=format&fit=crop"
       />
@@ -74,20 +74,20 @@ export default function PortfolioPage() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="flex items-center gap-2 bg-[#18181A]/80 backdrop-blur-3xl p-1.5 rounded-full border border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.5)] self-start md:self-auto shrink-0 max-w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="flex items-center gap-2 bg-white/80 dark:bg-[#18181A]/80 backdrop-blur-3xl p-1.5 rounded-full border border-black/10 dark:border-white/20 shadow-md dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] self-start md:self-auto shrink-0 max-w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           >
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={`relative px-5 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-colors z-10 ${
-                  activeCategory === cat ? "text-black" : "text-white/60 hover:text-white"
+                  activeCategory === cat ? "text-white dark:text-black" : "text-foreground/60 dark:text-white/60 hover:text-foreground dark:hover:text-white"
                 }`}
               >
                 {activeCategory === cat && (
                   <motion.div
                     layoutId="portfolio-filter"
-                    className="absolute inset-0 bg-white rounded-full -z-10"
+                    className="absolute inset-0 bg-black dark:bg-white rounded-full -z-10"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -109,7 +109,7 @@ export default function PortfolioPage() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="break-inside-avoid relative group overflow-hidden rounded-2xl md:rounded-[2rem] cursor-pointer border border-white/5 bg-[#111]"
+                className="break-inside-avoid relative group overflow-hidden rounded-2xl md:rounded-[2rem] cursor-pointer border border-transparent dark:border-white/5 bg-gray-100 dark:bg-[#111]"
                 onClick={() => setSelectedIndex(idx)}
               >
                 <div 
@@ -124,7 +124,7 @@ export default function PortfolioPage() {
                     whileHover={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <span className="text-fuchsia-400 text-xs font-bold uppercase tracking-widest mb-2 border border-fuchsia-400/30 bg-fuchsia-400/10 px-3 py-1 rounded-full inline-block backdrop-blur-md">
+                    <span className="text-brand-400 text-xs font-bold uppercase tracking-widest mb-2 border border-brand-400/30 bg-brand-400/10 px-3 py-1 rounded-full inline-block backdrop-blur-md">
                       {item.category}
                     </span>
                     <h3 className="text-white text-2xl font-bold tracking-tight">{item.title}</h3>
@@ -151,13 +151,13 @@ export default function PortfolioPage() {
         >
           {/* Glass background layers */}
           <div className="absolute inset-0 bg-[#0a0a0a]" />
-          <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-900/20 via-black/50 to-indigo-900/20 backdrop-blur-3xl" />
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-fuchsia-600/30 blur-[120px] rounded-full" />
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-purple-600/20 blur-[120px] rounded-full" />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-900/20 via-black/50 to-indigo-900/20 backdrop-blur-3xl" />
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-600/30 blur-[120px] rounded-full" />
+          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-brand-600/20 blur-[120px] rounded-full" />
           
           <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
             <motion.h2 variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} className="text-4xl md:text-5xl font-extrabold mb-6 uppercase tracking-tighter text-white">
-              Full Client <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-purple-400">Galleries</span>
+              Full Client <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-400">Galleries</span>
             </motion.h2>
             <motion.p variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} className="text-white/60 text-lg mb-10 leading-relaxed font-medium">
               We deliver all our final, high-resolution masterpieces through beautiful, private online galleries powered by Pixieset. 
@@ -226,7 +226,7 @@ export default function PortfolioPage() {
                 />
                 <div className="mt-6 text-center">
                   <h3 className="text-white text-xl font-bold tracking-widest uppercase">{filteredData[selectedIndex].title}</h3>
-                  <p className="text-fuchsia-400 text-sm tracking-widest uppercase mt-1 opacity-80">{filteredData[selectedIndex].category}</p>
+                  <p className="text-brand-400 text-sm tracking-widest uppercase mt-1 opacity-80">{filteredData[selectedIndex].category}</p>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -243,3 +243,6 @@ export default function PortfolioPage() {
     </div>
   );
 }
+
+
+

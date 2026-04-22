@@ -25,7 +25,7 @@ export function HeroSection({ title, subtitle, desc, image }: HeroSectionProps) 
   };
 
   return (
-    <section className="relative h-[60vh] md:h-[65vh] w-full flex flex-col justify-center items-center overflow-hidden">
+    <section className="relative h-[45vh] md:h-[65vh] w-full flex flex-col justify-center items-center overflow-hidden">
       <div className="absolute inset-0 z-0 bg-background">
         <motion.div 
           initial={{ scale: 1.1, opacity: 0 }}
@@ -34,24 +34,28 @@ export function HeroSection({ title, subtitle, desc, image }: HeroSectionProps) 
           className="w-full h-full bg-cover bg-center transform"
           style={{ backgroundImage: `url('${image}')` }}
         />
-        {/* Gradient that fades to the page's background color at the bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+        {/* Dark overlay to ensure white text is always readable */}
+        <div className="absolute inset-0 bg-black/40" />
+        {/* Gradient that fades to the page's background color only at the very bottom */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         {/* Dark overlay at top for navbar contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-transparent" />
       </div>
       
       <motion.div 
-        className="relative z-10 text-center px-4 max-w-3xl mt-20"
+        className="relative z-10 text-center px-4 max-w-3xl mt-16 md:mt-20"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         <motion.p variants={itemVariants} className="text-xs md:text-sm tracking-[0.3em] text-white/70 uppercase mb-4">{subtitle}</motion.p>
-        <motion.h1 variants={itemVariants} className="text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-6 leading-tight text-white">{title}</motion.h1>
-        <motion.p variants={itemVariants} className="text-lg md:text-xl text-white/70 font-light max-w-xl mx-auto">
+        <motion.h1 variants={itemVariants} className="text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-6 leading-tight text-white drop-shadow-lg">{title}</motion.h1>
+        <motion.p variants={itemVariants} className="text-lg md:text-xl text-white/80 font-light max-w-xl mx-auto drop-shadow-md">
           {desc}
         </motion.p>
       </motion.div>
     </section>
   );
 }
+
+

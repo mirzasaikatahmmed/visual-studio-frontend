@@ -60,30 +60,33 @@ export function ScrollToTop() {
               cy="50" 
               r="46" 
               fill="none" 
-              stroke="url(#fuchsiaGradient)" 
+              stroke="url(#brandGradient)" 
               strokeWidth="4"
               strokeLinecap="round"
-              className="drop-shadow-[0_0_10px_rgba(232,121,249,0.8)]"
+              className="drop-shadow-[0_0_10px_rgba(221,148,84,0.8)]"
               style={{ pathLength: scrollYProgress }}
             />
             {/* Gradient Definition for the line */}
             <defs>
-              <linearGradient id="fuchsiaGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#e879f9" /> {/* fuchsia-400 */}
-                <stop offset="100%" stopColor="#9333ea" /> {/* purple-600 */}
+              <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#e879f9" /> {/* brand-400 */}
+                <stop offset="100%" stopColor="#9333ea" /> {/* brand-600 */}
               </linearGradient>
             </defs>
           </svg>
 
           {/* Inner Content Component */}
-          <div className="relative z-10 w-8 h-8 rounded-full flex items-center justify-center bg-white/5 border border-white/5 group-hover:bg-fuchsia-500/20 group-hover:border-fuchsia-400/50 transition-all duration-300">
+          <div className="relative z-10 w-8 h-8 rounded-full flex items-center justify-center bg-white/5 border border-white/5 group-hover:bg-brand-500/20 group-hover:border-brand-400/50 transition-all duration-300">
             <ArrowUp size={16} className="text-white group-hover:-translate-y-1 transition-transform duration-300" />
           </div>
           
           {/* Subtle Glow beneath the button */}
-          <div className="absolute inset-0 bg-gradient-to-t from-fuchsia-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </motion.button>
       )}
     </AnimatePresence>
   );
 }
+
+
+

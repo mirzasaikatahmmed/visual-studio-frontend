@@ -58,23 +58,23 @@ export function MarketingContent() {
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            <motion.div variants={itemVariants} className="p-8 border border-border bg-background hover:border-fuchsia-500/50 transition-colors group">
-              <Target className="w-12 h-12 mb-6 text-muted-foreground group-hover:text-fuchsia-400 transition-colors" />
+            <motion.div variants={itemVariants} className="p-8 border border-border bg-background hover:border-brand-500/50 transition-colors group">
+              <Target className="w-12 h-12 mb-6 text-muted-foreground group-hover:text-brand-400 transition-colors" />
               <h3 className="text-xl font-bold uppercase tracking-tight mb-3">Brand Photography</h3>
               <p className="text-muted-foreground">Professional headshots, team culture coverage, and narrative-driven brand stories.</p>
             </motion.div>
-            <motion.div variants={itemVariants} className="p-8 border border-border bg-background hover:border-fuchsia-500/50 transition-colors group">
-              <TrendingUp className="w-12 h-12 mb-6 text-muted-foreground group-hover:text-fuchsia-400 transition-colors" />
+            <motion.div variants={itemVariants} className="p-8 border border-border bg-background hover:border-brand-500/50 transition-colors group">
+              <TrendingUp className="w-12 h-12 mb-6 text-muted-foreground group-hover:text-brand-400 transition-colors" />
               <h3 className="text-xl font-bold uppercase tracking-tight mb-3">Product Shoots</h3>
               <p className="text-muted-foreground">Crisp e-commerce white background imagery and styled lifestyle product shots.</p>
             </motion.div>
-            <motion.div variants={itemVariants} className="p-8 border border-border bg-background hover:border-fuchsia-500/50 transition-colors group">
-              <BarChart3 className="w-12 h-12 mb-6 text-muted-foreground group-hover:text-fuchsia-400 transition-colors" />
+            <motion.div variants={itemVariants} className="p-8 border border-border bg-background hover:border-brand-500/50 transition-colors group">
+              <BarChart3 className="w-12 h-12 mb-6 text-muted-foreground group-hover:text-brand-400 transition-colors" />
               <h3 className="text-xl font-bold uppercase tracking-tight mb-3">Campaign Visuals</h3>
               <p className="text-muted-foreground">High-end stylized imagery tailored for ad spend, billboards, and print media.</p>
             </motion.div>
-            <motion.div variants={itemVariants} className="p-8 border border-border bg-background hover:border-fuchsia-500/50 transition-colors group">
-              <div className="w-12 h-12 mb-6 flex items-center justify-center font-bold text-2xl border-2 border-muted-foreground text-muted-foreground rounded-full group-hover:text-fuchsia-400 group-hover:border-fuchsia-400 transition-colors">@</div>
+            <motion.div variants={itemVariants} className="p-8 border border-border bg-background hover:border-brand-500/50 transition-colors group">
+              <div className="w-12 h-12 mb-6 flex items-center justify-center font-bold text-2xl border-2 border-muted-foreground text-muted-foreground rounded-full group-hover:text-brand-400 group-hover:border-brand-400 transition-colors">@</div>
               <h3 className="text-xl font-bold uppercase tracking-tight mb-3">Social Content</h3>
               <p className="text-muted-foreground">Short-form video loops, Instagram reels, and batch-created engaging content.</p>
             </motion.div>
@@ -122,8 +122,8 @@ export function MarketingContent() {
                   Revamped the entire social media aesthetic for an emerging coffee brand. Transitioned from smartphone shots to a cohesive, dark-mood styled campaign.
                 </motion.p>
                 <motion.ul variants={itemVariants} className="space-y-3 font-medium">
-                  <li className="flex items-center gap-3"><ArrowRight className="text-fuchsia-400" size={16} /> 150% Increase in Instagram Engagement</li>
-                  <li className="flex items-center gap-3"><ArrowRight className="text-fuchsia-400" size={16} /> 45% Higher Ad Conversion Rate</li>
+                  <li className="flex items-center gap-3"><ArrowRight className="text-brand-400" size={16} /> 150% Increase in Instagram Engagement</li>
+                  <li className="flex items-center gap-3"><ArrowRight className="text-brand-400" size={16} /> 45% Higher Ad Conversion Rate</li>
                 </motion.ul>
               </motion.div>
             </motion.div>
@@ -136,7 +136,7 @@ export function MarketingContent() {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
             >
-              <div className="absolute top-0 right-0 w-64 h-64 bg-fuchsia-200 blur-[80px] rounded-full opacity-50 pointer-events-none" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-brand-200 blur-[80px] rounded-full opacity-50 pointer-events-none" />
               <div className="relative z-10">
                 <h3 className="text-2xl font-bold uppercase tracking-tight mb-4 border-b-2 border-black/20 inline-block pb-2">Video Production Showcase</h3>
                 <p className="max-w-2xl mx-auto mb-8 mt-6 font-medium text-black/70">
@@ -157,3 +157,4 @@ export function MarketingContent() {
     </>
   );
 }
+

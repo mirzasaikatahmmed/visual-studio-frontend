@@ -35,7 +35,7 @@ export function BookingSection() {
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Pricing Guide - Slides from Left */}
-          <motion.div variants={leftItemVariants} className="p-12 border border-border flex flex-col items-center text-center bg-muted/20 hover:bg-muted/30 transition-colors">
+          <motion.div variants={leftItemVariants} className="order-2 md:order-1 p-12 border border-border flex flex-col items-center text-center bg-muted/20 hover:bg-muted/30 transition-colors">
             <h3 className="text-3xl font-bold uppercase tracking-tight mb-4">Pricing Guide</h3>
             <p className="text-muted-foreground mb-8">Download our comprehensive brochure detailing packages, add-ons, and process.</p>
             <a 
@@ -47,7 +47,7 @@ export function BookingSection() {
           </motion.div>
           
           {/* Booking Calendar Placeholder - Slides from Right */}
-          <motion.div variants={rightItemVariants} className="p-12 border border-border flex flex-col items-center text-center bg-muted/20 hover:bg-muted/30 transition-colors">
+          <motion.div variants={rightItemVariants} className="order-1 md:order-2 p-12 border border-border flex flex-col items-center text-center bg-muted/20 hover:bg-muted/30 transition-colors">
             <h3 className="text-3xl font-bold uppercase tracking-tight mb-4">Schedule a Call</h3>
             <p className="text-muted-foreground mb-8">Book a free 15-minute consultation to discuss your vision and requirements.</p>
             <Link 
