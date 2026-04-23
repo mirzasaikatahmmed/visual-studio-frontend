@@ -28,7 +28,7 @@ export function HeroSection() {
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" as const }}
-        className="absolute inset-0 z-0 bg-cover bg-center brightness-[0.5]"
+        className="absolute -inset-1 z-0 bg-cover bg-center brightness-[0.5]"
         style={{ backgroundImage: "url('/hero-bg.png')" }}
       />
       
@@ -105,7 +105,8 @@ export function HeroSection() {
             Explore Services
           </Link>
           <Link 
-            href="/contact" 
+            href="https://calendly.com/lens-xstudioslab/book-a-photography-session" 
+            target="_blank" rel="noopener noreferrer"
             className="px-8 py-4 bg-transparent border border-white/50 text-white font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-colors flex items-center justify-center"
           >
             Book a Session

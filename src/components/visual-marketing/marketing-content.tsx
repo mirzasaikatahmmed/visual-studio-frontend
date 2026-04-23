@@ -34,7 +34,8 @@ export function MarketingContent() {
         className="flex flex-col sm:flex-row w-full px-8 sm:w-auto sm:px-0 justify-center gap-4 mt-12 mb-8"
       >
         <Link
-          href="/contact"
+          href="https://calendly.com/lens-xstudioslab/book-a-photography-session"
+          target="_blank" rel="noopener noreferrer"
           className="w-full sm:w-auto text-center px-8 py-4 sm:py-3 bg-foreground text-background font-medium rounded-full hover:opacity-90 hover:scale-105 transition-all uppercase tracking-widest text-xs sm:text-sm shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] flex items-center justify-center"
         >
           Start a Project
