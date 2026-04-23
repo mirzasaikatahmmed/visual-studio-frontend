@@ -34,8 +34,21 @@ export function BookingSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {/* Pricing Guide - Slides from Left */}
-          <motion.div variants={leftItemVariants} className="order-2 md:order-1 p-12 border border-border flex flex-col items-center text-center bg-muted/20 hover:bg-muted/30 transition-colors">
+          {/* Booking Calendar Placeholder - Slides from Left */}
+          <motion.div variants={leftItemVariants} className="p-12 border border-border flex flex-col items-center text-center bg-muted/20 hover:bg-muted/30 transition-colors">
+            <h3 className="text-3xl font-bold uppercase tracking-tight mb-4">Schedule a Call</h3>
+            <p className="text-muted-foreground mb-8">Book a free 15-minute consultation to discuss your vision and requirements.</p>
+            <Link 
+              href="https://calendly.com/lens-xstudioslab/book-a-photography-session" 
+              target="_blank" rel="noopener noreferrer"
+              className="px-8 py-3 bg-transparent border border-foreground text-foreground font-bold tracking-widest uppercase text-sm rounded-full hover:bg-muted transition-colors"
+            >
+              Open Calendar
+            </Link>
+          </motion.div>
+
+          {/* Pricing Guide - Slides from Right */}
+          <motion.div variants={rightItemVariants} className="p-12 border border-border flex flex-col items-center text-center bg-muted/20 hover:bg-muted/30 transition-colors">
             <h3 className="text-3xl font-bold uppercase tracking-tight mb-4">Pricing Guide</h3>
             <p className="text-muted-foreground mb-8">Download our comprehensive brochure detailing packages, add-ons, and process.</p>
             <a 
@@ -44,18 +57,6 @@ export function BookingSection() {
             >
               Download PDF
             </a>
-          </motion.div>
-          
-          {/* Booking Calendar Placeholder - Slides from Right */}
-          <motion.div variants={rightItemVariants} className="order-1 md:order-2 p-12 border border-border flex flex-col items-center text-center bg-muted/20 hover:bg-muted/30 transition-colors">
-            <h3 className="text-3xl font-bold uppercase tracking-tight mb-4">Schedule a Call</h3>
-            <p className="text-muted-foreground mb-8">Book a free 15-minute consultation to discuss your vision and requirements.</p>
-            <Link 
-              href="/contact" 
-              className="px-8 py-3 bg-transparent border border-foreground text-foreground font-bold tracking-widest uppercase text-sm rounded-full hover:bg-muted transition-colors"
-            >
-              Open Calendar
-            </Link>
           </motion.div>
         </motion.div>
       </div>
