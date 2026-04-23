@@ -31,15 +31,17 @@ export function HeroSection({ title, subtitle, desc, image }: HeroSectionProps) 
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 0.4 }}
           transition={{ duration: 1.5, ease: "easeOut" as const }}
-          className="w-full h-full bg-cover bg-center transform"
+          className="absolute -inset-1 bg-cover bg-center transform"
           style={{ backgroundImage: `url('${image}')` }}
         />
         {/* Dark overlay to ensure white text is always readable */}
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute -inset-1 bg-black/40" />
         {/* Gradient that fades to the page's background color only at the very bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+        <div className="absolute -inset-1 bg-gradient-to-t from-background via-background/0 to-transparent" />
+        {/* Extra solid block at the bottom to guarantee no 1px gap bleeding */}
+        <div className="absolute -bottom-1 left-0 right-0 h-2 bg-background" />
         {/* Dark overlay at top for navbar contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-transparent" />
+        <div className="absolute -inset-1 bg-gradient-to-b from-black/80 via-black/20 to-transparent" />
       </div>
       
       <motion.div 
