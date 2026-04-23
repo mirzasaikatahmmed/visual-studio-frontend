@@ -55,7 +55,8 @@ export function EventsContent() {
         transition={{ duration: 0.8, delay: 0.6 }}
       >
         <Link 
-          href="/contact" 
+          href="https://calendly.com/lens-xstudioslab/book-a-photography-session" 
+          target="_blank" rel="noopener noreferrer"
           className="px-8 py-4 bg-foreground text-background font-medium rounded-full hover:scale-105 transition-all uppercase tracking-widest text-sm inline-flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]"
         >
           Book Consultation <MoveRight size={18} />
@@ -174,7 +175,8 @@ export function EventsContent() {
                   ))}
                 </ul>
                 <Link 
-                  href="/contact" 
+                  href="https://calendly.com/lens-xstudioslab/book-a-photography-session" 
+                  target="_blank" rel="noopener noreferrer"
                   className={`w-full py-4 text-center font-bold rounded-full uppercase tracking-widest text-sm transition-all ${
                     pkg.popular ? "bg-white text-black hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]" : "bg-transparent border border-border hover:bg-muted hover:scale-105"
                   }`}
