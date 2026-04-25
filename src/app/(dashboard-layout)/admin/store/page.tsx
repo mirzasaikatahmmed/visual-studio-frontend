@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Filter, MoreHorizontal, Edit2 } from "lucide-react";
+import { Search, Edit2 } from "lucide-react";
 import { useState } from "react";
 import { Modal } from "@/components/ui/modal";
 

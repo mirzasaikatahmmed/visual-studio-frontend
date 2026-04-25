@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Image from "next/image";
 import { ExternalLink, X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -355,10 +355,12 @@ export default function PortfolioPage() {
                   }
                 }}
               >
-                <img 
-                  src={filteredData[selectedIndex].src} 
-                  alt={filteredData[selectedIndex].title} 
-                  className="max-w-full max-h-[80vh] object-contain shadow-[0_20px_60px_rgba(0,0,0,0.8)] rounded-lg border border-white/10 pointer-events-none" 
+                <Image
+                  src={filteredData[selectedIndex].src}
+                  alt={filteredData[selectedIndex].title}
+                  width={1920}
+                  height={1280}
+                  className="max-w-full max-h-[80vh] w-auto h-auto object-contain shadow-[0_20px_60px_rgba(0,0,0,0.8)] rounded-lg border border-white/10 pointer-events-none"
                 />
                 <div className="mt-6 text-center">
                   <h3 className="text-white text-xl font-bold tracking-widest uppercase">{filteredData[selectedIndex].title}</h3>

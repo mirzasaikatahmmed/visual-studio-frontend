@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, Video, PlayCircle, MoreVertical, Trash } from "lucide-react";
+import { Plus, PlayCircle, Trash } from "lucide-react";
 import { useState } from "react";
 import { Modal } from "@/components/ui/modal";
 

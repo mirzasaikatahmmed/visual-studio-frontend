@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, Image as ImageIcon, ExternalLink, MoreVertical, Trash } from "lucide-react";
+import { Plus, Trash } from "lucide-react";
 import { useState } from "react";
 import { Modal } from "@/components/ui/modal";
 

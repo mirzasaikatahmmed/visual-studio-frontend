@@ -42,7 +42,7 @@ export function MoreServicesGrid() {
     },
     {
       title: "Album Books",
-      url: "https://www.instagram.com/reel/Cnxk342q_wf/",
+      url: "/contact",
       img: "/images/album.png"
     },
     {

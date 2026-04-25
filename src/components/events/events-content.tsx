@@ -203,7 +203,7 @@ export function EventsContent() {
               {[1,2,3,4,5].map(i => <Star key={i} fill="currentColor" size={24} />)}
             </div>
             <h4 className="text-2xl md:text-4xl font-medium leading-relaxed mb-8 text-white">
-              "Dreams Decor completely blew us away. They took our vague ideas and Pinterest boards and created a venue that looked like it was out of a magazine. Absolutely stunning work!"
+              &quot;Dreams Decor completely blew us away. They took our vague ideas and Pinterest boards and created a venue that looked like it was out of a magazine. Absolutely stunning work!&quot;
             </h4>
             <div className="uppercase tracking-widest font-bold text-white/50">— Sarah & Michael</div>
          </motion.div>
