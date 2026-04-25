@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export function AboutContent() {
@@ -65,9 +66,9 @@ export function AboutContent() {
             
             <div className="p-8 md:p-10 border-l-4 border-brand-400 bg-black/5 dark:bg-white/5 backdrop-blur-sm rounded-r-3xl mt-12 md:mt-24 shadow-[0_0_40px_rgba(221,148,84,0.1)]">
               <p className="text-xl md:text-2xl font-bold italic mb-4 leading-relaxed">
-                "Why only print the memories others captured? 
+                &quot;Why only print the memories others captured?
                 <br/><br/>
-                Why not capture them ourselves, and deliver the complete package, photography, videography, and prints?"
+                Why not capture them ourselves, and deliver the complete package, photography, videography, and prints?&quot;
               </p>
             </div>
           </motion.div>
@@ -82,13 +83,13 @@ export function AboutContent() {
                 Couples and families would bring us their photos, and we would transform them into cherished keepsakes. One day, we asked ourselves the defining question that changed everything.
               </p>
               <p>
-                With that vision, we started small; using an old Canon camera and DIY lighting. Our very first shoot was for a close relative's wedding. Nervous but determined, we captured every detail and the joy and appreciation from the family fueled our drive. From there, one client led to another and what began as a hobby quickly grew into a true passion and business.
+                With that vision, we started small; using an old Canon camera and DIY lighting. Our very first shoot was for a close relative&apos;s wedding. Nervous but determined, we captured every detail and the joy and appreciation from the family fueled our drive. From there, one client led to another and what began as a hobby quickly grew into a true passion and business.
               </p>
               <p className="font-bold text-foreground border-t border-foreground/10 pt-8 mt-8">
                 Today, X Studios is a dedicated photography and videography company with a talented team of six and our own studio space. We specialize in weddings and general events — from maternity shoots and showers to birthdays and anniversaries. With every project, we aim to blend artistry with storytelling, ensuring that every moment is preserved in the most beautiful way possible.
               </p>
               <p>
-                Our journey is proof that great things can start with small beginnings. What once was just an idea alongside X Print is now X Studios. A brand committed to capturing life's milestones with creativity, care, and excellence.
+                Our journey is proof that great things can start with small beginnings. What once was just an idea alongside X Print is now X Studios. A brand committed to capturing life&apos;s milestones with creativity, care, and excellence.
               </p>
             </div>
 
@@ -117,7 +118,7 @@ export function AboutContent() {
           </motion.div>
 
           <div className="space-y-32 md:space-y-40">
-            {teamMembers.map((member, idx) => (
+            {teamMembers.map((member) => (
               <motion.div 
                 key={member.name}
                 initial={{ opacity: 0, y: 50 }}
@@ -129,9 +130,11 @@ export function AboutContent() {
                 {/* Image Cutout Wrapper */}
                 <div className={`w-64 h-64 md:w-80 md:h-auto shrink-0 relative ${member.imagePosition === 'right' ? 'md:translate-x-12' : 'md:-translate-x-12'} md:-translate-y-12`}>
                   {/* For actual cutout PNGs, the image will overflow beautifully. We use object-cover for placeholders. */}
-                  <img 
-                    src={member.img} 
-                    alt={member.name} 
+                  <Image
+                    src={member.img}
+                    alt={member.name}
+                    width={320}
+                    height={384}
                     className="w-full h-full object-cover object-top rounded-3xl md:rounded-none md:absolute md:bottom-0 md:h-[120%] drop-shadow-[0_20px_30px_rgba(0,0,0,0.4)] dark:drop-shadow-[0_20px_30px_rgba(0,0,0,0.8)]"
                     style={{ filter: "drop-shadow(0px 10px 20px rgba(0,0,0,0.3))" }}
                   />

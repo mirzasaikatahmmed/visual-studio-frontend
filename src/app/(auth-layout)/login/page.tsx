@@ -38,7 +38,7 @@ export default function LoginPage() {
          </form>
 
          <div className="mt-8 text-center text-sm text-muted-foreground">
-            Don't have an account? <Link href="/register" className="font-bold text-foreground border-b border-foreground uppercase tracking-widest text-xs ml-2">Create one</Link>
+            Don&apos;t have an account? <Link href="/register" className="font-bold text-foreground border-b border-foreground uppercase tracking-widest text-xs ml-2">Create one</Link>
          </div>
       </div>
     </div>
