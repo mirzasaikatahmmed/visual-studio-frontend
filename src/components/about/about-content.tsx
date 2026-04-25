@@ -61,7 +61,7 @@ export function AboutContent() {
           <motion.div variants={itemVariants} className="lg:col-span-5">
             <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.8] tracking-tighter mb-12 drop-shadow-[0_0_30px_rgba(221,148,84,0.3)]">
               About <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-br from-black to-black/40 dark:from-white dark:to-white/40">Studios</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-br from-black to-black/40 dark:from-white dark:to-white/40 pr-4">Studios</span>
             </h1>
             
             <div className="p-8 md:p-10 border-l-4 border-brand-400 bg-black/5 dark:bg-white/5 backdrop-blur-sm rounded-r-3xl mt-12 md:mt-24 shadow-[0_0_40px_rgba(221,148,84,0.1)]">

@@ -25,7 +25,7 @@ export function HeroSection({ title, subtitle, desc, image }: HeroSectionProps) 
   };
 
   return (
-    <section className="relative h-[45vh] md:h-[65vh] w-full flex flex-col justify-center items-center overflow-hidden">
+    <section className="relative w-full h-[40vh] md:h-[50vh] lg:h-[60vh] xl:h-[65vh] max-h-[700px] flex flex-col justify-center items-center overflow-hidden">
       <div className="absolute inset-0 z-0 bg-background">
         <motion.div 
           initial={{ scale: 1.1, opacity: 0 }}
@@ -37,11 +37,11 @@ export function HeroSection({ title, subtitle, desc, image }: HeroSectionProps) 
         {/* Dark overlay to ensure white text is always readable */}
         <div className="absolute -inset-1 bg-black/40" />
         {/* Gradient that fades to the page's background color only at the very bottom */}
-        <div className="absolute -inset-1 bg-gradient-to-t from-background via-background/0 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-24 md:h-32 xl:h-48 bg-gradient-to-t from-background to-transparent" />
         {/* Extra solid block at the bottom to guarantee no 1px gap bleeding */}
         <div className="absolute -bottom-1 left-0 right-0 h-2 bg-background" />
         {/* Dark overlay at top for navbar contrast */}
-        <div className="absolute -inset-1 bg-gradient-to-b from-black/80 via-black/20 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-24 md:h-32 bg-gradient-to-b from-black/80 to-transparent" />
       </div>
       
       <motion.div 
