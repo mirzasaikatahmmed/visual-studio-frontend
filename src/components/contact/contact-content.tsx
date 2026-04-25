@@ -51,7 +51,7 @@ export function ContactContent() {
                       </div>
                       <div className="flex flex-col justify-center">
                         <h4 className="font-bold uppercase tracking-widest text-sm mb-1 group-hover:text-brand-400 transition-colors">Call Us</h4>
-                        <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                        <p className="text-muted-foreground">+1 (929) 627-5537</p>
                         <p className="text-xs text-foreground/50 mt-1 uppercase tracking-wider">Mon-Fri, 9am - 6pm EST</p>
                       </div>
                    </motion.div>
@@ -62,7 +62,7 @@ export function ContactContent() {
                       </div>
                       <div className="flex flex-col justify-center">
                         <h4 className="font-bold uppercase tracking-widest text-sm mb-1 group-hover:text-brand-400 transition-colors">Email Inquiry</h4>
-                        <p className="text-muted-foreground">booking@visualstudio.com</p>
+                        <p className="text-muted-foreground">lens@visualstudioslens.com</p>
                       </div>
                    </motion.div>
 
@@ -72,23 +72,47 @@ export function ContactContent() {
                       </div>
                       <div className="flex flex-col justify-center">
                         <h4 className="font-bold uppercase tracking-widest text-sm mb-1 group-hover:text-brand-400 transition-colors">Studio Location</h4>
-                        <p className="text-muted-foreground">123 Creative Avenue, Suite 100<br/>New York, NY 10001</p>
+                        <p className="text-muted-foreground">Liberty Avenue Brooklyn, 1097<br/>New York, NY 11208</p>
                       </div>
                    </motion.div>
                 </div>
 
-                {/* WhatsApp Button */}
-                <motion.div variants={itemVariants} className="p-10 border border-border bg-muted/30 rounded-3xl relative overflow-hidden group hover:border-[#25D366]/50 transition-colors shadow-[0_0_30px_rgba(0,0,0,0.05)]">
-                  <div className="absolute -right-10 -top-10 w-40 h-40 bg-[#25D366]/10 rounded-full blur-3xl group-hover:bg-[#25D366]/20 transition-colors" />
-                  <h3 className="text-2xl font-bold mb-4 relative z-10">Fastest Response</h3>
-                  <p className="text-muted-foreground mb-8 text-lg relative z-10">Text our team directly on WhatsApp for quick answers and simple bookings.</p>
-                  <a 
-                    href="https://wa.me/15551234567" 
-                    target="_blank" rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 w-full py-5 bg-[#25D366] text-white font-bold uppercase tracking-widest hover:bg-[#20bd5a] hover:scale-105 hover:shadow-[0_0_30px_rgba(37,211,102,0.4)] transition-all rounded-full relative z-10"
+                {/* Cards */}
+                <motion.div variants={itemVariants} className="flex flex-col gap-6">
+                  {/* WhatsApp Button */}
+                  <div className="p-10 border border-border bg-muted/30 rounded-3xl relative overflow-hidden group hover:border-[#25D366]/50 transition-colors shadow-[0_0_30px_rgba(0,0,0,0.05)]">
+                    <div className="absolute -right-10 -top-10 w-40 h-40 bg-[#25D366]/10 rounded-full blur-3xl group-hover:bg-[#25D366]/20 transition-colors" />
+                    <h3 className="text-2xl font-bold mb-4 relative z-10">Fastest Response</h3>
+                    <p className="text-muted-foreground mb-8 text-lg relative z-10">Text our team directly on WhatsApp for quick answers and simple bookings.</p>
+                    <a
+                      href="https://wa.me/19296275537"
+                      target="_blank" rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-3 w-full py-5 bg-[#25D366] text-white font-bold uppercase tracking-widest hover:bg-[#20bd5a] hover:scale-105 hover:shadow-[0_0_30px_rgba(37,211,102,0.4)] transition-all rounded-full relative z-10"
+                    >
+                      <MessageCircle size={24} /> Message on WhatsApp
+                    </a>
+                  </div>
+
+                  {/* Calendly Appointment */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className="p-10 border border-border bg-muted/30 rounded-3xl relative overflow-hidden group hover:border-foreground/30 transition-colors shadow-[0_0_30px_rgba(0,0,0,0.05)]"
                   >
-                    <MessageCircle size={24} /> Message on WhatsApp
-                  </a>
+                    <div className="absolute -right-10 -top-10 w-40 h-40 bg-foreground/5 rounded-full blur-3xl group-hover:bg-foreground/10 transition-colors" />
+                    <h3 className="text-2xl font-bold mb-4 relative z-10">Make an Appointment</h3>
+                    <p className="text-muted-foreground mb-8 text-lg relative z-10">Book a free 15-minute consultation to discuss your vision and requirements.</p>
+                    <a
+                      href="https://calendly.com/lens-xstudioslab/book-a-photography-session"
+                      target="_blank" rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-3 w-full py-5 bg-foreground text-background font-bold uppercase tracking-widest hover:opacity-90 hover:scale-105 transition-all rounded-full relative z-10"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                      Book a Consultation
+                    </a>
+                  </motion.div>
                 </motion.div>
               </motion.div>
 
@@ -159,7 +183,7 @@ export function ContactContent() {
        >
          {/* Simple Map Placeholder */}
          <iframe 
-           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.25280004554!2d-74.14448744594274!3d40.69763123335559!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+           src="https://maps.google.com/maps?q=1097+Liberty+Ave,+Brooklyn,+NY+11208&t=&z=15&ie=UTF8&iwloc=&output=embed" 
            width="100%" 
            height="100%" 
            style={{ border: 0 }} 
