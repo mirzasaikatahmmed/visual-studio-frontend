@@ -41,7 +41,7 @@ export function MarketingContent() {
           Start a Project
         </Link>
         <a
-          href="https://visualstudionyc.pixieset.com/portfolio/"
+          href="https://gallery.visualstudioslens.com/"
           target="_blank" rel="noopener noreferrer"
           className="w-full sm:w-auto text-center px-8 py-4 sm:py-3 bg-transparent border border-border text-foreground font-medium rounded-full hover:bg-muted hover:scale-105 transition-all uppercase tracking-widest text-xs sm:text-sm flex items-center justify-center"
         >

@@ -5,20 +5,20 @@ import { ExternalLink, X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-re
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-type Category = "All" | "Mizanur Nikkah" | "Henna Ceremony" | "Group Pictures" | "Studio Photoshoot" | "Gender Reveal" | "Baby Shower Ceremony" | "Visual Studio Portfolio" | "Maternity Ceremony" | "Baby Photography" | "Birthday Ceremony" | "Jarin Holud";
+type Category = "All" | "Wedding Ceremony" | "Henna Ceremony" | "Group Pictures" | "Studio Photoshoot" | "Gender Reveal" | "Baby Shower Ceremony" | "Visual Studio Portfolio" | "Maternity Ceremony" | "Baby Photography" | "Birthday Ceremony";
 
 const portfolioData = [
-  // Mizanur Nikkah (10 images)
-  { src: "https://images.pixieset.com/135680311/39c4d519a678c25f8beeedded424d5e8-large.JPG", title: "Nikkah Moment", category: "Mizanur Nikkah", height: "150%" },
-  { src: "https://images.pixieset.com/135680311/6e8c08d3eed536dafad8140a12c15ddd-large.JPG", title: "Nikkah Details", category: "Mizanur Nikkah", height: "100%" },
-  { src: "https://images.pixieset.com/135680311/0202227887a2be5488330d153cabb2de-large.JPG", title: "Bridal Glow", category: "Mizanur Nikkah", height: "120%" },
-  { src: "https://images.pixieset.com/135680311/bb8558fbf0bc6781e9b38b0e822c7e44-large.JPG", title: "Groom Portrait", category: "Mizanur Nikkah", height: "80%" },
-  { src: "https://images.pixieset.com/135680311/731325e7c1cddcc2671d0844a8166722-large.JPG", title: "The Venue", category: "Mizanur Nikkah", height: "140%" },
-  { src: "https://images.pixieset.com/135680311/055970ac6d59093311a9aa2f63e80ca6-large.JPG", title: "First Look", category: "Mizanur Nikkah", height: "120%" },
-  { src: "https://images.pixieset.com/135680311/9f7b82d2c3b1d5082c9c9ffaa34db4ee-large.JPG", title: "Family Blessings", category: "Mizanur Nikkah", height: "100%" },
-  { src: "https://images.pixieset.com/135680311/c335ddfa68081cd7d7ceb9f3cf92d256-large.JPG", title: "The Ring", category: "Mizanur Nikkah", height: "150%" },
-  { src: "https://images.pixieset.com/135680311/c2cf861b8c41a05d6d63f9cd1e249241-large.JPG", title: "Stage Setup", category: "Mizanur Nikkah", height: "80%" },
-  { src: "https://images.pixieset.com/135680311/ea9f82c90531472596ae2b1a9bb0a19f-large.JPG", title: "Couple Walk", category: "Mizanur Nikkah", height: "100%" },
+  // Wedding Ceremony (10 images)
+  { src: "https://images.pixieset.com/135680311/39c4d519a678c25f8beeedded424d5e8-large.JPG", title: "Nikkah Moment", category: "Wedding Ceremony", height: "150%" },
+  { src: "https://images.pixieset.com/135680311/6e8c08d3eed536dafad8140a12c15ddd-large.JPG", title: "Nikkah Details", category: "Wedding Ceremony", height: "100%" },
+  { src: "https://images.pixieset.com/135680311/0202227887a2be5488330d153cabb2de-large.JPG", title: "Bridal Glow", category: "Wedding Ceremony", height: "120%" },
+  { src: "https://images.pixieset.com/135680311/bb8558fbf0bc6781e9b38b0e822c7e44-large.JPG", title: "Groom Portrait", category: "Wedding Ceremony", height: "80%" },
+  { src: "https://images.pixieset.com/135680311/731325e7c1cddcc2671d0844a8166722-large.JPG", title: "The Venue", category: "Wedding Ceremony", height: "140%" },
+  { src: "https://images.pixieset.com/135680311/055970ac6d59093311a9aa2f63e80ca6-large.JPG", title: "First Look", category: "Wedding Ceremony", height: "120%" },
+  { src: "https://images.pixieset.com/135680311/9f7b82d2c3b1d5082c9c9ffaa34db4ee-large.JPG", title: "Family Blessings", category: "Wedding Ceremony", height: "100%" },
+  { src: "https://images.pixieset.com/135680311/c335ddfa68081cd7d7ceb9f3cf92d256-large.JPG", title: "The Ring", category: "Wedding Ceremony", height: "150%" },
+  { src: "https://images.pixieset.com/135680311/c2cf861b8c41a05d6d63f9cd1e249241-large.JPG", title: "Stage Setup", category: "Wedding Ceremony", height: "80%" },
+  { src: "https://images.pixieset.com/135680311/ea9f82c90531472596ae2b1a9bb0a19f-large.JPG", title: "Couple Walk", category: "Wedding Ceremony", height: "100%" },
 
   // Henna Ceremony (10 images)
   { src: "https://images.pixieset.com/280709211/64b65561c204c44f4c755e4f30fcfee6-large.jpeg", title: "Henna Art", category: "Henna Ceremony", height: "100%" },
@@ -109,20 +109,20 @@ const portfolioData = [
   { src: "https://images.pixieset.com/121709211/7ae66bacb854a3ba9a2114c4c07cc240-large.jpg", title: "Special Day", category: "Birthday Ceremony", height: "100%" },
   { src: "https://images.pixieset.com/121709211/9546ddc80f14a23c7397dc05e040dbfa-large.jpg", title: "Gift Opening", category: "Birthday Ceremony", height: "140%" },
   { src: "https://images.pixieset.com/121709211/de93ef7f10942b868716f3cffe7edba1-large.jpg", title: "Party Decor", category: "Birthday Ceremony", height: "120%" },
-  // Jarin Holud (10 images)
-  { src: "https://images.pixieset.com/501109211/3e9ff35c86e881848a1b691c07e9293c-large.png", title: "Holud Bride", category: "Jarin Holud", height: "120%" },
-  { src: "https://images.pixieset.com/501109211/3d7c168c10a767e01f56f6b5b3b21f68-large.JPG", title: "Floral Details", category: "Jarin Holud", height: "150%" },
-  { src: "https://images.pixieset.com/501109211/fcb69131aaa4aa5acdba9113d7505057-large.JPG", title: "Colorful Joy", category: "Jarin Holud", height: "100%" },
-  { src: "https://images.pixieset.com/501109211/e60188c20da5d840f6ffba01fa59c674-large.JPG", title: "Family Blessings", category: "Jarin Holud", height: "140%" },
-  { src: "https://images.pixieset.com/501109211/56d27ff9cb0e4053760390a1309d1296-large.JPG", title: "Holud Vibes", category: "Jarin Holud", height: "80%" },
-  { src: "https://images.pixieset.com/501109211/b25a57a97e8d1c611567eace9fe8cd2f-large.JPG", title: "Festive Mood", category: "Jarin Holud", height: "120%" },
-  { src: "https://images.pixieset.com/501109211/620fc26111c2ce5ea09a53c361b77df8-large.JPG", title: "Beautiful Portraits", category: "Jarin Holud", height: "150%" },
-  { src: "https://images.pixieset.com/501109211/9131b7e95d7913b7c38c223d3927c041-large.JPG", title: "Celebration Dance", category: "Jarin Holud", height: "100%" },
-  { src: "https://images.pixieset.com/501109211/1964119485d88c44a2961531a37843c7-large.JPG", title: "Golden Glow", category: "Jarin Holud", height: "140%" },
-  { src: "https://images.pixieset.com/501109211/9057ca447e3e9e267b584260d1b45943-large.JPG", title: "Joyous Friends", category: "Jarin Holud", height: "120%" },
+  // Wedding Ceremony - additional (10 images)
+  { src: "https://images.pixieset.com/501109211/3e9ff35c86e881848a1b691c07e9293c-large.png", title: "Holud Bride", category: "Wedding Ceremony", height: "120%" },
+  { src: "https://images.pixieset.com/501109211/3d7c168c10a767e01f56f6b5b3b21f68-large.JPG", title: "Floral Details", category: "Wedding Ceremony", height: "150%" },
+  { src: "https://images.pixieset.com/501109211/fcb69131aaa4aa5acdba9113d7505057-large.JPG", title: "Colorful Joy", category: "Wedding Ceremony", height: "100%" },
+  { src: "https://images.pixieset.com/501109211/e60188c20da5d840f6ffba01fa59c674-large.JPG", title: "Family Blessings", category: "Wedding Ceremony", height: "140%" },
+  { src: "https://images.pixieset.com/501109211/56d27ff9cb0e4053760390a1309d1296-large.JPG", title: "Holud Vibes", category: "Wedding Ceremony", height: "80%" },
+  { src: "https://images.pixieset.com/501109211/b25a57a97e8d1c611567eace9fe8cd2f-large.JPG", title: "Festive Mood", category: "Wedding Ceremony", height: "120%" },
+  { src: "https://images.pixieset.com/501109211/620fc26111c2ce5ea09a53c361b77df8-large.JPG", title: "Beautiful Portraits", category: "Wedding Ceremony", height: "150%" },
+  { src: "https://images.pixieset.com/501109211/9131b7e95d7913b7c38c223d3927c041-large.JPG", title: "Celebration Dance", category: "Wedding Ceremony", height: "100%" },
+  { src: "https://images.pixieset.com/501109211/1964119485d88c44a2961531a37843c7-large.JPG", title: "Golden Glow", category: "Wedding Ceremony", height: "140%" },
+  { src: "https://images.pixieset.com/501109211/9057ca447e3e9e267b584260d1b45943-large.JPG", title: "Joyous Friends", category: "Wedding Ceremony", height: "120%" },
 ];
 
-const categories: Category[] = ["All", "Mizanur Nikkah", "Henna Ceremony", "Group Pictures", "Studio Photoshoot", "Gender Reveal", "Baby Shower Ceremony", "Visual Studio Portfolio", "Maternity Ceremony", "Baby Photography", "Birthday Ceremony", "Jarin Holud"];
+const categories: Category[] = ["All", "Wedding Ceremony", "Henna Ceremony", "Group Pictures", "Studio Photoshoot", "Gender Reveal", "Baby Shower Ceremony", "Visual Studio Portfolio", "Maternity Ceremony", "Baby Photography", "Birthday Ceremony"];
 
 import { HeroSection } from "@/components/hero-section";
 
@@ -205,31 +205,35 @@ export default function PortfolioPage() {
           </motion.h2>
 
           {/* Filter Pills */}
-          <motion.div 
-            ref={scrollContainerRef}
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="flex items-center gap-2 bg-white/80 dark:bg-[#18181A]/80 backdrop-blur-3xl p-1.5 rounded-full border border-black/10 dark:border-white/20 shadow-md dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] mx-auto shrink-0 max-w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="bg-white/80 dark:bg-[#18181A]/80 backdrop-blur-3xl rounded-full border border-black/10 dark:border-white/20 shadow-md dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] mx-auto shrink-0 max-w-full overflow-hidden"
           >
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`relative px-5 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-colors z-10 ${
-                  activeCategory === cat ? "text-white dark:text-black" : "text-foreground/60 dark:text-white/60 hover:text-foreground dark:hover:text-white"
-                }`}
-              >
-                {activeCategory === cat && (
-                  <motion.div
-                    layoutId="portfolio-filter"
-                    className="absolute inset-0 bg-black dark:bg-white rounded-full -z-10"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                {cat}
-              </button>
-            ))}
+            <div
+              ref={scrollContainerRef}
+              className="flex items-center gap-2 p-1.5 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:[&::-webkit-scrollbar]:block md:[&::-webkit-scrollbar]:h-1.5 md:[&::-webkit-scrollbar-thumb]:rounded-full md:[&::-webkit-scrollbar-thumb]:bg-black/25 md:dark:[&::-webkit-scrollbar-thumb]:bg-white/25 md:[&::-webkit-scrollbar-track]:bg-transparent md:[-ms-overflow-style:auto] md:[scrollbar-width:thin]"
+            >
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`relative px-5 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-colors z-10 ${
+                    activeCategory === cat ? "text-white dark:text-black" : "text-foreground/60 dark:text-white/60 hover:text-foreground dark:hover:text-white"
+                  }`}
+                >
+                  {activeCategory === cat && (
+                    <motion.div
+                      layoutId="portfolio-filter"
+                      className="absolute inset-0 bg-black dark:bg-white rounded-full -z-10"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  {cat}
+                </button>
+              ))}
+            </div>
           </motion.div>
         </div>
 
@@ -255,16 +259,12 @@ export default function PortfolioPage() {
                 
                 {/* Advanced Hover Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                  <motion.div 
-                    initial={{ y: 20, opacity: 0 }}
-                    whileHover={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
+                  <div className="translate-y-5 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                     <span className="text-brand-400 text-xs font-bold uppercase tracking-widest mb-2 border border-brand-400/30 bg-brand-400/10 px-3 py-1 rounded-full inline-block backdrop-blur-md">
                       {item.category}
                     </span>
                     <h3 className="text-white text-2xl font-bold tracking-tight">{item.title}</h3>
-                  </motion.div>
+                  </div>
                   <div className="absolute top-6 right-6 w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100 border border-white/20 hover:bg-white hover:text-black">
                     <Maximize2 size={18} />
                   </div>
@@ -301,7 +301,7 @@ export default function PortfolioPage() {
             </motion.p>
             <motion.a 
               variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
-              href="https://visualstudionyc.pixieset.com/portfolio/" 
+              href="https://gallery.visualstudioslens.com/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-5 bg-white text-black rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] transition-all duration-300"
@@ -347,7 +347,7 @@ export default function PortfolioPage() {
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={1}
-                onDragEnd={(e, { offset, velocity }) => {
+                onDragEnd={(_e, { offset, velocity }) => {
                   if (offset.x > 50 || velocity.x > 500) {
                     handlePrev();
                   } else if (offset.x < -50 || velocity.x < -500) {
