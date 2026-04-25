@@ -68,7 +68,7 @@ export default function SettingsAdminPage() {
                   <div className="space-y-2">
                      <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">WhatsApp Number (For Floating Button)</label>
                      <input type="text" defaultValue="15551234567" className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-foreground" />
-                     <p className="text-xs text-muted-foreground">Include country code without '+', e.g., 15551234567</p>
+                     <p className="text-xs text-muted-foreground">Include country code without &apos;+&apos;, e.g., 15551234567</p>
                   </div>
 
                   <div className="space-y-2">

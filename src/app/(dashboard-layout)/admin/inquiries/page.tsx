@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle2, MoreHorizontal, Search, Trash } from "lucide-react";
+import { Search, Trash } from "lucide-react";
 import { useState } from "react";
 
 const initialInquiries = [

@@ -24,10 +24,10 @@ export function VideoGrid() {
   };
 
   const videos = [
-    { title: "Artisan Coffee Commercial", category: "Commercial", img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=800", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-serving-dinner-on-a-beautiful-table-4100-large.mp4" },
-    { title: "Emily & David Wedding", category: "Event Coverage", img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-mother-with-her-little-daughter-eating-a-marshmallow-in-nature-39764-large.mp4" },
-    { title: "Atlas Tech Summit", category: "Corporate", img: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=800", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-set-of-plateaus-seen-from-the-sky-in-a-sunset-26070-large.mp4" },
-    { title: "Luxury Fashion Campaign", category: "Fashion", img: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=800", videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-tree-with-yellow-flowers-2173-large.mp4" }
+    { title: "Emily & David | A Love Story", category: "Wedding Story", img: "https://img.youtube.com/vi/mzzIpM6Sw6U/maxresdefault.jpg", videoUrl: "https://www.youtube.com/embed/mzzIpM6Sw6U?autoplay=1" },
+    { title: "Sarah & Michael | Destination Wedding", category: "Destination", img: "https://img.youtube.com/vi/ZjKqKnTgeIA/maxresdefault.jpg", videoUrl: "https://www.youtube.com/embed/ZjKqKnTgeIA?si=2MaaovGNiN3YtheY&autoplay=1" },
+    { title: "The Grand Royal Wedding", category: "Luxury Wedding", img: "https://img.youtube.com/vi/7bhLLDGfKWo/maxresdefault.jpg", videoUrl: "https://www.youtube.com/embed/7bhLLDGfKWo?si=0RWYHSohg6YBqEUO&autoplay=1" },
+    { title: "Sophia & James | Cinematic Highlights", category: "Cinematic", img: "https://img.youtube.com/vi/zyEOKMQ7p74/maxresdefault.jpg", videoUrl: "https://www.youtube.com/embed/zyEOKMQ7p74?si=UK0AsQg83qPDUf8p&autoplay=1" }
   ];
 
   const handleNext = useCallback(() => {
@@ -75,27 +75,10 @@ export function VideoGrid() {
               <div className="relative aspect-video bg-muted mb-4 overflow-hidden rounded-2xl border border-white/5">
                 {/* Thumbnail Image */}
                 <div 
-                  className={`absolute inset-0 bg-cover bg-center transition-all duration-700 ${hoveredIndex === idx ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`} 
+                  className={`absolute inset-0 bg-cover bg-center transition-all duration-700 ${hoveredIndex === idx ? 'scale-105' : 'scale-100'}`} 
                   style={{ backgroundImage: `url('${video.img}')` }} 
                 />
-                
-                {/* Inline Hover Video */}
-                <video
-                  src={video.videoUrl}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${hoveredIndex === idx ? 'opacity-100' : 'opacity-0'}`}
-                  muted
-                  loop
-                  playsInline
-                  ref={(el) => {
-                    if (el) {
-                      if (hoveredIndex === idx) el.play().catch(() => {});
-                      else {
-                        el.pause();
-                        el.currentTime = 0;
-                      }
-                    }
-                  }}
-                />
+
 
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none" />
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -173,12 +156,11 @@ export function VideoGrid() {
                   }
                 }}
               >
-                <video 
-                  src={videos[selectedIndex].videoUrl} 
-                  className="w-full h-full object-contain"
-                  controls
-                  autoPlay
-                  playsInline
+                <iframe 
+                  src={videos[selectedIndex].videoUrl}
+                  className="w-full h-full border-0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
                 />
               </motion.div>
             </AnimatePresence>

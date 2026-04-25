@@ -26,22 +26,28 @@ export function ExpertiseSection() {
 
   const services = [
     {
+      title: "Portfolio",
+      desc: "Explore our curated collection of photography and creative works.",
+      img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800&auto=format&fit=crop",
+      href: "/portfolio"
+    },
+    {
+      title: "Video Gallery",
+      desc: "Cinematic storytelling through expertly crafted video productions.",
+      img: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=800&auto=format&fit=crop",
+      href: "/video-gallery"
+    },
+    {
       title: "Visual Marketing",
       desc: "Corporate branding, product shoots, and campaign visuals.",
-      img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?q=80&w=800&auto=format&fit=crop",
       href: "/visual-marketing"
     },
     {
-      title: "Events Decoration",
-      desc: "Transformative event setups powered by Dreams Decor.",
+      title: "More Services",
+      desc: "Events decoration, premium albums, and much more to discover.",
       img: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=800&auto=format&fit=crop",
-      href: "/events"
-    },
-    {
-      title: "Premium Albums",
-      desc: "High-quality physical album printing and modern wall arts.",
-      img: "/images/premium_photo_album.png",
-      href: "/store"
+      href: "/more-services"
     }
   ];
 
@@ -62,7 +68,7 @@ export function ExpertiseSection() {
         
         {/* Animated Grid */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="grid grid-cols-2 md:grid-cols-4 gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -71,7 +77,7 @@ export function ExpertiseSection() {
           {services.map((service, index) => (
             <motion.div key={index} variants={itemVariants}>
               <Link href={service.href} className="group cursor-pointer block">
-                <div className="aspect-[4/5] relative overflow-hidden bg-muted mb-6 w-full">
+                <div className="aspect-video relative overflow-hidden bg-muted mb-6 w-full rounded-2xl">
                   <div 
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                     style={{ backgroundImage: `url('${service.img}')` }}

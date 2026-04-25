@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, Image as ImageIcon, ExternalLink, MoreVertical, Trash } from "lucide-react";
+import { Plus, Trash } from "lucide-react";
 import { useState } from "react";
 import { Modal } from "@/components/ui/modal";
 
@@ -14,7 +14,7 @@ export default function PortfoliosPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newImage, setNewImage] = useState({ title: "", category: "Home", url: "" });
   
-  const [pixiesetLink, setPixiesetLink] = useState("https://visualstudionyc.pixieset.com/portfolio/");
+  const [pixiesetLink, setPixiesetLink] = useState("https://gallery.visualstudioslens.com/");
   const [saved, setSaved] = useState(false);
 
   const handleSavePixieset = () => {

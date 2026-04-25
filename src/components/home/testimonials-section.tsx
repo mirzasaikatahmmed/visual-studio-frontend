@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
@@ -13,21 +14,6 @@ const GoogleIcon = ({ className }: { className?: string }) => (
 );
 
 export function TestimonialsSection() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 30 },
-    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
-  };
-
   const starVariants = {
     hidden: { opacity: 0, rotate: -45, scale: 0.5 },
     visible: { opacity: 1, rotate: 0, scale: 1, transition: { type: "spring" as const, stiffness: 200, damping: 10 } },
@@ -98,7 +84,7 @@ export function TestimonialsSection() {
             <div key={i} className="w-[320px] md:w-[400px] shrink-0 p-6 bg-background rounded-2xl border border-border shadow-sm flex flex-col gap-4 mx-3 hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <img src={review.avatar} alt={review.name} className="w-10 h-10 rounded-full object-cover" />
+                  <Image src={review.avatar} alt={review.name} width={40} height={40} className="w-10 h-10 rounded-full object-cover" />
                   <div>
                     <div className="font-semibold text-sm">{review.name}</div>
                     <div className="text-xs text-muted-foreground">{review.time}</div>
@@ -112,7 +98,7 @@ export function TestimonialsSection() {
                 ))}
               </div>
               <p className="text-sm text-foreground/80 leading-relaxed line-clamp-4">
-                "{review.text}"
+                &quot;{review.text}&quot;
               </p>
             </div>
           ))}

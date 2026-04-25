@@ -27,7 +27,7 @@ export default function AdminDashboardPage() {
              <div className="text-xs text-muted-foreground font-bold uppercase tracking-widest">All systems operational</div>
           </div>
 
-          <a href="https://visualstudionyc.pixieset.com/portfolio/" target="_blank" rel="noopener noreferrer" className="bg-background border border-border hover:border-foreground transition-colors p-6 flex flex-col gap-4 group cursor-pointer">
+          <a href="https://gallery.visualstudioslens.com/" target="_blank" rel="noopener noreferrer" className="bg-background border border-border hover:border-foreground transition-colors p-6 flex flex-col gap-4 group cursor-pointer">
              <div className="flex items-center gap-3 text-muted-foreground group-hover:text-foreground transition-colors">
                 <ImageIcon size={20} /> <span className="uppercase text-xs font-bold tracking-widest">Photos Hyperlink</span>
              </div>
