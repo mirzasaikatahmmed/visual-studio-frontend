@@ -92,8 +92,7 @@ export function Navbar() {
         <div className="hidden lg:flex items-center gap-4 relative z-50">
           <ThemeToggle className="!text-white hover:!bg-white/10 hover:!text-white/80" />
           <Link
-            href="https://calendly.com/lens-xstudioslab/book-a-photography-session"
-            target="_blank" rel="noopener noreferrer"
+            href="/contact"
             className="px-6 py-2 bg-white text-black text-xs font-bold uppercase tracking-widest rounded-full hover:bg-gray-200 transition-opacity"
           >
             Book Now
@@ -135,8 +134,7 @@ export function Navbar() {
               </Link>
             ))}
             <Link
-              href="https://calendly.com/lens-xstudioslab/book-a-photography-session"
-              target="_blank" rel="noopener noreferrer"
+              href="/contact"
               onClick={() => setIsMenuOpen(false)}
               className="mt-4 px-8 py-3 bg-foreground text-background text-lg font-medium rounded-full hover:opacity-90 transition-opacity"
             >

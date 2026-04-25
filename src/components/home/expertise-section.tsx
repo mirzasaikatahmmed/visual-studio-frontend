@@ -77,7 +77,7 @@ export function ExpertiseSection() {
           {services.map((service, index) => (
             <motion.div key={index} variants={itemVariants}>
               <Link href={service.href} className="group cursor-pointer block">
-                <div className="aspect-[4/5] relative overflow-hidden bg-muted mb-6 w-full">
+                <div className="aspect-video relative overflow-hidden bg-muted mb-6 w-full rounded-2xl">
                   <div 
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                     style={{ backgroundImage: `url('${service.img}')` }}
