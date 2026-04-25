@@ -93,13 +93,13 @@ export function Footer() {
               <ul className="space-y-4 text-foreground/70">
                  <li className="flex items-start gap-3 hover:text-white transition-colors group cursor-pointer">
                    <MapPin size={18} className="shrink-0 mt-1 group-hover:text-brand-400 transition-colors" />
-                   <span>123 Creative Avenue, Suite 100<br/>New York, NY 10001</span>
+                   <span>Liberty Avenue Brooklyn, 1097<br/>New York, NY 11208</span>
                  </li>
                  <li className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
-                   <Mail size={18} className="group-hover:text-brand-400 transition-colors" /> hello@visualstudio.com
+                   <Mail size={18} className="group-hover:text-brand-400 transition-colors" /> lens@visualstudioslens.com
                  </li>
                  <li className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
-                   <Phone size={18} className="group-hover:text-brand-400 transition-colors" /> +1 (555) 123-4567
+                   <Phone size={18} className="group-hover:text-brand-400 transition-colors" /> +1 (929) 627-5537
                  </li>
               </ul>
            </motion.div>
