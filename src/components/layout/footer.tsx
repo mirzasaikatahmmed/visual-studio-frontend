@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Instagram, MapPin, Mail, Phone, ArrowUpRight } from "lucide-react";
+import { MapPin, Mail, Phone, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { InstagramFeed } from "@/components/instagram-feed";
 
 export function Footer() {
   const containerVariants = {
@@ -52,19 +53,9 @@ export function Footer() {
             </form>
           </motion.div>
 
-          {/* Instagram Teaser / Poster */}
+          {/* Instagram Live Feed */}
           <motion.div variants={itemVariants}>
-             <h3 className="text-3xl font-bold uppercase tracking-tight mb-4 flex items-center gap-3">
-               <Instagram size={28} className="text-brand-400" /> @visualstudio
-             </h3>
-             <div className="grid grid-cols-3 gap-2 mt-8">
-                <div className="aspect-square bg-cover bg-center grayscale hover:grayscale-0 transition-all cursor-pointer hover:scale-105 duration-500" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=400')" }} />
-                <div className="aspect-square bg-cover bg-center grayscale hover:grayscale-0 transition-all cursor-pointer hover:scale-105 duration-500" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=400')" }} />
-                <div className="aspect-square bg-cover bg-center grayscale hover:grayscale-0 transition-all cursor-pointer hover:scale-105 duration-500" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=400')" }} />
-             </div>
-             <a href="#" className="inline-flex items-center gap-2 mt-6 font-bold tracking-widest uppercase text-sm border-b border-foreground pb-1 hover:text-brand-400 hover:border-brand-400 transition-colors">
-               Follow on Instagram <ArrowUpRight size={16} />
-             </a>
+            <InstagramFeed />
           </motion.div>
 
         </div>
