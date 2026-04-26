@@ -62,7 +62,7 @@ export function ExpertiseSection() {
           viewport={{ once: true, margin: "-100px" }}
           variants={headerVariants}
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 uppercase tracking-tighter">Our Expertise</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 uppercase tracking-tighter">Where Vision Meets Craft</h2>
           <div className="w-24 h-1 bg-foreground mx-auto"></div>
         </motion.div>
         
