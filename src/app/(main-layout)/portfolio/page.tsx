@@ -5,7 +5,7 @@ import { ExternalLink, X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-re
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-type Category = "All" | "Wedding Ceremony" | "Henna Ceremony" | "Group Pictures" | "Studio Photoshoot" | "Gender Reveal" | "Baby Shower Ceremony" | "Visual Studio Portfolio" | "Maternity Ceremony" | "Baby Photography" | "Birthday Ceremony";
+type Category = "Wedding Ceremony" | "Henna Ceremony" | "Group Pictures" | "Studio Photoshoot" | "Gender Reveal" | "Baby Shower Ceremony" | "Visual Studio Portfolio" | "Maternity Ceremony" | "Baby Photography" | "Birthday Ceremony";
 
 const portfolioData = [
   // Wedding Ceremony (5 images)
@@ -72,12 +72,12 @@ const portfolioData = [
   { src: "https://images.pixieset.com/121709211/4b1389eeefa3020e96187fbf2d8743f4-large.jpg", title: "Friends & Fun", category: "Birthday Ceremony", height: "80%" }
 ];
 
-const categories: Category[] = ["All", "Wedding Ceremony", "Henna Ceremony", "Group Pictures", "Studio Photoshoot", "Gender Reveal", "Baby Shower Ceremony", "Visual Studio Portfolio", "Maternity Ceremony", "Baby Photography", "Birthday Ceremony"];
+const categories: Category[] = ["Wedding Ceremony", "Henna Ceremony", "Group Pictures", "Studio Photoshoot", "Gender Reveal", "Baby Shower Ceremony", "Visual Studio Portfolio", "Maternity Ceremony", "Baby Photography", "Birthday Ceremony"];
 
 import { HeroSection } from "@/components/hero-section";
 
 export default function PortfolioPage() {
-  const [activeCategory, setActiveCategory] = useState<Category>("All");
+  const [activeCategory, setActiveCategory] = useState<Category>("Wedding Ceremony");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -134,7 +134,6 @@ export default function PortfolioPage() {
   }, []);
 
   const filteredData = useMemo(() => {
-    if (activeCategory === "All") return portfolioData;
     return portfolioData.filter(item => item.category === activeCategory);
   }, [activeCategory]);
 
@@ -179,7 +178,6 @@ export default function PortfolioPage() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-3xl md:text-4xl font-extrabold tracking-tighter uppercase text-foreground"
-            style={{ textShadow: "0 0 15px rgba(221, 148, 84, 0.6), 0 0 30px rgba(221, 148, 84, 0.4)" }}
           >
             Portfolio
           </motion.h2>
@@ -286,7 +284,7 @@ export default function PortfolioPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-5 bg-white text-black rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] transition-all duration-300"
             >
-              Explore Pixieset <ExternalLink size={18} />
+              Explore Gallery <ExternalLink size={18} />
             </motion.a>
           </div>
         </motion.div>
