@@ -82,15 +82,21 @@ export function Footer() {
            <motion.div variants={itemVariants}>
               <h4 className="font-bold uppercase tracking-widest text-sm mb-6 text-brand-400">Contact</h4>
               <ul className="space-y-4 text-foreground/70">
-                 <li className="flex items-start gap-3 hover:text-white transition-colors group cursor-pointer">
-                   <MapPin size={18} className="shrink-0 mt-1 group-hover:text-brand-400 transition-colors" />
-                   <span>Liberty Avenue Brooklyn, 1097<br/>New York, NY 11208</span>
+                 <li>
+                   <a href="https://www.google.com/maps/search/?api=1&query=Liberty+Avenue+Brooklyn,+1097+New+York,+NY+11208" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-white transition-colors group cursor-pointer">
+                     <MapPin size={18} className="shrink-0 mt-1 group-hover:text-brand-400 transition-colors" />
+                     <span>Liberty Avenue Brooklyn, 1097<br/>New York, NY 11208</span>
+                   </a>
                  </li>
-                 <li className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
-                   <Mail size={18} className="group-hover:text-brand-400 transition-colors" /> lens@visualstudioslens.com
+                 <li>
+                   <a href="mailto:lens@visualstudioslens.com" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
+                     <Mail size={18} className="group-hover:text-brand-400 transition-colors" /> lens@visualstudioslens.com
+                   </a>
                  </li>
-                 <li className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
-                   <Phone size={18} className="group-hover:text-brand-400 transition-colors" /> +1 (929) 627-5537
+                 <li>
+                   <a href="tel:+19296275537" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
+                     <Phone size={18} className="group-hover:text-brand-400 transition-colors" /> +1 (929) 627-5537
+                   </a>
                  </li>
               </ul>
            </motion.div>
@@ -109,8 +115,8 @@ export function Footer() {
         <motion.div variants={itemVariants} className="pt-8 border-t border-foreground/20 flex flex-col md:flex-row items-center justify-between gap-4 text-xs tracking-widest uppercase text-foreground/50">
            <p>© {new Date().getFullYear()} Visual Studio. All rights reserved.</p>
            <div className="flex gap-6">
-              <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-              <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
+              <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
            </div>
         </motion.div>
 
