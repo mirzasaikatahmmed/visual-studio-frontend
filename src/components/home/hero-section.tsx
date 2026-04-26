@@ -24,15 +24,19 @@ export function HeroSection() {
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
-      <motion.div 
+      <motion.div
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" as const }}
-        className="absolute -inset-1 z-0 bg-cover bg-center brightness-[0.5]"
+        className="absolute -inset-1 z-0 bg-cover bg-center brightness-[0.45]"
         style={{ backgroundImage: "url('/hero-bg.png')" }}
       />
+      {/* Dark gradient overlay for text legibility */}
+      <div className="absolute inset-0 z-[1]" style={{
+        background: "radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.5) 100%)"
+      }} />
       
-      <div className="container relative z-10 mx-auto px-4 flex flex-col items-center text-center">
+      <div className="container relative z-[2] mx-auto px-4 flex flex-col items-center text-center">
         
         {/* Animated Hover Mask Title */}
         <div className="relative group cursor-default mx-auto inline-block text-center flex-col items-center justify-start">
@@ -92,12 +96,44 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 1.7 }}
           className="flex flex-col sm:flex-row gap-4 w-full px-8 sm:w-auto sm:px-0"
         >
-          <Link 
-            href="/portfolio" 
-            className="px-8 py-4 bg-white text-black font-bold uppercase tracking-widest text-xs hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+          <motion.div
+            whileHover={{ scale: 1.04, boxShadow: "0 8px 40px rgba(255,255,255,0.18), 0 2px 12px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.35)" }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="group relative rounded-sm overflow-hidden"
+            style={{
+              background: "rgba(255, 255, 255, 0.12)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              border: "1px solid rgba(255, 255, 255, 0.25)",
+              boxShadow: "0 4px 24px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.2)",
+            }}
           >
-            View Portfolio <ArrowRight size={16} />
-          </Link>
+            {/* shine sweep */}
+            <span
+              className="pointer-events-none absolute inset-0 translate-x-[-110%] group-hover:translate-x-[110%] transition-transform duration-700 ease-in-out z-0"
+              style={{
+                background: "linear-gradient(120deg, transparent 25%, rgba(255,255,255,0.35) 50%, transparent 75%)",
+              }}
+            />
+            {/* glass tint brighten on hover */}
+            <span className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
+              style={{ background: "rgba(255,255,255,0.07)" }}
+            />
+            <Link
+              href="/portfolio"
+              className="relative z-10 px-8 py-4 flex items-center justify-center gap-2 font-bold uppercase tracking-widest text-xs text-white"
+            >
+              <span className="group-hover:-translate-x-1 transition-transform duration-300">View Portfolio</span>
+              <motion.span
+                className="flex items-center"
+                animate={{ x: 0 }}
+                whileHover={{ x: 4 }}
+              >
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
+              </motion.span>
+            </Link>
+          </motion.div>
           <Link 
             href="/#services" 
             className="px-8 py-4 bg-transparent border border-white text-white font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-colors flex items-center justify-center"
@@ -119,7 +155,7 @@ export function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[2]"
       >
         <span className="text-white/50 text-xs tracking-widest uppercase">Scroll Explore</span>
         <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
