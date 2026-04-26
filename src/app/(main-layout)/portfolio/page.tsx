@@ -5,7 +5,7 @@ import { ExternalLink, X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-re
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-type Category = "All" | "Wedding Ceremony" | "Henna Ceremony" | "Group Pictures" | "Studio Photoshoot" | "Gender Reveal" | "Baby Shower Ceremony" | "Visual Studio Portfolio" | "Maternity Ceremony" | "Baby Photography" | "Birthday Ceremony";
+type Category = "Wedding Ceremony" | "Henna Ceremony" | "Group Pictures" | "Studio Photoshoot" | "Gender Reveal" | "Baby Shower Ceremony" | "Visual Studio Portfolio" | "Maternity Ceremony" | "Baby Photography" | "Birthday Ceremony";
 
 const portfolioData = [
   // Wedding Ceremony (5 images)
@@ -72,12 +72,12 @@ const portfolioData = [
   { src: "https://images.pixieset.com/121709211/4b1389eeefa3020e96187fbf2d8743f4-large.jpg", title: "Friends & Fun", category: "Birthday Ceremony", height: "80%" }
 ];
 
-const categories: Category[] = ["All", "Wedding Ceremony", "Henna Ceremony", "Group Pictures", "Studio Photoshoot", "Gender Reveal", "Baby Shower Ceremony", "Visual Studio Portfolio", "Maternity Ceremony", "Baby Photography", "Birthday Ceremony"];
+const categories: Category[] = ["Wedding Ceremony", "Henna Ceremony", "Group Pictures", "Studio Photoshoot", "Gender Reveal", "Baby Shower Ceremony", "Visual Studio Portfolio", "Maternity Ceremony", "Baby Photography", "Birthday Ceremony"];
 
 import { HeroSection } from "@/components/hero-section";
 
 export default function PortfolioPage() {
-  const [activeCategory, setActiveCategory] = useState<Category>("All");
+  const [activeCategory, setActiveCategory] = useState<Category>("Wedding Ceremony");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -134,7 +134,6 @@ export default function PortfolioPage() {
   }, []);
 
   const filteredData = useMemo(() => {
-    if (activeCategory === "All") return portfolioData;
     return portfolioData.filter(item => item.category === activeCategory);
   }, [activeCategory]);
 
