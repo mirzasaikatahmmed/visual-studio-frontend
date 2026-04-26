@@ -2,7 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronUp, ChevronDown } from "lucide-react";
 
 export function HeroSection() {
   const line1 = "Capturing Moments.";
@@ -135,17 +135,16 @@ export function HeroSection() {
             </Link>
           </motion.div>
           <Link 
-            href="/#services" 
-            className="px-8 py-4 bg-transparent border border-white text-white font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-colors flex items-center justify-center"
-          >
-            Explore Services
-          </Link>
-          <Link 
-            href="https://calendly.com/lens-xstudioslab/book-a-photography-session" 
-            target="_blank" rel="noopener noreferrer"
+            href="/contact" 
             className="px-8 py-4 bg-transparent border border-white/50 text-white font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-colors flex items-center justify-center"
           >
             Book a Session
+          </Link>
+          <Link 
+            href="/#services" 
+            className="px-8 py-4 bg-transparent border border-white text-white font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-colors flex items-center justify-center"
+          >
+            Explore More
           </Link>
         </motion.div>
       </div>
@@ -155,15 +154,19 @@ export function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[2]"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 z-[2]"
       >
-        <span className="text-white/50 text-xs tracking-widest uppercase">Scroll Explore</span>
-        <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
-            <motion.div 
-              animate={{ y: [0, 48, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-              className="absolute top-0 left-0 w-full h-1/2 bg-white" 
-            />
+        <span className="text-white/50 text-xs tracking-widest uppercase mb-1">Scroll Explore</span>
+        <div className="flex flex-col items-center text-white/50">
+          <ChevronUp size={16} />
+          <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden my-1">
+              <motion.div 
+                animate={{ y: [0, 24, 0] }}
+                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                className="absolute top-0 left-0 w-full h-1/2 bg-white" 
+              />
+          </div>
+          <ChevronDown size={16} />
         </div>
       </motion.div>
     </section>

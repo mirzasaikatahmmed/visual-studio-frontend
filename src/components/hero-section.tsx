@@ -50,9 +50,9 @@ export function HeroSection({ title, subtitle, desc, image }: HeroSectionProps) 
         initial="hidden"
         animate="visible"
       >
-        <motion.p variants={itemVariants} className="text-xs md:text-sm tracking-[0.3em] text-white/70 uppercase mb-4">{subtitle}</motion.p>
-        <motion.h1 variants={itemVariants} className="text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-6 leading-tight text-white drop-shadow-lg">{title}</motion.h1>
-        <motion.p variants={itemVariants} className="text-lg md:text-xl text-white/80 font-light max-w-xl mx-auto drop-shadow-md">
+        <motion.p variants={itemVariants} className="text-xs md:text-sm tracking-[0.3em] text-white font-semibold uppercase mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">{subtitle}</motion.p>
+        <motion.h1 variants={itemVariants} className="text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-6 leading-tight text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">{title}</motion.h1>
+        <motion.p variants={itemVariants} className="text-lg md:text-xl text-white font-medium max-w-xl mx-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)]">
           {desc}
         </motion.p>
       </motion.div>
