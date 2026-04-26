@@ -6,7 +6,9 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, MessageSquare, Camera, Video,
   Settings, Menu, X, ExternalLink,
-  Bell, LogOut, Aperture
+  Bell, LogOut, Aperture,
+  HelpCircle, Image, Grid, BookOpen,
+  Calendar, ShoppingBag, Star
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,6 +18,13 @@ const navLinks = [
   { href: "/admin/inquiries", label: "Inquiries", icon: MessageSquare, badge: 3 },
   { href: "/admin/portfolios", label: "Portfolios", icon: Camera },
   { href: "/admin/videos", label: "Videos", icon: Video },
+  { href: "/admin/events", label: "Events", icon: Calendar },
+  { href: "/admin/store", label: "Store", icon: ShoppingBag },
+  { href: "/admin/testimonials", label: "Testimonials", icon: Star },
+  { href: "/admin/visual-marketing", label: "Visual Mktg", icon: Image },
+  { href: "/admin/more-services", label: "Services", icon: Grid },
+  { href: "/admin/our-story", label: "Our Story", icon: BookOpen },
+  { href: "/admin/faq", label: "FAQ", icon: HelpCircle },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
