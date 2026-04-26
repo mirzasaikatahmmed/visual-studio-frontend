@@ -178,7 +178,6 @@ export default function PortfolioPage() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-3xl md:text-4xl font-extrabold tracking-tighter uppercase text-foreground"
-            style={{ textShadow: "0 0 15px rgba(221, 148, 84, 0.6), 0 0 30px rgba(221, 148, 84, 0.4)" }}
           >
             Portfolio
           </motion.h2>
@@ -285,7 +284,7 @@ export default function PortfolioPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-5 bg-white text-black rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] transition-all duration-300"
             >
-              Explore Pixieset <ExternalLink size={18} />
+              Explore Gallery <ExternalLink size={18} />
             </motion.a>
           </div>
         </motion.div>
