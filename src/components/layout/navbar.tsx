@@ -53,25 +53,39 @@ export function Navbar() {
       }`}
     >
       <div
-        className={`container max-w-[95%] xl:max-w-7xl mx-auto flex items-center justify-between px-5 md:px-8 lg:px-10 rounded-full md:rounded-[2rem] relative z-50 transition-all duration-500 
-          bg-[#18181A]/40 backdrop-blur-md
-          border-2 border-white/20 shadow-[inset_1px_1px_3px_rgba(255,255,255,0.2),inset_-1px_-1px_3px_rgba(255,255,255,0.05),0_10px_30px_rgba(0,0,0,0.25)]
+        className={`group container max-w-[95%] xl:max-w-7xl mx-auto flex items-center justify-between px-5 md:px-8 lg:px-10 rounded-full md:rounded-[2rem] relative z-50 transition-all duration-500 
+          backdrop-blur-md border border-black/10 dark:border-white/25
+          bg-white/40 dark:bg-white/10
+          shadow-[0_4px_24px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.6)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.2)]
           ${isScrolled ? "py-2 md:py-3" : "py-3 md:py-5"}
         `}
       >
-        <Link href="/" className="text-xl md:text-2xl font-extrabold tracking-tighter uppercase relative z-50 text-white">
+        {/* Background animation wrapper */}
+        <div className="absolute inset-0 overflow-hidden rounded-full md:rounded-[2rem] pointer-events-none z-[-1]">
+          {/* shine sweep */}
+          <span
+            className="absolute inset-0 translate-x-[-110%] group-hover:translate-x-[110%] transition-transform duration-1000 ease-in-out"
+            style={{
+              background: "linear-gradient(120deg, transparent 25%, rgba(255,255,255,0.35) 50%, transparent 75%)",
+            }}
+          />
+          {/* glass tint brighten on hover */}
+          <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/30 dark:bg-white/5" />
+        </div>
+
+        <Link href="/" className="text-xl md:text-2xl font-extrabold tracking-tighter uppercase relative z-50 text-foreground">
           Visual Studio
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-0 xl:gap-1">
+        <nav className="hidden lg:flex items-center gap-0 xl:gap-1 relative z-50">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link
                 key={link.name}
                 href={link.href}
-                className={`relative flex items-center justify-center px-2 py-4 transition-colors ${isActive ? "text-white" : "text-white/40 hover:text-white/80"
+                className={`relative flex items-center justify-center px-2 py-4 transition-colors ${isActive ? "text-foreground" : "text-foreground/50 hover:text-foreground/90"
                   }`}
               >
                 <span className="text-xs font-bold tracking-wider uppercase">{link.name}</span>
@@ -90,10 +104,10 @@ export function Navbar() {
 
         {/* Desktop CTA */}
         <div className="hidden lg:flex items-center gap-4 relative z-50">
-          <ThemeToggle className="!text-white hover:!bg-white/10 hover:!text-white/80" />
+          <ThemeToggle className="!text-foreground hover:!bg-foreground/5 hover:!text-foreground/80" />
           <Link
             href="/contact"
-            className="px-6 py-2 bg-white text-black text-xs font-bold uppercase tracking-widest rounded-full hover:bg-gray-200 transition-opacity"
+            className="px-6 py-2 bg-foreground text-background text-xs font-bold uppercase tracking-widest rounded-full hover:opacity-80 transition-opacity"
           >
             Book Now
           </Link>
@@ -101,9 +115,9 @@ export function Navbar() {
 
         {/* Mobile Toggle */}
         <div className="flex items-center gap-2 lg:hidden relative z-50">
-          <ThemeToggle className="!text-white hover:!bg-white/10 hover:!text-white/80" />
+          <ThemeToggle className="!text-foreground hover:!bg-foreground/5 hover:!text-foreground/80" />
           <button
-            className="p-2 text-white hover:text-white/80 transition-colors"
+            className="p-2 text-foreground hover:text-foreground/80 transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
