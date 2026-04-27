@@ -69,8 +69,8 @@ export function ScrollToTop() {
             {/* Gradient Definition for the line */}
             <defs>
               <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#e879f9" /> {/* brand-400 */}
-                <stop offset="100%" stopColor="#9333ea" /> {/* brand-600 */}
+                <stop offset="0%" stopColor="#dd9454" />
+                <stop offset="100%" stopColor="#b07d4a" />
               </linearGradient>
             </defs>
           </svg>

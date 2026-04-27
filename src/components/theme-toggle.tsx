@@ -50,7 +50,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       </Button>
 
       <AnimatePresence>
-        {(showSuggestion || isHovered) && theme !== "dark" && (
+        {(showSuggestion || isHovered) && (
           <motion.div
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
@@ -59,10 +59,10 @@ export function ThemeToggle({ className }: { className?: string }) {
             className="absolute top-full mt-2 w-max z-50 flex flex-col items-center pointer-events-none"
           >
             {/* Small Upward Arrow */}
-            <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[5px] border-b-gray-800" />
+            <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[5px] border-b-gray-800 dark:border-b-gray-200" />
             {/* Tooltip Box */}
-            <div className="bg-gray-800 text-white text-[10px] sm:text-xs font-medium px-2 py-1 rounded shadow-md tracking-wide">
-              Try Dark Mode
+            <div className="bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 text-[10px] sm:text-xs font-medium px-2 py-1 rounded shadow-md tracking-wide">
+              {theme === "dark" ? "Try Light Mode" : "Try Dark Mode"}
             </div>
           </motion.div>
         )}
