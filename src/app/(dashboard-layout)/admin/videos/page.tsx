@@ -1,7 +1,7 @@
 "use client";
 
-import { Plus, Trash2, Edit2, PlayCircle, ExternalLink, Video, Link as LinkIcon } from "lucide-react";
-import { useState } from "react";
+import { Plus, Trash2, Edit2, PlayCircle, ExternalLink, Video, Link as LinkIcon, Upload, Image as ImageIcon } from "lucide-react";
+import { useState, useRef } from "react";
 import { Modal } from "@/components/ui/modal";
 
 type Video = {
@@ -36,17 +36,29 @@ export default function VideosPage() {
   const [modal, setModal] = useState(false);
   const [editingVideo, setEditingVideo] = useState<Video | null>(null);
   const [form, setForm] = useState(blankVideo());
+  const [thumbMode, setThumbMode] = useState<"url" | "upload">("url");
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const openAdd = () => {
     setEditingVideo(null);
     setForm(blankVideo());
+    setThumbMode("url");
     setModal(true);
   };
 
   const openEdit = (v: Video) => {
     setEditingVideo(v);
     setForm({ title: v.title, category: v.category, platform: v.platform, embedUrl: v.embedUrl, thumbnailUrl: v.thumbnailUrl, featured: v.featured });
+    setThumbMode(v.thumbnailUrl.startsWith("data:") ? "upload" : "url");
     setModal(true);
+  };
+
+  const handleFileRead = (file: File) => {
+    if (!file.type.startsWith("image/")) return;
+    const reader = new FileReader();
+    reader.onload = (e) => setForm(f => ({ ...f, thumbnailUrl: e.target?.result as string }));
+    reader.readAsDataURL(file);
   };
 
   const handleSave = (e: React.FormEvent) => {
@@ -237,15 +249,63 @@ export default function VideosPage() {
             />
             <p className="text-xs text-muted-foreground">Use YouTube embed URL (youtube.com/embed/ID) or Vimeo player URL.</p>
           </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Thumbnail URL</label>
-            <input
-              type="url"
-              placeholder="https://images.unsplash.com/..."
-              className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
-              value={form.thumbnailUrl}
-              onChange={(e) => setForm({ ...form, thumbnailUrl: e.target.value })}
-            />
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Thumbnail</label>
+            {/* Mode toggle */}
+            <div className="flex gap-1 p-1 bg-muted rounded-sm w-fit">
+              <button
+                type="button"
+                onClick={() => setThumbMode("url")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${thumbMode === "url" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <LinkIcon size={11} /> Paste URL
+              </button>
+              <button
+                type="button"
+                onClick={() => setThumbMode("upload")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${thumbMode === "upload" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <Upload size={11} /> Upload File
+              </button>
+            </div>
+
+            {thumbMode === "url" ? (
+              <input
+                type="url"
+                placeholder="https://images.unsplash.com/..."
+                className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
+                value={form.thumbnailUrl.startsWith("data:") ? "" : form.thumbnailUrl}
+                onChange={(e) => setForm({ ...form, thumbnailUrl: e.target.value })}
+              />
+            ) : (
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                onDragLeave={() => setIsDragging(false)}
+                onDrop={(e) => { e.preventDefault(); setIsDragging(false); const f = e.dataTransfer.files?.[0]; if (f) handleFileRead(f); }}
+                className={`w-full border-2 border-dashed rounded-sm py-7 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors ${isDragging ? "border-brand-400 bg-brand-400/5" : "border-border hover:border-brand-400/50 hover:bg-muted/50"}`}
+              >
+                <ImageIcon size={22} className="text-muted-foreground" />
+                <p className="text-sm font-medium">Drop thumbnail here or <span className="text-brand-400">browse</span></p>
+                <p className="text-xs text-muted-foreground">PNG, JPG, WEBP supported</p>
+                <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFileRead(f); }} />
+              </div>
+            )}
+
+            {/* Preview */}
+            {form.thumbnailUrl && (
+              <div className="aspect-video bg-muted rounded-sm overflow-hidden relative mt-1">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={form.thumbnailUrl} alt="Thumbnail preview" className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => setForm(f => ({ ...f, thumbnailUrl: "" }))}
+                  className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded hover:bg-red-500 transition-colors"
+                >
+                  Remove
+                </button>
+              </div>
+            )}
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">

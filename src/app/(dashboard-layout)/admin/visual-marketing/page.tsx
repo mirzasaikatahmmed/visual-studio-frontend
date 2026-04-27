@@ -1,7 +1,7 @@
 "use client";
 
-import { Plus, Trash2, Edit2 } from "lucide-react";
-import { useState } from "react";
+import { Plus, Trash2, Edit2, Upload, Link as LinkIcon } from "lucide-react";
+import { useState, useRef } from "react";
 import { Modal } from "@/components/ui/modal";
 
 type Client = {
@@ -38,21 +38,43 @@ export default function VisualMarketingPage() {
   const [clientModal, setClientModal] = useState(false);
   const [editingClient, setEditingClient] = useState<Client | null>(null);
   const [clientForm, setClientForm] = useState({ name: "", logoUrl: "" });
+  const [logoMode, setLogoMode] = useState<"url" | "upload">("url");
+  const [isDragging, setIsDragging] = useState(false);
+  const logoFileRef = useRef<HTMLInputElement>(null);
 
   // Work Modal State
   const [workModal, setWorkModal] = useState(false);
   const [editingWork, setEditingWork] = useState<WorkImage | null>(null);
   const [workForm, setWorkForm] = useState({ title: "", category: "Commercial", url: "" });
+  const [workMode, setWorkMode] = useState<"url" | "upload">("url");
+  const [isWorkDragging, setIsWorkDragging] = useState(false);
+  const workFileRef = useRef<HTMLInputElement>(null);
+
+  const handleWorkFileRead = (file: File) => {
+    if (!file.type.startsWith("image/")) return;
+    const reader = new FileReader();
+    reader.onload = (e) => setWorkForm(f => ({ ...f, url: e.target?.result as string }));
+    reader.readAsDataURL(file);
+  };
+
+  const handleLogoFileRead = (file: File) => {
+    if (!file.type.startsWith("image/")) return;
+    const reader = new FileReader();
+    reader.onload = (e) => setClientForm(f => ({ ...f, logoUrl: e.target?.result as string }));
+    reader.readAsDataURL(file);
+  };
 
   // Client actions
   const openAddClient = () => {
     setEditingClient(null);
     setClientForm({ name: "", logoUrl: "" });
+    setLogoMode("url");
     setClientModal(true);
   };
   const openEditClient = (c: Client) => {
     setEditingClient(c);
     setClientForm({ name: c.name, logoUrl: c.logoUrl });
+    setLogoMode(c.logoUrl.startsWith("data:") ? "upload" : "url");
     setClientModal(true);
   };
   const handleSaveClient = (e: React.FormEvent) => {
@@ -72,11 +94,13 @@ export default function VisualMarketingPage() {
   const openAddWork = () => {
     setEditingWork(null);
     setWorkForm({ title: "", category: "Commercial", url: "" });
+    setWorkMode("url");
     setWorkModal(true);
   };
   const openEditWork = (w: WorkImage) => {
     setEditingWork(w);
     setWorkForm({ title: w.title, category: w.category, url: w.url });
+    setWorkMode(w.url.startsWith("data:") ? "upload" : "url");
     setWorkModal(true);
   };
   const handleSaveWork = (e: React.FormEvent) => {
@@ -171,22 +195,86 @@ export default function VisualMarketingPage() {
         </div>
       )}
 
+      {/* Client Modal */}
       <Modal isOpen={clientModal} onClose={() => setClientModal(false)} title={editingClient ? "Edit Client" : "Add Client"}>
         <form onSubmit={handleSaveClient} className="space-y-5">
           <div className="space-y-1.5">
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Client Name *</label>
-            <input type="text" className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm" value={clientForm.name} onChange={(e) => setClientForm({ ...clientForm, name: e.target.value })} required />
+            <input
+              type="text"
+              className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
+              value={clientForm.name}
+              onChange={(e) => setClientForm({ ...clientForm, name: e.target.value })}
+              required
+            />
           </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Logo URL *</label>
-            <input type="url" className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm" value={clientForm.logoUrl} onChange={(e) => setClientForm({ ...clientForm, logoUrl: e.target.value })} required />
-          </div>
-          {clientForm.logoUrl && (
-            <div className="h-32 bg-muted flex items-center justify-center p-4 border border-border rounded">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={clientForm.logoUrl} alt="Preview" className="max-h-full max-w-full object-contain" />
+
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Logo *</label>
+            {/* Mode toggle */}
+            <div className="flex gap-1 p-1 bg-muted rounded-sm w-fit">
+              <button
+                type="button"
+                onClick={() => setLogoMode("url")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${logoMode === "url" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <LinkIcon size={11} /> Paste URL
+              </button>
+              <button
+                type="button"
+                onClick={() => setLogoMode("upload")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${logoMode === "upload" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <Upload size={11} /> Upload File
+              </button>
             </div>
-          )}
+
+            {logoMode === "url" ? (
+              <input
+                type="url"
+                placeholder="https://cdn.example.com/logo.png"
+                className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
+                value={clientForm.logoUrl.startsWith("data:") ? "" : clientForm.logoUrl}
+                onChange={(e) => setClientForm({ ...clientForm, logoUrl: e.target.value })}
+                required={logoMode === "url" && !clientForm.logoUrl}
+              />
+            ) : (
+              <div
+                onClick={() => logoFileRef.current?.click()}
+                onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                onDragLeave={() => setIsDragging(false)}
+                onDrop={(e) => { e.preventDefault(); setIsDragging(false); const f = e.dataTransfer.files?.[0]; if (f) handleLogoFileRead(f); }}
+                className={`w-full border-2 border-dashed rounded-sm py-8 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors ${isDragging ? "border-brand-400 bg-brand-400/5" : "border-border hover:border-brand-400/50 hover:bg-muted/50"}`}
+              >
+                <Upload size={22} className="text-muted-foreground" />
+                <p className="text-sm font-medium">Drop logo here or <span className="text-brand-400">browse</span></p>
+                <p className="text-xs text-muted-foreground">PNG, JPG, SVG, WEBP supported</p>
+                <input
+                  ref={logoFileRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => { const f = e.target.files?.[0]; if (f) handleLogoFileRead(f); }}
+                />
+              </div>
+            )}
+
+            {/* Preview */}
+            {clientForm.logoUrl && (
+              <div className="h-28 bg-muted flex items-center justify-center p-4 border border-border rounded-sm relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={clientForm.logoUrl} alt="Logo preview" className="max-h-full max-w-full object-contain" />
+                <button
+                  type="button"
+                  onClick={() => setClientForm(f => ({ ...f, logoUrl: "" }))}
+                  className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-0.5 rounded hover:bg-red-500 transition-colors"
+                >
+                  Remove
+                </button>
+              </div>
+            )}
+          </div>
+
           <button type="submit" className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 rounded-sm">
             Save Client
           </button>
@@ -199,9 +287,62 @@ export default function VisualMarketingPage() {
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Image Title *</label>
             <input type="text" className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm" value={workForm.title} onChange={(e) => setWorkForm({ ...workForm, title: e.target.value })} required />
           </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Image URL *</label>
-            <input type="url" className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm" value={workForm.url} onChange={(e) => setWorkForm({ ...workForm, url: e.target.value })} required />
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Image *</label>
+            <div className="flex gap-1 p-1 bg-muted rounded-sm w-fit">
+              <button
+                type="button"
+                onClick={() => setWorkMode("url")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${workMode === "url" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <LinkIcon size={11} /> Paste URL
+              </button>
+              <button
+                type="button"
+                onClick={() => setWorkMode("upload")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${workMode === "upload" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <Upload size={11} /> Upload File
+              </button>
+            </div>
+
+            {workMode === "url" ? (
+              <input
+                type="url"
+                placeholder="https://images.unsplash.com/..."
+                className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
+                value={workForm.url.startsWith("data:") ? "" : workForm.url}
+                onChange={(e) => setWorkForm({ ...workForm, url: e.target.value })}
+                required={workMode === "url" && !workForm.url}
+              />
+            ) : (
+              <div
+                onClick={() => workFileRef.current?.click()}
+                onDragOver={(e) => { e.preventDefault(); setIsWorkDragging(true); }}
+                onDragLeave={() => setIsWorkDragging(false)}
+                onDrop={(e) => { e.preventDefault(); setIsWorkDragging(false); const f = e.dataTransfer.files?.[0]; if (f) handleWorkFileRead(f); }}
+                className={`w-full border-2 border-dashed rounded-sm py-8 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors ${isWorkDragging ? "border-brand-400 bg-brand-400/5" : "border-border hover:border-brand-400/50 hover:bg-muted/50"}`}
+              >
+                <Upload size={22} className="text-muted-foreground" />
+                <p className="text-sm font-medium">Drop image here or <span className="text-brand-400">browse</span></p>
+                <p className="text-xs text-muted-foreground">PNG, JPG, WEBP supported</p>
+                <input ref={workFileRef} type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleWorkFileRead(f); }} />
+              </div>
+            )}
+
+            {workForm.url && (
+              <div className="aspect-video bg-muted rounded-sm overflow-hidden relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={workForm.url} alt="Preview" className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => setWorkForm(f => ({ ...f, url: "" }))}
+                  className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded hover:bg-red-500 transition-colors"
+                >
+                  Remove
+                </button>
+              </div>
+            )}
           </div>
           <div className="space-y-1.5">
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Category</label>

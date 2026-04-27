@@ -1,7 +1,7 @@
 "use client";
 
-import { Plus, Trash2, Edit2, Clock } from "lucide-react";
-import { useState } from "react";
+import { Plus, Trash2, Edit2, Clock, Upload, Link as LinkIcon } from "lucide-react";
+import { useState, useRef } from "react";
 import { Modal } from "@/components/ui/modal";
 
 type TimelineEvent = {
@@ -42,6 +42,16 @@ export default function OurStoryPage() {
   const [teamModal, setTeamModal] = useState(false);
   const [editingTeam, setEditingTeam] = useState<TeamMember | null>(null);
   const [teamForm, setTeamForm] = useState({ name: "", role: "", imageUrl: "" });
+  const [imgMode, setImgMode] = useState<"url" | "upload">("url");
+  const [isDragging, setIsDragging] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const handleFileRead = (file: File) => {
+    if (!file.type.startsWith("image/")) return;
+    const reader = new FileReader();
+    reader.onload = (e) => setTeamForm(f => ({ ...f, imageUrl: e.target?.result as string }));
+    reader.readAsDataURL(file);
+  };
 
   // Timeline actions
   const openAddTimeline = () => {
@@ -71,11 +81,13 @@ export default function OurStoryPage() {
   const openAddTeam = () => {
     setEditingTeam(null);
     setTeamForm({ name: "", role: "", imageUrl: "" });
+    setImgMode("url");
     setTeamModal(true);
   };
   const openEditTeam = (t: TeamMember) => {
     setEditingTeam(t);
     setTeamForm({ name: t.name, role: t.role, imageUrl: t.imageUrl });
+    setImgMode(t.imageUrl.startsWith("data:") ? "upload" : "url");
     setTeamModal(true);
   };
   const handleSaveTeam = (e: React.FormEvent) => {
@@ -134,9 +146,7 @@ export default function OurStoryPage() {
                   <button onClick={() => openEditTimeline(event)} className="p-1 text-muted-foreground hover:text-foreground"><Edit2 size={14} /></button>
                   <button onClick={() => handleDeleteTimeline(event.id)} className="p-1 text-muted-foreground hover:text-red-500"><Trash2 size={14} /></button>
                 </div>
-                <div className="flex items-center justify-between mb-1">
-                  <div className="font-bold text-brand-400">{event.year}</div>
-                </div>
+                <div className="font-bold text-brand-400 mb-1">{event.year}</div>
                 <div className="font-bold text-lg mb-1">{event.title}</div>
                 <div className="text-muted-foreground text-sm leading-relaxed">{event.description}</div>
               </div>
@@ -173,6 +183,7 @@ export default function OurStoryPage() {
         </div>
       )}
 
+      {/* Timeline Modal */}
       <Modal isOpen={timelineModal} onClose={() => setTimelineModal(false)} title={editingTimeline ? "Edit Timeline Event" : "Add Timeline Event"}>
         <form onSubmit={handleSaveTimeline} className="space-y-5">
           <div className="space-y-1.5">
@@ -193,6 +204,7 @@ export default function OurStoryPage() {
         </form>
       </Modal>
 
+      {/* Team Member Modal */}
       <Modal isOpen={teamModal} onClose={() => setTeamModal(false)} title={editingTeam ? "Edit Team Member" : "Add Team Member"}>
         <form onSubmit={handleSaveTeam} className="space-y-5">
           <div className="space-y-1.5">
@@ -203,10 +215,65 @@ export default function OurStoryPage() {
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Role *</label>
             <input type="text" placeholder="e.g. Lead Photographer" className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm" value={teamForm.role} onChange={(e) => setTeamForm({ ...teamForm, role: e.target.value })} required />
           </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Image URL *</label>
-            <input type="url" className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm" value={teamForm.imageUrl} onChange={(e) => setTeamForm({ ...teamForm, imageUrl: e.target.value })} required />
+
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Photo *</label>
+            <div className="flex gap-1 p-1 bg-muted rounded-sm w-fit">
+              <button
+                type="button"
+                onClick={() => setImgMode("url")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${imgMode === "url" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <LinkIcon size={11} /> Paste URL
+              </button>
+              <button
+                type="button"
+                onClick={() => setImgMode("upload")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${imgMode === "upload" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <Upload size={11} /> Upload File
+              </button>
+            </div>
+
+            {imgMode === "url" ? (
+              <input
+                type="url"
+                placeholder="https://images.unsplash.com/..."
+                className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
+                value={teamForm.imageUrl.startsWith("data:") ? "" : teamForm.imageUrl}
+                onChange={(e) => setTeamForm({ ...teamForm, imageUrl: e.target.value })}
+                required={imgMode === "url" && !teamForm.imageUrl}
+              />
+            ) : (
+              <div
+                onClick={() => fileRef.current?.click()}
+                onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                onDragLeave={() => setIsDragging(false)}
+                onDrop={(e) => { e.preventDefault(); setIsDragging(false); const f = e.dataTransfer.files?.[0]; if (f) handleFileRead(f); }}
+                className={`w-full border-2 border-dashed rounded-sm py-8 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors ${isDragging ? "border-brand-400 bg-brand-400/5" : "border-border hover:border-brand-400/50 hover:bg-muted/50"}`}
+              >
+                <Upload size={22} className="text-muted-foreground" />
+                <p className="text-sm font-medium">Drop photo here or <span className="text-brand-400">browse</span></p>
+                <p className="text-xs text-muted-foreground">PNG, JPG, WEBP supported</p>
+                <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFileRead(f); }} />
+              </div>
+            )}
+
+            {teamForm.imageUrl && (
+              <div className="aspect-[3/4] max-h-48 bg-muted rounded-sm overflow-hidden relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={teamForm.imageUrl} alt="Preview" className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => setTeamForm(f => ({ ...f, imageUrl: "" }))}
+                  className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded hover:bg-red-500 transition-colors"
+                >
+                  Remove
+                </button>
+              </div>
+            )}
           </div>
+
           <button type="submit" className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 rounded-sm">
             Save Member
           </button>
