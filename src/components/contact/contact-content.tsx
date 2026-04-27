@@ -183,7 +183,7 @@ export function ContactContent() {
        >
          {/* Simple Map Placeholder */}
          <iframe 
-           src="https://maps.google.com/maps?q=1097+Liberty+Ave,+Brooklyn,+NY+11208&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+           src="https://maps.google.com/maps?q=40.678613,-73.868806&t=&z=17&ie=UTF8&iwloc=&output=embed"
            width="100%" 
            height="100%" 
            style={{ border: 0 }} 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, Trash2, Edit2, Image as ImageIcon, Briefcase } from "lucide-react";
+import { Plus, Trash2, Edit2 } from "lucide-react";
 import { useState } from "react";
 import { Modal } from "@/components/ui/modal";
 
@@ -135,6 +135,7 @@ export default function VisualMarketingPage() {
                   <Trash2 size={12} />
                 </button>
               </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={client.logoUrl} alt={client.name} className="max-w-[70%] max-h-[50%] object-contain mb-3" />
               <div className="text-xs font-bold uppercase tracking-widest text-center text-muted-foreground">{client.name}</div>
             </div>
@@ -182,7 +183,8 @@ export default function VisualMarketingPage() {
           </div>
           {clientForm.logoUrl && (
             <div className="h-32 bg-muted flex items-center justify-center p-4 border border-border rounded">
-              <img src={clientForm.logoUrl} alt="Preview" className="max-h-full max-w-full object-contain" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={clientForm.logoUrl} alt="Preview" className="max-h-full max-w-full object-contain" />
             </div>
           )}
           <button type="submit" className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 rounded-sm">

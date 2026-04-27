@@ -10,26 +10,26 @@ import { Button } from "@/components/ui/button";
 
 export function ThemeToggle({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [showSuggestion, setShowSuggestion] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSuggestion(true);
-    }, 500); // slight delay to allow hydration
-
-    const hideTimer = setTimeout(() => {
-      setShowSuggestion(false);
-    }, 5500); // hide after 5 seconds
+    const mountTimer = setTimeout(() => setMounted(true), 0);
+    const timer = setTimeout(() => setShowSuggestion(true), 500);
+    const hideTimer = setTimeout(() => setShowSuggestion(false), 5500);
 
     return () => {
+      clearTimeout(mountTimer);
       clearTimeout(timer);
       clearTimeout(hideTimer);
     };
   }, []);
 
+  const isLight = mounted && theme === "light";
+
   return (
-    <div 
+    <div
       className="relative inline-flex flex-col items-center"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -42,7 +42,11 @@ export function ThemeToggle({ className }: { className?: string }) {
           setShowSuggestion(false);
           setIsHovered(false);
         }}
-        className={`text-foreground hover:bg-foreground/10 hover:text-foreground/80 rounded-full ${className || ''}`}
+        className={`rounded-full transition-all duration-300 ${
+          isLight
+            ? "text-yellow-500 shadow-[0_0_12px_4px_rgba(234,179,8,0.5)] hover:shadow-[0_0_18px_6px_rgba(234,179,8,0.6)] hover:bg-yellow-400/10"
+            : "text-foreground hover:bg-foreground/10 hover:text-foreground/80"
+        } ${className || ""}`}
         aria-label="Toggle theme"
       >
         <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -58,9 +62,7 @@ export function ThemeToggle({ className }: { className?: string }) {
             transition={{ duration: 0.3 }}
             className="absolute top-full mt-2 w-max z-50 flex flex-col items-center pointer-events-none"
           >
-            {/* Small Upward Arrow */}
             <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[5px] border-b-gray-800 dark:border-b-gray-200" />
-            {/* Tooltip Box */}
             <div className="bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 text-[10px] sm:text-xs font-medium px-2 py-1 rounded shadow-md tracking-wide">
               {theme === "dark" ? "Try Light Mode" : "Try Dark Mode"}
             </div>
