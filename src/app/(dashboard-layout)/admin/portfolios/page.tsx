@@ -1,7 +1,7 @@
 "use client";
 
-import { Plus, Trash2, Edit2, ExternalLink, Tag, Image as ImageIcon } from "lucide-react";
-import { useState } from "react";
+import { Plus, Trash2, Edit2, ExternalLink, Tag, Image as ImageIcon, Upload, Link as LinkIcon } from "lucide-react";
+import { useState, useRef } from "react";
 import { Modal } from "@/components/ui/modal";
 
 type PortfolioImage = {
@@ -46,6 +46,9 @@ export default function PortfoliosPage() {
   const [imageModal, setImageModal] = useState(false);
   const [editingImage, setEditingImage] = useState<PortfolioImage | null>(null);
   const [imageForm, setImageForm] = useState(blankImage());
+  const [imageInputMode, setImageInputMode] = useState<"url" | "upload">("url");
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [catModal, setCatModal] = useState(false);
   const [catForm, setCatForm] = useState({ name: "", slug: "" });
@@ -53,13 +56,37 @@ export default function PortfoliosPage() {
   const openAddImage = () => {
     setEditingImage(null);
     setImageForm(blankImage());
+    setImageInputMode("url");
     setImageModal(true);
   };
 
   const openEditImage = (img: PortfolioImage) => {
     setEditingImage(img);
     setImageForm({ title: img.title, category: img.category, url: img.url, alt: img.alt });
+    setImageInputMode(img.url.startsWith("data:") ? "upload" : "url");
     setImageModal(true);
+  };
+
+  const handleFileRead = (file: File) => {
+    if (!file.type.startsWith("image/")) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      setImageForm(f => ({ ...f, url: result }));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) handleFileRead(file);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) handleFileRead(file);
   };
 
   const handleSaveImage = (e: React.FormEvent) => {
@@ -257,17 +284,55 @@ export default function PortfoliosPage() {
               required
             />
           </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Image URL *</label>
-            <input
-              type="url"
-              placeholder="https://images.unsplash.com/..."
-              className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
-              value={imageForm.url}
-              onChange={(e) => setImageForm({ ...imageForm, url: e.target.value })}
-              required
-            />
-            <p className="text-xs text-muted-foreground">Enter a direct image URL (Unsplash, Pixieset CDN, etc.)</p>
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Image *</label>
+            {/* Mode toggle */}
+            <div className="flex gap-1 p-1 bg-muted rounded-sm w-fit">
+              <button
+                type="button"
+                onClick={() => setImageInputMode("url")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${imageInputMode === "url" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <LinkIcon size={11} /> Paste URL
+              </button>
+              <button
+                type="button"
+                onClick={() => setImageInputMode("upload")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${imageInputMode === "upload" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <Upload size={11} /> Upload File
+              </button>
+            </div>
+
+            {imageInputMode === "url" ? (
+              <input
+                type="url"
+                placeholder="https://images.unsplash.com/..."
+                className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
+                value={imageForm.url.startsWith("data:") ? "" : imageForm.url}
+                onChange={(e) => setImageForm({ ...imageForm, url: e.target.value })}
+                required={imageInputMode === "url" && !imageForm.url}
+              />
+            ) : (
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                onDragLeave={() => setIsDragging(false)}
+                onDrop={handleDrop}
+                className={`w-full border-2 border-dashed rounded-sm py-8 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors ${isDragging ? "border-brand-400 bg-brand-400/5" : "border-border hover:border-brand-400/50 hover:bg-muted/50"}`}
+              >
+                <Upload size={22} className="text-muted-foreground" />
+                <p className="text-sm font-medium">Drop image here or <span className="text-brand-400">browse</span></p>
+                <p className="text-xs text-muted-foreground">PNG, JPG, WEBP supported</p>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleFileChange}
+                />
+              </div>
+            )}
           </div>
           <div className="space-y-1.5">
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Alt Text (SEO)</label>
