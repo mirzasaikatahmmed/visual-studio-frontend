@@ -83,7 +83,7 @@ export function Footer() {
               <h4 className="font-bold uppercase tracking-widest text-sm mb-6 text-brand-400">Contact</h4>
               <ul className="space-y-4 text-foreground/70">
                  <li>
-                   <a href="https://www.google.com/maps/search/?api=1&query=Liberty+Avenue+Brooklyn,+1097+New+York,+NY+11208" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-white transition-colors group cursor-pointer">
+                   <a href="https://www.google.com/maps/place/Visual+Studios+%26+Events+%7C+Photography+%7C+Videography/@40.678613,-73.868806,17z/data=!3m1!4b1!4m6!3m5!1s0x89c25d96f51665f1:0x244b25616269adcb!8m2!3d40.678613!4d-73.868806!16s%2Fg%2F11t_prw046" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-white transition-colors group cursor-pointer">
                      <MapPin size={18} className="shrink-0 mt-1 group-hover:text-brand-400 transition-colors" />
                      <span>Liberty Avenue Brooklyn, 1097<br/>New York, NY 11208</span>
                    </a>

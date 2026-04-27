@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, Trash2, Edit2, Users, Clock } from "lucide-react";
+import { Plus, Trash2, Edit2, Clock } from "lucide-react";
 import { useState } from "react";
 import { Modal } from "@/components/ui/modal";
 
@@ -124,7 +124,7 @@ export default function OurStoryPage() {
 
       {activeTab === "timeline" && (
         <div className="space-y-4 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
-          {timeline.map((event, index) => (
+          {timeline.map((event) => (
             <div key={event.id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
               <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-muted text-muted-foreground shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow">
                 <Clock size={16} />
