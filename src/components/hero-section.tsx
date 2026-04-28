@@ -27,7 +27,7 @@ export function HeroSection({ title, subtitle, desc, image }: HeroSectionProps) 
   return (
     <section className="relative w-full h-[40vh] md:h-[50vh] lg:h-[60vh] xl:h-[65vh] max-h-[700px] flex flex-col justify-center items-center overflow-hidden">
       <div className="absolute inset-0 z-0 bg-background">
-        <motion.div 
+        <motion.div
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 0.4 }}
           transition={{ duration: 1.5, ease: "easeOut" as const }}
@@ -43,16 +43,16 @@ export function HeroSection({ title, subtitle, desc, image }: HeroSectionProps) 
         {/* Dark overlay at top for navbar contrast */}
         <div className="absolute inset-x-0 top-0 h-24 md:h-32 bg-gradient-to-b from-black/80 to-transparent" />
       </div>
-      
-      <motion.div 
-        className="relative z-10 text-center px-4 max-w-3xl mt-16 md:mt-20"
+
+      <motion.div
+        className="relative z-10 text-center mb-20 md:mb-0 px-4 max-w-3xl mt-30 md:mt-20"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         <motion.p variants={itemVariants} className="text-xs md:text-sm tracking-[0.3em] text-white font-semibold uppercase mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">{subtitle}</motion.p>
-        <motion.h1 variants={itemVariants} className="text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-6 leading-tight text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">{title}</motion.h1>
-        <motion.p variants={itemVariants} className="text-lg md:text-xl text-white font-medium max-w-xl mx-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)]">
+        <motion.h1 variants={itemVariants} className="text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-6 leading-tight text-white text-shadow-lg drop-shadow-lg">{title}</motion.h1>
+        <motion.p variants={itemVariants} className="text-sm md:text-xl text-white font-medium max-w-xl mx-auto text-shadow-lg">
           {desc}
         </motion.p>
       </motion.div>
