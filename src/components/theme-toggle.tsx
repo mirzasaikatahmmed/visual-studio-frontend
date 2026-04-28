@@ -44,7 +44,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         }}
         className={`rounded-full transition-all duration-300 ${
           isLight
-            ? "text-yellow-500 shadow-[0_0_12px_4px_rgba(234,179,8,0.5)] hover:shadow-[0_0_18px_6px_rgba(234,179,8,0.6)] hover:bg-yellow-400/10"
+            ? "text-yellow-500 hover:bg-yellow-400/10"
             : "text-foreground hover:bg-foreground/10 hover:text-foreground/80"
         } ${className || ""}`}
         aria-label="Toggle theme"

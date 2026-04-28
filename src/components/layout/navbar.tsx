@@ -54,9 +54,9 @@ export function Navbar() {
     >
       <div
         className={`group container max-w-[95%] xl:max-w-7xl mx-auto flex items-center justify-between px-5 md:px-8 lg:px-10 rounded-full md:rounded-[2rem] relative z-50 transition-all duration-500 
-          backdrop-blur-md border border-black/10 dark:border-white/25
-          bg-white/40 dark:bg-white/10
-          shadow-[0_4px_24px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.6)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.2)]
+          backdrop-blur-md border border-white/20
+          bg-zinc-950/80
+          shadow-[0_4px_24px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)]
           ${isScrolled ? "py-2 md:py-3" : "py-3 md:py-5"}
         `}
       >
@@ -70,10 +70,10 @@ export function Navbar() {
             }}
           />
           {/* glass tint brighten on hover */}
-          <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/30 dark:bg-white/5" />
+          <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/10" />
         </div>
 
-        <Link href="/" className="text-xl md:text-2xl font-extrabold tracking-tighter uppercase relative z-50 text-foreground">
+        <Link href="/" className="text-xl md:text-2xl font-extrabold tracking-tighter uppercase relative z-50 text-white">
           Visual Studio
         </Link>
 
@@ -85,7 +85,7 @@ export function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`relative flex items-center justify-center px-2 py-4 transition-colors ${isActive ? "text-foreground" : "text-foreground/50 hover:text-foreground/90"
+                className={`relative flex items-center justify-center px-2 py-4 transition-colors ${isActive ? "text-white" : "text-white/60 hover:text-white"
                   }`}
               >
                 <span className="text-xs font-bold tracking-wider uppercase">{link.name}</span>
@@ -104,10 +104,10 @@ export function Navbar() {
 
         {/* Desktop CTA */}
         <div className="hidden lg:flex items-center gap-4 relative z-50">
-          <ThemeToggle className="!text-foreground hover:!bg-foreground/5 hover:!text-foreground/80" />
+          <ThemeToggle className="!text-white hover:!bg-white/10 hover:!text-white/80" />
           <Link
             href="/contact"
-            className="px-6 py-2 bg-foreground text-background text-xs font-bold uppercase tracking-widest rounded-full hover:opacity-80 transition-opacity"
+            className="px-6 py-2 bg-white text-black text-xs font-bold uppercase tracking-widest rounded-full hover:opacity-80 transition-opacity"
           >
             Book Now
           </Link>
@@ -115,9 +115,9 @@ export function Navbar() {
 
         {/* Mobile Toggle */}
         <div className="flex items-center gap-2 lg:hidden relative z-50">
-          <ThemeToggle className="!text-foreground hover:!bg-foreground/5 hover:!text-foreground/80" />
+          <ThemeToggle className="!text-white hover:!bg-white/10 hover:!text-white/80" />
           <button
-            className="p-2 text-foreground hover:text-foreground/80 transition-colors"
+            className="p-2 text-white hover:text-white/80 transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -134,14 +134,14 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 min-h-screen bg-background z-40 flex flex-col items-center justify-center gap-8 pt-20"
+            className="fixed inset-0 min-h-screen bg-zinc-950 z-40 flex flex-col items-center justify-center gap-8 pt-20"
           >
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`text-2xl tracking-widest uppercase transition-colors hover:text-foreground/80 ${pathname === link.href ? "text-foreground font-bold" : "text-foreground/70"
+                className={`text-2xl tracking-widest uppercase transition-colors hover:text-white/80 ${pathname === link.href ? "text-white font-bold" : "text-white/70"
                   }`}
               >
                 {link.name}
@@ -150,7 +150,7 @@ export function Navbar() {
             <Link
               href="/contact"
               onClick={() => setIsMenuOpen(false)}
-              className="mt-4 px-8 py-3 bg-foreground text-background text-lg font-medium rounded-full hover:opacity-90 transition-opacity"
+              className="mt-4 px-8 py-3 bg-white text-black text-lg font-medium rounded-full hover:opacity-90 transition-opacity"
             >
               Book Now
             </Link>
