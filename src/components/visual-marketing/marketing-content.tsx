@@ -38,7 +38,7 @@ export function MarketingContent() {
     <>
 
       {/* Work Gallery */}
-      <section className="py-24 bg-muted/20 overflow-hidden">
+      <section className="py-24 bg-black/40 overflow-hidden">
         <div className="container mx-auto px-4">
           <motion.div
             className="mb-16"
