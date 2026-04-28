@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function VisualMarketingPage() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="dark bg-background text-foreground flex flex-col min-h-screen">
       <HeroSection
         subtitle="Corporate Branding"
         title={<>Visual <span className="text-transparent bg-clip-text bg-gradient-to-br from-purple-500 via-pink-500 to-rose-400">Marketing</span></>}
