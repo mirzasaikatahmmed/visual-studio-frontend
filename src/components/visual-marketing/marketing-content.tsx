@@ -66,18 +66,19 @@ export function MarketingContent() {
               { title: "Corporate Headshots — TechFirm", tag: "Brand Photography", gif: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWoxdTNxZmRhczBnYW5ja25kamU1YTl3czIyMGs0c3N6bGQzYjM0NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xT9IgjfoTrXbejHk9G/giphy.gif" },
               { title: "Ad Creatives — Billboard Series", tag: "Campaign Visuals", gif: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzBjcmlwczl0bGJvNTc0YWQ5bDIyaWl5aTlxNWVrODl1MGk3ZHRiYiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/GD9MQamBYCvbotN0mA/giphy.gif" },
             ].map((item, i) => (
-              <motion.div key={i} variants={itemVariants} className="overflow-hidden bg-muted">
-                <div className="aspect-[4/3] overflow-hidden">
+              <motion.div key={i} variants={itemVariants} className="overflow-hidden bg-muted rounded-lg relative group">
+                <div className="aspect-[4/3] overflow-hidden relative">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={item.gif}
                     alt={item.title}
                     className="w-full h-full object-cover"
                   />
-                </div>
-                <div className="pt-4 pb-2">
-                  <span className="text-xs uppercase tracking-widest text-muted-foreground">{item.tag}</span>
-                  <h3 className="font-bold text-base mt-1 uppercase tracking-tight">{item.title}</h3>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  <div className="absolute bottom-0 left-0 p-4">
+                    <span className="text-xs uppercase tracking-widest text-white/70">{item.tag}</span>
+                    <h3 className="font-bold text-base mt-1 uppercase tracking-tight text-white">{item.title}</h3>
+                  </div>
                 </div>
               </motion.div>
             ))}
