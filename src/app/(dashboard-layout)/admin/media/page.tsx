@@ -453,6 +453,7 @@ function GridItem({
           src={thumbUrl}
           alt={item.altText || item.name}
           fill
+          sizes="(max-width: 640px) 33vw, (max-width: 1024px) 20vw, (max-width: 1280px) 16vw, 14vw"
           className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
           onError={e => { (e.target as HTMLImageElement).style.display = "none"; }}
         />
@@ -516,6 +517,7 @@ function ListTable({
                         src={thumbUrl}
                         alt={item.altText || item.name}
                         fill
+                        sizes="36px"
                         className="object-cover object-center"
                         onError={e => { (e.target as HTMLImageElement).style.display = "none"; }}
                       />
@@ -579,6 +581,7 @@ function DetailPanel({
               src={thumbUrl}
               alt={item.altText || item.title || item.name}
               fill
+              sizes="288px"
               className="object-contain object-center"
               onError={e => { (e.target as HTMLImageElement).style.display = "none"; }}
             />
