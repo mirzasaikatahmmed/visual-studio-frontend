@@ -124,5 +124,9 @@ export function resolveUrl(url: string): string {
   if (!url) return '';
   if (url.startsWith('http')) return url;
   const backendBase = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') ?? 'http://localhost:3001';
+  // Route /uploads/ through /api/uploads/ so reverse-proxy forwards it to NestJS
+  if (url.startsWith('/uploads/')) {
+    return `${backendBase}/api${url}`;
+  }
   return `${backendBase}${url}`;
 }
