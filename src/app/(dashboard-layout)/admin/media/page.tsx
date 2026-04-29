@@ -6,6 +6,7 @@ import {
   Info, CalendarDays, HardDrive, Maximize2,
   Plus, Filter, Loader2, AlertCircle,
 } from "lucide-react";
+import Image from "next/image";
 import { useState, useRef, useCallback, useEffect } from "react";
 import {
   fetchMedia, uploadMedia, updateMedia, deleteMedia, bulkDeleteMedia,
@@ -448,9 +449,13 @@ function GridItem({
       className={`relative aspect-square group overflow-hidden bg-muted focus:outline-none ${isSelected ? "ring-2 ring-brand-400 ring-offset-1" : ""}`}
     >
       {item.type === "image" && thumbUrl ? (
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
-          style={{ backgroundImage: `url('${thumbUrl}')` }}
+        <Image
+          src={thumbUrl}
+          alt={item.altText || item.name}
+          fill
+          sizes="(max-width: 640px) 33vw, (max-width: 1024px) 20vw, (max-width: 1280px) 16vw, 14vw"
+          className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
+          onError={e => { (e.target as HTMLImageElement).style.display = "none"; }}
         />
       ) : (
         <div className="absolute inset-0 flex items-center justify-center bg-muted/60">
@@ -508,7 +513,14 @@ function ListTable({
                 <td className="p-3">
                   <div className={`w-9 h-9 rounded-sm overflow-hidden bg-muted relative flex-shrink-0 ${active ? "ring-2 ring-brand-400" : ""}`}>
                     {item.type === "image" && thumbUrl ? (
-                      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${thumbUrl}')` }} />
+                      <Image
+                        src={thumbUrl}
+                        alt={item.altText || item.name}
+                        fill
+                        sizes="36px"
+                        className="object-cover object-center"
+                        onError={e => { (e.target as HTMLImageElement).style.display = "none"; }}
+                      />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center scale-75">
                         {typeIcon[item.type]}
@@ -565,7 +577,14 @@ function DetailPanel({
         {/* Preview */}
         <div className="aspect-video bg-muted/50 relative flex items-center justify-center">
           {item.type === "image" && thumbUrl ? (
-            <div className="absolute inset-0 bg-contain bg-center bg-no-repeat" style={{ backgroundImage: `url('${thumbUrl}')` }} />
+            <Image
+              src={thumbUrl}
+              alt={item.altText || item.title || item.name}
+              fill
+              sizes="288px"
+              className="object-contain object-center"
+              onError={e => { (e.target as HTMLImageElement).style.display = "none"; }}
+            />
           ) : (
             <div className="text-muted-foreground">{typeIcon[item.type]}</div>
           )}
