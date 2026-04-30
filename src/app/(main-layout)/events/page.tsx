@@ -16,7 +16,7 @@ export default function EventsPage() {
             <Sparkles size={16} /> POWERED BY DREAMS DECOR
           </span>
         }
-        title={<>Unforgettable <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">Events</span></>}
+        title={<>Unforgettable <span className="text-brand-500 font-great-vibes normal-case font-normal tracking-normal text-[1.2em] md:text-[1.4em] ml-1">Events</span></>}
         desc="Transforming ordinary spaces into breathtaking atmospheres. Watch your visions come to life with our premium event decoration services."
         image="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2000&auto=format&fit=crop"
       />
