@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
 export function Preloader() {
@@ -50,24 +51,15 @@ export function Preloader() {
             }
             className="flex flex-col items-center gap-3 select-none"
           >
-            {/* Camera lens icon — uses currentColor to follow theme */}
-            <svg
-              width="72"
-              height="72"
-              viewBox="0 0 72 72"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-foreground"
-            >
-              <circle cx="36" cy="36" r="34" stroke="currentColor" strokeWidth="2" />
-              <circle cx="36" cy="36" r="22" stroke="currentColor" strokeWidth="1.5" />
-              <circle cx="36" cy="36" r="10" fill="currentColor" fillOpacity="0.15" stroke="currentColor" strokeWidth="1.5" />
-              <circle cx="36" cy="36" r="4" fill="currentColor" />
-              <line x1="36" y1="2" x2="36" y2="14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              <line x1="36" y1="58" x2="36" y2="70" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              <line x1="2" y1="36" x2="14" y2="36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              <line x1="58" y1="36" x2="70" y2="36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
+            {/* Custom Logo */}
+            <Image
+              src="/logo.png"
+              alt="Visual Studio Logo"
+              width={96}
+              height={96}
+              priority
+              className="w-20 h-20 md:w-24 md:h-24 object-contain invert dark:invert-0 drop-shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+            />
             <p className="text-xs font-bold tracking-[0.4em] uppercase">
               Visual Studio
             </p>
