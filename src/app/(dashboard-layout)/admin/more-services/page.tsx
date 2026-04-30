@@ -1,68 +1,127 @@
 "use client";
 
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Plus, Trash2, Edit2, Link as LinkIcon, Upload } from "lucide-react";
-import { useState, useRef } from "react";
 import { Modal } from "@/components/ui/modal";
+import {
+  fetchServices,
+  createService,
+  updateService,
+  deleteService,
+  uploadServiceImage,
+  type Service,
+} from "@/lib/servicesApi";
 
-type Service = {
-  id: number;
-  title: string;
-  url: string;
-  imageUrl: string;
-};
+const LABEL_OPTIONS = ["View Partner", "Visit Store", "Learn More", "Book Now", "View Gallery"];
 
-const initialServices: Service[] = [
-  { id: 1, title: "Photo Booth Rental", url: "/services/photo-booth", imageUrl: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=400" },
-  { id: 2, title: "Drone Videography", url: "/services/drone", imageUrl: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=400" },
-  { id: 3, title: "Album Printing", url: "/store", imageUrl: "https://images.unsplash.com/photo-1544473244-f6895e69ce8d?q=80&w=400" },
-];
-
-const blankService = (): Omit<Service, "id"> => ({ title: "", url: "", imageUrl: "" });
+const blankForm = () => ({ title: "", url: "", imageUrl: "", label: "View Partner" });
 
 export default function MoreServicesPage() {
-  const [services, setServices] = useState(initialServices);
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const [modal, setModal] = useState(false);
   const [editingService, setEditingService] = useState<Service | null>(null);
-  const [form, setForm] = useState(blankService());
+  const [form, setForm] = useState(blankForm());
   const [imgMode, setImgMode] = useState<"url" | "upload">("url");
   const [isDragging, setIsDragging] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const handleFileRead = (file: File) => {
+  const loadServices = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      setServices(await fetchServices());
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to load");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { void loadServices(); }, [loadServices]);
+
+  const handleImageUpload = async (file: File) => {
     if (!file.type.startsWith("image/")) return;
-    const reader = new FileReader();
-    reader.onload = (e) => setForm(f => ({ ...f, imageUrl: e.target?.result as string }));
-    reader.readAsDataURL(file);
+    setUploading(true);
+    try {
+      const url = await uploadServiceImage(file);
+      setForm(f => ({ ...f, imageUrl: url }));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Upload failed");
+    } finally {
+      setUploading(false);
+    }
   };
 
   const openAdd = () => {
     setEditingService(null);
-    setForm(blankService());
+    setForm(blankForm());
     setImgMode("url");
     setModal(true);
   };
 
   const openEdit = (s: Service) => {
     setEditingService(s);
-    setForm({ title: s.title, url: s.url, imageUrl: s.imageUrl });
-    setImgMode(s.imageUrl.startsWith("data:") ? "upload" : "url");
+    setForm({ title: s.title, url: s.url ?? "", imageUrl: s.imageUrl, label: s.label });
+    setImgMode("url");
     setModal(true);
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.title || !form.imageUrl) return;
-    if (editingService) {
-      setServices(services.map(s => s.id === editingService.id ? { ...form, id: editingService.id } : s));
-    } else {
-      setServices([{ ...form, id: Date.now() }, ...services]);
+    setSaving(true);
+    try {
+      const payload = {
+        title: form.title,
+        url: form.url || undefined,
+        imageUrl: form.imageUrl,
+        label: form.label,
+      };
+      if (editingService) {
+        const updated = await updateService(editingService.id, payload);
+        setServices(prev => prev.map(s => s.id === editingService.id ? updated : s));
+      } else {
+        const created = await createService(payload);
+        setServices(prev => [created, ...prev]);
+      }
+      setModal(false);
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Failed to save");
+    } finally {
+      setSaving(false);
     }
-    setModal(false);
   };
 
-  const handleDelete = (id: number) => {
-    if (window.confirm("Delete this service?")) setServices(services.filter(s => s.id !== id));
+  const handleDelete = async (id: number) => {
+    if (!window.confirm("Delete this service?")) return;
+    try {
+      await deleteService(id);
+      setServices(prev => prev.filter(s => s.id !== id));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Failed to delete");
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64 text-muted-foreground text-sm">
+        Loading...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64 text-red-500 text-sm">
+        {error}
+        <button onClick={() => void loadServices()} className="ml-2 underline">Retry</button>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -89,25 +148,43 @@ export default function MoreServicesPage() {
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors" />
               <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button onClick={() => openEdit(service)} className="bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-brand-400 rounded-sm">
+                <button
+                  onClick={() => openEdit(service)}
+                  className="bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-brand-400 rounded-sm"
+                >
                   <Edit2 size={13} />
                 </button>
-                <button onClick={() => handleDelete(service.id)} className="bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-red-500 rounded-sm">
+                <button
+                  onClick={() => handleDelete(service.id)}
+                  className="bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-red-500 rounded-sm"
+                >
                   <Trash2 size={13} />
                 </button>
               </div>
             </div>
             <div className="p-4">
               <div className="font-bold text-sm uppercase tracking-tight">{service.title}</div>
-              {service.url && (
-                <div className="flex items-center gap-1.5 mt-2 text-xs text-muted-foreground">
-                  <LinkIcon size={12} />
-                  <span className="truncate">{service.url}</span>
-                </div>
-              )}
+              <div className="flex items-center justify-between mt-2">
+                {service.url ? (
+                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground min-w-0">
+                    <LinkIcon size={12} className="shrink-0" />
+                    <span className="truncate">{service.url}</span>
+                  </div>
+                ) : (
+                  <span className="text-xs text-muted-foreground">No link</span>
+                )}
+                <span className="text-xs text-brand-400 font-bold uppercase tracking-widest shrink-0 ml-2">
+                  {service.label}
+                </span>
+              </div>
             </div>
           </div>
         ))}
+        {services.length === 0 && (
+          <div className="col-span-full flex items-center justify-center h-32 text-muted-foreground text-sm border border-dashed border-border rounded-md">
+            No services added yet.
+          </div>
+        )}
       </div>
 
       <Modal isOpen={modal} onClose={() => setModal(false)} title={editingService ? "Edit Service" : "Add Service"}>
@@ -147,22 +224,34 @@ export default function MoreServicesPage() {
                 type="url"
                 placeholder="https://images.unsplash.com/..."
                 className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
-                value={form.imageUrl.startsWith("data:") ? "" : form.imageUrl}
+                value={form.imageUrl}
                 onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
-                required={imgMode === "url" && !form.imageUrl}
+                required={!form.imageUrl}
               />
             ) : (
               <div
                 onClick={() => fileRef.current?.click()}
                 onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
                 onDragLeave={() => setIsDragging(false)}
-                onDrop={(e) => { e.preventDefault(); setIsDragging(false); const f = e.dataTransfer.files?.[0]; if (f) handleFileRead(f); }}
+                onDrop={(e) => { e.preventDefault(); setIsDragging(false); const f = e.dataTransfer.files?.[0]; if (f) void handleImageUpload(f); }}
                 className={`w-full border-2 border-dashed rounded-sm py-8 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors ${isDragging ? "border-brand-400 bg-brand-400/5" : "border-border hover:border-brand-400/50 hover:bg-muted/50"}`}
               >
                 <Upload size={22} className="text-muted-foreground" />
-                <p className="text-sm font-medium">Drop image here or <span className="text-brand-400">browse</span></p>
-                <p className="text-xs text-muted-foreground">PNG, JPG, WEBP supported</p>
-                <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFileRead(f); }} />
+                {uploading ? (
+                  <p className="text-sm font-medium text-brand-400">Uploading...</p>
+                ) : (
+                  <>
+                    <p className="text-sm font-medium">Drop image here or <span className="text-brand-400">browse</span></p>
+                    <p className="text-xs text-muted-foreground">PNG, JPG, WEBP supported</p>
+                  </>
+                )}
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => { const f = e.target.files?.[0]; if (f) void handleImageUpload(f); }}
+                />
               </div>
             )}
 
@@ -185,14 +274,30 @@ export default function MoreServicesPage() {
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Link URL (optional)</label>
             <input
               type="text"
+              placeholder="https://instagram.com/partner/ or /store"
               className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm font-mono"
               value={form.url}
               onChange={(e) => setForm({ ...form, url: e.target.value })}
             />
           </div>
 
-          <button type="submit" className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 rounded-sm">
-            Save Service
+          <div className="space-y-1.5">
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Button Label</label>
+            <select
+              className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 rounded-sm text-sm"
+              value={form.label}
+              onChange={(e) => setForm({ ...form, label: e.target.value })}
+            >
+              {LABEL_OPTIONS.map(l => <option key={l} value={l}>{l}</option>)}
+            </select>
+          </div>
+
+          <button
+            type="submit"
+            disabled={saving || uploading}
+            className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 rounded-sm disabled:opacity-60"
+          >
+            {saving ? "Saving..." : "Save Service"}
           </button>
         </form>
       </Modal>

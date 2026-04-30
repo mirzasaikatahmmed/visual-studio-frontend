@@ -2,20 +2,23 @@
 
 import { ReactNode, useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard, MessageSquare, Camera, Video,
   Settings, Menu, X, ExternalLink,
   Bell, LogOut, Aperture,
-  HelpCircle, Image, Grid, BookOpen, ShoppingBag
+  HelpCircle, Image, Grid, BookOpen, ShoppingBag, FileImage
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/hooks/useAuth";
+import { clearAuth } from "@/lib/auth";
 
 const navLinks = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard },
   { href: "/admin/inquiries", label: "Inquiries", icon: MessageSquare, badge: 3 },
   { href: "/admin/portfolios", label: "Portfolios", icon: Camera },
+  { href: "/admin/media", label: "Media Library", icon: FileImage },
   { href: "/admin/videos", label: "Videos", icon: Video },
   // { href: "/admin/events", label: "Events", icon: Calendar },
   { href: "/admin/store", label: "Store", icon: ShoppingBag },
@@ -30,9 +33,13 @@ const navLinks = [
 type SidebarProps = {
   pathname: string | null;
   onLinkClick: () => void;
+  displayName: string;
+  initials: string;
+  email: string;
+  onLogout: () => void;
 };
 
-function SidebarContent({ pathname, onLinkClick }: SidebarProps) {
+function SidebarContent({ pathname, onLinkClick, displayName, initials, email, onLogout }: SidebarProps) {
   return (
     <div className="flex flex-col h-full">
       {/* Logo */}
@@ -90,15 +97,21 @@ function SidebarContent({ pathname, onLinkClick }: SidebarProps) {
 
       {/* User Profile */}
       <div className="mt-auto pt-4 border-t border-border">
-        <div className="flex items-center gap-3 px-2 py-3 rounded-md hover:bg-muted transition-colors cursor-pointer">
-          <div className="w-8 h-8 rounded-full bg-brand-400 flex items-center justify-center text-white text-xs font-bold shrink-0">
-            VS
+        <div className="flex items-center gap-3 px-2 py-3 rounded-md hover:bg-muted transition-colors">
+          <div suppressHydrationWarning className="w-8 h-8 rounded-full bg-brand-400 flex items-center justify-center text-white text-xs font-bold shrink-0">
+            {initials}
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-xs font-bold uppercase tracking-widest truncate">Admin</div>
-            <div className="text-[10px] text-muted-foreground truncate">lens@visualstudioslens.com</div>
+            <div suppressHydrationWarning className="text-xs font-bold uppercase tracking-widest truncate">{displayName}</div>
+            <div suppressHydrationWarning className="text-[10px] text-muted-foreground truncate">{email}</div>
           </div>
-          <LogOut size={14} className="text-muted-foreground shrink-0" />
+          <button
+            onClick={onLogout}
+            title="Sign out"
+            className="p-1.5 text-muted-foreground hover:text-red-500 hover:bg-red-500/10 rounded transition-colors shrink-0"
+          >
+            <LogOut size={14} />
+          </button>
         </div>
       </div>
     </div>
@@ -138,6 +151,8 @@ const notifDot: Record<Notification["type"], string> = {
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [notifications, setNotifications] = useState(initialNotifications);
@@ -148,6 +163,18 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const currentPage = navLinks.find(l =>
     l.href === "/admin" ? pathname === "/admin" : pathname?.startsWith(l.href)
   )?.label ?? "Dashboard";
+
+  const handleLogout = () => {
+    clearAuth();
+    router.replace("/login");
+  };
+
+  const displayName = user
+    ? `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() || "Admin"
+    : "Admin";
+  const initials = user
+    ? `${user.firstName?.[0] ?? ""}${user.lastName?.[0] ?? ""}`.toUpperCase() || "VS"
+    : "VS";
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -275,9 +302,14 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
           </div>
 
           <ThemeToggle />
-          <div className="w-8 h-8 rounded-full bg-brand-400 flex items-center justify-center text-white text-xs font-bold cursor-pointer">
-            VS
-          </div>
+          <button
+            onClick={handleLogout}
+            title="Sign out"
+            suppressHydrationWarning
+            className="w-8 h-8 rounded-full bg-brand-400 flex items-center justify-center text-white text-xs font-bold hover:bg-brand-500 transition-colors"
+          >
+            {initials}
+          </button>
         </div>
       </header>
 
@@ -307,7 +339,14 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
                   <X size={20} />
                 </button>
               </div>
-              <SidebarContent pathname={pathname} onLinkClick={() => setIsMobileMenuOpen(false)} />
+              <SidebarContent
+                pathname={pathname}
+                onLinkClick={() => setIsMobileMenuOpen(false)}
+                displayName={displayName}
+                initials={initials}
+                email={user?.email ?? ""}
+                onLogout={handleLogout}
+              />
             </motion.aside>
           </>
         )}
@@ -316,7 +355,14 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
       <div className="flex flex-1">
         {/* Desktop Sidebar */}
         <aside className="w-64 bg-background border-r border-border p-5 hidden md:flex flex-col shrink-0 sticky top-[57px] h-[calc(100vh-57px)] overflow-y-auto">
-          <SidebarContent pathname={pathname} onLinkClick={() => {}} />
+          <SidebarContent
+            pathname={pathname}
+            onLinkClick={() => {}}
+            displayName={displayName}
+            initials={initials}
+            email={user?.email ?? ""}
+            onLogout={handleLogout}
+          />
         </aside>
 
         {/* Main Content */}

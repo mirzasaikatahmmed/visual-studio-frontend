@@ -1,120 +1,229 @@
 "use client";
 
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Plus, Trash2, Edit2, Upload, Link as LinkIcon } from "lucide-react";
-import { useState, useRef } from "react";
 import { Modal } from "@/components/ui/modal";
+import {
+  fetchWorks,
+  createWork,
+  updateWork,
+  deleteWork,
+  uploadWorkImage,
+  type VisualMarketingWork,
+} from "@/lib/visualMarketingApi";
+import {
+  fetchPortfolios,
+  fetchCategories,
+  createPortfolio,
+  updatePortfolio,
+  deletePortfolio,
+  createCategory,
+  uploadImage,
+  type Portfolio,
+  type PortfolioCategory,
+} from "@/lib/portfolioApi";
 
-type Client = {
-  id: number;
-  name: string;
-  logoUrl: string;
-};
-
-type WorkImage = {
-  id: number;
-  title: string;
-  category: string;
-  url: string;
-};
-
-const initialClients: Client[] = [
-  { id: 1, name: "Vogue", logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Vogue_logo.svg/1024px-Vogue_logo.svg.png" },
-  { id: 2, name: "Nike", logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png" },
-];
-
-const initialWork: WorkImage[] = [
-  { id: 1, title: "Summer Campaign", category: "Commercial", url: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=400" },
-  { id: 2, title: "Tech Summit", category: "Corporate", url: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=400" },
-];
-
-const categories = ["Commercial", "Corporate", "Fashion", "Product", "Other"];
+const CLIENT_CAT_SLUG = "client-logos";
+const CLIENT_CAT_NAME = "Client Logos";
+const WORK_TAGS = ["Brand Photography", "Campaign", "Social Media", "Product Shoots", "Campaign Visuals", "Corporate", "Other"];
 
 export default function VisualMarketingPage() {
-  const [activeTab, setActiveTab] = useState<"clients" | "work">("clients");
-  const [clients, setClients] = useState(initialClients);
-  const [work, setWork] = useState(initialWork);
+  const [activeTab, setActiveTab] = useState<"clients" | "work">("work");
 
-  // Client Modal State
+  // Work (visual-marketing API)
+  const [works, setWorks] = useState<VisualMarketingWork[]>([]);
+  const [worksLoading, setWorksLoading] = useState(true);
+  const [worksError, setWorksError] = useState<string | null>(null);
+
+  // Clients (portfolios with client-logos category)
+  const [, setAllCategories] = useState<PortfolioCategory[]>([]);
+  const [clientCatId, setClientCatId] = useState<number | null>(null);
+  const [clients, setClients] = useState<Portfolio[]>([]);
+  const [clientsLoading, setClientsLoading] = useState(true);
+  const [clientsError, setClientsError] = useState<string | null>(null);
+
+  // Work modal
+  const [workModal, setWorkModal] = useState(false);
+  const [editingWork, setEditingWork] = useState<VisualMarketingWork | null>(null);
+  const [workForm, setWorkForm] = useState({ title: "", tag: WORK_TAGS[0], imageUrl: "" });
+  const [workMode, setWorkMode] = useState<"url" | "upload">("url");
+  const [isWorkDragging, setIsWorkDragging] = useState(false);
+  const [workUploading, setWorkUploading] = useState(false);
+  const [workSaving, setWorkSaving] = useState(false);
+  const workFileRef = useRef<HTMLInputElement>(null);
+
+  // Client modal
   const [clientModal, setClientModal] = useState(false);
-  const [editingClient, setEditingClient] = useState<Client | null>(null);
+  const [editingClient, setEditingClient] = useState<Portfolio | null>(null);
   const [clientForm, setClientForm] = useState({ name: "", logoUrl: "" });
   const [logoMode, setLogoMode] = useState<"url" | "upload">("url");
   const [isDragging, setIsDragging] = useState(false);
+  const [logoUploading, setLogoUploading] = useState(false);
+  const [clientSaving, setClientSaving] = useState(false);
   const logoFileRef = useRef<HTMLInputElement>(null);
 
-  // Work Modal State
-  const [workModal, setWorkModal] = useState(false);
-  const [editingWork, setEditingWork] = useState<WorkImage | null>(null);
-  const [workForm, setWorkForm] = useState({ title: "", category: "Commercial", url: "" });
-  const [workMode, setWorkMode] = useState<"url" | "upload">("url");
-  const [isWorkDragging, setIsWorkDragging] = useState(false);
-  const workFileRef = useRef<HTMLInputElement>(null);
+  const loadWorks = useCallback(async () => {
+    setWorksLoading(true);
+    setWorksError(null);
+    try {
+      setWorks(await fetchWorks());
+    } catch (e) {
+      setWorksError(e instanceof Error ? e.message : "Failed to load");
+    } finally {
+      setWorksLoading(false);
+    }
+  }, []);
 
-  const handleWorkFileRead = (file: File) => {
+  const loadClients = useCallback(async () => {
+    setClientsLoading(true);
+    setClientsError(null);
+    try {
+      let cats = await fetchCategories();
+      let clientCat = cats.find(c => c.slug === CLIENT_CAT_SLUG);
+      if (!clientCat) {
+        clientCat = await createCategory({ name: CLIENT_CAT_NAME, slug: CLIENT_CAT_SLUG });
+        cats = [...cats, clientCat];
+      }
+      setAllCategories(cats);
+      setClientCatId(clientCat.id);
+      const all = await fetchPortfolios();
+      setClients(all.filter(p => p.categoryId === clientCat!.id));
+    } catch (e) {
+      setClientsError(e instanceof Error ? e.message : "Failed to load");
+    } finally {
+      setClientsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { void loadWorks(); }, [loadWorks]);
+  useEffect(() => { void loadClients(); }, [loadClients]);
+
+  // Work CRUD
+  const openAddWork = () => {
+    setEditingWork(null);
+    setWorkForm({ title: "", tag: WORK_TAGS[0], imageUrl: "" });
+    setWorkMode("url");
+    setWorkModal(true);
+  };
+  const openEditWork = (w: VisualMarketingWork) => {
+    setEditingWork(w);
+    setWorkForm({ title: w.title, tag: w.tag ?? WORK_TAGS[0], imageUrl: w.imageUrl });
+    setWorkMode("url");
+    setWorkModal(true);
+  };
+  const handleWorkUpload = async (file: File) => {
     if (!file.type.startsWith("image/")) return;
-    const reader = new FileReader();
-    reader.onload = (e) => setWorkForm(f => ({ ...f, url: e.target?.result as string }));
-    reader.readAsDataURL(file);
+    setWorkUploading(true);
+    try {
+      const url = await uploadWorkImage(file);
+      setWorkForm(f => ({ ...f, imageUrl: url }));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Upload failed");
+    } finally {
+      setWorkUploading(false);
+    }
+  };
+  const handleSaveWork = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setWorkSaving(true);
+    try {
+      if (editingWork) {
+        const updated = await updateWork(editingWork.id, {
+          title: workForm.title,
+          tag: workForm.tag,
+          imageUrl: workForm.imageUrl,
+        });
+        setWorks(prev => prev.map(w => w.id === editingWork.id ? updated : w));
+      } else {
+        const created = await createWork({
+          title: workForm.title,
+          tag: workForm.tag,
+          imageUrl: workForm.imageUrl,
+        });
+        setWorks(prev => [created, ...prev]);
+      }
+      setWorkModal(false);
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Failed to save");
+    } finally {
+      setWorkSaving(false);
+    }
+  };
+  const handleDeleteWork = async (id: number) => {
+    if (!window.confirm("Delete this work item?")) return;
+    try {
+      await deleteWork(id);
+      setWorks(prev => prev.filter(w => w.id !== id));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Failed to delete");
+    }
   };
 
-  const handleLogoFileRead = (file: File) => {
-    if (!file.type.startsWith("image/")) return;
-    const reader = new FileReader();
-    reader.onload = (e) => setClientForm(f => ({ ...f, logoUrl: e.target?.result as string }));
-    reader.readAsDataURL(file);
-  };
-
-  // Client actions
+  // Client CRUD
   const openAddClient = () => {
     setEditingClient(null);
     setClientForm({ name: "", logoUrl: "" });
     setLogoMode("url");
     setClientModal(true);
   };
-  const openEditClient = (c: Client) => {
+  const openEditClient = (c: Portfolio) => {
     setEditingClient(c);
-    setClientForm({ name: c.name, logoUrl: c.logoUrl });
-    setLogoMode(c.logoUrl.startsWith("data:") ? "upload" : "url");
+    setClientForm({ name: c.title, logoUrl: c.url });
+    setLogoMode("url");
     setClientModal(true);
   };
-  const handleSaveClient = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (editingClient) {
-      setClients(clients.map(c => c.id === editingClient.id ? { ...clientForm, id: editingClient.id } : c));
-    } else {
-      setClients([{ ...clientForm, id: Date.now() }, ...clients]);
+  const handleLogoUpload = async (file: File) => {
+    if (!file.type.startsWith("image/")) return;
+    setLogoUploading(true);
+    try {
+      const url = await uploadImage(file);
+      setClientForm(f => ({ ...f, logoUrl: url }));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Upload failed");
+    } finally {
+      setLogoUploading(false);
     }
-    setClientModal(false);
   };
-  const handleDeleteClient = (id: number) => {
-    if (window.confirm("Delete this client logo?")) setClients(clients.filter(c => c.id !== id));
+  const handleSaveClient = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!clientCatId) return;
+    setClientSaving(true);
+    try {
+      if (editingClient) {
+        const updated = await updatePortfolio(editingClient.id, {
+          title: clientForm.name,
+          url: clientForm.logoUrl,
+          categoryId: clientCatId,
+        });
+        setClients(prev => prev.map(c => c.id === editingClient.id ? updated : c));
+      } else {
+        const created = await createPortfolio({
+          title: clientForm.name,
+          url: clientForm.logoUrl,
+          categoryId: clientCatId,
+        });
+        setClients(prev => [created, ...prev]);
+      }
+      setClientModal(false);
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Failed to save");
+    } finally {
+      setClientSaving(false);
+    }
+  };
+  const handleDeleteClient = async (id: number) => {
+    if (!window.confirm("Delete this client logo?")) return;
+    try {
+      await deletePortfolio(id);
+      setClients(prev => prev.filter(c => c.id !== id));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Failed to delete");
+    }
   };
 
-  // Work actions
-  const openAddWork = () => {
-    setEditingWork(null);
-    setWorkForm({ title: "", category: "Commercial", url: "" });
-    setWorkMode("url");
-    setWorkModal(true);
-  };
-  const openEditWork = (w: WorkImage) => {
-    setEditingWork(w);
-    setWorkForm({ title: w.title, category: w.category, url: w.url });
-    setWorkMode(w.url.startsWith("data:") ? "upload" : "url");
-    setWorkModal(true);
-  };
-  const handleSaveWork = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (editingWork) {
-      setWork(work.map(w => w.id === editingWork.id ? { ...workForm, id: editingWork.id } : w));
-    } else {
-      setWork([{ ...workForm, id: Date.now() }, ...work]);
-    }
-    setWorkModal(false);
-  };
-  const handleDeleteWork = (id: number) => {
-    if (window.confirm("Delete this work image?")) setWork(work.filter(w => w.id !== id));
-  };
+  const loading = activeTab === "work" ? worksLoading : clientsLoading;
+  const error = activeTab === "work" ? worksError : clientsError;
+  const retry = activeTab === "work" ? loadWorks : loadClients;
 
   return (
     <>
@@ -132,7 +241,7 @@ export default function VisualMarketingPage() {
       </div>
 
       <div className="flex gap-1 mb-6 border-b border-border">
-        {(["clients", "work"] as const).map(tab => (
+        {(["work", "clients"] as const).map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -147,146 +256,117 @@ export default function VisualMarketingPage() {
         ))}
       </div>
 
-      {activeTab === "clients" && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-          {clients.map((client) => (
-            <div key={client.id} className="bg-background border border-border rounded-md p-4 group relative flex flex-col items-center justify-center aspect-square">
-              <div className="absolute top-2 right-2 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                <button onClick={() => openEditClient(client)} className="bg-muted p-1.5 text-muted-foreground hover:text-foreground hover:bg-brand-400/20 rounded">
-                  <Edit2 size={12} />
-                </button>
-                <button onClick={() => handleDeleteClient(client.id)} className="bg-muted p-1.5 text-muted-foreground hover:text-red-500 hover:bg-red-500/10 rounded">
-                  <Trash2 size={12} />
-                </button>
-              </div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={client.logoUrl} alt={client.name} className="max-w-[70%] max-h-[50%] object-contain mb-3" />
-              <div className="text-xs font-bold uppercase tracking-widest text-center text-muted-foreground">{client.name}</div>
-            </div>
-          ))}
+      {loading ? (
+        <div className="flex items-center justify-center h-64 text-muted-foreground text-sm">Loading...</div>
+      ) : error ? (
+        <div className="flex items-center justify-center h-64 text-red-500 text-sm">
+          {error}
+          <button onClick={() => void retry()} className="ml-2 underline">Retry</button>
         </div>
-      )}
-
-      {activeTab === "work" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {work.map((w) => (
-            <div key={w.id} className="bg-background border border-border rounded-md overflow-hidden group">
-              <div className="aspect-[4/3] bg-muted relative overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                  style={{ backgroundImage: `url('${w.url}')` }}
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors" />
-                <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button onClick={() => openEditWork(w)} className="bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-brand-400 rounded-sm">
-                    <Edit2 size={13} />
-                  </button>
-                  <button onClick={() => handleDeleteWork(w.id)} className="bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-red-500 rounded-sm">
-                    <Trash2 size={13} />
-                  </button>
+      ) : (
+        <>
+          {activeTab === "work" && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {works.map((w) => (
+                <div key={w.id} className="bg-background border border-border rounded-md overflow-hidden group">
+                  <div className="aspect-[4/3] bg-muted relative overflow-hidden">
+                    <div
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                      style={{ backgroundImage: `url('${w.imageUrl}')` }}
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors" />
+                    <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button
+                        onClick={() => openEditWork(w)}
+                        className="bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-brand-400 rounded-sm"
+                      >
+                        <Edit2 size={13} />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteWork(w.id)}
+                        className="bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-red-500 rounded-sm"
+                      >
+                        <Trash2 size={13} />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <div className="font-bold text-sm uppercase tracking-tight truncate">{w.title}</div>
+                    <div className="text-xs text-muted-foreground mt-1">{w.tag ?? "—"}</div>
+                  </div>
                 </div>
-              </div>
-              <div className="p-4">
-                <div className="font-bold text-sm uppercase tracking-tight truncate">{w.title}</div>
-                <div className="text-xs text-muted-foreground mt-1">{w.category}</div>
-              </div>
+              ))}
+              {works.length === 0 && (
+                <div className="col-span-full flex items-center justify-center h-32 text-muted-foreground text-sm border border-dashed border-border rounded-md">
+                  No work items added yet.
+                </div>
+              )}
             </div>
-          ))}
-        </div>
+          )}
+
+          {activeTab === "clients" && (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+              {clients.map((client) => (
+                <div
+                  key={client.id}
+                  className="bg-background border border-border rounded-md p-4 group relative flex flex-col items-center justify-center aspect-square"
+                >
+                  <div className="absolute top-2 right-2 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                    <button
+                      onClick={() => openEditClient(client)}
+                      className="bg-muted p-1.5 text-muted-foreground hover:text-foreground hover:bg-brand-400/20 rounded"
+                    >
+                      <Edit2 size={12} />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteClient(client.id)}
+                      className="bg-muted p-1.5 text-muted-foreground hover:text-red-500 hover:bg-red-500/10 rounded"
+                    >
+                      <Trash2 size={12} />
+                    </button>
+                  </div>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={client.url} alt={client.title} className="max-w-[70%] max-h-[50%] object-contain mb-3" />
+                  <div className="text-xs font-bold uppercase tracking-widest text-center text-muted-foreground">
+                    {client.title}
+                  </div>
+                </div>
+              ))}
+              {clients.length === 0 && (
+                <div className="col-span-full flex items-center justify-center h-32 text-muted-foreground text-sm border border-dashed border-border rounded-md">
+                  No clients added yet.
+                </div>
+              )}
+            </div>
+          )}
+        </>
       )}
 
-      {/* Client Modal */}
-      <Modal isOpen={clientModal} onClose={() => setClientModal(false)} title={editingClient ? "Edit Client" : "Add Client"}>
-        <form onSubmit={handleSaveClient} className="space-y-5">
+      {/* Work Modal */}
+      <Modal isOpen={workModal} onClose={() => setWorkModal(false)} title={editingWork ? "Edit Work Item" : "Add Work Item"}>
+        <form onSubmit={handleSaveWork} className="space-y-5">
           <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Client Name *</label>
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Title *</label>
             <input
               type="text"
               className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
-              value={clientForm.name}
-              onChange={(e) => setClientForm({ ...clientForm, name: e.target.value })}
+              value={workForm.title}
+              onChange={(e) => setWorkForm({ ...workForm, title: e.target.value })}
               required
             />
           </div>
 
-          <div className="space-y-2">
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Logo *</label>
-            {/* Mode toggle */}
-            <div className="flex gap-1 p-1 bg-muted rounded-sm w-fit">
-              <button
-                type="button"
-                onClick={() => setLogoMode("url")}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${logoMode === "url" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
-              >
-                <LinkIcon size={11} /> Paste URL
-              </button>
-              <button
-                type="button"
-                onClick={() => setLogoMode("upload")}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${logoMode === "upload" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
-              >
-                <Upload size={11} /> Upload File
-              </button>
-            </div>
-
-            {logoMode === "url" ? (
-              <input
-                type="url"
-                placeholder="https://cdn.example.com/logo.png"
-                className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
-                value={clientForm.logoUrl.startsWith("data:") ? "" : clientForm.logoUrl}
-                onChange={(e) => setClientForm({ ...clientForm, logoUrl: e.target.value })}
-                required={logoMode === "url" && !clientForm.logoUrl}
-              />
-            ) : (
-              <div
-                onClick={() => logoFileRef.current?.click()}
-                onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-                onDragLeave={() => setIsDragging(false)}
-                onDrop={(e) => { e.preventDefault(); setIsDragging(false); const f = e.dataTransfer.files?.[0]; if (f) handleLogoFileRead(f); }}
-                className={`w-full border-2 border-dashed rounded-sm py-8 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors ${isDragging ? "border-brand-400 bg-brand-400/5" : "border-border hover:border-brand-400/50 hover:bg-muted/50"}`}
-              >
-                <Upload size={22} className="text-muted-foreground" />
-                <p className="text-sm font-medium">Drop logo here or <span className="text-brand-400">browse</span></p>
-                <p className="text-xs text-muted-foreground">PNG, JPG, SVG, WEBP supported</p>
-                <input
-                  ref={logoFileRef}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={(e) => { const f = e.target.files?.[0]; if (f) handleLogoFileRead(f); }}
-                />
-              </div>
-            )}
-
-            {/* Preview */}
-            {clientForm.logoUrl && (
-              <div className="h-28 bg-muted flex items-center justify-center p-4 border border-border rounded-sm relative">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={clientForm.logoUrl} alt="Logo preview" className="max-h-full max-w-full object-contain" />
-                <button
-                  type="button"
-                  onClick={() => setClientForm(f => ({ ...f, logoUrl: "" }))}
-                  className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-0.5 rounded hover:bg-red-500 transition-colors"
-                >
-                  Remove
-                </button>
-              </div>
-            )}
-          </div>
-
-          <button type="submit" className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 rounded-sm">
-            Save Client
-          </button>
-        </form>
-      </Modal>
-
-      <Modal isOpen={workModal} onClose={() => setWorkModal(false)} title={editingWork ? "Edit Work Image" : "Add Work Image"}>
-        <form onSubmit={handleSaveWork} className="space-y-5">
           <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Image Title *</label>
-            <input type="text" className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm" value={workForm.title} onChange={(e) => setWorkForm({ ...workForm, title: e.target.value })} required />
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Tag / Category</label>
+            <select
+              className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 rounded-sm text-sm"
+              value={workForm.tag}
+              onChange={(e) => setWorkForm({ ...workForm, tag: e.target.value })}
+            >
+              {WORK_TAGS.map(t => <option key={t} value={t}>{t}</option>)}
+            </select>
           </div>
+
           <div className="space-y-2">
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Image *</label>
             <div className="flex gap-1 p-1 bg-muted rounded-sm w-fit">
@@ -309,34 +389,46 @@ export default function VisualMarketingPage() {
             {workMode === "url" ? (
               <input
                 type="url"
-                placeholder="https://images.unsplash.com/..."
+                placeholder="https://..."
                 className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
-                value={workForm.url.startsWith("data:") ? "" : workForm.url}
-                onChange={(e) => setWorkForm({ ...workForm, url: e.target.value })}
-                required={workMode === "url" && !workForm.url}
+                value={workForm.imageUrl}
+                onChange={(e) => setWorkForm({ ...workForm, imageUrl: e.target.value })}
+                required={!workForm.imageUrl}
               />
             ) : (
               <div
                 onClick={() => workFileRef.current?.click()}
                 onDragOver={(e) => { e.preventDefault(); setIsWorkDragging(true); }}
                 onDragLeave={() => setIsWorkDragging(false)}
-                onDrop={(e) => { e.preventDefault(); setIsWorkDragging(false); const f = e.dataTransfer.files?.[0]; if (f) handleWorkFileRead(f); }}
+                onDrop={(e) => { e.preventDefault(); setIsWorkDragging(false); const f = e.dataTransfer.files?.[0]; if (f) void handleWorkUpload(f); }}
                 className={`w-full border-2 border-dashed rounded-sm py-8 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors ${isWorkDragging ? "border-brand-400 bg-brand-400/5" : "border-border hover:border-brand-400/50 hover:bg-muted/50"}`}
               >
                 <Upload size={22} className="text-muted-foreground" />
-                <p className="text-sm font-medium">Drop image here or <span className="text-brand-400">browse</span></p>
-                <p className="text-xs text-muted-foreground">PNG, JPG, WEBP supported</p>
-                <input ref={workFileRef} type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleWorkFileRead(f); }} />
+                {workUploading ? (
+                  <p className="text-sm font-medium text-brand-400">Uploading...</p>
+                ) : (
+                  <>
+                    <p className="text-sm font-medium">Drop image here or <span className="text-brand-400">browse</span></p>
+                    <p className="text-xs text-muted-foreground">PNG, JPG, WEBP supported</p>
+                  </>
+                )}
+                <input
+                  ref={workFileRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => { const f = e.target.files?.[0]; if (f) void handleWorkUpload(f); }}
+                />
               </div>
             )}
 
-            {workForm.url && (
+            {workForm.imageUrl && (
               <div className="aspect-video bg-muted rounded-sm overflow-hidden relative">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={workForm.url} alt="Preview" className="w-full h-full object-cover" />
+                <img src={workForm.imageUrl} alt="Preview" className="w-full h-full object-cover" />
                 <button
                   type="button"
-                  onClick={() => setWorkForm(f => ({ ...f, url: "" }))}
+                  onClick={() => setWorkForm(f => ({ ...f, imageUrl: "" }))}
                   className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded hover:bg-red-500 transition-colors"
                 >
                   Remove
@@ -344,14 +436,107 @@ export default function VisualMarketingPage() {
               </div>
             )}
           </div>
+
+          <button
+            type="submit"
+            disabled={workSaving || workUploading}
+            className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 rounded-sm disabled:opacity-60"
+          >
+            {workSaving ? "Saving..." : "Save Work Item"}
+          </button>
+        </form>
+      </Modal>
+
+      {/* Client Modal */}
+      <Modal isOpen={clientModal} onClose={() => setClientModal(false)} title={editingClient ? "Edit Client" : "Add Client"}>
+        <form onSubmit={handleSaveClient} className="space-y-5">
           <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Category</label>
-            <select className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 rounded-sm text-sm" value={workForm.category} onChange={(e) => setWorkForm({ ...workForm, category: e.target.value })}>
-              {categories.map(c => <option key={c} value={c}>{c}</option>)}
-            </select>
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Client Name *</label>
+            <input
+              type="text"
+              className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
+              value={clientForm.name}
+              onChange={(e) => setClientForm({ ...clientForm, name: e.target.value })}
+              required
+            />
           </div>
-          <button type="submit" className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 rounded-sm">
-            Save Work Image
+
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Logo *</label>
+            <div className="flex gap-1 p-1 bg-muted rounded-sm w-fit">
+              <button
+                type="button"
+                onClick={() => setLogoMode("url")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${logoMode === "url" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <LinkIcon size={11} /> Paste URL
+              </button>
+              <button
+                type="button"
+                onClick={() => setLogoMode("upload")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${logoMode === "upload" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <Upload size={11} /> Upload File
+              </button>
+            </div>
+
+            {logoMode === "url" ? (
+              <input
+                type="url"
+                placeholder="https://cdn.example.com/logo.png"
+                className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
+                value={clientForm.logoUrl}
+                onChange={(e) => setClientForm({ ...clientForm, logoUrl: e.target.value })}
+                required={!clientForm.logoUrl}
+              />
+            ) : (
+              <div
+                onClick={() => logoFileRef.current?.click()}
+                onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                onDragLeave={() => setIsDragging(false)}
+                onDrop={(e) => { e.preventDefault(); setIsDragging(false); const f = e.dataTransfer.files?.[0]; if (f) void handleLogoUpload(f); }}
+                className={`w-full border-2 border-dashed rounded-sm py-8 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors ${isDragging ? "border-brand-400 bg-brand-400/5" : "border-border hover:border-brand-400/50 hover:bg-muted/50"}`}
+              >
+                <Upload size={22} className="text-muted-foreground" />
+                {logoUploading ? (
+                  <p className="text-sm font-medium text-brand-400">Uploading...</p>
+                ) : (
+                  <>
+                    <p className="text-sm font-medium">Drop logo here or <span className="text-brand-400">browse</span></p>
+                    <p className="text-xs text-muted-foreground">PNG, JPG, SVG, WEBP supported</p>
+                  </>
+                )}
+                <input
+                  ref={logoFileRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => { const f = e.target.files?.[0]; if (f) void handleLogoUpload(f); }}
+                />
+              </div>
+            )}
+
+            {clientForm.logoUrl && (
+              <div className="h-28 bg-muted flex items-center justify-center p-4 border border-border rounded-sm relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={clientForm.logoUrl} alt="Logo preview" className="max-h-full max-w-full object-contain" />
+                <button
+                  type="button"
+                  onClick={() => setClientForm(f => ({ ...f, logoUrl: "" }))}
+                  className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-0.5 rounded hover:bg-red-500 transition-colors"
+                >
+                  Remove
+                </button>
+              </div>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            disabled={clientSaving || logoUploading}
+            className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 rounded-sm disabled:opacity-60"
+          >
+            {clientSaving ? "Saving..." : "Save Client"}
           </button>
         </form>
       </Modal>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -73,8 +74,17 @@ export function Navbar() {
           <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/10" />
         </div>
 
-        <Link href="/" className="text-xl md:text-2xl font-extrabold tracking-tighter uppercase relative z-50 text-white">
-          Visual Studio
+        <Link href="/" className="flex items-center gap-2 md:gap-3 relative z-50 text-white">
+          <Image 
+            src="/logo.png" 
+            alt="Visual Studio Logo" 
+            width={40} 
+            height={40} 
+            className="w-8 h-8 md:w-10 md:h-10 object-contain"
+          />
+          <span className="hidden md:block text-xl md:text-2xl font-extrabold tracking-tighter uppercase">
+            Visual Studio
+          </span>
         </Link>
 
         {/* Desktop Nav */}

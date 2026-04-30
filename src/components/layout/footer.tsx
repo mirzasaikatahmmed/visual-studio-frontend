@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, Mail, Phone, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { InstagramFeed } from "@/components/instagram-feed";
@@ -63,7 +64,18 @@ export function Footer() {
         {/* Bottom Section: Links & Info */}
         <motion.div variants={containerVariants} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
            <motion.div variants={itemVariants}>
-              <Link href="/" className="text-2xl font-bold tracking-tighter uppercase mb-6 inline-block text-transparent bg-clip-text bg-gradient-to-r from-white to-white/70">Visual Studio</Link>
+              <Link href="/" className="flex items-center gap-3 mb-6 w-fit">
+                <Image 
+                  src="/logo.png" 
+                  alt="Visual Studio Logo" 
+                  width={40} 
+                  height={40} 
+                  className="w-10 h-10 object-contain"
+                />
+                <span className="text-2xl font-bold tracking-tighter uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-white/70">
+                  Visual Studio
+                </span>
+              </Link>
               <p className="text-foreground/60 text-sm max-w-xs">
                  Capturing Moments. Creating Experiences. Your premium partner in visual excellence.
               </p>

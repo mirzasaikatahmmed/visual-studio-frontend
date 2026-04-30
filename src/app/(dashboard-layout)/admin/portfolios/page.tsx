@@ -1,126 +1,274 @@
 "use client";
 
-import { Plus, Trash2, Edit2, ExternalLink, Tag, Image as ImageIcon, Upload, Link as LinkIcon } from "lucide-react";
-import { useState, useRef } from "react";
+import {
+  Plus, Trash2, Edit2, ExternalLink, Tag, Image as ImageIcon,
+  Upload, Link as LinkIcon, Loader2, AlertCircle, Images, CheckCircle2, XCircle,
+} from "lucide-react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Modal } from "@/components/ui/modal";
+import {
+  fetchPortfolios, fetchCategories,
+  createPortfolio, updatePortfolio, deletePortfolio,
+  createCategory, deleteCategory,
+  uploadImage, resolveUrl,
+  type Portfolio, type PortfolioCategory,
+} from "@/lib/portfolioApi";
 
-type PortfolioImage = {
-  id: number;
-  title: string;
-  category: string;
+type ImageForm = {
   url: string;
   alt: string;
+  categoryId: number | undefined;
+  featured: boolean;
 };
 
-type Category = { id: number; name: string; slug: string; count: number };
+type BulkFile = {
+  id: string;
+  file: File;
+  status: "pending" | "uploading" | "done" | "error";
+  error?: string;
+};
 
-const initialCategories: Category[] = [
-  { id: 1, name: "Wedding Ceremony", slug: "wedding-ceremony", count: 24 },
-  { id: 2, name: "Henna Ceremony", slug: "henna-ceremony", count: 18 },
-  { id: 3, name: "Group Pictures", slug: "group-pictures", count: 12 },
-  { id: 4, name: "Studio Photoshoot", slug: "studio-photoshoot", count: 30 },
-  { id: 5, name: "Gender Reveal", slug: "gender-reveal", count: 8 },
-  { id: 6, name: "Baby Shower Ceremony", slug: "baby-shower", count: 15 },
-  { id: 7, name: "Maternity Ceremony", slug: "maternity", count: 20 },
-  { id: 8, name: "Baby Photography", slug: "baby-photography", count: 16 },
-  { id: 9, name: "Birthday Ceremony", slug: "birthday", count: 10 },
-];
+const blankImage = (): ImageForm => ({ url: "", alt: "", categoryId: undefined, featured: false });
 
-const initialImages: PortfolioImage[] = [
-  { id: 1, title: "Wedding Hero Shot", category: "Wedding Ceremony", url: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=400", alt: "Bride and groom at ceremony" },
-  { id: 2, title: "Corporate Campaign", category: "Studio Photoshoot", url: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=400", alt: "Corporate photography" },
-  { id: 3, title: "Maternity Glow", category: "Maternity Ceremony", url: "https://images.unsplash.com/photo-1519895009398-30e8d6bccc58?q=80&w=400", alt: "Maternity photography" },
-];
-
-const blankImage = (): Omit<PortfolioImage, "id"> => ({
-  title: "", category: "Wedding Ceremony", url: "", alt: ""
-});
+function autoTitle(categoryName: string, serial: number) {
+  return `${categoryName}_${serial}`;
+}
 
 export default function PortfoliosPage() {
   const [activeTab, setActiveTab] = useState<"images" | "categories">("images");
-  const [images, setImages] = useState(initialImages);
-  const [categories, setCategories] = useState(initialCategories);
+  const [images, setImages] = useState<Portfolio[]>([]);
+  const [categories, setCategories] = useState<PortfolioCategory[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const [pixiesetLink, setPixiesetLink] = useState("https://gallery.visualstudioslens.com/");
   const [pixiesetSaved, setPixiesetSaved] = useState(false);
 
+  // Single image modal
   const [imageModal, setImageModal] = useState(false);
-  const [editingImage, setEditingImage] = useState<PortfolioImage | null>(null);
-  const [imageForm, setImageForm] = useState(blankImage());
+  const [editingImage, setEditingImage] = useState<Portfolio | null>(null);
+  const [imageForm, setImageForm] = useState<ImageForm>(blankImage());
   const [imageInputMode, setImageInputMode] = useState<"url" | "upload">("url");
   const [isDragging, setIsDragging] = useState(false);
+  const [imageSubmitting, setImageSubmitting] = useState(false);
+  const [imageError, setImageError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>("");
 
+  // Bulk upload modal
+  const [bulkModal, setBulkModal] = useState(false);
+  const [bulkCategoryId, setBulkCategoryId] = useState<number | undefined>(undefined);
+  const [bulkFiles, setBulkFiles] = useState<BulkFile[]>([]);
+  const [bulkUploading, setBulkUploading] = useState(false);
+  const [bulkDragging, setBulkDragging] = useState(false);
+  const bulkInputRef = useRef<HTMLInputElement>(null);
+
+  // Category modal
   const [catModal, setCatModal] = useState(false);
   const [catForm, setCatForm] = useState({ name: "", slug: "" });
+  const [catSubmitting, setCatSubmitting] = useState(false);
+  const [catError, setCatError] = useState<string | null>(null);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [imgs, cats] = await Promise.all([fetchPortfolios(), fetchCategories()]);
+      setImages(imgs);
+      setCategories(cats);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to load data");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { load(); }, [load]);
+
+  // ── helpers ──────────────────────────────────────────────────────────────
+
+  const categoryName = (id: number | undefined) =>
+    categories.find(c => c.id === id)?.name ?? "Uncategorised";
+
+  const nextSerial = (catId: number | undefined) =>
+    images.filter(i => i.categoryId === catId).length + 1;
+
+  // ── single image modal ────────────────────────────────────────────────────
 
   const openAddImage = () => {
     setEditingImage(null);
     setImageForm(blankImage());
     setImageInputMode("url");
+    setPendingFile(null);
+    setPreviewUrl("");
+    setImageError(null);
     setImageModal(true);
   };
 
-  const openEditImage = (img: PortfolioImage) => {
+  const openEditImage = (img: Portfolio) => {
     setEditingImage(img);
-    setImageForm({ title: img.title, category: img.category, url: img.url, alt: img.alt });
-    setImageInputMode(img.url.startsWith("data:") ? "upload" : "url");
+    const fullUrl = resolveUrl(img.url);
+    setImageForm({
+      url: fullUrl,
+      alt: img.alt ?? "",
+      categoryId: img.categoryId ?? undefined,
+      featured: img.featured,
+    });
+    setImageInputMode("url");
+    setPendingFile(null);
+    setPreviewUrl(fullUrl);
+    setImageError(null);
     setImageModal(true);
   };
 
-  const handleFileRead = (file: File) => {
+  const handleFileSelect = (file: File) => {
     if (!file.type.startsWith("image/")) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      setImageForm(f => ({ ...f, url: result }));
-    };
-    reader.readAsDataURL(file);
+    setPendingFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
+    setImageForm(f => ({ ...f, url: "" }));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) handleFileRead(file);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
+  const handleSaveImage = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsDragging(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file) handleFileRead(file);
-  };
+    if (!imageForm.categoryId) { setImageError("Please select a category."); return; }
+    setImageSubmitting(true);
+    setImageError(null);
 
-  const handleSaveImage = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!imageForm.title || !imageForm.url) return;
-    if (editingImage) {
-      setImages(images.map(i => i.id === editingImage.id ? { ...imageForm, id: editingImage.id } : i));
-    } else {
-      setImages([{ ...imageForm, id: Date.now() }, ...images]);
+    try {
+      let url = imageForm.url;
+      if (imageInputMode === "upload" && pendingFile) {
+        url = await uploadImage(pendingFile);
+      }
+      if (!url) { setImageError("Please provide an image URL or upload a file."); return; }
+
+      const payload = {
+        url,
+        alt: imageForm.alt,
+        featured: imageForm.featured,
+        categoryId: imageForm.categoryId,
+        title: editingImage
+          ? editingImage.title
+          : autoTitle(categoryName(imageForm.categoryId), nextSerial(imageForm.categoryId)),
+      };
+
+      if (editingImage) {
+        const updated = await updatePortfolio(editingImage.id, payload);
+        setImages(prev => prev.map(i => i.id === updated.id ? updated : i));
+      } else {
+        const created = await createPortfolio(payload);
+        setImages(prev => [created, ...prev]);
+      }
+      setImageModal(false);
+    } catch (e) {
+      setImageError(e instanceof Error ? e.message : "Failed to save image");
+    } finally {
+      setImageSubmitting(false);
     }
-    setImageModal(false);
   };
 
-  const handleDeleteImage = (id: number) => {
-    if (window.confirm("Delete this image?")) setImages(images.filter(i => i.id !== id));
+  const handleDeleteImage = async (id: number) => {
+    if (!window.confirm("Delete this image?")) return;
+    try {
+      await deletePortfolio(id);
+      setImages(prev => prev.filter(i => i.id !== id));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Delete failed");
+    }
   };
+
+  // ── bulk upload ───────────────────────────────────────────────────────────
+
+  const openBulkModal = () => {
+    setBulkCategoryId(undefined);
+    setBulkFiles([]);
+    setBulkUploading(false);
+    setBulkModal(true);
+  };
+
+  const addBulkFiles = (incoming: FileList) => {
+    const valid = Array.from(incoming).filter(f => f.type.startsWith("image/"));
+    setBulkFiles(prev => [
+      ...prev,
+      ...valid.map(f => ({ id: `${f.name}-${f.size}-${Date.now()}`, file: f, status: "pending" as const })),
+    ]);
+  };
+
+  const removeBulkFile = (id: string) => {
+    setBulkFiles(prev => prev.filter(f => f.id !== id));
+  };
+
+  const handleBulkUpload = async () => {
+    if (!bulkCategoryId) return;
+    const catName = categoryName(bulkCategoryId);
+    const baseSerial = nextSerial(bulkCategoryId);
+    const pending = bulkFiles.filter(f => f.status === "pending");
+    if (pending.length === 0) return;
+
+    setBulkUploading(true);
+    const created: Portfolio[] = [];
+
+    for (let i = 0; i < pending.length; i++) {
+      const item = pending[i];
+      setBulkFiles(prev => prev.map(f => f.id === item.id ? { ...f, status: "uploading" } : f));
+      try {
+        const url = await uploadImage(item.file);
+        const portfolio = await createPortfolio({
+          title: autoTitle(catName, baseSerial + i),
+          url,
+          categoryId: bulkCategoryId,
+          alt: "",
+        });
+        created.push(portfolio);
+        setBulkFiles(prev => prev.map(f => f.id === item.id ? { ...f, status: "done" } : f));
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : "Upload failed";
+        setBulkFiles(prev => prev.map(f => f.id === item.id ? { ...f, status: "error", error: msg } : f));
+      }
+    }
+
+    if (created.length) setImages(prev => [...created, ...prev]);
+    setBulkUploading(false);
+  };
+
+  // ── pixieset ─────────────────────────────────────────────────────────────
 
   const handleSavePixieset = () => {
     setPixiesetSaved(true);
     setTimeout(() => setPixiesetSaved(false), 2500);
   };
 
-  const handleAddCategory = (e: React.FormEvent) => {
+  // ── category ─────────────────────────────────────────────────────────────
+
+  const handleAddCategory = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!catForm.name) return;
-    const slug = catForm.slug || catForm.name.toLowerCase().replace(/\s+/g, "-");
-    setCategories([...categories, { id: Date.now(), name: catForm.name, slug, count: 0 }]);
-    setCatForm({ name: "", slug: "" });
-    setCatModal(false);
+    setCatSubmitting(true);
+    setCatError(null);
+    const slug = catForm.slug || catForm.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+    try {
+      const created = await createCategory({ name: catForm.name, slug });
+      setCategories(prev => [...prev, { ...created, count: 0 }]);
+      setCatForm({ name: "", slug: "" });
+      setCatModal(false);
+    } catch (e) {
+      setCatError(e instanceof Error ? e.message : "Failed to create category");
+    } finally {
+      setCatSubmitting(false);
+    }
   };
 
-  const handleDeleteCategory = (id: number) => {
-    if (window.confirm("Delete this category?")) setCategories(categories.filter(c => c.id !== id));
+  const handleDeleteCategory = async (id: number) => {
+    if (!window.confirm("Delete this category? Images in this category will be uncategorised.")) return;
+    try {
+      await deleteCategory(id);
+      setCategories(prev => prev.filter(c => c.id !== id));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Delete failed");
+    }
   };
+
+  // ── render ────────────────────────────────────────────────────────────────
 
   return (
     <>
@@ -129,12 +277,24 @@ export default function PortfoliosPage() {
           <h1 className="text-2xl font-bold uppercase tracking-tight">Portfolio Management</h1>
           <p className="text-muted-foreground text-sm mt-1">Manage categories, featured images, and gallery links.</p>
         </div>
-        <button
-          onClick={activeTab === "images" ? openAddImage : () => setCatModal(true)}
-          className="px-5 py-2.5 bg-brand-400 text-white font-bold uppercase tracking-widest text-xs flex items-center gap-2 hover:bg-brand-500 transition-colors rounded-sm"
-        >
-          <Plus size={15} /> {activeTab === "images" ? "Add Image" : "Add Category"}
-        </button>
+        <div className="flex gap-2">
+          {activeTab === "images" && (
+            <button
+              onClick={openBulkModal}
+              disabled={loading}
+              className="px-5 py-2.5 border border-border text-foreground font-bold uppercase tracking-widest text-xs flex items-center gap-2 hover:border-brand-400 hover:text-brand-400 transition-colors rounded-sm disabled:opacity-50"
+            >
+              <Images size={15} /> Bulk Upload
+            </button>
+          )}
+          <button
+            onClick={activeTab === "images" ? openAddImage : () => { setCatForm({ name: "", slug: "" }); setCatError(null); setCatModal(true); }}
+            disabled={loading}
+            className="px-5 py-2.5 bg-brand-400 text-white font-bold uppercase tracking-widest text-xs flex items-center gap-2 hover:bg-brand-500 transition-colors rounded-sm disabled:opacity-50"
+          >
+            <Plus size={15} /> {activeTab === "images" ? "Add Image" : "Add Category"}
+          </button>
+        </div>
       </div>
 
       {/* Pixieset Integration */}
@@ -160,12 +320,8 @@ export default function PortfoliosPage() {
               >
                 {pixiesetSaved ? "Saved ✓" : "Update Link"}
               </button>
-              <a
-                href={pixiesetLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2.5 border border-border hover:border-brand-400 hover:text-brand-400 transition-colors text-sm rounded-sm"
-              >
+              <a href={pixiesetLink} target="_blank" rel="noopener noreferrer"
+                className="px-4 py-2.5 border border-border hover:border-brand-400 hover:text-brand-400 transition-colors text-sm rounded-sm">
                 <ExternalLink size={15} />
               </a>
             </div>
@@ -173,224 +329,311 @@ export default function PortfoliosPage() {
         </div>
       </div>
 
+      {/* Error banner */}
+      {error && (
+        <div className="flex items-center gap-3 mb-5 px-4 py-3 bg-red-500/10 border border-red-500/30 rounded-sm text-red-500">
+          <AlertCircle size={16} />
+          <span className="text-sm font-medium">{error}</span>
+          <button onClick={load} className="ml-auto text-xs font-bold uppercase tracking-widest underline">Retry</button>
+        </div>
+      )}
+
       {/* Tabs */}
       <div className="flex gap-1 mb-6 border-b border-border">
         {(["images", "categories"] as const).map(tab => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
+          <button key={tab} onClick={() => setActiveTab(tab)}
             className={`px-5 py-2.5 text-xs font-bold uppercase tracking-widest transition-colors -mb-px border-b-2 ${
-              activeTab === tab
-                ? "border-brand-400 text-brand-400"
-                : "border-transparent text-muted-foreground hover:text-foreground"
-            }`}
-          >
+              activeTab === tab ? "border-brand-400 text-brand-400" : "border-transparent text-muted-foreground hover:text-foreground"
+            }`}>
             {tab === "images" ? "Featured Images" : "Categories"}
           </button>
         ))}
       </div>
 
-      {/* Images Tab */}
-      {activeTab === "images" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {images.map((img) => (
-            <div key={img.id} className="bg-background border border-border rounded-md overflow-hidden group">
-              <div className="aspect-[4/3] bg-muted relative overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                  style={{ backgroundImage: `url('${img.url}')` }}
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors" />
-                <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button
-                    onClick={() => openEditImage(img)}
-                    className="bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-brand-400 transition-colors rounded-sm"
-                  >
-                    <Edit2 size={13} />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteImage(img.id)}
-                    className="bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-red-500 transition-colors rounded-sm"
-                  >
-                    <Trash2 size={13} />
-                  </button>
+      {loading ? (
+        <div className="flex items-center justify-center py-24 text-muted-foreground">
+          <Loader2 size={28} className="animate-spin mr-3" />
+          <span className="text-sm font-medium">Loading…</span>
+        </div>
+      ) : (
+        <>
+          {/* Images Tab */}
+          {activeTab === "images" && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {images.map((img) => (
+                <div key={img.id} className="bg-background border border-border rounded-md overflow-hidden group">
+                  <div className="aspect-[4/3] bg-muted relative overflow-hidden">
+                    <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                      style={{ backgroundImage: `url('${resolveUrl(img.url)}')` }} />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors" />
+                    <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button onClick={() => openEditImage(img)}
+                        className="bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-brand-400 transition-colors rounded-sm">
+                        <Edit2 size={13} />
+                      </button>
+                      <button onClick={() => handleDeleteImage(img.id)}
+                        className="bg-black/60 p-2 text-white backdrop-blur-sm hover:bg-red-500 transition-colors rounded-sm">
+                        <Trash2 size={13} />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <div className="font-bold text-sm uppercase tracking-tight truncate">{img.title}</div>
+                    <div className="flex items-center gap-1.5 mt-1.5">
+                      <Tag size={11} className="text-muted-foreground" />
+                      <span className="text-xs text-muted-foreground">{img.category?.name ?? "Uncategorised"}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="p-4">
-                <div className="font-bold text-sm uppercase tracking-tight truncate">{img.title}</div>
-                <div className="flex items-center gap-1.5 mt-1.5">
-                  <Tag size={11} className="text-muted-foreground" />
-                  <span className="text-xs text-muted-foreground">{img.category}</span>
+              ))}
+              {images.length === 0 && (
+                <div className="col-span-3 text-center p-12 text-muted-foreground border border-dashed border-border rounded-md">
+                  <ImageIcon size={32} className="mx-auto mb-3 opacity-30" />
+                  <p className="text-sm font-medium">No featured images yet.</p>
+                  <p className="text-xs mt-1">Add images to showcase on the portfolio page.</p>
                 </div>
-              </div>
-            </div>
-          ))}
-          {images.length === 0 && (
-            <div className="col-span-3 text-center p-12 text-muted-foreground border border-dashed border-border rounded-md">
-              <ImageIcon size={32} className="mx-auto mb-3 opacity-30" />
-              <p className="text-sm font-medium">No featured images yet.</p>
-              <p className="text-xs mt-1">Add images to showcase on the portfolio page.</p>
+              )}
             </div>
           )}
-        </div>
+
+          {/* Categories Tab */}
+          {activeTab === "categories" && (
+            <div className="bg-background border border-border rounded-md overflow-hidden">
+              <table className="w-full text-left">
+                <thead>
+                  <tr className="bg-muted/50 text-[10px] uppercase tracking-widest text-muted-foreground border-b border-border">
+                    <th className="p-4 font-bold">Category Name</th>
+                    <th className="p-4 font-bold">Slug</th>
+                    <th className="p-4 font-bold text-center">Photo Count</th>
+                    <th className="p-4 font-bold text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {categories.map((cat) => (
+                    <tr key={cat.id} className="hover:bg-muted/30 transition-colors">
+                      <td className="p-4 font-semibold text-sm">{cat.name}</td>
+                      <td className="p-4 text-xs text-muted-foreground font-mono">{cat.slug}</td>
+                      <td className="p-4 text-center">
+                        <span className="px-2 py-1 bg-brand-400/10 text-brand-500 text-xs font-bold rounded">{cat.count}</span>
+                      </td>
+                      <td className="p-4 text-right">
+                        <button onClick={() => handleDeleteCategory(cat.id)}
+                          className="p-1.5 text-muted-foreground hover:text-red-500 hover:bg-red-500/10 rounded transition-colors">
+                          <Trash2 size={14} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                  {categories.length === 0 && (
+                    <tr><td colSpan={4} className="p-8 text-center text-sm text-muted-foreground">No categories yet.</td></tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </>
       )}
 
-      {/* Categories Tab */}
-      {activeTab === "categories" && (
-        <div className="bg-background border border-border rounded-md overflow-hidden">
-          <table className="w-full text-left">
-            <thead>
-              <tr className="bg-muted/50 text-[10px] uppercase tracking-widest text-muted-foreground border-b border-border">
-                <th className="p-4 font-bold">Category Name</th>
-                <th className="p-4 font-bold">Slug</th>
-                <th className="p-4 font-bold text-center">Photo Count</th>
-                <th className="p-4 font-bold text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {categories.map((cat) => (
-                <tr key={cat.id} className="hover:bg-muted/30 transition-colors">
-                  <td className="p-4 font-semibold text-sm">{cat.name}</td>
-                  <td className="p-4 text-xs text-muted-foreground font-mono">{cat.slug}</td>
-                  <td className="p-4 text-center">
-                    <span className="px-2 py-1 bg-brand-400/10 text-brand-500 text-xs font-bold rounded">{cat.count}</span>
-                  </td>
-                  <td className="p-4 text-right">
-                    <button
-                      onClick={() => handleDeleteCategory(cat.id)}
-                      className="p-1.5 text-muted-foreground hover:text-red-500 hover:bg-red-500/10 rounded transition-colors"
-                    >
-                      <Trash2 size={14} />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {/* Image Modal */}
-      <Modal isOpen={imageModal} onClose={() => setImageModal(false)} title={editingImage ? "Edit Featured Image" : "Add Featured Image"}>
+      {/* ── Single Image Modal ─────────────────────────────────────────── */}
+      <Modal isOpen={imageModal} onClose={() => setImageModal(false)} title={editingImage ? "Edit Image" : "Add Featured Image"}>
         <form onSubmit={handleSaveImage} className="space-y-5">
+          {imageError && (
+            <div className="flex items-center gap-2 px-3 py-2.5 bg-red-500/10 border border-red-500/30 rounded-sm text-red-500 text-sm">
+              <AlertCircle size={14} /> {imageError}
+            </div>
+          )}
+
           <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Image Title *</label>
-            <input
-              type="text"
-              placeholder="e.g. Summer Wedding Ceremony"
-              className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
-              value={imageForm.title}
-              onChange={(e) => setImageForm({ ...imageForm, title: e.target.value })}
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Category *</label>
+            <select
               required
-            />
+              className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 appearance-none cursor-pointer rounded-sm text-sm"
+              value={imageForm.categoryId ?? ""}
+              onChange={(e) => setImageForm(f => ({ ...f, categoryId: e.target.value ? Number(e.target.value) : undefined }))}
+            >
+              <option value="">— Select a category —</option>
+              {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+            </select>
+            {!editingImage && imageForm.categoryId && (
+              <p className="text-[11px] text-muted-foreground">
+                Title will be auto-set to <span className="font-mono font-bold text-foreground">{autoTitle(categoryName(imageForm.categoryId), nextSerial(imageForm.categoryId))}</span>
+              </p>
+            )}
           </div>
+
           <div className="space-y-2">
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Image *</label>
-            {/* Mode toggle */}
             <div className="flex gap-1 p-1 bg-muted rounded-sm w-fit">
-              <button
-                type="button"
-                onClick={() => setImageInputMode("url")}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${imageInputMode === "url" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
-              >
+              <button type="button" onClick={() => { setImageInputMode("url"); setPendingFile(null); }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${imageInputMode === "url" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
                 <LinkIcon size={11} /> Paste URL
               </button>
-              <button
-                type="button"
-                onClick={() => setImageInputMode("upload")}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${imageInputMode === "upload" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
-              >
+              <button type="button" onClick={() => setImageInputMode("upload")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${imageInputMode === "upload" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
                 <Upload size={11} /> Upload File
               </button>
             </div>
 
             {imageInputMode === "url" ? (
-              <input
-                type="url"
-                placeholder="https://images.unsplash.com/..."
+              <input type="url" placeholder="https://images.unsplash.com/…"
                 className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
-                value={imageForm.url.startsWith("data:") ? "" : imageForm.url}
-                onChange={(e) => setImageForm({ ...imageForm, url: e.target.value })}
-                required={imageInputMode === "url" && !imageForm.url}
-              />
+                value={imageForm.url}
+                onChange={(e) => { setImageForm(f => ({ ...f, url: e.target.value })); setPreviewUrl(e.target.value); }} />
             ) : (
-              <div
-                onClick={() => fileInputRef.current?.click()}
+              <div onClick={() => fileInputRef.current?.click()}
                 onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
                 onDragLeave={() => setIsDragging(false)}
-                onDrop={handleDrop}
-                className={`w-full border-2 border-dashed rounded-sm py-8 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors ${isDragging ? "border-brand-400 bg-brand-400/5" : "border-border hover:border-brand-400/50 hover:bg-muted/50"}`}
-              >
-                <Upload size={22} className="text-muted-foreground" />
-                <p className="text-sm font-medium">Drop image here or <span className="text-brand-400">browse</span></p>
-                <p className="text-xs text-muted-foreground">PNG, JPG, WEBP supported</p>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleFileChange}
-                />
+                onDrop={(e) => { e.preventDefault(); setIsDragging(false); const f = e.dataTransfer.files?.[0]; if (f) handleFileSelect(f); }}
+                className={`w-full border-2 border-dashed rounded-sm py-8 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors ${isDragging ? "border-brand-400 bg-brand-400/5" : "border-border hover:border-brand-400/50 hover:bg-muted/50"}`}>
+                {pendingFile ? (
+                  <p className="text-sm font-medium text-brand-400">{pendingFile.name}</p>
+                ) : (
+                  <>
+                    <Upload size={22} className="text-muted-foreground" />
+                    <p className="text-sm font-medium">Drop image here or <span className="text-brand-400">browse</span></p>
+                    <p className="text-xs text-muted-foreground">PNG, JPG, WEBP — max 10 MB</p>
+                  </>
+                )}
+                <input ref={fileInputRef} type="file" accept="image/*" className="hidden"
+                  onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFileSelect(f); }} />
               </div>
             )}
           </div>
+
           <div className="space-y-1.5">
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Alt Text (SEO)</label>
-            <input
-              type="text"
-              placeholder="Describe the image for accessibility"
+            <input type="text" placeholder="Describe the image for accessibility"
               className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
               value={imageForm.alt}
-              onChange={(e) => setImageForm({ ...imageForm, alt: e.target.value })}
-            />
+              onChange={(e) => setImageForm(f => ({ ...f, alt: e.target.value }))} />
           </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Category</label>
-            <select
-              className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 appearance-none cursor-pointer rounded-sm text-sm"
-              value={imageForm.category}
-              onChange={(e) => setImageForm({ ...imageForm, category: e.target.value })}
-            >
-              {categories.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
-            </select>
+
+          <div className="flex items-center gap-3">
+            <input id="featured" type="checkbox" checked={imageForm.featured}
+              onChange={(e) => setImageForm(f => ({ ...f, featured: e.target.checked }))}
+              className="w-4 h-4 accent-brand-400" />
+            <label htmlFor="featured" className="text-sm font-medium cursor-pointer">Feature on homepage</label>
           </div>
-          {imageForm.url && (
+
+          {previewUrl && (
             <div className="aspect-video bg-muted rounded overflow-hidden relative">
-              <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${imageForm.url}')` }} />
+              <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${previewUrl}')` }} />
             </div>
           )}
-          <button type="submit" className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 transition-colors rounded-sm">
+
+          <button type="submit" disabled={imageSubmitting}
+            className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 transition-colors rounded-sm flex items-center justify-center gap-2 disabled:opacity-60">
+            {imageSubmitting && <Loader2 size={15} className="animate-spin" />}
             {editingImage ? "Save Changes" : "Add Image"}
           </button>
         </form>
       </Modal>
 
-      {/* Category Modal */}
+      {/* ── Bulk Upload Modal ──────────────────────────────────────────── */}
+      <Modal isOpen={bulkModal} onClose={() => !bulkUploading && setBulkModal(false)} title="Bulk Upload Images">
+        <div className="space-y-5">
+          {/* Category selector */}
+          <div className="space-y-1.5">
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Category *</label>
+            <select
+              className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 appearance-none cursor-pointer rounded-sm text-sm"
+              value={bulkCategoryId ?? ""}
+              onChange={(e) => setBulkCategoryId(e.target.value ? Number(e.target.value) : undefined)}
+              disabled={bulkUploading}
+            >
+              <option value="">— Select a category —</option>
+              {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+            </select>
+            {bulkCategoryId && (
+              <p className="text-[11px] text-muted-foreground">
+                Images will be titled <span className="font-mono font-bold text-foreground">{categoryName(bulkCategoryId)}_{nextSerial(bulkCategoryId)}</span>, <span className="font-mono font-bold text-foreground">{categoryName(bulkCategoryId)}_{nextSerial(bulkCategoryId) + 1}</span>, …
+              </p>
+            )}
+          </div>
+
+          {/* Drop zone */}
+          <div
+            onClick={() => !bulkUploading && bulkInputRef.current?.click()}
+            onDragOver={(e) => { e.preventDefault(); setBulkDragging(true); }}
+            onDragLeave={() => setBulkDragging(false)}
+            onDrop={(e) => { e.preventDefault(); setBulkDragging(false); if (!bulkUploading && e.dataTransfer.files.length) addBulkFiles(e.dataTransfer.files); }}
+            className={`w-full border-2 border-dashed rounded-sm py-8 flex flex-col items-center justify-center gap-2 transition-colors ${bulkUploading ? "opacity-40 cursor-not-allowed" : "cursor-pointer"} ${bulkDragging ? "border-brand-400 bg-brand-400/5" : "border-border hover:border-brand-400/50 hover:bg-muted/50"}`}
+          >
+            <Images size={26} className="text-muted-foreground" />
+            <p className="text-sm font-medium">Drop images here or <span className="text-brand-400">browse</span></p>
+            <p className="text-xs text-muted-foreground">Select multiple files — PNG, JPG, WEBP — max 10 MB each</p>
+            <input ref={bulkInputRef} type="file" accept="image/*" multiple className="hidden"
+              onChange={(e) => { if (e.target.files?.length) addBulkFiles(e.target.files); e.target.value = ""; }} />
+          </div>
+
+          {/* File queue */}
+          {bulkFiles.length > 0 && (
+            <div className="max-h-56 overflow-y-auto space-y-1.5 pr-1">
+              {bulkFiles.map((item) => (
+                <div key={item.id} className="flex items-center gap-3 px-3 py-2 bg-muted/50 rounded-sm">
+                  {item.status === "pending" && <div className="w-4 h-4 rounded-full border-2 border-muted-foreground/40 shrink-0" />}
+                  {item.status === "uploading" && <Loader2 size={16} className="animate-spin text-brand-400 shrink-0" />}
+                  {item.status === "done" && <CheckCircle2 size={16} className="text-green-500 shrink-0" />}
+                  {item.status === "error" && <XCircle size={16} className="text-red-500 shrink-0" />}
+                  <span className="text-xs flex-1 truncate font-medium">{item.file.name}</span>
+                  {item.status === "error" && <span className="text-[10px] text-red-500 shrink-0">{item.error}</span>}
+                  {item.status === "pending" && !bulkUploading && (
+                    <button onClick={() => removeBulkFile(item.id)} className="text-muted-foreground hover:text-red-500 transition-colors shrink-0">
+                      <XCircle size={14} />
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Summary */}
+          {bulkFiles.length > 0 && (
+            <p className="text-xs text-muted-foreground">
+              {bulkFiles.filter(f => f.status === "done").length} done ·{" "}
+              {bulkFiles.filter(f => f.status === "error").length} failed ·{" "}
+              {bulkFiles.filter(f => f.status === "pending").length} pending
+            </p>
+          )}
+
+          <button
+            onClick={handleBulkUpload}
+            disabled={bulkUploading || !bulkCategoryId || bulkFiles.filter(f => f.status === "pending").length === 0}
+            className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 transition-colors rounded-sm flex items-center justify-center gap-2 disabled:opacity-50"
+          >
+            {bulkUploading ? <><Loader2 size={15} className="animate-spin" /> Uploading…</> : (
+              <><Upload size={15} /> Upload {bulkFiles.filter(f => f.status === "pending").length} Image{bulkFiles.filter(f => f.status === "pending").length !== 1 ? "s" : ""}</>
+            )}
+          </button>
+        </div>
+      </Modal>
+
+      {/* ── Category Modal ─────────────────────────────────────────────── */}
       <Modal isOpen={catModal} onClose={() => setCatModal(false)} title="Add Portfolio Category">
         <form onSubmit={handleAddCategory} className="space-y-5">
+          {catError && (
+            <div className="flex items-center gap-2 px-3 py-2.5 bg-red-500/10 border border-red-500/30 rounded-sm text-red-500 text-sm">
+              <AlertCircle size={14} /> {catError}
+            </div>
+          )}
           <div className="space-y-1.5">
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Category Name *</label>
-            <input
-              type="text"
-              placeholder="e.g. Engagement Session"
+            <input type="text" placeholder="e.g. Engagement Session"
               className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm"
               value={catForm.name}
-              onChange={(e) => setCatForm({ ...catForm, name: e.target.value })}
-              required
-            />
+              onChange={(e) => setCatForm(f => ({ ...f, name: e.target.value }))} required />
           </div>
           <div className="space-y-1.5">
             <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">URL Slug (optional)</label>
-            <input
-              type="text"
-              placeholder="e.g. engagement-session"
+            <input type="text" placeholder="e.g. engagement-session"
               className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm font-mono"
               value={catForm.slug}
-              onChange={(e) => setCatForm({ ...catForm, slug: e.target.value })}
-            />
-            <p className="text-xs text-muted-foreground">Auto-generated from name if left blank.</p>
+              onChange={(e) => setCatForm(f => ({ ...f, slug: e.target.value }))} />
+            <p className="text-xs text-muted-foreground">Auto-generated from name if left blank. Lowercase, numbers, hyphens only.</p>
           </div>
-          <button type="submit" className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 transition-colors rounded-sm">
+          <button type="submit" disabled={catSubmitting}
+            className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 transition-colors rounded-sm flex items-center justify-center gap-2 disabled:opacity-60">
+            {catSubmitting && <Loader2 size={15} className="animate-spin" />}
             Add Category
           </button>
         </form>

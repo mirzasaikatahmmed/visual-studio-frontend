@@ -61,7 +61,7 @@ export default function StorePage() {
       {/* Hero Section */}
       <HeroSection 
         subtitle="The Print Shop"
-        title={<>Preserve Your <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">Legacy</span></>}
+        title={<>Preserve Your <br/> <span className="text-brand-500 font-great-vibes normal-case font-normal tracking-normal text-[1.2em] md:text-[1.4em] ml-1">Legacy</span></>}
         desc="Transform your digital memories into physical heirlooms. Explore our premium collection of albums, wall art, and prints crafted for a lifetime."
         image="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2000&auto=format&fit=crop"
       />

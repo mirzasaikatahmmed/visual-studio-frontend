@@ -1,60 +1,95 @@
 "use client";
 
+import { useState, useEffect, useCallback } from "react";
 import { Plus, Trash2, Edit2, HelpCircle } from "lucide-react";
-import { useState } from "react";
 import { Modal } from "@/components/ui/modal";
+import { fetchFaqs, createFaq, updateFaq, deleteFaq, type Faq } from "@/lib/faqApi";
 
-type FAQ = {
-  id: number;
-  question: string;
-  answer: string;
-  category: string;
-};
+const CATEGORIES = ["General", "Booking", "Delivery", "Pricing", "Other"];
 
-const initialFAQs: FAQ[] = [
-  { id: 1, question: "How far in advance should we book?", answer: "We recommend booking 6-12 months in advance for weddings and 1-2 months for portrait sessions.", category: "Booking" },
-  { id: 2, question: "Do you travel for weddings?", answer: "Yes! We love capturing love stories worldwide. Travel fees may apply depending on the destination.", category: "General" },
-  { id: 3, question: "When will we get our photos?", answer: "Wedding galleries are typically delivered within 6-8 weeks. Portrait sessions take 2-3 weeks.", category: "Delivery" },
-];
-
-const blankFAQ = (): Omit<FAQ, "id"> => ({
-  question: "", answer: "", category: "General"
-});
-
-const categories = ["General", "Booking", "Delivery", "Pricing", "Other"];
+const blankForm = () => ({ question: "", answer: "", category: "General" });
 
 export default function FAQPage() {
-  const [faqs, setFaqs] = useState(initialFAQs);
+  const [faqs, setFaqs] = useState<Faq[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const [modal, setModal] = useState(false);
-  const [editingFAQ, setEditingFAQ] = useState<FAQ | null>(null);
-  const [form, setForm] = useState(blankFAQ());
+  const [editingFAQ, setEditingFAQ] = useState<Faq | null>(null);
+  const [form, setForm] = useState(blankForm());
+  const [saving, setSaving] = useState(false);
+
+  const loadFaqs = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      setFaqs(await fetchFaqs());
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to load");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { void loadFaqs(); }, [loadFaqs]);
 
   const openAdd = () => {
     setEditingFAQ(null);
-    setForm(blankFAQ());
+    setForm(blankForm());
     setModal(true);
   };
 
-  const openEdit = (f: FAQ) => {
+  const openEdit = (f: Faq) => {
     setEditingFAQ(f);
-    setForm({ question: f.question, answer: f.answer, category: f.category });
+    setForm({ question: f.question, answer: f.answer, category: f.category ?? "General" });
     setModal(true);
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.question || !form.answer) return;
-    if (editingFAQ) {
-      setFaqs(faqs.map(f => f.id === editingFAQ.id ? { ...form, id: editingFAQ.id } : f));
-    } else {
-      setFaqs([{ ...form, id: Date.now() }, ...faqs]);
+    setSaving(true);
+    try {
+      if (editingFAQ) {
+        const updated = await updateFaq(editingFAQ.id, form);
+        setFaqs(prev => prev.map(f => f.id === editingFAQ.id ? updated : f));
+      } else {
+        const created = await createFaq(form);
+        setFaqs(prev => [created, ...prev]);
+      }
+      setModal(false);
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Failed to save");
+    } finally {
+      setSaving(false);
     }
-    setModal(false);
   };
 
-  const handleDelete = (id: number) => {
-    if (window.confirm("Delete this FAQ?")) setFaqs(faqs.filter(f => f.id !== id));
+  const handleDelete = async (id: number) => {
+    if (!window.confirm("Delete this FAQ?")) return;
+    try {
+      await deleteFaq(id);
+      setFaqs(prev => prev.filter(f => f.id !== id));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Failed to delete");
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64 text-muted-foreground text-sm">
+        Loading...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64 text-red-500 text-sm">
+        {error}
+        <button onClick={() => void loadFaqs()} className="ml-2 underline">Retry</button>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -77,10 +112,10 @@ export default function FAQPage() {
             <div className="mt-1">
               <HelpCircle size={20} className="text-brand-400" />
             </div>
-            <div className="flex-1">
-              <div className="flex items-center justify-between">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between gap-4">
                 <h3 className="font-bold text-sm">{faq.question}</h3>
-                <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
                   <button onClick={() => openEdit(faq)} className="text-muted-foreground hover:text-foreground">
                     <Edit2 size={15} />
                   </button>
@@ -90,9 +125,11 @@ export default function FAQPage() {
                 </div>
               </div>
               <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{faq.answer}</p>
-              <div className="mt-3 inline-block px-2 py-1 bg-muted rounded text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                {faq.category}
-              </div>
+              {faq.category && (
+                <div className="mt-3 inline-block px-2 py-1 bg-muted rounded text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                  {faq.category}
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -134,11 +171,15 @@ export default function FAQPage() {
               value={form.category}
               onChange={(e) => setForm({ ...form, category: e.target.value })}
             >
-              {categories.map(c => <option key={c} value={c}>{c}</option>)}
+              {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>
-          <button type="submit" className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 transition-colors rounded-sm">
-            {editingFAQ ? "Save Changes" : "Add FAQ"}
+          <button
+            type="submit"
+            disabled={saving}
+            className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 transition-colors rounded-sm disabled:opacity-60"
+          >
+            {saving ? "Saving..." : editingFAQ ? "Save Changes" : "Add FAQ"}
           </button>
         </form>
       </Modal>

@@ -4,6 +4,12 @@ import Image from "next/image";
 import { ExternalLink, X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Great_Vibes } from "next/font/google";
+
+const greatVibes = Great_Vibes({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 type Category = "Wedding Ceremony" | "Henna Ceremony" | "Group Pictures" | "Studio Photoshoot" | "Gender Reveal" | "Baby Shower Ceremony" | "Visual Studio Portfolio" | "Maternity Ceremony" | "Baby Photography" | "Birthday Ceremony";
 
@@ -73,8 +79,6 @@ const portfolioData = [
 ];
 
 const categories: Category[] = ["Wedding Ceremony", "Henna Ceremony", "Group Pictures", "Studio Photoshoot", "Gender Reveal", "Baby Shower Ceremony", "Visual Studio Portfolio", "Maternity Ceremony", "Baby Photography", "Birthday Ceremony"];
-
-import { HeroSection } from "@/components/hero-section";
 
 export default function PortfolioPage() {
   const [activeCategory, setActiveCategory] = useState<Category>("Wedding Ceremony");
@@ -161,26 +165,55 @@ export default function PortfolioPage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedIndex, handleNext, handlePrev]);
 
+  // Derive background image for the frosted effect
+  const bgImage = useMemo(() => {
+    return portfolioData.find((item) => item.category === activeCategory)?.src || "";
+  }, [activeCategory]);
+
   return (
-    <div className="min-h-screen pb-24 bg-background selection:bg-brand-500/30">
-      <HeroSection 
-        subtitle="Our Work"
-        title={<>Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">Portfolio</span></>}
-        desc="A curated exhibition of our finest visual stories. Explore the moments we've frozen in time across luxury weddings, brand campaigns, and creative events."
-        image="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2000&auto=format&fit=crop"
-      />
-      <div className="container max-w-7xl mx-auto px-4 mt-8">
+    <div className="relative min-h-screen pb-24 selection:bg-brand-500/30">
+      {/* Background base layer to ensure consistent theme background */}
+      <div className="fixed inset-0 z-[-2] bg-background" />
+      
+      <AnimatePresence mode="wait">
+        {bgImage && (
+          <motion.div
+            key={bgImage}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.35 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+            className="fixed inset-0 z-[-1] pointer-events-none transition-transform dark:opacity-[0.4]"
+            style={{
+              backgroundImage: `url('${bgImage}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              filter: "blur(6px) saturate(1.2)",
+              transform: "scale(1.05)",
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      <div className="relative z-10 container max-w-7xl mx-auto px-4 pt-32 mt-8">
         
-        {/* Header Section */}
-        <div className="flex flex-col items-center gap-4 mb-12 w-full">
-          
-          <motion.h2 
-            initial={{ opacity: 0, y: -10 }}
+        {/* Title Section */}
+        <div className="flex flex-col items-center gap-2 mb-12 w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-3xl md:text-4xl font-extrabold tracking-tighter uppercase text-foreground"
+            transition={{ delay: 0.1 }}
+            className="flex items-center justify-center gap-2 md:gap-3 mb-8"
           >
-            Portfolio
-          </motion.h2>
+            <span className="text-4xl md:text-5xl font-extrabold tracking-tighter uppercase text-foreground mt-2 md:mt-4">
+              Our
+            </span>
+            <span 
+              className={`${greatVibes.className} text-6xl md:text-[6.5rem] text-brand-500`}
+            >
+              Portfolio
+            </span>
+          </motion.div>
 
           {/* Filter Pills */}
           <motion.div
@@ -297,58 +330,115 @@ export default function PortfolioPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-2xl"
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black overflow-hidden"
           >
+            {/* Dynamic blurred background based on current image */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedIndex}
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 0.5, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.8 }}
+                className="absolute inset-0 bg-cover bg-center pointer-events-none"
+                style={{ 
+                  backgroundImage: `url('${filteredData[selectedIndex].src}')`,
+                  filter: "blur(25px) saturate(1.5)",
+                }}
+              />
+            </AnimatePresence>
+            
+            {/* Extra darkening overlay */}
+            <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+
+            {/* Close Button */}
             <button 
-              className="absolute top-8 right-8 p-3 text-white/50 hover:text-white transition-colors z-50 bg-white/5 hover:bg-white/20 rounded-full border border-white/10"
+              className="absolute top-6 right-6 md:top-8 md:right-8 p-3 text-white/70 hover:text-white transition-all z-50 bg-white/10 hover:bg-white/20 hover:scale-110 rounded-full border border-white/20 backdrop-blur-md"
               onClick={() => setSelectedIndex(null)}
             >
               <X size={24} />
             </button>
             
+            {/* Left Nav Button */}
             <button 
-              className="hidden md:block absolute left-6 md:left-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white transition-transform hover:scale-110 z-50 bg-white/5 border border-white/10 rounded-full backdrop-blur-md"
+              className="hidden md:flex absolute left-6 md:left-12 top-1/2 -translate-y-1/2 p-4 text-white/70 hover:text-white transition-all hover:scale-110 z-50 bg-black/20 hover:bg-black/40 border border-white/20 rounded-full backdrop-blur-md shadow-2xl items-center justify-center"
               onClick={(e) => { e.stopPropagation(); handlePrev(); }}
             >
               <ChevronLeft size={32} />
             </button>
             
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={selectedIndex}
-                initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-                transition={{ duration: 0.5, type: "spring", bounce: 0 }}
-                className="relative max-w-[90vw] max-h-[85vh] flex flex-col items-center touch-none cursor-grab active:cursor-grabbing"
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={1}
-                onDragEnd={(_e, { offset, velocity }) => {
-                  if (offset.x > 50 || velocity.x > 500) {
-                    handlePrev();
-                  } else if (offset.x < -50 || velocity.x < -500) {
-                    handleNext();
-                  }
-                }}
-              >
-                <Image
-                  src={filteredData[selectedIndex].src}
-                  alt={filteredData[selectedIndex].title}
-                  width={1920}
-                  height={1280}
-                  className="max-w-full max-h-[80vh] w-auto h-auto object-contain shadow-[0_20px_60px_rgba(0,0,0,0.8)] rounded-lg border border-white/10 pointer-events-none"
-                />
-                <div className="mt-6 text-center">
-                  <h3 className="text-white text-xl font-bold tracking-widest uppercase">{filteredData[selectedIndex].title}</h3>
-                  <p className="text-brand-400 text-sm tracking-widest uppercase mt-1 opacity-80">{filteredData[selectedIndex].category}</p>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+            {/* Carousel Container */}
+            <div className="relative w-full h-full flex items-center justify-center pointer-events-none perspective-[1000px]">
+              {filteredData.map((item, idx) => {
+                // Calculate offset wrapping around the array
+                let diff = idx - selectedIndex;
+                const len = filteredData.length;
+                if (diff > len / 2) diff -= len;
+                if (diff < -len / 2) diff += len;
+                
+                const isVisible = Math.abs(diff) <= 1; // Show only -1, 0, 1
 
+                if (!isVisible) return null;
+
+                return (
+                  <motion.div
+                    key={item.src}
+                    initial={false}
+                    animate={{
+                      x: diff === 0 ? "0%" : diff > 0 ? "110%" : "-110%",
+                      scale: diff === 0 ? 1 : 0.8,
+                      opacity: diff === 0 ? 1 : 0.4,
+                      zIndex: diff === 0 ? 40 : 30,
+                      rotateY: diff === 0 ? 0 : diff > 0 ? -15 : 15,
+                      filter: diff === 0 ? "blur(0px) brightness(1)" : "blur(4px) brightness(0.7)",
+                    }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30, mass: 0.8 }}
+                    className={`absolute flex flex-col items-center justify-center ${diff === 0 ? "cursor-grab active:cursor-grabbing pointer-events-auto" : "cursor-pointer pointer-events-auto"}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (diff === 1) handleNext();
+                      if (diff === -1) handlePrev();
+                    }}
+                    drag={diff === 0 ? "x" : false}
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.8}
+                    onDragEnd={(e, { offset: dragOffset, velocity }) => {
+                      if (dragOffset.x > 50 || velocity.x > 500) handlePrev();
+                      else if (dragOffset.x < -50 || velocity.x < -500) handleNext();
+                    }}
+                  >
+                    <Image
+                      src={item.src}
+                      alt={item.title}
+                      width={1920}
+                      height={1280}
+                      className="max-w-[85vw] md:max-w-[65vw] max-h-[60vh] md:max-h-[75vh] w-auto h-auto object-contain shadow-[0_30px_60px_rgba(0,0,0,0.6)] rounded-2xl border border-white/20 pointer-events-none select-none"
+                    />
+                    
+                    {/* Caption for active image */}
+                    <AnimatePresence>
+                      {diff === 0 && (
+                        <motion.div 
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          transition={{ delay: 0.1, duration: 0.3 }}
+                          className="absolute -bottom-20 md:-bottom-24 text-center w-full"
+                        >
+                          <h3 className="text-white text-xl md:text-3xl font-extrabold tracking-widest uppercase drop-shadow-xl">{item.title}</h3>
+                          <p className="text-brand-400 text-xs md:text-sm font-semibold tracking-[0.2em] uppercase mt-2 opacity-90 drop-shadow-md">{item.category}</p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Right Nav Button */}
             <button 
-              className="hidden md:block absolute right-6 md:right-12 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white transition-transform hover:scale-110 z-50 bg-white/5 border border-white/10 rounded-full backdrop-blur-md"
+              className="hidden md:flex absolute right-6 md:right-12 top-1/2 -translate-y-1/2 p-4 text-white/70 hover:text-white transition-all hover:scale-110 z-50 bg-black/20 hover:bg-black/40 border border-white/20 rounded-full backdrop-blur-md shadow-2xl items-center justify-center"
               onClick={(e) => { e.stopPropagation(); handleNext(); }}
             >
               <ChevronRight size={32} />
