@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const GoogleIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +14,32 @@ const GoogleIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+interface Review {
+  name: string;
+  time: string;
+  text: string;
+  avatar: string;
+  rating: number;
+}
+
 export function TestimonialsSection() {
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [rating, setRating] = useState<number>(5);
+  const [totalRatings, setTotalRatings] = useState<number>(0);
+
+  useEffect(() => {
+    fetch("/api/google-reviews")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.reviews?.length) {
+          setReviews(data.reviews);
+          setRating(data.rating);
+          setTotalRatings(data.totalRatings);
+        }
+      })
+      .catch(console.error);
+  }, []);
+
   const starVariants = {
     hidden: { opacity: 0, rotate: -45, scale: 0.5 },
     visible: { opacity: 1, rotate: 0, scale: 1, transition: { type: "spring" as const, stiffness: 200, damping: 10 } },
@@ -24,28 +50,21 @@ export function TestimonialsSection() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
   };
 
-  const reviews = [
-    { name: "Emily & David", time: "2 weeks ago", text: "Visual Studio captured our wedding beautifully. The album they delivered is breathtaking. A true masterpiece.", avatar: "https://i.pravatar.cc/150?u=1" },
-    { name: "Atlas Tech Corp", time: "1 month ago", text: "Incredible corporate headshots and event coverages. Our marketing materials look 10x better now.", avatar: "https://i.pravatar.cc/150?u=2" },
-    { name: "Sophia R.", time: "3 months ago", text: "The team at Dreams Decor transformed our simple hall into a royal palace. Highly recommend their integrated service.", avatar: "https://i.pravatar.cc/150?u=3" },
-    { name: "James & Sarah", time: "4 months ago", text: "Amazing cinematography! They made our special day look like a movie. The team was extremely professional and creative.", avatar: "https://i.pravatar.cc/150?u=4" },
-    { name: "The Grand Hotel", time: "5 months ago", text: "We use Visual Studio for all our corporate events. Always punctual, professional, and they deliver absolutely stunning photos.", avatar: "https://i.pravatar.cc/150?u=5" }
-  ];
+  const duplicatedReviews = [...reviews, ...reviews, ...reviews];
 
-  const duplicatedReviews = [...reviews, ...reviews, ...reviews]; // Tripled to ensure smooth infinite scroll
+  if (!reviews.length) return null;
 
   return (
     <section className="py-24 bg-muted/30 border-y border-border overflow-hidden">
       <div className="container mx-auto px-4 mb-16">
-        {/* Animated Header */}
-        <motion.div 
+        <motion.div
           className="text-center"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={headerVariants}
         >
-          <motion.div 
+          <motion.div
             className="flex justify-center gap-1 mb-4 text-yellow-500"
             variants={{
               hidden: {},
@@ -63,21 +82,20 @@ export function TestimonialsSection() {
           </motion.div>
           <motion.h2 variants={headerVariants} className="text-3xl md:text-5xl font-bold uppercase tracking-tighter mb-4">Client Love</motion.h2>
           <motion.p variants={headerVariants} className="text-muted-foreground max-w-2xl mx-auto flex items-center justify-center gap-2">
-            <GoogleIcon className="w-4 h-4" /> 
-            5.0 rating across 120+ reviews
+            <GoogleIcon className="w-4 h-4" />
+            {rating}.0 rating across {totalRatings}+ reviews
           </motion.p>
         </motion.div>
       </div>
 
       {/* Marquee Effect */}
       <div className="relative w-full overflow-hidden flex py-4 group">
-        {/* Adding gradient masks to fade the edges smoothly */}
         <div className="absolute inset-y-0 left-0 w-12 md:w-32 bg-gradient-to-r from-muted/30 to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-12 md:w-32 bg-gradient-to-l from-muted/30 to-transparent z-10 pointer-events-none" />
-        
-        <motion.div 
+
+        <motion.div
           className="flex w-max"
-          animate={{ x: ["0%", "-33.333333%"] }} 
+          animate={{ x: ["0%", "-33.333333%"] }}
           transition={{ ease: "linear", duration: 35, repeat: Infinity }}
         >
           {duplicatedReviews.map((review, i) => (
@@ -93,7 +111,7 @@ export function TestimonialsSection() {
                 <GoogleIcon className="w-5 h-5" />
               </div>
               <div className="flex text-yellow-500 gap-0.5">
-                {[...Array(5)].map((_, j) => (
+                {[...Array(review.rating)].map((_, j) => (
                   <Star key={j} fill="currentColor" strokeWidth={0} size={14} />
                 ))}
               </div>
