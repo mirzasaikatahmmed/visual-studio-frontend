@@ -9,7 +9,7 @@ import { Modal } from "@/components/ui/modal";
 import {
   fetchPortfolios, fetchCategories,
   createPortfolio, updatePortfolio, deletePortfolio,
-  createCategory, deleteCategory,
+  createCategory, updateCategory, deleteCategory,
   uploadImage, resolveUrl,
   type Portfolio, type PortfolioCategory,
 } from "@/lib/portfolioApi";
@@ -40,6 +40,7 @@ export default function PortfoliosPage() {
   const [categories, setCategories] = useState<PortfolioCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [filterCategoryId, setFilterCategoryId] = useState<number | null>(null);
 
   const [pixiesetLink, setPixiesetLink] = useState("https://gallery.visualstudioslens.com/");
   const [pixiesetSaved, setPixiesetSaved] = useState(false);
@@ -66,17 +67,20 @@ export default function PortfoliosPage() {
 
   // Category modal
   const [catModal, setCatModal] = useState(false);
-  const [catForm, setCatForm] = useState({ name: "", slug: "" });
+  const [catForm, setCatForm] = useState({ name: "", slug: "", sortOrder: 0 });
   const [catSubmitting, setCatSubmitting] = useState(false);
   const [catError, setCatError] = useState<string | null>(null);
+  const [editingOrderId, setEditingOrderId] = useState<number | null>(null);
+  const [editingOrderValue, setEditingOrderValue] = useState<string>("");
 
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const [imgs, cats] = await Promise.all([fetchPortfolios(), fetchCategories()]);
-      setImages(imgs);
-      setCategories(cats);
+      const clientLogoCatId = cats.find(c => c.slug === "client-logos")?.id;
+      setImages(imgs.filter(i => i.categoryId !== clientLogoCatId));
+      setCategories(cats.filter(c => c.slug !== "client-logos"));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to load data");
     } finally {
@@ -247,14 +251,30 @@ export default function PortfoliosPage() {
     setCatError(null);
     const slug = catForm.slug || catForm.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
     try {
-      const created = await createCategory({ name: catForm.name, slug });
-      setCategories(prev => [...prev, { ...created, count: 0 }]);
-      setCatForm({ name: "", slug: "" });
+      const created = await createCategory({ name: catForm.name, slug, sortOrder: catForm.sortOrder });
+      setCategories(prev => [...prev, { ...created, count: 0 }].sort((a, b) => a.sortOrder - b.sortOrder));
+      setCatForm({ name: "", slug: "", sortOrder: 0 });
       setCatModal(false);
     } catch (e) {
       setCatError(e instanceof Error ? e.message : "Failed to create category");
     } finally {
       setCatSubmitting(false);
+    }
+  };
+
+  const handleSaveOrder = async (id: number) => {
+    const value = parseInt(editingOrderValue, 10);
+    if (isNaN(value) || value < 0) { setEditingOrderId(null); return; }
+    try {
+      await updateCategory(id, { sortOrder: value });
+      setCategories(prev =>
+        prev.map(c => c.id === id ? { ...c, sortOrder: value } : c)
+          .sort((a, b) => a.sortOrder - b.sortOrder)
+      );
+    } catch {
+      // silently revert — the old value is still in state
+    } finally {
+      setEditingOrderId(null);
     }
   };
 
@@ -288,7 +308,7 @@ export default function PortfoliosPage() {
             </button>
           )}
           <button
-            onClick={activeTab === "images" ? openAddImage : () => { setCatForm({ name: "", slug: "" }); setCatError(null); setCatModal(true); }}
+            onClick={activeTab === "images" ? openAddImage : () => { setCatForm({ name: "", slug: "", sortOrder: 0 }); setCatError(null); setCatModal(true); }}
             disabled={loading}
             className="px-5 py-2.5 bg-brand-400 text-white font-bold uppercase tracking-widest text-xs flex items-center gap-2 hover:bg-brand-500 transition-colors rounded-sm disabled:opacity-50"
           >
@@ -341,7 +361,7 @@ export default function PortfoliosPage() {
       {/* Tabs */}
       <div className="flex gap-1 mb-6 border-b border-border">
         {(["images", "categories"] as const).map(tab => (
-          <button key={tab} onClick={() => setActiveTab(tab)}
+          <button key={tab} onClick={() => { setActiveTab(tab); setFilterCategoryId(null); }}
             className={`px-5 py-2.5 text-xs font-bold uppercase tracking-widest transition-colors -mb-px border-b-2 ${
               activeTab === tab ? "border-brand-400 text-brand-400" : "border-transparent text-muted-foreground hover:text-foreground"
             }`}>
@@ -349,6 +369,27 @@ export default function PortfoliosPage() {
           </button>
         ))}
       </div>
+
+      {/* Category filter — only shown on images tab */}
+      {!loading && activeTab === "images" && categories.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-5">
+          <button
+            onClick={() => setFilterCategoryId(null)}
+            className={`px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${filterCategoryId === null ? "bg-brand-400 text-white" : "bg-muted text-muted-foreground hover:text-foreground"}`}
+          >
+            All
+          </button>
+          {categories.map(cat => (
+            <button
+              key={cat.id}
+              onClick={() => setFilterCategoryId(cat.id)}
+              className={`px-3 py-1.5 text-xs font-bold uppercase tracking-widest rounded-sm transition-colors ${filterCategoryId === cat.id ? "bg-brand-400 text-white" : "bg-muted text-muted-foreground hover:text-foreground"}`}
+            >
+              {cat.name}
+            </button>
+          ))}
+        </div>
+      )}
 
       {loading ? (
         <div className="flex items-center justify-center py-24 text-muted-foreground">
@@ -360,7 +401,7 @@ export default function PortfoliosPage() {
           {/* Images Tab */}
           {activeTab === "images" && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {images.map((img) => (
+              {(filterCategoryId ? images.filter(img => img.categoryId === filterCategoryId) : images).map((img) => (
                 <div key={img.id} className="bg-background border border-border rounded-md overflow-hidden group">
                   <div className="aspect-[4/3] bg-muted relative overflow-hidden">
                     <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
@@ -386,11 +427,11 @@ export default function PortfoliosPage() {
                   </div>
                 </div>
               ))}
-              {images.length === 0 && (
+              {(filterCategoryId ? images.filter(img => img.categoryId === filterCategoryId) : images).length === 0 && (
                 <div className="col-span-3 text-center p-12 text-muted-foreground border border-dashed border-border rounded-md">
                   <ImageIcon size={32} className="mx-auto mb-3 opacity-30" />
-                  <p className="text-sm font-medium">No featured images yet.</p>
-                  <p className="text-xs mt-1">Add images to showcase on the portfolio page.</p>
+                  <p className="text-sm font-medium">{filterCategoryId ? "No images in this category." : "No featured images yet."}</p>
+                  <p className="text-xs mt-1">{filterCategoryId ? "Try selecting a different category." : "Add images to showcase on the portfolio page."}</p>
                 </div>
               )}
             </div>
@@ -402,6 +443,7 @@ export default function PortfoliosPage() {
               <table className="w-full text-left">
                 <thead>
                   <tr className="bg-muted/50 text-[10px] uppercase tracking-widest text-muted-foreground border-b border-border">
+                    <th className="p-4 font-bold text-center w-24">Order</th>
                     <th className="p-4 font-bold">Category Name</th>
                     <th className="p-4 font-bold">Slug</th>
                     <th className="p-4 font-bold text-center">Photo Count</th>
@@ -411,6 +453,31 @@ export default function PortfoliosPage() {
                 <tbody className="divide-y divide-border">
                   {categories.map((cat) => (
                     <tr key={cat.id} className="hover:bg-muted/30 transition-colors">
+                      <td className="p-4 text-center">
+                        {editingOrderId === cat.id ? (
+                          <input
+                            type="number"
+                            min={0}
+                            autoFocus
+                            value={editingOrderValue}
+                            onChange={(e) => setEditingOrderValue(e.target.value)}
+                            onBlur={() => handleSaveOrder(cat.id)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") handleSaveOrder(cat.id);
+                              if (e.key === "Escape") setEditingOrderId(null);
+                            }}
+                            className="w-16 text-center bg-muted border border-brand-400 rounded-sm px-2 py-1 text-sm outline-none font-mono"
+                          />
+                        ) : (
+                          <button
+                            onClick={() => { setEditingOrderId(cat.id); setEditingOrderValue(String(cat.sortOrder ?? 0)); }}
+                            className="px-3 py-1 bg-muted hover:bg-brand-400/10 hover:text-brand-400 text-xs font-mono font-bold rounded transition-colors w-14"
+                            title="Click to edit order"
+                          >
+                            {cat.sortOrder ?? 0}
+                          </button>
+                        )}
+                      </td>
                       <td className="p-4 font-semibold text-sm">{cat.name}</td>
                       <td className="p-4 text-xs text-muted-foreground font-mono">{cat.slug}</td>
                       <td className="p-4 text-center">
@@ -425,7 +492,7 @@ export default function PortfoliosPage() {
                     </tr>
                   ))}
                   {categories.length === 0 && (
-                    <tr><td colSpan={4} className="p-8 text-center text-sm text-muted-foreground">No categories yet.</td></tr>
+                    <tr><td colSpan={5} className="p-8 text-center text-sm text-muted-foreground">No categories yet.</td></tr>
                   )}
                 </tbody>
               </table>
@@ -630,6 +697,14 @@ export default function PortfoliosPage() {
               value={catForm.slug}
               onChange={(e) => setCatForm(f => ({ ...f, slug: e.target.value }))} />
             <p className="text-xs text-muted-foreground">Auto-generated from name if left blank. Lowercase, numbers, hyphens only.</p>
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Display Order</label>
+            <input type="number" min={0} placeholder="0"
+              className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm font-mono"
+              value={catForm.sortOrder}
+              onChange={(e) => setCatForm(f => ({ ...f, sortOrder: Math.max(0, parseInt(e.target.value) || 0) }))} />
+            <p className="text-xs text-muted-foreground">Lower number appears first in the filter list.</p>
           </div>
           <button type="submit" disabled={catSubmitting}
             className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 transition-colors rounded-sm flex items-center justify-center gap-2 disabled:opacity-60">
