@@ -5,84 +5,33 @@ import { ExternalLink, X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-re
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Yellowtail } from "next/font/google";
+import { fetchPortfolios, fetchCategories, type Portfolio, type PortfolioCategory } from "@/lib/portfolioApi";
 
 const yellowtail = Yellowtail({
   weight: "400",
   subsets: ["latin"],
 });
 
-type Category = "Wedding Ceremony" | "Henna Ceremony" | "Group Pictures" | "Studio Photoshoot" | "Gender Reveal" | "Baby Shower Ceremony" | "Visual Studio Portfolio" | "Maternity Ceremony" | "Baby Photography" | "Birthday Ceremony";
-
-const portfolioData = [
-  // Wedding Ceremony (5 images)
-  { src: "https://images.pixieset.com/980709211/960156bac1df4a84d0a1fe804b396447-large.JPG", title: "Nikkah Moment", category: "Wedding Ceremony", height: "150%" },
-  { src: "https://images.pixieset.com/980709211/1fc436bff460bcc5cbf3d3983788ce82-large.JPG", title: "Nikkah Details", category: "Wedding Ceremony", height: "100%" },
-  { src: "https://images.pixieset.com/980709211/16938d0b4fd71b0bc6c3a3683cdb5508-large.JPG", title: "Bridal Glow", category: "Wedding Ceremony", height: "120%" },
-  { src: "https://images.pixieset.com/980709211/779c4f3e14f4a07ac3d96ec4a414ed7e-large.JPG", title: "Groom Portrait", category: "Wedding Ceremony", height: "80%" },
-  { src: "https://images.pixieset.com/980709211/c3b22003dc849f84429033e6ccf9f81b-large.JPG", title: "The Venue", category: "Wedding Ceremony", height: "140%" },
-
-  // Henna Ceremony (5 images)
-  { src: "https://images.pixieset.com/280709211/64b65561c204c44f4c755e4f30fcfee6-large.jpeg", title: "Henna Art", category: "Henna Ceremony", height: "100%" },
-  { src: "https://images.pixieset.com/280709211/5f406eb105621e23ce6e612503af6b12-large.jpeg", title: "Mehendi Details", category: "Henna Ceremony", height: "150%" },
-  { src: "https://images.pixieset.com/280709211/d0dc590cbac40c8e50fa79e549f5aee1-large.jpeg", title: "Colorful Setup", category: "Henna Ceremony", height: "120%" },
-  { src: "https://images.pixieset.com/280709211/889d6f373f7585926a76fbef9ffaf08b-large.jpeg", title: "Bride's Hands", category: "Henna Ceremony", height: "80%" },
-  { src: "https://images.pixieset.com/280709211/b3e84eaf6daa48766a05693310dc0613-large.jpeg", title: "Traditional Attire", category: "Henna Ceremony", height: "140%" },
-
-  // Group Pictures (5 images)
-  { src: "https://images.pixieset.com/101709211/eeefa3e9e6745badab5fa7ff1582b56b-large.jpeg", title: "Family Portrait", category: "Group Pictures", height: "120%" },
-  { src: "https://images.pixieset.com/101709211/852c1cc4853b815835fef08fd471edc8-large.jpeg", title: "Bridal Party", category: "Group Pictures", height: "80%" },
-  { src: "https://images.pixieset.com/101709211/7ee4747acceddeca1a522ad89bb036bc-large.jpeg", title: "Groomsmen", category: "Group Pictures", height: "150%" },
-  { src: "https://images.pixieset.com/101709211/aa719ad53821d2c8d72e294639f78b05-large.jpeg", title: "Friends Gathering", category: "Group Pictures", height: "100%" },
-  { src: "https://images.pixieset.com/101709211/541b4c59005ed13119a399e3c981ada9-large.jpeg", title: "Celebration Toast", category: "Group Pictures", height: "140%" },
-
-  // Studio Photoshoot (5 images)
-  { src: "https://images.pixieset.com/961709211/fb615eb630269bcb7382ea6bf0b86733-large.jpg", title: "Studio Portrait", category: "Studio Photoshoot", height: "120%" },
-  { src: "https://images.pixieset.com/961709211/9ab74318a660102bba3c06db54a66d43-large.jpg", title: "Creative Lighting", category: "Studio Photoshoot", height: "150%" },
-  { src: "https://images.pixieset.com/961709211/9e9c12410ff70952e0649560b514933a-large.jpg", title: "Editorial Look", category: "Studio Photoshoot", height: "100%" },
-  { src: "https://images.pixieset.com/961709211/71941056bbeed71bddb0dfad5c868755-large.jpg", title: "Fashion Vibes", category: "Studio Photoshoot", height: "140%" },
-  { src: "https://images.pixieset.com/961709211/79a04435ae961823a06c8f830ae7f4c0-large.jpg", title: "Classic Pose", category: "Studio Photoshoot", height: "80%" },
-
-  // Gender Reveal (5 images)
-  { src: "https://images.pixieset.com/681709211/db21f350440acaf54bdf18a31d9f22f4-large.JPG", title: "The Big Reveal", category: "Gender Reveal", height: "120%" },
-  { src: "https://images.pixieset.com/681709211/978b254c625d68df4368335c6dbdd173-large.JPG", title: "Joyful Tears", category: "Gender Reveal", height: "150%" },
-  { src: "https://images.pixieset.com/681709211/118a6aca8408f27e179bcb190d21875e-large.JPG", title: "Pink or Blue", category: "Gender Reveal", height: "100%" },
-  { src: "https://images.pixieset.com/681709211/6acc565616f7d86f000e7e0ea72831f1-large.JPG", title: "Family Excitement", category: "Gender Reveal", height: "140%" },
-  { src: "https://images.pixieset.com/681709211/d59d4d19d96011ad64edab36d0a9ee90-large.JPG", title: "Confetti Pop", category: "Gender Reveal", height: "80%" },
-
-  // Baby Shower Ceremony (5 images)
-  { src: "https://images.pixieset.com/061709211/7090efa4eabf19f277862f4b881643df-large.JPG", title: "Baby Shower Joy", category: "Baby Shower Ceremony", height: "120%" },
-  { src: "https://images.pixieset.com/061709211/75e7e038813b9a7a98ea1fbdc54297eb-large.JPG", title: "Beautiful Mom-to-be", category: "Baby Shower Ceremony", height: "150%" },
-  { src: "https://images.pixieset.com/061709211/66edcd011f6be5ecb2d7ef1b0e8b0a95-large.JPG", title: "Expecting Parents", category: "Baby Shower Ceremony", height: "100%" },
-  { src: "https://images.pixieset.com/061709211/8a33a82364945be588d3b6a4407711a0-large.JPG", title: "Celebration Decor", category: "Baby Shower Ceremony", height: "140%" },
-  { src: "https://images.pixieset.com/061709211/694c2f2671544df7217e92fbb3d30f6f-large.JPG", title: "Smiles & Happiness", category: "Baby Shower Ceremony", height: "80%" },
-
-  // Maternity Ceremony (5 images)
-  { src: "https://images.pixieset.com/351709211/f95a42109a62df6ed75cfd6799369200-large.jpg", title: "Maternity Glow", category: "Maternity Ceremony", height: "120%" },
-  { src: "https://images.pixieset.com/351709211/3a48a78f37057da321dd88ab33faa84f-large.jpg", title: "Expecting Love", category: "Maternity Ceremony", height: "150%" },
-  { src: "https://images.pixieset.com/351709211/54d3e8a85da582fdbf44574ced40a5c4-large.jpg", title: "Baby Bump Focus", category: "Maternity Ceremony", height: "100%" },
-  { src: "https://images.pixieset.com/351709211/c3c532996ea951899664b00c3c229d85-large.jpg", title: "Parents to Be", category: "Maternity Ceremony", height: "140%" },
-  { src: "https://images.pixieset.com/351709211/c0ed9e1dbc90a530a3f82e59b068edc7-large.jpg", title: "Natural Beauty", category: "Maternity Ceremony", height: "80%" },
-
-  // Baby Photography (5 images)
-  { src: "https://images.pixieset.com/241709211/56d7d9450af048dc45e5c3603b28de88-large.jpg", title: "Innocence", category: "Baby Photography", height: "120%" },
-  { src: "https://images.pixieset.com/241709211/c611126892950ed9f0a71d5ee24e87c6-large.jpg", title: "Little Toes", category: "Baby Photography", height: "150%" },
-  { src: "https://images.pixieset.com/241709211/4e7ad889b1bd82407cc766aa3672bcb7-large.jpg", title: "Sleepy Smiles", category: "Baby Photography", height: "100%" },
-  { src: "https://images.pixieset.com/241709211/1ba28598cb0f3367faa77741b242c7ae-large.jpg", title: "Baby Expressions", category: "Baby Photography", height: "140%" },
-  { src: "https://images.pixieset.com/241709211/56996dfc74734cd8d209b8ccc85de63a-large.jpg", title: "Dreaming", category: "Baby Photography", height: "80%" },
-
-  // Birthday Ceremony (5 images)
-  { src: "https://images.pixieset.com/121709211/f2e8027e54140e8f9c07dbe0b052d65f-large.jpg", title: "Birthday Cake", category: "Birthday Ceremony", height: "120%" },
-  { src: "https://images.pixieset.com/121709211/b2f9a21231042913678b9a805c34fb41-large.jpg", title: "Party Time", category: "Birthday Ceremony", height: "150%" },
-  { src: "https://images.pixieset.com/121709211/8ae7dc5d0444ddeab3db162e6d92d764-large.jpg", title: "Blowing Candles", category: "Birthday Ceremony", height: "100%" },
-  { src: "https://images.pixieset.com/121709211/39fe4c44ba2601d3890a6991ad4ba074-large.jpg", title: "Birthday Joy", category: "Birthday Ceremony", height: "140%" },
-  { src: "https://images.pixieset.com/121709211/4b1389eeefa3020e96187fbf2d8743f4-large.jpg", title: "Friends & Fun", category: "Birthday Ceremony", height: "80%" }
-];
-
-const categories: Category[] = ["Wedding Ceremony", "Henna Ceremony", "Group Pictures", "Studio Photoshoot", "Gender Reveal", "Baby Shower Ceremony", "Visual Studio Portfolio", "Maternity Ceremony", "Baby Photography", "Birthday Ceremony"];
-
 export default function PortfolioPage() {
-  const [activeCategory, setActiveCategory] = useState<Category>("Wedding Ceremony");
+  const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
+  const [categories, setCategories] = useState<PortfolioCategory[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState<string>("");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    Promise.all([fetchPortfolios(), fetchCategories()])
+      .then(([imgs, cats]) => {
+        const clientLogoCatId = cats.find(c => c.slug === "client-logos")?.id;
+        const filteredCats = cats.filter(c => c.slug !== "client-logos");
+        const filteredImgs = imgs.filter(i => i.categoryId !== clientLogoCatId);
+        setCategories(filteredCats);
+        setPortfolios(filteredImgs);
+        if (filteredCats.length > 0) setActiveCategory(filteredCats[0].name);
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -135,11 +84,11 @@ export default function PortfolioPage() {
       window.removeEventListener("mousemove", onMouseMove);
       container.removeEventListener("click", onClick, { capture: true });
     };
-  }, []);
+  }, [loading]);
 
   const filteredData = useMemo(() => {
-    return portfolioData.filter(item => item.category === activeCategory);
-  }, [activeCategory]);
+    return portfolios.filter(item => item.category?.name === activeCategory);
+  }, [portfolios, activeCategory]);
 
   const handleNext = useCallback(() => {
     if (selectedIndex !== null) {
@@ -167,8 +116,8 @@ export default function PortfolioPage() {
 
   // Derive background image for the frosted effect
   const bgImage = useMemo(() => {
-    return portfolioData.find((item) => item.category === activeCategory)?.src || "";
-  }, [activeCategory]);
+    return portfolios.find((item) => item.category?.name === activeCategory)?.url || "";
+  }, [portfolios, activeCategory]);
 
   return (
     <div className="relative min-h-screen pb-24 selection:bg-brand-500/30">
@@ -216,73 +165,94 @@ export default function PortfolioPage() {
           </motion.div>
 
           {/* Filter Pills */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white/80 dark:bg-[#18181A]/80 backdrop-blur-3xl rounded-full border border-black/10 dark:border-white/20 shadow-md dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] mx-auto shrink-0 max-w-full overflow-hidden"
-          >
-            <div
-              ref={scrollContainerRef}
-              className="flex items-center gap-2 p-1.5 overflow-x-auto overscroll-none touch-pan-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] cursor-grab active:cursor-grabbing select-none"
+          {!loading && categories.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+              className="bg-white/80 dark:bg-[#18181A]/80 backdrop-blur-3xl rounded-full border border-black/10 dark:border-white/20 shadow-md dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] mx-auto shrink-0 max-w-full overflow-hidden"
             >
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`relative px-5 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-colors z-10 whitespace-nowrap ${activeCategory === cat ? "text-white dark:text-black" : "text-foreground/60 dark:text-white/60 hover:text-foreground dark:hover:text-white"
-                    }`}
-                >
-                  {activeCategory === cat && (
-                    <motion.div
-                      layoutId="portfolio-filter"
-                      className="absolute inset-0 bg-black dark:bg-white rounded-full -z-10"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </motion.div>
+              <div
+                ref={scrollContainerRef}
+                className="flex items-center gap-2 p-1.5 overflow-x-auto overscroll-none touch-pan-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] cursor-grab active:cursor-grabbing select-none"
+              >
+                {categories.map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => { setActiveCategory(cat.name); setSelectedIndex(null); }}
+                    className={`relative px-5 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-colors z-10 whitespace-nowrap ${activeCategory === cat.name ? "text-white dark:text-black" : "text-foreground/60 dark:text-white/60 hover:text-foreground dark:hover:text-white"
+                      }`}
+                  >
+                    {activeCategory === cat.name && (
+                      <motion.div
+                        layoutId="portfolio-filter"
+                        className="absolute inset-0 bg-black dark:bg-white rounded-full -z-10"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
         </div>
 
-        {/* Masonry Grid */}
-        <motion.div layout className="columns-2 lg:columns-3 gap-2 md:gap-4 space-y-2 md:space-y-4">
-          <AnimatePresence mode="popLayout">
-            {filteredData.map((item, idx) => (
-              <motion.div
-                key={item.src}
-                layout
-                custom={idx}
-                initial={{ opacity: 0, y: 50, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="break-inside-avoid relative group overflow-hidden rounded-2xl md:rounded-[2rem] cursor-pointer  dark:border-white/5 bg-gray-100 dark:bg-[#111]"
-                onClick={() => setSelectedIndex(idx)}
-              >
-                <div
-                  className="w-full bg-cover bg-center transition-transform duration-[1.5s] group-hover:scale-110"
-                  style={{ backgroundImage: `url('${item.src}')`, paddingBottom: item.height }}
-                />
+        {/* Loading state */}
+        {loading && (
+          <div className="flex justify-center py-32">
+            <div className="w-8 h-8 border-2 border-brand-400 border-t-transparent rounded-full animate-spin" />
+          </div>
+        )}
 
-                {/* Advanced Hover Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                  <div className="translate-y-5 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                    <span className="text-brand-400 text-xs font-bold uppercase tracking-widest mb-2 border border-brand-400/30 bg-brand-400/10 px-3 py-1 rounded-full inline-block backdrop-blur-md">
-                      {item.category}
-                    </span>
-                    <h3 className="text-white text-2xl font-bold tracking-tight">{item.title}</h3>
+        {/* Empty state */}
+        {!loading && filteredData.length === 0 && (
+          <div className="text-center py-32 text-muted-foreground text-sm">
+            No images in this category yet.
+          </div>
+        )}
+
+        {/* Masonry Grid */}
+        {!loading && filteredData.length > 0 && (
+          <motion.div layout className="columns-2 lg:columns-3 gap-2 md:gap-4 space-y-2 md:space-y-4">
+            <AnimatePresence mode="popLayout">
+              {filteredData.map((item, idx) => (
+                <motion.div
+                  key={item.id}
+                  layout
+                  custom={idx}
+                  initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className="break-inside-avoid relative group overflow-hidden rounded-2xl md:rounded-[2rem] cursor-pointer  dark:border-white/5 bg-gray-100 dark:bg-[#111]"
+                  onClick={() => setSelectedIndex(idx)}
+                >
+                  <Image
+                    src={item.url}
+                    alt={item.alt || item.title}
+                    width={800}
+                    height={600}
+                    className="w-full h-auto object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+                  />
+
+                  {/* Advanced Hover Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                    <div className="translate-y-5 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                      <span className="text-brand-400 text-xs font-bold uppercase tracking-widest mb-2 border border-brand-400/30 bg-brand-400/10 px-3 py-1 rounded-full inline-block backdrop-blur-md">
+                        {item.category?.name}
+                      </span>
+                      <h3 className="text-white text-2xl font-bold tracking-tight">{item.title}</h3>
+                    </div>
+                    <div className="absolute top-6 right-6 w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100 border border-white/20 hover:bg-white hover:text-black">
+                      <Maximize2 size={18} />
+                    </div>
                   </div>
-                  <div className="absolute top-6 right-6 w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100 border border-white/20 hover:bg-white hover:text-black">
-                    <Maximize2 size={18} />
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
 
         {/* Cinematic Pixieset Call to Action */}
         <motion.div
@@ -342,7 +312,7 @@ export default function PortfolioPage() {
                 transition={{ duration: 0.8 }}
                 className="absolute inset-0 bg-cover bg-center pointer-events-none"
                 style={{
-                  backgroundImage: `url('${filteredData[selectedIndex].src}')`,
+                  backgroundImage: `url('${filteredData[selectedIndex].url}')`,
                   filter: "blur(25px) saturate(1.5)",
                 }}
               />
@@ -382,7 +352,7 @@ export default function PortfolioPage() {
 
                 return (
                   <motion.div
-                    key={item.src}
+                    key={item.id}
                     initial={false}
                     animate={{
                       x: diff === 0 ? "0%" : diff > 0 ? "110%" : "-110%",
@@ -408,8 +378,8 @@ export default function PortfolioPage() {
                     }}
                   >
                     <Image
-                      src={item.src}
-                      alt={item.title}
+                      src={item.url}
+                      alt={item.alt || item.title}
                       width={1920}
                       height={1280}
                       className="max-w-[85vw] md:max-w-[65vw] max-h-[60vh] md:max-h-[75vh] w-auto h-auto object-contain shadow-[0_30px_60px_rgba(0,0,0,0.6)] rounded-2xl border border-white/20 pointer-events-none select-none"
@@ -426,7 +396,7 @@ export default function PortfolioPage() {
                           className="absolute -bottom-20 md:-bottom-24 text-center w-full"
                         >
                           <h3 className="text-white text-xl md:text-3xl font-extrabold tracking-widest uppercase drop-shadow-xl">{item.title}</h3>
-                          <p className="text-brand-400 text-xs md:text-sm font-semibold tracking-[0.2em] uppercase mt-2 opacity-90 drop-shadow-md">{item.category}</p>
+                          <p className="text-brand-400 text-xs md:text-sm font-semibold tracking-[0.2em] uppercase mt-2 opacity-90 drop-shadow-md">{item.category?.name}</p>
                         </motion.div>
                       )}
                     </AnimatePresence>

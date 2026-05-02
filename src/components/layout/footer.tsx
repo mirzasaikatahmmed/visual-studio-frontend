@@ -5,8 +5,28 @@ import Image from "next/image";
 import { MapPin, Mail, Phone, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { InstagramFeed } from "@/components/instagram-feed";
+import { useState } from "react";
+import { subscribe } from "@/lib/newsletterApi";
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    try {
+      const res = await subscribe(email);
+      setMessage(res.message);
+      setStatus("success");
+      setEmail("");
+    } catch (err) {
+      setMessage(err instanceof Error ? err.message : "Something went wrong.");
+      setStatus("error");
+    }
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -41,17 +61,29 @@ export function Footer() {
             <p className="text-foreground/70 mb-8 max-w-md">
               Join our newsletter for the latest stories, special booking rates, and visual marketing insights.
             </p>
-            <form className="flex max-w-md group">
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="bg-transparent border-b border-foreground/50 flex-1 py-3 px-2 outline-none focus:border-brand-400 transition-colors placeholder:text-foreground/40"
+            <form className="flex max-w-md group" onSubmit={handleSubscribe}>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={status === "loading" || status === "success"}
+                className="bg-transparent border-b border-foreground/50 flex-1 py-3 px-2 outline-none focus:border-brand-400 transition-colors placeholder:text-foreground/40 disabled:opacity-50"
                 required
               />
-              <button type="submit" className="border-b border-foreground font-bold tracking-widest uppercase text-sm hover:text-brand-400 hover:border-brand-400 transition-colors">
-                Subscribe
+              <button
+                type="submit"
+                disabled={status === "loading" || status === "success"}
+                className="border-b border-foreground font-bold tracking-widest uppercase text-sm hover:text-brand-400 hover:border-brand-400 transition-colors disabled:opacity-50 ml-3 whitespace-nowrap"
+              >
+                {status === "loading" ? "..." : status === "success" ? "Subscribed ✓" : "Subscribe"}
               </button>
             </form>
+            {message && (
+              <p className={`mt-3 text-xs font-medium ${status === "success" ? "text-brand-400" : "text-red-400"}`}>
+                {message}
+              </p>
+            )}
           </motion.div>
 
           {/* Instagram Live Feed */}
