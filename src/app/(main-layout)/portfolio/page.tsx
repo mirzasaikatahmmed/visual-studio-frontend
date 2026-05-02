@@ -154,7 +154,7 @@ export default function PortfolioPage() {
             transition={{ delay: 0.1 }}
             className="flex flex-col items-center justify-center text-center mb-8"
           >
-            <span className="text-sm md:text-base font-medium tracking-[0.3em] uppercase text-foreground/80 mb-[-0.5rem] z-10">
+            <span className="text-base md:text-2xl font-semibold tracking-[0.3em] uppercase text-foreground/80 mb-[-0.6rem] z-10">
               Our
             </span>
             <span
