@@ -11,7 +11,7 @@ export default function VisualMarketingPage() {
     <div className="dark bg-background text-foreground flex flex-col min-h-screen">
       <HeroSection
         subtitle="Corporate Branding"
-        title={<>Visual <span className="text-transparent bg-clip-text bg-gradient-to-br from-purple-500 via-pink-500 to-rose-400 font-great-vibes normal-case font-normal tracking-normal text-[1.2em] md:text-[1.4em] ml-1">Marketing</span></>}
+        title={<>Visual <span className="text-transparent bg-clip-text bg-gradient-to-br from-purple-500 via-pink-500 to-rose-400 ml-1 md:ml-3">Marketing</span></>}
         desc="We don't just take pictures. We create visual assets that drive engagement, elevate your brand, and convert audiences into customers."
         image="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2000&auto=format&fit=crop"
       />

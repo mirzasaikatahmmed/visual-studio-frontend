@@ -97,6 +97,8 @@ export default function MediaPage() {
     audio: media.filter(m => m.type === "audio").length,
   };
 
+  const totalSize = media.reduce((sum, m) => sum + (m.size ?? 0), 0);
+
   const handleSelect = (item: MediaItem) => {
     if (bulkMode) {
       setBulkSelected(prev => {
@@ -216,7 +218,22 @@ export default function MediaPage() {
         <div>
           <h1 className="text-2xl font-bold uppercase tracking-tight">Media Library</h1>
           <p className="text-muted-foreground text-sm mt-1">
-            {loading ? "Loading…" : `${media.length} items — drag files onto the page to upload`}
+            {loading ? "Loading…" : (
+              <>
+                {media.length} {media.length === 1 ? "item" : "items"}
+                {totalSize > 0 && (
+                  <span className="mx-2 text-muted-foreground/40">·</span>
+                )}
+                {totalSize > 0 && (
+                  <span className="inline-flex items-center gap-1">
+                    <HardDrive size={12} className="inline text-muted-foreground/70" />
+                    {formatSize(totalSize)} total
+                  </span>
+                )}
+                <span className="mx-2 text-muted-foreground/40">—</span>
+                drag files onto the page to upload
+              </>
+            )}
           </p>
         </div>
         <button

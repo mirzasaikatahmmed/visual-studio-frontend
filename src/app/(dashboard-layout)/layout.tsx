@@ -7,25 +7,27 @@ import {
   LayoutDashboard, MessageSquare, Camera, Video,
   Settings, Menu, X, ExternalLink,
   Bell, LogOut, Aperture,
-  HelpCircle, Image, Grid, BookOpen, ShoppingBag, FileImage
+  HelpCircle, Image, Grid, BookOpen, ShoppingBag, FileImage, Sparkles, Rss, Activity
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
 import { clearAuth } from "@/lib/auth";
+import { fetchInquiries, type Inquiry } from "@/lib/inquiriesApi";
 
 const navLinks = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard },
-  { href: "/admin/inquiries", label: "Inquiries", icon: MessageSquare, badge: 3 },
+  { href: "/admin/inquiries", label: "Inquiries", icon: MessageSquare },
   { href: "/admin/portfolios", label: "Portfolios", icon: Camera },
   { href: "/admin/media", label: "Media Library", icon: FileImage },
   { href: "/admin/videos", label: "Videos", icon: Video },
-  // { href: "/admin/events", label: "Events", icon: Calendar },
   { href: "/admin/store", label: "Store", icon: ShoppingBag },
-  // { href: "/admin/testimonials", label: "Testimonials", icon: Star },
   { href: "/admin/visual-marketing", label: "Visual Mktg", icon: Image },
   { href: "/admin/more-services", label: "Services", icon: Grid },
   { href: "/admin/our-story", label: "Our Story", icon: BookOpen },
+  { href: "/admin/vision-craft", label: "Vision & Craft", icon: Sparkles },
+  { href: "/admin/stay-inspired", label: "Stay Inspired", icon: Rss },
+  { href: "/admin/traffic", label: "Live Traffic", icon: Activity },
   { href: "/admin/faq", label: "FAQ", icon: HelpCircle },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
@@ -37,9 +39,10 @@ type SidebarProps = {
   initials: string;
   email: string;
   onLogout: () => void;
+  pendingCount: number;
 };
 
-function SidebarContent({ pathname, onLinkClick, displayName, initials, email, onLogout }: SidebarProps) {
+function SidebarContent({ pathname, onLinkClick, displayName, initials, email, onLogout, pendingCount }: SidebarProps) {
   return (
     <div className="flex flex-col h-full">
       {/* Logo */}
@@ -61,6 +64,7 @@ function SidebarContent({ pathname, onLinkClick, displayName, initials, email, o
             ? pathname === "/admin"
             : pathname?.startsWith(link.href);
           const Icon = link.icon;
+          const showBadge = link.href === "/admin/inquiries" && pendingCount > 0 && !isActive;
           return (
             <Link
               key={link.href}
@@ -74,9 +78,9 @@ function SidebarContent({ pathname, onLinkClick, displayName, initials, email, o
             >
               <Icon size={16} />
               <span className="tracking-wide">{link.label}</span>
-              {link.badge && !isActive && (
+              {showBadge && (
                 <span className="ml-auto bg-brand-400 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                  {link.badge}
+                  {pendingCount > 9 ? "9+" : pendingCount}
                 </span>
               )}
             </Link>
@@ -120,34 +124,47 @@ function SidebarContent({ pathname, onLinkClick, displayName, initials, email, o
 
 type Notification = {
   id: number;
-  type: "inquiry" | "booking" | "store" | "system";
+  type: "inquiry" | "booking" | "system";
   title: string;
   message: string;
   time: string;
   read: boolean;
 };
 
-const initialNotifications: Notification[] = [
-  { id: 1, type: "inquiry", title: "New Inquiry", message: "David & Emily sent a wedding coverage inquiry.", time: "2 min ago", read: false },
-  { id: 2, type: "booking", title: "Booking Confirmed", message: "Sophia R. booked the Luxury Dream package.", time: "1 hr ago", read: false },
-  { id: 3, type: "inquiry", title: "New Inquiry", message: "The Grand Hotel asked about corporate event coverage.", time: "3 hr ago", read: false },
-  { id: 4, type: "store", title: "Store Query", message: "Adam Smith submitted a custom album request.", time: "Yesterday", read: true },
-  { id: 5, type: "system", title: "System", message: "Your Pixieset gallery link was updated successfully.", time: "Yesterday", read: true },
-];
-
 const notifIconColor: Record<Notification["type"], string> = {
   inquiry: "bg-brand-400/15 text-brand-400",
   booking: "bg-blue-500/15 text-blue-500",
-  store: "bg-purple-500/15 text-purple-500",
   system: "bg-muted text-muted-foreground",
 };
 
 const notifDot: Record<Notification["type"], string> = {
   inquiry: "bg-brand-400",
   booking: "bg-blue-500",
-  store: "bg-purple-500",
   system: "bg-muted-foreground",
 };
+
+function relativeTime(iso: string): string {
+  const diff = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
+  if (diff < 60) return "just now";
+  if (diff < 3600) return `${Math.floor(diff / 60)} min ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)} hr ago`;
+  if (diff < 172800) return "Yesterday";
+  return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
+const UNREAD_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
+
+function toNotification(iq: Inquiry): Notification {
+  const isNew = Date.now() - new Date(iq.createdAt).getTime() < UNREAD_WINDOW_MS;
+  return {
+    id: iq.id,
+    type: iq.status === "Booked" ? "booking" : "inquiry",
+    title: iq.status === "Booked" ? "Booking Confirmed" : "New Inquiry",
+    message: `${iq.name} submitted a ${iq.type.toLowerCase()} inquiry.`,
+    time: relativeTime(iq.createdAt),
+    read: !(iq.status === "Pending" && isNew),
+  };
+}
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
@@ -155,7 +172,8 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const { user } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
-  const [notifications, setNotifications] = useState(initialNotifications);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [pendingCount, setPendingCount] = useState(0);
   const notifRef = useRef<HTMLDivElement>(null);
 
   const unreadCount = notifications.filter(n => !n.read).length;
@@ -175,6 +193,22 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const initials = user
     ? `${user.firstName?.[0] ?? ""}${user.lastName?.[0] ?? ""}`.toUpperCase() || "VS"
     : "VS";
+
+  useEffect(() => {
+    async function loadNotifications() {
+      try {
+        const inquiries = await fetchInquiries();
+        const sorted = [...inquiries].sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        );
+        setNotifications(sorted.slice(0, 20).map(toNotification));
+        setPendingCount(inquiries.filter(i => i.status === "Pending").length);
+      } catch {
+        // silently fail — user may not be authenticated yet
+      }
+    }
+    void loadNotifications();
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -218,7 +252,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
               <Bell size={18} />
               {unreadCount > 0 && (
                 <span className="absolute top-1 right-1 w-4 h-4 bg-brand-400 rounded-full flex items-center justify-center text-white text-[9px] font-bold leading-none">
-                  {unreadCount}
+                  {unreadCount > 9 ? "9+" : unreadCount}
                 </span>
               )}
             </button>
@@ -288,14 +322,23 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
                   </div>
 
                   {/* Panel Footer */}
-                  <div className="px-4 py-2.5 border-t border-border">
-                    <button
-                      onClick={() => setNotifications([])}
-                      className="w-full text-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      Clear all notifications
-                    </button>
-                  </div>
+                  {notifications.length > 0 && (
+                    <div className="px-4 py-2.5 border-t border-border flex items-center justify-between">
+                      <Link
+                        href="/admin/inquiries"
+                        onClick={() => setNotifOpen(false)}
+                        className="text-[10px] font-bold uppercase tracking-widest text-brand-400 hover:text-brand-500 transition-colors"
+                      >
+                        View all inquiries
+                      </Link>
+                      <button
+                        onClick={() => setNotifications([])}
+                        className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        Clear all
+                      </button>
+                    </div>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -346,6 +389,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
                 initials={initials}
                 email={user?.email ?? ""}
                 onLogout={handleLogout}
+                pendingCount={pendingCount}
               />
             </motion.aside>
           </>
@@ -362,6 +406,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
             initials={initials}
             email={user?.email ?? ""}
             onLogout={handleLogout}
+            pendingCount={pendingCount}
           />
         </aside>
 

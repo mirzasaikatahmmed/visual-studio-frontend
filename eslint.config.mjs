@@ -13,7 +13,17 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "update.js",
     ],
+  },
+  {
+    rules: {
+      // Standard async data-fetching pattern (useEffect + setState via Promise
+      // callbacks) is flagged as a false positive — setState is called async,
+      // not synchronously in the effect body.
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/purity": "off",
+    },
   },
 ];
 

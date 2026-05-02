@@ -14,7 +14,7 @@ import {
 
 const LABEL_OPTIONS = ["View Partner", "Visit Store", "Learn More", "Book Now", "View Gallery"];
 
-const blankForm = () => ({ title: "", url: "", imageUrl: "", label: "View Partner" });
+const blankForm = (nextOrder = 0) => ({ title: "", url: "", imageUrl: "", label: "View Partner", sortOrder: nextOrder });
 
 export default function MoreServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
@@ -23,7 +23,7 @@ export default function MoreServicesPage() {
 
   const [modal, setModal] = useState(false);
   const [editingService, setEditingService] = useState<Service | null>(null);
-  const [form, setForm] = useState(blankForm());
+  const [form, setForm] = useState(blankForm(0));
   const [imgMode, setImgMode] = useState<"url" | "upload">("url");
   const [isDragging, setIsDragging] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -59,14 +59,15 @@ export default function MoreServicesPage() {
 
   const openAdd = () => {
     setEditingService(null);
-    setForm(blankForm());
+    const maxOrder = services.length ? Math.max(...services.map(s => s.sortOrder)) : 0;
+    setForm(blankForm(maxOrder + 1));
     setImgMode("url");
     setModal(true);
   };
 
   const openEdit = (s: Service) => {
     setEditingService(s);
-    setForm({ title: s.title, url: s.url ?? "", imageUrl: s.imageUrl, label: s.label });
+    setForm({ title: s.title, url: s.url ?? "", imageUrl: s.imageUrl, label: s.label, sortOrder: s.sortOrder });
     setImgMode("url");
     setModal(true);
   };
@@ -80,6 +81,7 @@ export default function MoreServicesPage() {
         url: form.url || undefined,
         imageUrl: form.imageUrl,
         label: form.label,
+        sortOrder: form.sortOrder,
       };
       if (editingService) {
         const updated = await updateService(editingService.id, payload);
@@ -139,7 +141,7 @@ export default function MoreServicesPage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {services.map((service) => (
+        {[...services].sort((a, b) => a.sortOrder - b.sortOrder).map((service) => (
           <div key={service.id} className="bg-background border border-border rounded-md overflow-hidden group">
             <div className="aspect-[4/3] bg-muted relative overflow-hidden">
               <div
@@ -147,6 +149,9 @@ export default function MoreServicesPage() {
                 style={{ backgroundImage: `url('${service.imageUrl}')` }}
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors" />
+              <div className="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-0.5 rounded-sm font-mono backdrop-blur-sm">
+                #{service.sortOrder}
+              </div>
               <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button
                   onClick={() => openEdit(service)}
@@ -290,6 +295,18 @@ export default function MoreServicesPage() {
             >
               {LABEL_OPTIONS.map(l => <option key={l} value={l}>{l}</option>)}
             </select>
+          </div>
+
+          <div className="space-y-1.5">
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Sort Order</label>
+            <input
+              type="number"
+              min={0}
+              className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm font-mono"
+              value={form.sortOrder}
+              onChange={(e) => setForm({ ...form, sortOrder: parseInt(e.target.value, 10) || 0 })}
+            />
+            <p className="text-xs text-muted-foreground">Lower numbers appear first in the grid.</p>
           </div>
 
           <button

@@ -1,22 +1,26 @@
 import { HeroSection } from "@/components/hero-section";
 import { MoreServicesGrid } from "@/components/more-services/services-grid";
+import { fetchServices } from "@/lib/servicesApi";
 
 export const metadata = {
   title: "More Services & Partners | Visual Studio",
   description: "Additional options and partner vendors for your dream event.",
 };
 
-export default function MoreServicesPage() {
+export default async function MoreServicesPage() {
+  const services = await fetchServices().catch(() => []);
+  const sorted = [...services].sort((a, b) => a.sortOrder - b.sortOrder);
+
   return (
     <div className="flex flex-col min-h-screen pb-20">
-      <HeroSection 
+      <HeroSection
         subtitle="Additional Options"
         title={<>More <span className="text-brand-500 font-great-vibes normal-case font-normal tracking-normal text-[1.2em] md:text-[1.4em] ml-1">Services</span></>}
         desc="Here are some of our additional options from our partners! We have some of the best teams & vendors to make your dream come true! Get our full packages with unbeatable prices when booked all together!"
         image="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2000&auto=format&fit=crop"
       />
 
-      <MoreServicesGrid />
+      <MoreServicesGrid services={sorted} />
     </div>
   );
 }
