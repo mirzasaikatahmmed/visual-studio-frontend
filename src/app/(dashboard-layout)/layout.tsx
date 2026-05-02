@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard, MessageSquare, Camera, Video,
   Settings, Menu, X, ExternalLink,
-  Bell, LogOut, Aperture,
+  Bell, LogOut, Aperture, Info,
   HelpCircle, Image, Grid, BookOpen, ShoppingBag, FileImage, Sparkles, Rss, Activity
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -24,7 +24,7 @@ const navLinks = [
   { href: "/admin/store", label: "Store", icon: ShoppingBag },
   { href: "/admin/visual-marketing", label: "Visual Mktg", icon: Image },
   { href: "/admin/more-services", label: "Services", icon: Grid },
-  { href: "/admin/our-story", label: "Our Story", icon: BookOpen },
+  { href: "/admin/about", label: "About Us", icon: Info },
   { href: "/admin/vision-craft", label: "Vision & Craft", icon: Sparkles },
   { href: "/admin/stay-inspired", label: "Stay Inspired", icon: Rss },
   { href: "/admin/traffic", label: "Live Traffic", icon: Activity },
