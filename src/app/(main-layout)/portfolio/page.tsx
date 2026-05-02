@@ -4,9 +4,9 @@ import Image from "next/image";
 import { ExternalLink, X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Great_Vibes } from "next/font/google";
+import { Yellowtail } from "next/font/google";
 
-const greatVibes = Great_Vibes({
+const yellowtail = Yellowtail({
   weight: "400",
   subsets: ["latin"],
 });
@@ -174,7 +174,7 @@ export default function PortfolioPage() {
     <div className="relative min-h-screen pb-24 selection:bg-brand-500/30">
       {/* Background base layer to ensure consistent theme background */}
       <div className="fixed inset-0 z-[-2] bg-background" />
-      
+
       <AnimatePresence mode="wait">
         {bgImage && (
           <motion.div
@@ -196,20 +196,20 @@ export default function PortfolioPage() {
       </AnimatePresence>
 
       <div className="relative z-10 container max-w-7xl mx-auto px-4 pt-32 mt-8">
-        
+
         {/* Title Section */}
-        <div className="flex flex-col items-center gap-2 mb-12 w-full">
+        <div className="flex flex-col items-center gap-0 mb-12 w-full">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="flex items-center justify-center gap-2 md:gap-3 mb-8"
+            className="flex flex-col items-center justify-center text-center mb-8"
           >
-            <span className="text-4xl md:text-5xl font-extrabold tracking-tighter uppercase text-foreground mt-2 md:mt-4">
+            <span className="text-sm md:text-base font-medium tracking-[0.3em] uppercase text-foreground/80 mb-[-0.5rem] z-10">
               Our
             </span>
-            <span 
-              className={`${greatVibes.className} text-6xl md:text-[6.5rem] text-brand-500`}
+            <span
+              className={`${yellowtail.className} text-6xl md:text-8xl text-foreground font-normal leading-none`}
             >
               Portfolio
             </span>
@@ -230,9 +230,8 @@ export default function PortfolioPage() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`relative px-5 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-colors z-10 whitespace-nowrap ${
-                    activeCategory === cat ? "text-white dark:text-black" : "text-foreground/60 dark:text-white/60 hover:text-foreground dark:hover:text-white"
-                  }`}
+                  className={`relative px-5 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-colors z-10 whitespace-nowrap ${activeCategory === cat ? "text-white dark:text-black" : "text-foreground/60 dark:text-white/60 hover:text-foreground dark:hover:text-white"
+                    }`}
                 >
                   {activeCategory === cat && (
                     <motion.div
@@ -260,14 +259,14 @@ export default function PortfolioPage() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="break-inside-avoid relative group overflow-hidden rounded-2xl md:rounded-[2rem] cursor-pointer border border-transparent dark:border-white/5 bg-gray-100 dark:bg-[#111]"
+                className="break-inside-avoid relative group overflow-hidden rounded-2xl md:rounded-[2rem] cursor-pointer  dark:border-white/5 bg-gray-100 dark:bg-[#111]"
                 onClick={() => setSelectedIndex(idx)}
               >
-                <div 
+                <div
                   className="w-full bg-cover bg-center transition-transform duration-[1.5s] group-hover:scale-110"
                   style={{ backgroundImage: `url('${item.src}')`, paddingBottom: item.height }}
                 />
-                
+
                 {/* Advanced Hover Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
                   <div className="translate-y-5 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
@@ -286,13 +285,13 @@ export default function PortfolioPage() {
         </motion.div>
 
         {/* Cinematic Pixieset Call to Action */}
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={{
-             hidden: { opacity: 0 },
-             visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
           }}
           className="mt-32 relative overflow-hidden rounded-[3rem] p-12 md:p-20 text-center border border-white/10"
         >
@@ -301,19 +300,19 @@ export default function PortfolioPage() {
           <div className="absolute inset-0 bg-gradient-to-br from-brand-900/20 via-black/50 to-indigo-900/20 backdrop-blur-3xl" />
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-600/30 blur-[120px] rounded-full" />
           <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-brand-600/20 blur-[120px] rounded-full" />
-          
+
           <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
             <motion.h2 variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} className="text-4xl md:text-5xl font-extrabold mb-6 uppercase tracking-tighter text-white">
               Full Client <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-400">Galleries</span>
             </motion.h2>
             <motion.p variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} className="text-white/60 text-lg mb-10 leading-relaxed font-medium">
-              We deliver all our final, high-resolution masterpieces through beautiful, private online galleries powered by Pixieset. 
+              We deliver all our final, high-resolution masterpieces through beautiful, private online galleries powered by Pixieset.
               View our complete, uncurated stories to witness our true consistency across entire events.
             </motion.p>
-            <motion.a 
+            <motion.a
               variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
-              href="https://gallery.visualstudioslens.com/" 
-              target="_blank" 
+              href="https://gallery.visualstudioslens.com/"
+              target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-5 bg-white text-black rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] transition-all duration-300"
             >
@@ -326,7 +325,7 @@ export default function PortfolioPage() {
       {/* Cinematic Lightbox */}
       <AnimatePresence>
         {selectedIndex !== null && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -342,32 +341,32 @@ export default function PortfolioPage() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.8 }}
                 className="absolute inset-0 bg-cover bg-center pointer-events-none"
-                style={{ 
+                style={{
                   backgroundImage: `url('${filteredData[selectedIndex].src}')`,
                   filter: "blur(25px) saturate(1.5)",
                 }}
               />
             </AnimatePresence>
-            
+
             {/* Extra darkening overlay */}
             <div className="absolute inset-0 bg-black/40 pointer-events-none" />
 
             {/* Close Button */}
-            <button 
+            <button
               className="absolute top-6 right-6 md:top-8 md:right-8 p-3 text-white/70 hover:text-white transition-all z-50 bg-white/10 hover:bg-white/20 hover:scale-110 rounded-full border border-white/20 backdrop-blur-md"
               onClick={() => setSelectedIndex(null)}
             >
               <X size={24} />
             </button>
-            
+
             {/* Left Nav Button */}
-            <button 
-              className="hidden md:flex absolute left-6 md:left-12 top-1/2 -translate-y-1/2 p-4 text-white/70 hover:text-white transition-all hover:scale-110 z-50 bg-black/20 hover:bg-black/40 border border-white/20 rounded-full backdrop-blur-md shadow-2xl items-center justify-center"
+            <button
+              className="flex absolute left-4 md:left-12 top-1/2 -translate-y-1/2 p-3 md:p-4 text-white/70 hover:text-white transition-all hover:scale-110 z-50 bg-black/40 hover:bg-black/60 border border-white/20 rounded-full backdrop-blur-md shadow-2xl items-center justify-center"
               onClick={(e) => { e.stopPropagation(); handlePrev(); }}
             >
-              <ChevronLeft size={32} />
+              <ChevronLeft size={28} className="md:w-8 md:h-8" />
             </button>
-            
+
             {/* Carousel Container */}
             <div className="relative w-full h-full flex items-center justify-center pointer-events-none perspective-[1000px]">
               {filteredData.map((item, idx) => {
@@ -376,7 +375,7 @@ export default function PortfolioPage() {
                 const len = filteredData.length;
                 if (diff > len / 2) diff -= len;
                 if (diff < -len / 2) diff += len;
-                
+
                 const isVisible = Math.abs(diff) <= 1; // Show only -1, 0, 1
 
                 if (!isVisible) return null;
@@ -415,11 +414,11 @@ export default function PortfolioPage() {
                       height={1280}
                       className="max-w-[85vw] md:max-w-[65vw] max-h-[60vh] md:max-h-[75vh] w-auto h-auto object-contain shadow-[0_30px_60px_rgba(0,0,0,0.6)] rounded-2xl border border-white/20 pointer-events-none select-none"
                     />
-                    
+
                     {/* Caption for active image */}
                     <AnimatePresence>
                       {diff === 0 && (
-                        <motion.div 
+                        <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
@@ -437,11 +436,11 @@ export default function PortfolioPage() {
             </div>
 
             {/* Right Nav Button */}
-            <button 
-              className="hidden md:flex absolute right-6 md:right-12 top-1/2 -translate-y-1/2 p-4 text-white/70 hover:text-white transition-all hover:scale-110 z-50 bg-black/20 hover:bg-black/40 border border-white/20 rounded-full backdrop-blur-md shadow-2xl items-center justify-center"
+            <button
+              className="flex absolute right-4 md:right-12 top-1/2 -translate-y-1/2 p-3 md:p-4 text-white/70 hover:text-white transition-all hover:scale-110 z-50 bg-black/40 hover:bg-black/60 border border-white/20 rounded-full backdrop-blur-md shadow-2xl items-center justify-center"
               onClick={(e) => { e.stopPropagation(); handleNext(); }}
             >
-              <ChevronRight size={32} />
+              <ChevronRight size={28} className="md:w-8 md:h-8" />
             </button>
           </motion.div>
         )}

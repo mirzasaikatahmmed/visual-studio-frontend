@@ -9,9 +9,9 @@ export const metadata = {
 export default function VideoGalleryPage() {
   return (
     <div className="flex flex-col min-h-screen pb-20">
-      <HeroSection 
+      <HeroSection
         subtitle="Our Films"
-        title={<>Video <span className="text-brand-500 font-great-vibes normal-case font-normal tracking-normal text-[1.2em] md:text-[1.4em] ml-1">Portfolio</span></>}
+        title={<>Video <span className="text-brand-500 font-great-vibes normal-case font-normal tracking-normal text-[1.2em] md:text-[1.4em] ml-1">Gallary</span></>}
         desc="Cinematic storytelling, commercial reels, and breathtaking event coverage."
         image="https://images.unsplash.com/photo-1528697203043-733dafdaa316?q=80&w=2000&auto=format&fit=crop"
       />
