@@ -7,7 +7,7 @@ import {
   LayoutDashboard, MessageSquare, Camera, Video,
   Settings, Menu, X, ExternalLink,
   Bell, LogOut, Aperture,
-  HelpCircle, Image, Grid, BookOpen, ShoppingBag, FileImage, Sparkles
+  HelpCircle, Image, Grid, BookOpen, ShoppingBag, FileImage, Sparkles, Rss, Activity
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,6 +26,8 @@ const navLinks = [
   { href: "/admin/more-services", label: "Services", icon: Grid },
   { href: "/admin/our-story", label: "Our Story", icon: BookOpen },
   { href: "/admin/vision-craft", label: "Vision & Craft", icon: Sparkles },
+  { href: "/admin/stay-inspired", label: "Stay Inspired", icon: Rss },
+  { href: "/admin/traffic", label: "Live Traffic", icon: Activity },
   { href: "/admin/faq", label: "FAQ", icon: HelpCircle },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];

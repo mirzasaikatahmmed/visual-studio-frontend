@@ -22,6 +22,7 @@ export type PortfolioCategory = {
   id: number;
   name: string;
   slug: string;
+  sortOrder: number;
   count: number;
   createdAt: string;
   updatedAt: string;
@@ -52,6 +53,7 @@ export type PortfolioPayload = {
 export type CategoryPayload = {
   name: string;
   slug: string;
+  sortOrder?: number;
 };
 
 export async function fetchPortfolios(categoryId?: number): Promise<Portfolio[]> {
@@ -94,6 +96,15 @@ export async function deletePortfolio(id: number): Promise<void> {
 export async function createCategory(payload: CategoryPayload): Promise<PortfolioCategory> {
   const res = await fetch(`${BASE}/portfolios/categories`, {
     method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    body: JSON.stringify(payload),
+  });
+  return handle<PortfolioCategory>(res);
+}
+
+export async function updateCategory(id: number, payload: Partial<CategoryPayload>): Promise<PortfolioCategory> {
+  const res = await fetch(`${BASE}/portfolios/categories/${id}`, {
+    method: 'PATCH',
     headers: { 'Content-Type': 'application/json', ...authHeaders() },
     body: JSON.stringify(payload),
   });
