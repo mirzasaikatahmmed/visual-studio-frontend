@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { Plus, Trash2, Edit2, Eye, EyeOff, Layers } from "lucide-react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { Plus, Trash2, Edit2, Eye, EyeOff, Layers, Upload, X } from "lucide-react";
 import { Modal } from "@/components/ui/modal";
 import {
   fetchVisionCraftItems,
@@ -10,6 +10,7 @@ import {
   deleteVisionCraftItem,
   type VisionCraftItem,
 } from "@/lib/visionCraftApi";
+import { uploadMedia, resolveUrl } from "@/lib/mediaApi";
 
 const blankForm = () => ({
   title: "",
@@ -30,6 +31,8 @@ export default function VisionCraftPage() {
   const [editing, setEditing] = useState<VisionCraftItem | null>(null);
   const [form, setForm] = useState<FormState>(blankForm());
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const loadItems = useCallback(async () => {
     setLoading(true);
@@ -102,6 +105,18 @@ export default function VisionCraftPage() {
       setItems(prev => prev.map(i => i.id === item.id ? updated : i));
     } catch (e) {
       alert(e instanceof Error ? e.message : "Failed to update");
+    }
+  };
+
+  const handleFileUpload = async (file: File) => {
+    setUploading(true);
+    try {
+      const media = await uploadMedia(file, { title: file.name });
+      setForm(prev => ({ ...prev, imageUrl: resolveUrl(media.url) }));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Upload failed");
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -259,7 +274,51 @@ export default function VisionCraftPage() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Image URL</label>
+            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Image</label>
+
+            {/* Preview */}
+            {form.imageUrl && (
+              <div className="relative w-full h-36 rounded-sm overflow-hidden bg-muted border border-border">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={form.imageUrl} alt="Preview" className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => setForm(prev => ({ ...prev, imageUrl: "" }))}
+                  className="absolute top-1.5 right-1.5 bg-black/60 hover:bg-black/80 text-white rounded-full p-0.5 transition-colors"
+                >
+                  <X size={12} />
+                </button>
+              </div>
+            )}
+
+            {/* Upload button */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) void handleFileUpload(file);
+                e.target.value = "";
+              }}
+            />
+            <button
+              type="button"
+              disabled={uploading}
+              onClick={() => fileInputRef.current?.click()}
+              className="w-full flex items-center justify-center gap-2 border border-dashed border-border bg-muted hover:border-brand-400 hover:text-brand-400 transition-colors rounded-sm py-2.5 text-xs font-bold uppercase tracking-widest text-muted-foreground disabled:opacity-60"
+            >
+              <Upload size={13} />
+              {uploading ? "Uploading..." : "Upload Image"}
+            </button>
+
+            {/* URL fallback */}
+            <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+              <span className="flex-1 border-t border-border" />
+              or paste URL
+              <span className="flex-1 border-t border-border" />
+            </div>
             <input
               type="url"
               placeholder="https://..."
