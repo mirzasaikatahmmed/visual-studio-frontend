@@ -104,7 +104,7 @@ export default function AdminAboutPage() {
     }, 1000);
   };
 
-  const updateField = (field: keyof AboutData, value: any) => {
+  const updateField = (field: keyof AboutData, value: AboutData[keyof AboutData]) => {
     setData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -303,7 +303,7 @@ export default function AdminAboutPage() {
 
           {data.teamMembers.length === 0 && (
             <div className="col-span-full text-center py-12 text-muted-foreground border-2 border-dashed border-border rounded-xl">
-              No team members added yet. Click "Add Member" to begin.
+              No team members added yet. Click &quot;Add Member&quot; to begin.
             </div>
           )}
         </div>

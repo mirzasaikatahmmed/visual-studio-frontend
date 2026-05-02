@@ -7,7 +7,7 @@ import {
   LayoutDashboard, MessageSquare, Camera, Video,
   Settings, Menu, X, ExternalLink,
   Bell, LogOut, Aperture, Info,
-  HelpCircle, Image, Grid, BookOpen, ShoppingBag, FileImage, Sparkles, Rss, Activity
+  HelpCircle, Image, Grid, ShoppingBag, FileImage, Sparkles, Rss, Activity
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { motion, AnimatePresence } from "framer-motion";

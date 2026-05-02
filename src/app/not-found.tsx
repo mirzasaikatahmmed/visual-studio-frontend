@@ -61,7 +61,7 @@ export default function NotFound() {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-base md:text-xl text-gray-300 max-w-2xl mb-10 font-medium px-4 tracking-wide"
         >
-          The frame you're looking for doesn't exist. It might have been moved, or it never existed in our gallery.
+          The frame you&apos;re looking for doesn&apos;t exist. It might have been moved, or it never existed in our gallery.
         </motion.p>
 
         {/* Cinematic Button */}
