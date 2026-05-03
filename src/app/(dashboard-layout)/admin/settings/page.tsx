@@ -88,7 +88,7 @@ export default function SettingsAdminPage() {
 
   // Contact
   const [email, setEmail] = useState("lens@visualstudioslens.com");
-  const [phone, setPhone] = useState("+1 (929) 627-5537");
+  const [phone, setPhone] = useState("+1 (347) 306-6637");
   const [address, setAddress] = useState("Liberty Avenue Brooklyn, 1097\nNew York, NY 11208");
   const [mapEmbed, setMapEmbed] = useState("https://www.google.com/maps/embed?pb=...");
   const [businessHours, setBusinessHours] = useState("Mon–Fri: 10am – 7pm\nSat–Sun: By appointment");
@@ -104,7 +104,7 @@ export default function SettingsAdminPage() {
   // Integrations
   const [calendlyUrl, setCalendlyUrl] = useState("https://calendly.com/lens-xstudioslab/book-a-photography-session");
   const [pixiesetUrl, setPixiesetUrl] = useState("https://gallery.visualstudioslens.com/");
-  const [whatsapp, setWhatsapp] = useState("19296275537");
+  const [whatsapp, setWhatsapp] = useState("13473066637");
   const [whatsappMsg, setWhatsappMsg] = useState("Hi! I found you on your website and would love to learn more about your photography services.");
   const [pricingPdf, setPricingPdf] = useState("pricing_guide_2026.pdf");
 
@@ -385,7 +385,7 @@ export default function SettingsAdminPage() {
                       <MessageCircle size={12} /> WhatsApp Integration
                     </h3>
                     <InputField label="WhatsApp Number" value={whatsapp} onChange={setWhatsapp}
-                      placeholder="19296275537" hint="Include country code without '+'. E.g., 19296275537 for +1 (929) 627-5537." />
+                      placeholder="13473066637" hint="Include country code without '+'. E.g., 13473066637 for +1 (347) 306-6637." />
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Pre-filled Message</label>
                       <textarea rows={3} value={whatsappMsg} onChange={(e) => setWhatsappMsg(e.target.value)}

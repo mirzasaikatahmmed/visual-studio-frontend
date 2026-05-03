@@ -225,7 +225,7 @@ export default function TermsOfServicePage() {
             <p className="mb-4">If you have any questions, concerns, or requests regarding these Terms of Service, please contact us:</p>
             <ul className="list-disc pl-[22px] mb-[18px] space-y-[7px]">
               <li><strong className="font-semibold text-foreground">Email:</strong> <Link href="mailto:lens@visualstudioslens.com" className="text-foreground hover:underline">lens@visualstudioslens.com</Link></li>
-              <li><strong className="font-semibold text-foreground">Phone:</strong> <Link href="tel:+19296275537" className="text-foreground hover:underline">+1 (929) 627-5537</Link></li>
+              <li><strong className="font-semibold text-foreground">Phone:</strong> <Link href="tel:+13473066637" className="text-foreground hover:underline">+1 (347) 306-6637</Link></li>
               <li><strong className="font-semibold text-foreground">Address:</strong> Liberty Avenue Brooklyn, 1097 · New York, NY 11208</li>
               <li><strong className="font-semibold text-foreground">Website:</strong> <Link href="https://www.visualstudioslens.com" className="text-foreground hover:underline">visualstudioslens.com</Link></li>
             </ul>

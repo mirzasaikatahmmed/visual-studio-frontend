@@ -52,7 +52,7 @@ export function HeroSection() {
       <div className="container relative z-[2] mx-auto px-4 flex flex-col items-center text-center">
         
         {/* Animated Hover Mask Title */}
-        <div className="relative group cursor-default mx-auto inline-block text-center flex-col items-center justify-start">
+        <div className="relative group cursor-default mx-auto inline-block text-center flex-col items-center justify-start max-w-[90vw]">
           {/* Background Masked Layer (Fades IN on hover) */}
           <div 
             className="absolute inset-0 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6 uppercase flex flex-col items-center justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-0 pointer-events-none"
@@ -66,8 +66,8 @@ export function HeroSection() {
                color: "transparent"
             }}
           >
-            <div className="w-full leading-tight">Capturing Moments.</div>
-            <div className="w-full leading-tight">Creating Experiences.</div>
+            <div className="w-full leading-[1.1] sm:leading-tight">Capturing Moments.</div>
+            <div className="w-full leading-[1.1] sm:leading-tight">Creating Experiences.</div>
           </div>
 
           {/* Foreground Animated Layer (Fades OUT on hover) */}
@@ -75,16 +75,16 @@ export function HeroSection() {
             variants={container}
             initial="hidden"
             animate="visible"
-            className="relative z-10 flex flex-col items-center justify-start text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6 uppercase group-hover:opacity-0 transition-opacity duration-700 pointer-events-none"
+            className="relative z-10 flex flex-col items-center justify-start text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight sm:tracking-tighter mb-4 sm:mb-6 uppercase group-hover:opacity-0 transition-opacity duration-700 pointer-events-none"
           >
-            <div className="text-white w-full leading-tight flex flex-wrap justify-center">
+            <div className="text-white w-full leading-[1.1] sm:leading-tight flex flex-wrap justify-center">
               {line1.split("").map((char, index) => (
                 <motion.span variants={letterAnim} key={`l1-${index}`} className="inline-block whitespace-pre">
                   {char}
                 </motion.span>
               ))}
             </div>
-            <div className="text-white opacity-80 w-full leading-tight flex flex-wrap justify-center">
+            <div className="text-white opacity-80 w-full leading-[1.1] sm:leading-tight flex flex-wrap justify-center mt-1 sm:mt-0">
               {line2.split("").map((char, index) => (
                 <motion.span variants={letterAnim} key={`l2-${index}`} className="inline-block whitespace-pre">
                   {char}
@@ -98,7 +98,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.5 }}
-          className="text-base md:text-xl text-gray-200 max-w-2xl mb-10 font-medium px-4"
+          className="text-sm md:text-xl text-gray-200 max-w-2xl mb-8 md:mb-12 font-medium px-6 md:px-4 leading-relaxed"
         >
           Cinematic storytelling for every culture, every love, every moment.
         </motion.p>
@@ -107,10 +107,11 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.7 }}
-          className="flex flex-col sm:flex-row gap-4 w-full px-8 sm:w-auto sm:px-0"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 w-full px-10 sm:w-auto sm:px-0 mt-4"
         >
+          {/* Primary CTA: View Portfolio */}
           <div
-            className="relative inline-flex flex-col items-center"
+            className="relative w-full sm:w-auto"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
@@ -118,7 +119,7 @@ export function HeroSection() {
               whileHover={{ scale: 1.04, boxShadow: "0 8px 40px rgba(255,255,255,0.18), 0 2px 12px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.35)" }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="group relative rounded-sm overflow-hidden"
+              className="group relative rounded-sm overflow-hidden w-full sm:w-auto"
               style={{
                 background: "rgba(255, 255, 255, 0.12)",
                 backdropFilter: "blur(12px)",
@@ -127,57 +128,28 @@ export function HeroSection() {
                 boxShadow: "0 4px 24px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.2)",
               }}
             >
-              {/* shine sweep */}
-              <span
-                className="pointer-events-none absolute inset-0 translate-x-[-110%] group-hover:translate-x-[110%] transition-transform duration-700 ease-in-out z-0"
-                style={{
-                  background: "linear-gradient(120deg, transparent 25%, rgba(255,255,255,0.35) 50%, transparent 75%)",
-                }}
-              />
-              {/* glass tint brighten on hover */}
-              <span className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
-                style={{ background: "rgba(255,255,255,0.07)" }}
-              />
               <Link
                 href="/portfolio"
-                className="relative z-10 px-8 py-4 flex items-center justify-center gap-2 font-bold uppercase tracking-widest text-xs text-white"
+                className="relative z-10 px-6 md:px-8 py-3.5 md:py-4 flex items-center justify-center gap-2 font-bold uppercase tracking-widest text-[10px] md:text-xs text-white"
               >
-                <span className="group-hover:-translate-x-1 transition-transform duration-300">View Portfolio</span>
-                <motion.span
-                  className="flex items-center"
-                  animate={{ x: 0 }}
-                  whileHover={{ x: 4 }}
-                >
-                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
-                </motion.span>
+                <span>View Portfolio</span>
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
               </Link>
             </motion.div>
-            <AnimatePresence>
-              {(isHovered || showSuggestion) && (
-                <motion.div
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute top-full mt-2 w-max z-50 flex flex-col items-center pointer-events-none"
-                >
-                  <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[5px] border-b-gray-800 dark:border-b-gray-200" />
-                  <div className="bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 text-[10px] sm:text-xs font-medium px-2 py-1 rounded shadow-md tracking-wide">
-                    Check out our latest work
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
+
+          {/* Secondary CTA: Book Session */}
           <Link 
             href="/contact" 
-            className="px-8 py-4 bg-transparent border border-white/50 text-white font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-colors flex items-center justify-center"
+            className="w-full sm:w-auto px-6 md:px-8 py-3.5 md:py-4 bg-transparent border border-white/40 text-white font-bold uppercase tracking-widest text-[10px] md:text-xs hover:bg-white hover:text-black transition-all flex items-center justify-center"
           >
             Book a Session
           </Link>
+
+          {/* Tertiary Link: Explore */}
           <Link 
             href="/#services" 
-            className="px-8 py-4 bg-transparent border border-white text-white font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-colors flex items-center justify-center"
+            className="w-full sm:w-auto px-6 md:px-8 py-3.5 md:py-4 bg-transparent border border-white text-white font-bold uppercase tracking-widest text-[10px] md:text-xs hover:bg-white hover:text-black transition-all flex items-center justify-center"
           >
             Explore More
           </Link>
