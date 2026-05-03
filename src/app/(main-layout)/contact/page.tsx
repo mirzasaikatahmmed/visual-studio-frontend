@@ -1,9 +1,28 @@
+import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { ContactContent } from "@/components/contact/contact-content";
 
-export const metadata = {
-  title: "Contact & Booking | Visual Studio",
-  description: "Get in touch to book a session or request a quote.",
+export const metadata: Metadata = {
+  title: "Contact & Booking",
+  description:
+    "Ready to book a photography or videography session? Contact Visual Studios & Events to request a quote, check availability, or ask about our packages for weddings, events, and corporate shoots.",
+  keywords: [
+    "book photography session",
+    "contact Visual Studios & Events",
+    "photography booking",
+    "request a quote",
+    "wedding photographer booking",
+    "event photographer contact",
+    "videography booking",
+    "photo session inquiry",
+  ],
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact & Booking | Visual Studios & Events",
+    description:
+      "Book a photography or videography session, request a quote, or ask about our packages for weddings, events, and corporate shoots.",
+    url: "https://visualstudioslens.com/contact",
+  },
 };
 
 export default function ContactPage() {

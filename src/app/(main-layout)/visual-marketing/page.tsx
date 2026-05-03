@@ -1,9 +1,31 @@
+import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { MarketingContent } from "@/components/visual-marketing/marketing-content";
 
-export const metadata = {
-  title: "Visual Marketing | Visual Studio",
-  description: "Corporate branding, product shoots, and high-impact visual campaigns.",
+export const metadata: Metadata = {
+  title: "Visual Marketing",
+  description:
+    "Elevate your brand with Visual Studios & Events visual marketing services — corporate branding photography, product shoots, social media content, and high-impact visual campaigns that convert audiences into customers.",
+  keywords: [
+    "visual marketing",
+    "corporate branding photography",
+    "product photography",
+    "brand photography",
+    "commercial photography",
+    "social media content photography",
+    "marketing photography",
+    "business photography",
+    "product shoot",
+    "brand identity photography",
+    "Visual Studios & Events marketing",
+  ],
+  alternates: { canonical: "/visual-marketing" },
+  openGraph: {
+    title: "Visual Marketing | Visual Studios & Events",
+    description:
+      "Corporate branding photography, product shoots, and high-impact visual campaigns that elevate your brand and drive engagement.",
+    url: "https://visualstudioslens.com/visual-marketing",
+  },
 };
 
 export default function VisualMarketingPage() {

@@ -2,8 +2,12 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Visual Studio",
-  description: "Privacy policy for Visual Studio & Events.",
+  title: "Privacy Policy",
+  description:
+    "Read Visual Studio's privacy policy to understand how we collect, use, and protect your personal information.",
+  keywords: ["privacy policy", "Visual Studio privacy", "data protection", "personal information"],
+  alternates: { canonical: "/privacy-policy" },
+  robots: { index: false, follow: false },
 };
 
 export default function PrivacyPolicyPage() {
