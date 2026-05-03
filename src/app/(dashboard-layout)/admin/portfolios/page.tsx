@@ -2,14 +2,14 @@
 
 import {
   Plus, Trash2, Edit2, ExternalLink, Tag, Image as ImageIcon,
-  Upload, Link as LinkIcon, Loader2, AlertCircle, Images, CheckCircle2, XCircle,
+  Upload, Link as LinkIcon, Loader2, AlertCircle, Images, CheckCircle2, XCircle, GripVertical,
 } from "lucide-react";
 import { useState, useRef, useCallback, useEffect } from "react";
 import { Modal } from "@/components/ui/modal";
 import {
   fetchPortfolios, fetchCategories,
   createPortfolio, updatePortfolio, deletePortfolio,
-  createCategory, updateCategory, deleteCategory,
+  createCategory, deleteCategory, reorderCategories,
   uploadImage, resolveUrl,
   type Portfolio, type PortfolioCategory,
 } from "@/lib/portfolioApi";
@@ -67,11 +67,13 @@ export default function PortfoliosPage() {
 
   // Category modal
   const [catModal, setCatModal] = useState(false);
-  const [catForm, setCatForm] = useState({ name: "", slug: "", sortOrder: 0 });
+  const [catForm, setCatForm] = useState({ name: "", slug: "" });
   const [catSubmitting, setCatSubmitting] = useState(false);
   const [catError, setCatError] = useState<string | null>(null);
-  const [editingOrderId, setEditingOrderId] = useState<number | null>(null);
-  const [editingOrderValue, setEditingOrderValue] = useState<string>("");
+
+  // Drag-and-drop state
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -251,9 +253,9 @@ export default function PortfoliosPage() {
     setCatError(null);
     const slug = catForm.slug || catForm.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
     try {
-      const created = await createCategory({ name: catForm.name, slug, sortOrder: catForm.sortOrder });
-      setCategories(prev => [...prev, { ...created, count: 0 }].sort((a, b) => a.sortOrder - b.sortOrder));
-      setCatForm({ name: "", slug: "", sortOrder: 0 });
+      const created = await createCategory({ name: catForm.name, slug, sortOrder: categories.length });
+      setCategories(prev => [...prev, { ...created, count: 0 }]);
+      setCatForm({ name: "", slug: "" });
       setCatModal(false);
     } catch (e) {
       setCatError(e instanceof Error ? e.message : "Failed to create category");
@@ -262,19 +264,24 @@ export default function PortfoliosPage() {
     }
   };
 
-  const handleSaveOrder = async (id: number) => {
-    const value = parseInt(editingOrderValue, 10);
-    if (isNaN(value) || value < 0) { setEditingOrderId(null); return; }
+  const handleDrop = async (dropIndex: number) => {
+    if (dragIndex === null || dragIndex === dropIndex) {
+      setDragIndex(null);
+      setDragOverIndex(null);
+      return;
+    }
+    const reordered = [...categories];
+    const [moved] = reordered.splice(dragIndex, 1);
+    reordered.splice(dropIndex, 0, moved);
+    const withOrder = reordered.map((c, i) => ({ ...c, sortOrder: i }));
+    setCategories(withOrder);
+    setDragIndex(null);
+    setDragOverIndex(null);
     try {
-      await updateCategory(id, { sortOrder: value });
-      setCategories(prev =>
-        prev.map(c => c.id === id ? { ...c, sortOrder: value } : c)
-          .sort((a, b) => a.sortOrder - b.sortOrder)
-      );
+      await reorderCategories(withOrder.map(c => ({ id: c.id, sortOrder: c.sortOrder })));
     } catch {
-      // silently revert — the old value is still in state
-    } finally {
-      setEditingOrderId(null);
+      // revert on failure
+      load();
     }
   };
 
@@ -308,7 +315,7 @@ export default function PortfoliosPage() {
             </button>
           )}
           <button
-            onClick={activeTab === "images" ? openAddImage : () => { setCatForm({ name: "", slug: "", sortOrder: 0 }); setCatError(null); setCatModal(true); }}
+            onClick={activeTab === "images" ? openAddImage : () => { setCatForm({ name: "", slug: "" }); setCatError(null); setCatModal(true); }}
             disabled={loading}
             className="px-5 py-2.5 bg-brand-400 text-white font-bold uppercase tracking-widest text-xs flex items-center gap-2 hover:bg-brand-500 transition-colors rounded-sm disabled:opacity-50"
           >
@@ -443,7 +450,8 @@ export default function PortfoliosPage() {
               <table className="w-full text-left">
                 <thead>
                   <tr className="bg-muted/50 text-[10px] uppercase tracking-widest text-muted-foreground border-b border-border">
-                    <th className="p-4 font-bold text-center w-24">Order</th>
+                    <th className="p-4 font-bold w-10"></th>
+                    <th className="p-4 font-bold w-16 text-center">#</th>
                     <th className="p-4 font-bold">Category Name</th>
                     <th className="p-4 font-bold">Slug</th>
                     <th className="p-4 font-bold text-center">Photo Count</th>
@@ -451,33 +459,26 @@ export default function PortfoliosPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
-                  {categories.map((cat) => (
-                    <tr key={cat.id} className="hover:bg-muted/30 transition-colors">
-                      <td className="p-4 text-center">
-                        {editingOrderId === cat.id ? (
-                          <input
-                            type="number"
-                            min={0}
-                            autoFocus
-                            value={editingOrderValue}
-                            onChange={(e) => setEditingOrderValue(e.target.value)}
-                            onBlur={() => handleSaveOrder(cat.id)}
-                            onKeyDown={(e) => {
-                              if (e.key === "Enter") handleSaveOrder(cat.id);
-                              if (e.key === "Escape") setEditingOrderId(null);
-                            }}
-                            className="w-16 text-center bg-muted border border-brand-400 rounded-sm px-2 py-1 text-sm outline-none font-mono"
-                          />
-                        ) : (
-                          <button
-                            onClick={() => { setEditingOrderId(cat.id); setEditingOrderValue(String(cat.sortOrder ?? 0)); }}
-                            className="px-3 py-1 bg-muted hover:bg-brand-400/10 hover:text-brand-400 text-xs font-mono font-bold rounded transition-colors w-14"
-                            title="Click to edit order"
-                          >
-                            {cat.sortOrder ?? 0}
-                          </button>
-                        )}
+                  {categories.map((cat, index) => (
+                    <tr
+                      key={cat.id}
+                      draggable
+                      onDragStart={() => setDragIndex(index)}
+                      onDragOver={(e) => { e.preventDefault(); setDragOverIndex(index); }}
+                      onDrop={() => handleDrop(index)}
+                      onDragEnd={() => { setDragIndex(null); setDragOverIndex(null); }}
+                      className={`transition-colors ${
+                        dragOverIndex === index && dragIndex !== index
+                          ? "bg-brand-400/10 border-t-2 border-brand-400"
+                          : dragIndex === index
+                          ? "opacity-40"
+                          : "hover:bg-muted/30"
+                      }`}
+                    >
+                      <td className="pl-3 pr-1 py-4 text-muted-foreground cursor-grab active:cursor-grabbing">
+                        <GripVertical size={16} />
                       </td>
+                      <td className="p-4 text-center text-xs font-mono text-muted-foreground">{index + 1}</td>
                       <td className="p-4 font-semibold text-sm">{cat.name}</td>
                       <td className="p-4 text-xs text-muted-foreground font-mono">{cat.slug}</td>
                       <td className="p-4 text-center">
@@ -492,7 +493,7 @@ export default function PortfoliosPage() {
                     </tr>
                   ))}
                   {categories.length === 0 && (
-                    <tr><td colSpan={5} className="p-8 text-center text-sm text-muted-foreground">No categories yet.</td></tr>
+                    <tr><td colSpan={6} className="p-8 text-center text-sm text-muted-foreground">No categories yet.</td></tr>
                   )}
                 </tbody>
               </table>
@@ -697,14 +698,6 @@ export default function PortfoliosPage() {
               value={catForm.slug}
               onChange={(e) => setCatForm(f => ({ ...f, slug: e.target.value }))} />
             <p className="text-xs text-muted-foreground">Auto-generated from name if left blank. Lowercase, numbers, hyphens only.</p>
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Display Order</label>
-            <input type="number" min={0} placeholder="0"
-              className="w-full bg-muted border border-border px-4 py-3 outline-none focus:border-brand-400 transition-colors rounded-sm text-sm font-mono"
-              value={catForm.sortOrder}
-              onChange={(e) => setCatForm(f => ({ ...f, sortOrder: Math.max(0, parseInt(e.target.value) || 0) }))} />
-            <p className="text-xs text-muted-foreground">Lower number appears first in the filter list.</p>
           </div>
           <button type="submit" disabled={catSubmitting}
             className="w-full bg-brand-400 text-white font-bold tracking-widest uppercase text-sm py-3.5 hover:bg-brand-500 transition-colors rounded-sm flex items-center justify-center gap-2 disabled:opacity-60">
