@@ -1,10 +1,29 @@
+import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { AboutContent } from "@/components/about/about-content";
 import { fetchAboutContent, fetchTeamMembers, type TeamMember } from "@/lib/aboutApi";
 
-export const metadata = {
-  title: "About Us | Visual Studio",
-  description: "Learn more about the team behind Visual Studio and Dreams Decor.",
+export const metadata: Metadata = {
+  title: "About Us",
+  description:
+    "Meet the passionate team behind Visual Studios & Events — a creative photography and videography studio dedicated to capturing authentic moments and telling compelling visual stories.",
+  keywords: [
+    "about Visual Studios & Events",
+    "photography team",
+    "professional photographers",
+    "creative studio team",
+    "videography team",
+    "our story",
+    "photography studio about",
+    "visualstudioslens team",
+  ],
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About Us | Visual Studios & Events",
+    description:
+      "Meet the passionate team behind Visual Studios & Events — dedicated to capturing authentic moments and telling compelling visual stories.",
+    url: "https://visualstudioslens.com/about",
+  },
 };
 
 export default async function AboutPage() {
