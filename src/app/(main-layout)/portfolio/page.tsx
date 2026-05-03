@@ -6,6 +6,7 @@ import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Yellowtail } from "next/font/google";
 import { fetchPortfolios, fetchCategories, type Portfolio, type PortfolioCategory } from "@/lib/portfolioApi";
+import { StayInspiredPopup } from "@/components/stay-inspired-popup";
 
 const yellowtail = Yellowtail({
   weight: "400",
@@ -121,6 +122,7 @@ export default function PortfolioPage() {
 
   return (
     <div className="relative min-h-screen pb-24 selection:bg-brand-500/30">
+      <StayInspiredPopup />
       {/* Background base layer to ensure consistent theme background */}
       <div className="fixed inset-0 z-[-2] bg-background" />
 

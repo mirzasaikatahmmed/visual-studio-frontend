@@ -111,6 +111,15 @@ export async function updateCategory(id: number, payload: Partial<CategoryPayloa
   return handle<PortfolioCategory>(res);
 }
 
+export async function reorderCategories(items: { id: number; sortOrder: number }[]): Promise<void> {
+  const res = await fetch(`${BASE}/portfolios/categories/reorder`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    body: JSON.stringify({ items }),
+  });
+  await handle<unknown>(res);
+}
+
 export async function deleteCategory(id: number): Promise<void> {
   const res = await fetch(`${BASE}/portfolios/categories/${id}`, {
     method: 'DELETE',

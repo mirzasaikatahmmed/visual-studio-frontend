@@ -1,12 +1,14 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, ChevronUp, ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 export function HeroSection() {
   const line1 = "Capturing Moments.";
   const line2 = "Creating Experiences.";
+  const [isHovered, setIsHovered] = useState(false);
 
   const container: Variants = {
     hidden: { opacity: 0 },
@@ -96,44 +98,66 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 1.7 }}
           className="flex flex-col sm:flex-row gap-4 w-full px-8 sm:w-auto sm:px-0"
         >
-          <motion.div
-            whileHover={{ scale: 1.04, boxShadow: "0 8px 40px rgba(255,255,255,0.18), 0 2px 12px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.35)" }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="group relative rounded-sm overflow-hidden"
-            style={{
-              background: "rgba(255, 255, 255, 0.12)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              border: "1px solid rgba(255, 255, 255, 0.25)",
-              boxShadow: "0 4px 24px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.2)",
-            }}
+          <div
+            className="relative inline-flex flex-col items-center"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
-            {/* shine sweep */}
-            <span
-              className="pointer-events-none absolute inset-0 translate-x-[-110%] group-hover:translate-x-[110%] transition-transform duration-700 ease-in-out z-0"
+            <motion.div
+              whileHover={{ scale: 1.04, boxShadow: "0 8px 40px rgba(255,255,255,0.18), 0 2px 12px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.35)" }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="group relative rounded-sm overflow-hidden"
               style={{
-                background: "linear-gradient(120deg, transparent 25%, rgba(255,255,255,0.35) 50%, transparent 75%)",
+                background: "rgba(255, 255, 255, 0.12)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "1px solid rgba(255, 255, 255, 0.25)",
+                boxShadow: "0 4px 24px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.2)",
               }}
-            />
-            {/* glass tint brighten on hover */}
-            <span className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
-              style={{ background: "rgba(255,255,255,0.07)" }}
-            />
-            <Link
-              href="/portfolio"
-              className="relative z-10 px-8 py-4 flex items-center justify-center gap-2 font-bold uppercase tracking-widest text-xs text-white"
             >
-              <span className="group-hover:-translate-x-1 transition-transform duration-300">View Portfolio</span>
-              <motion.span
-                className="flex items-center"
-                animate={{ x: 0 }}
-                whileHover={{ x: 4 }}
+              {/* shine sweep */}
+              <span
+                className="pointer-events-none absolute inset-0 translate-x-[-110%] group-hover:translate-x-[110%] transition-transform duration-700 ease-in-out z-0"
+                style={{
+                  background: "linear-gradient(120deg, transparent 25%, rgba(255,255,255,0.35) 50%, transparent 75%)",
+                }}
+              />
+              {/* glass tint brighten on hover */}
+              <span className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
+                style={{ background: "rgba(255,255,255,0.07)" }}
+              />
+              <Link
+                href="/portfolio"
+                className="relative z-10 px-8 py-4 flex items-center justify-center gap-2 font-bold uppercase tracking-widest text-xs text-white"
               >
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
-              </motion.span>
-            </Link>
-          </motion.div>
+                <span className="group-hover:-translate-x-1 transition-transform duration-300">View Portfolio</span>
+                <motion.span
+                  className="flex items-center"
+                  animate={{ x: 0 }}
+                  whileHover={{ x: 4 }}
+                >
+                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
+                </motion.span>
+              </Link>
+            </motion.div>
+            <AnimatePresence>
+              {isHovered && (
+                <motion.div
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute top-full mt-2 w-max z-50 flex flex-col items-center pointer-events-none"
+                >
+                  <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[5px] border-b-gray-800 dark:border-b-gray-200" />
+                  <div className="bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 text-[10px] sm:text-xs font-medium px-2 py-1 rounded shadow-md tracking-wide">
+                    check out our latest work
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           <Link 
             href="/contact" 
             className="px-8 py-4 bg-transparent border border-white/50 text-white font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-colors flex items-center justify-center"

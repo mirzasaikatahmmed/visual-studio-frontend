@@ -5,9 +5,9 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard, MessageSquare, Camera, Video,
-  Settings, Menu, X, ExternalLink,
+  Menu, X, ExternalLink,
   Bell, LogOut, Aperture, Info,
-  HelpCircle, Image, Grid, BookOpen, ShoppingBag, FileImage, Sparkles, Rss, Activity
+  HelpCircle, Image, Grid, ShoppingBag, FileImage, Sparkles, Rss, Activity
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { motion, AnimatePresence } from "framer-motion";
@@ -29,7 +29,7 @@ const navLinks = [
   { href: "/admin/stay-inspired", label: "Stay Inspired", icon: Rss },
   { href: "/admin/traffic", label: "Live Traffic", icon: Activity },
   { href: "/admin/faq", label: "FAQ", icon: HelpCircle },
-  { href: "/admin/settings", label: "Settings", icon: Settings },
+  // { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
 type SidebarProps = {

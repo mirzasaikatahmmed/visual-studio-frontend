@@ -66,7 +66,7 @@ export default function Error({
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-base md:text-xl text-gray-300 max-w-2xl mb-10 font-medium px-4 tracking-wide"
         >
-          Something went wrong behind the scenes. We're working on fixing the reel.
+          Something went wrong behind the scenes. We&apos;re working on fixing the reel.
         </motion.p>
 
         {/* Cinematic Button */}
