@@ -163,7 +163,7 @@ export function HeroSection() {
                 >
                   <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[5px] border-b-gray-800 dark:border-b-gray-200" />
                   <div className="bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 text-[10px] sm:text-xs font-medium px-2 py-1 rounded shadow-md tracking-wide">
-                    check out our latest work
+                    Check out our latest work
                   </div>
                 </motion.div>
               )}
