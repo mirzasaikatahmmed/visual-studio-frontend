@@ -2,8 +2,12 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Visual Studio",
-  description: "Terms and conditions for Visual Studio & Events.",
+  title: "Terms & Conditions",
+  description:
+    "Read the terms and conditions governing the use of Visual Studio's photography, videography, and print services.",
+  keywords: ["terms and conditions", "Visual Studio terms", "service agreement", "photography terms"],
+  alternates: { canonical: "/terms-of-service" },
+  robots: { index: false, follow: false },
 };
 
 export default function TermsOfServicePage() {
