@@ -2,8 +2,12 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Visual Studio",
-  description: "Terms and conditions for Visual Studio & Events.",
+  title: "Terms & Conditions",
+  description:
+    "Read the terms and conditions governing the use of Visual Studio's photography, videography, and print services.",
+  keywords: ["terms and conditions", "Visual Studio terms", "service agreement", "photography terms"],
+  alternates: { canonical: "/terms-of-service" },
+  robots: { index: false, follow: false },
 };
 
 export default function TermsOfServicePage() {
@@ -221,7 +225,7 @@ export default function TermsOfServicePage() {
             <p className="mb-4">If you have any questions, concerns, or requests regarding these Terms of Service, please contact us:</p>
             <ul className="list-disc pl-[22px] mb-[18px] space-y-[7px]">
               <li><strong className="font-semibold text-foreground">Email:</strong> <Link href="mailto:lens@visualstudioslens.com" className="text-foreground hover:underline">lens@visualstudioslens.com</Link></li>
-              <li><strong className="font-semibold text-foreground">Phone:</strong> <Link href="tel:+19296275537" className="text-foreground hover:underline">+1 (929) 627-5537</Link></li>
+              <li><strong className="font-semibold text-foreground">Phone:</strong> <Link href="tel:+13473066637" className="text-foreground hover:underline">+1 (347) 306-6637</Link></li>
               <li><strong className="font-semibold text-foreground">Address:</strong> Liberty Avenue Brooklyn, 1097 · New York, NY 11208</li>
               <li><strong className="font-semibold text-foreground">Website:</strong> <Link href="https://www.visualstudioslens.com" className="text-foreground hover:underline">visualstudioslens.com</Link></li>
             </ul>

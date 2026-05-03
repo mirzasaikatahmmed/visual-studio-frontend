@@ -1,10 +1,31 @@
+import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { MoreServicesGrid } from "@/components/more-services/services-grid";
 import { fetchServices } from "@/lib/servicesApi";
 
-export const metadata = {
-  title: "More Services & Partners | Visual Studio",
-  description: "Additional options and partner vendors for your dream event.",
+export const metadata: Metadata = {
+  title: "More Services & Partners",
+  description:
+    "Discover additional photography and event services from Visual Studio and our trusted partner vendors — from drone photography and photo booths to décor and floral design for your dream event.",
+  keywords: [
+    "photography services",
+    "event services",
+    "partner vendors",
+    "drone photography",
+    "photo booth rental",
+    "event planning",
+    "wedding vendors",
+    "event décor",
+    "Visual Studios & Events services",
+    "photography packages",
+  ],
+  alternates: { canonical: "/more-services" },
+  openGraph: {
+    title: "More Services & Partners | Visual Studios & Events",
+    description:
+      "Additional photography and event services from Visual Studios & Events and trusted partner vendors for your dream event.",
+    url: "https://visualstudioslens.com/more-services",
+  },
 };
 
 export default async function MoreServicesPage() {

@@ -2,8 +2,12 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Visual Studio",
-  description: "Privacy policy for Visual Studio & Events.",
+  title: "Privacy Policy",
+  description:
+    "Read Visual Studio's privacy policy to understand how we collect, use, and protect your personal information.",
+  keywords: ["privacy policy", "Visual Studio privacy", "data protection", "personal information"],
+  alternates: { canonical: "/privacy-policy" },
+  robots: { index: false, follow: false },
 };
 
 export default function PrivacyPolicyPage() {
@@ -155,7 +159,7 @@ export default function PrivacyPolicyPage() {
             <p className="mb-4">For any privacy-related questions, concerns, or requests, please contact us through any of the following channels:</p>
             <ul className="list-disc pl-[22px] mb-[18px] space-y-[7px]">
               <li><strong className="font-semibold text-foreground">Email:</strong> <Link href="mailto:lens@visualstudioslens.com" className="text-foreground hover:underline">lens@visualstudioslens.com</Link></li>
-              <li><strong className="font-semibold text-foreground">Phone:</strong> <Link href="tel:+19296275537" className="text-foreground hover:underline">+1 (929) 627-5537</Link></li>
+              <li><strong className="font-semibold text-foreground">Phone:</strong> <Link href="tel:+13473066637" className="text-foreground hover:underline">+1 (347) 306-6637</Link></li>
               <li><strong className="font-semibold text-foreground">Address:</strong> Liberty Avenue Brooklyn, 1097 · New York, NY 11208</li>
               <li><strong className="font-semibold text-foreground">Website:</strong> <Link href="/contact" className="text-foreground hover:underline">visualstudioslens.com/contact</Link></li>
             </ul>

@@ -1,10 +1,31 @@
+import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { StoreCategoryGrid } from "@/components/store/store-grid";
 import { fetchCategories, fetchSettings } from "@/lib/storeApi";
 
-export const metadata = {
-  title: "Print Store | Visual Studio",
-  description: "Premium albums, wall art, and prints crafted for a lifetime.",
+export const metadata: Metadata = {
+  title: "Print Store",
+  description:
+    "Shop Visual Studios & Events print store for premium photo albums, canvas wall art, fine art prints, and custom photo products — beautifully crafted keepsakes designed to last a lifetime.",
+  keywords: [
+    "photo print store",
+    "premium photo albums",
+    "canvas wall art",
+    "fine art prints",
+    "custom photo products",
+    "wedding photo album",
+    "photo gifts",
+    "wall art prints",
+    "photo keepsakes",
+    "Visual Studios & Events print store",
+  ],
+  alternates: { canonical: "/store" },
+  openGraph: {
+    title: "Print Store | Visual Studios & Events",
+    description:
+      "Premium photo albums, canvas wall art, fine art prints, and custom photo products crafted to last a lifetime.",
+    url: "https://visualstudioslens.com/store",
+  },
 };
 
 export default async function StorePage() {
