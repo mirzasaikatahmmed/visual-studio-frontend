@@ -148,8 +148,8 @@ export default function PortfolioPage() {
 
       <div className="relative z-10 container max-w-7xl mx-auto px-4 pt-32 mt-8">
 
-        {/* Title Section */}
-        <div className="flex flex-col items-center gap-0 mb-12 w-full">
+        {/* Title and Filter Section - Elevated z-index to prevent image overlap */}
+        <div className="relative z-50 flex flex-col items-center gap-0 mb-16 w-full">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -214,46 +214,46 @@ export default function PortfolioPage() {
           </div>
         )}
 
-        {/* Masonry Grid */}
+        {/* Masonry Grid - Pure Fade Transition (layout removed to fix falling bug with CSS columns) */}
         {!loading && filteredData.length > 0 && (
-          <motion.div layout className="columns-2 lg:columns-3 gap-2 md:gap-4 space-y-2 md:space-y-4">
-            <AnimatePresence mode="popLayout">
-              {filteredData.map((item, idx) => (
-                <motion.div
-                  key={item.id}
-                  layout
-                  custom={idx}
-                  initial={{ opacity: 0, y: 50, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                  className="break-inside-avoid relative group overflow-hidden rounded-2xl md:rounded-[2rem] cursor-pointer  dark:border-white/5 bg-gray-100 dark:bg-[#111]"
-                  onClick={() => setSelectedIndex(idx)}
-                >
-                  <Image
-                    src={item.url}
-                    alt={item.alt || item.title}
-                    width={800}
-                    height={600}
-                    className="w-full h-auto object-cover transition-transform duration-[1.5s] group-hover:scale-110"
-                  />
+          <div className="relative z-0">
+            <div className="columns-2 lg:columns-3 gap-2 md:gap-4 space-y-2 md:space-y-4">
+              <AnimatePresence mode="sync" initial={false}>
+                {filteredData.map((item) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="break-inside-avoid relative group overflow-hidden rounded-2xl md:rounded-[2rem] cursor-pointer dark:border-white/5 bg-gray-100 dark:bg-[#111]"
+                    onClick={() => setSelectedIndex(filteredData.indexOf(item))}
+                  >
+                    <Image
+                      src={item.url}
+                      alt={item.alt || item.title}
+                      width={800}
+                      height={600}
+                      className="w-full h-auto object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+                    />
 
-                  {/* Advanced Hover Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                    <div className="translate-y-5 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                      <span className="text-brand-400 text-xs font-bold uppercase tracking-widest mb-2 border border-brand-400/30 bg-brand-400/10 px-3 py-1 rounded-full inline-block backdrop-blur-md">
-                        {item.category?.name}
-                      </span>
-                      <h3 className="text-white text-2xl font-bold tracking-tight">{item.title}</h3>
+                    {/* Advanced Hover Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                      <div className="translate-y-5 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                        <span className="text-brand-400 text-xs font-bold uppercase tracking-widest mb-2 border border-brand-400/30 bg-brand-400/10 px-3 py-1 rounded-full inline-block backdrop-blur-md">
+                          {item.category?.name}
+                        </span>
+                        <h3 className="text-white text-2xl font-bold tracking-tight">{item.title}</h3>
+                      </div>
+                      <div className="absolute top-6 right-6 w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100 border border-white/20 hover:bg-white hover:text-black">
+                        <Maximize2 size={18} />
+                      </div>
                     </div>
-                    <div className="absolute top-6 right-6 w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100 border border-white/20 hover:bg-white hover:text-black">
-                      <Maximize2 size={18} />
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </div>
         )}
 
         {/* Cinematic Pixieset Call to Action */}

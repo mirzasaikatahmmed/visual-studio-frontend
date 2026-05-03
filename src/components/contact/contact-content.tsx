@@ -86,7 +86,7 @@ export function ContactContent() {
                       </div>
                       <div className="flex flex-col justify-center">
                         <h4 className="font-bold uppercase tracking-widest text-sm mb-1 group-hover:text-brand-400 transition-colors">Call Us</h4>
-                        <p className="text-muted-foreground">+1 (929) 627-5537</p>
+                        <p className="text-muted-foreground">+1 (347) 306-6637</p>
                         <p className="text-xs text-foreground/50 mt-1 uppercase tracking-wider">Mon-Fri, 9am - 6pm EST</p>
                       </div>
                    </motion.div>
@@ -120,7 +120,7 @@ export function ContactContent() {
                     <h3 className="text-2xl font-bold mb-4 relative z-10">Fastest Response</h3>
                     <p className="text-muted-foreground mb-8 text-lg relative z-10">Text our team directly on WhatsApp for quick answers and simple bookings.</p>
                     <a
-                      href="https://wa.me/19296275537"
+                      href="https://wa.me/13473066637"
                       target="_blank" rel="noopener noreferrer"
                       className="flex items-center justify-center gap-3 w-full py-5 bg-[#25D366] text-white font-bold uppercase tracking-widest hover:bg-[#20bd5a] hover:scale-105 hover:shadow-[0_0_30px_rgba(37,211,102,0.4)] transition-all rounded-full relative z-10"
                     >
