@@ -3,12 +3,23 @@
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, ChevronUp, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function HeroSection() {
   const line1 = "Capturing Moments.";
   const line2 = "Creating Experiences.";
   const [isHovered, setIsHovered] = useState(false);
+  const [showSuggestion, setShowSuggestion] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowSuggestion(true), 2500);
+    const hideTimer = setTimeout(() => setShowSuggestion(false), 7500);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(hideTimer);
+    };
+  }, []);
 
   const container: Variants = {
     hidden: { opacity: 0 },
@@ -142,7 +153,7 @@ export function HeroSection() {
               </Link>
             </motion.div>
             <AnimatePresence>
-              {isHovered && (
+              {(isHovered || showSuggestion) && (
                 <motion.div
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
