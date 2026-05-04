@@ -36,7 +36,7 @@ export async function GET() {
 
     const posts = (data.data ?? [])
       .filter((p) => p.media_type === "IMAGE" || p.media_type === "CAROUSEL_ALBUM")
-      .slice(0, 3)
+      .slice(0, 6)
       .map((p) => ({
         id: p.id,
         imageUrl: p.media_url,

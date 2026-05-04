@@ -23,63 +23,59 @@ const greatVibes = Great_Vibes({
 
 export const metadata: Metadata = {
   title: {
-    default: "Visual Studios & Events | Photography | Videography",
-    template: "%s | Visual Studios & Events",
+    default: "South Asian & Muslim Wedding Photographer NYC | Visual Studio",
+    template: "%s | Visual Studio",
   },
   description:
-    "Visual Studios & Events is a professional photography and videography studio specializing in wedding photography, event coverage, corporate branding, portrait sessions, and cinematic video production. Capturing moments. Creating experiences.",
+    "Visual Studio captures Bengali, Pakistani, Indian, Sikh, and Muslim weddings in NYC and the tri-state area. Cinematic films, female crew available, destination travel. Based in Brooklyn, NY.",
   keywords: [
-    "Visual Studios & Events",
+    "south asian wedding photographer nyc",
+    "muslim wedding photographer nyc",
+    "bengali wedding photographer",
+    "pakistani wedding photographer",
+    "indian wedding photographer nyc",
+    "sikh wedding photographer",
+    "cinematic wedding videographer nyc",
+    "female wedding photographer nyc",
+    "nikkah photographer",
+    "holud photographer",
+    "baraat photographer",
+    "wedding photographer brooklyn",
+    "wedding photographer queens",
+    "south asian wedding videography",
+    "Visual Studio",
     "visualstudioslens",
-    "professional photography",
-    "wedding photography",
-    "event photography",
-    "videography",
-    "cinematic video",
-    "portrait photography",
-    "corporate photography",
-    "commercial photography",
-    "visual marketing",
-    "product photography",
-    "event coverage",
-    "photo studio",
-    "creative studio",
-    "photography studio",
-    "professional photographer",
-    "wedding videographer",
-    "branding photography",
-    "event videographer",
   ],
-  authors: [{ name: "Visual Studios & Events" }],
-  creator: "Visual Studios & Events",
-  publisher: "Visual Studios & Events",
-  metadataBase: new URL("https://visualstudioslens.com"),
+  authors: [{ name: "Visual Studio" }],
+  creator: "Visual Studio",
+  publisher: "Visual Studio",
+  metadataBase: new URL("https://www.visualstudioslens.com"),
   alternates: {
-    canonical: "/",
+    canonical: "https://www.visualstudioslens.com",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://visualstudioslens.com",
-    siteName: "Visual Studios & Events",
-    title: "Visual Studios & Events | Photography | Videography",
+    url: "https://www.visualstudioslens.com",
+    siteName: "Visual Studio",
+    title: "South Asian & Muslim Wedding Photographer NYC | Visual Studio",
     description:
-      "Professional photography & videography studio specializing in weddings, events, portraits, corporate branding, and cinematic video production.",
+      "Cinematic wedding photography & videography for Bengali, Pakistani, Indian, Sikh, and Muslim weddings in NYC and the tri-state area. Female crew available.",
     images: [
       {
-        url: "/hero-bg.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Visual Studios & Events – Professional Photography & Videography",
+        alt: "South Asian wedding photography by Visual Studio NYC",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Visual Studios & Events | Photography | Videography",
+    title: "South Asian & Muslim Wedding Photographer NYC | Visual Studio",
     description:
-      "Professional photography & videography studio specializing in weddings, events, portraits, corporate branding, and cinematic video production.",
-    images: ["/hero-bg.png"],
+      "Cinematic wedding photography & videography for Bengali, Pakistani, Indian, Sikh, and Muslim weddings in NYC. Female crew available.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -97,6 +93,44 @@ export const metadata: Metadata = {
   },
 };
 
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://www.visualstudioslens.com",
+  "name": "Visual Studio",
+  "alternateName": "Visual Studios & Events",
+  "image": "https://www.visualstudioslens.com/logo.png",
+  "url": "https://www.visualstudioslens.com",
+  "telephone": "+1-347-306-6637",
+  "email": "lens@visualstudioslens.com",
+  "priceRange": "$$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1097 Liberty Avenue",
+    "addressLocality": "Brooklyn",
+    "addressRegion": "NY",
+    "postalCode": "11208",
+    "addressCountry": "US",
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 40.678613,
+    "longitude": -73.868806,
+  },
+  "areaServed": [
+    { "@type": "City", "name": "New York City" },
+    { "@type": "City", "name": "Brooklyn" },
+    { "@type": "City", "name": "Queens" },
+    { "@type": "City", "name": "Long Island" },
+    { "@type": "State", "name": "New Jersey" },
+    { "@type": "State", "name": "Connecticut" },
+  ],
+  "description": "South Asian and Muslim wedding photography and cinematography studio based in Brooklyn, NY. Bengali, Pakistani, Indian, Sikh, and Arab weddings. Female crew available on request.",
+  "sameAs": [
+    "https://www.instagram.com/visualstudioofficial/",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -104,6 +138,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${greatVibes.variable} antialiased overflow-x-hidden`}
         suppressHydrationWarning

@@ -3,25 +3,25 @@ import { HeroSection } from "@/components/hero-section";
 import { ContactContent } from "@/components/contact/contact-content";
 
 export const metadata: Metadata = {
-  title: "Contact & Booking",
+  title: "Book Your Wedding Photographer NYC | Visual Studio",
   description:
-    "Ready to book a photography or videography session? Contact Visual Studios & Events to request a quote, check availability, or ask about our packages for weddings, events, and corporate shoots.",
+    "Book Visual Studio for your South Asian or Muslim wedding in NYC. Contact us to check availability, request a free consultation, or ask about our photography and cinematography packages.",
   keywords: [
-    "book photography session",
-    "contact Visual Studios & Events",
-    "photography booking",
-    "request a quote",
-    "wedding photographer booking",
-    "event photographer contact",
-    "videography booking",
-    "photo session inquiry",
+    "book wedding photographer nyc",
+    "south asian wedding photographer contact",
+    "muslim wedding photography inquiry",
+    "wedding photography consultation nyc",
+    "book bengali wedding photographer",
+    "book pakistani wedding photographer",
+    "wedding videographer booking nyc",
+    "visualstudioslens contact",
   ],
   alternates: { canonical: "/contact" },
   openGraph: {
-    title: "Contact & Booking | Visual Studios & Events",
+    title: "Book Your Wedding Photographer NYC | Visual Studio",
     description:
-      "Book a photography or videography session, request a quote, or ask about our packages for weddings, events, and corporate shoots.",
-    url: "https://visualstudioslens.com/contact",
+      "Contact Visual Studio to book your South Asian or Muslim wedding in NYC. Free consultation — check availability today.",
+    url: "https://www.visualstudioslens.com/contact",
   },
 };
 

@@ -13,6 +13,9 @@ const FALLBACK_IMAGES = [
   "https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=400",
   "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=400",
   "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=400",
+  "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=400",
+  "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=400",
+  "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=400",
 ];
 
 export function InstagramFeed() {
@@ -47,7 +50,7 @@ export function InstagramFeed() {
 
       <div className="grid grid-cols-3 gap-2 mt-8">
         {loading
-          ? Array.from({ length: 3 }).map((_, i) => (
+          ? Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
                 className="aspect-square bg-white/10 animate-pulse"
@@ -61,7 +64,7 @@ export function InstagramFeed() {
                 rel="noopener noreferrer"
                 className="aspect-square bg-cover bg-center block grayscale hover:grayscale-0 transition-all hover:scale-105 duration-500 overflow-hidden"
                 style={{ backgroundImage: `url('${img.src}')` }}
-                aria-label={`Instagram post ${i + 1}`}
+                aria-label={`View Visual Studio wedding photo on Instagram — post ${i + 1}`}
               />
             ))}
       </div>

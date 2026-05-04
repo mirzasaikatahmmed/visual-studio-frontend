@@ -1,25 +1,11 @@
 "use client";
 
-import { motion, Variants, AnimatePresence } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, ChevronUp, ChevronDown } from "lucide-react";
-import { useState, useEffect } from "react";
-
 export function HeroSection() {
   const line1 = "Capturing Moments.";
   const line2 = "Creating Experiences.";
-  const [isHovered, setIsHovered] = useState(false);
-  const [showSuggestion, setShowSuggestion] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowSuggestion(true), 2500);
-    const hideTimer = setTimeout(() => setShowSuggestion(false), 7500);
-
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(hideTimer);
-    };
-  }, []);
 
   const container: Variants = {
     hidden: { opacity: 0 },
@@ -94,13 +80,23 @@ export function HeroSection() {
           </motion.div>
         </div>
         
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.5 }}
-          className="text-sm md:text-xl text-gray-200 max-w-2xl mb-8 md:mb-12 font-medium px-6 md:px-4 leading-relaxed"
+          className="text-sm md:text-xl text-gray-200 max-w-2xl mb-4 font-medium px-6 md:px-4 leading-relaxed"
         >
           Cinematic storytelling for every culture, every love, every moment.
+        </motion.p>
+
+        {/* Starting price — update value once confirmed by Sakib */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.6 }}
+          className="text-white/50 text-xs md:text-sm tracking-widest uppercase mb-8 md:mb-12"
+        >
+          Packages from $2,500 · Free 15-min consultation
         </motion.p>
         
         <motion.div 
@@ -110,11 +106,7 @@ export function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 w-full px-10 sm:w-auto sm:px-0 mt-4"
         >
           {/* Primary CTA: View Portfolio */}
-          <div
-            className="relative w-full sm:w-auto"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
+          <div className="relative w-full sm:w-auto">
             <motion.div
               whileHover={{ scale: 1.04, boxShadow: "0 8px 40px rgba(255,255,255,0.18), 0 2px 12px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.35)" }}
               whileTap={{ scale: 0.97 }}

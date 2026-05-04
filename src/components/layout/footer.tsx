@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Mail, Phone, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { InstagramFeed } from "@/components/instagram-feed";
 import { useState } from "react";
 import { subscribe } from "@/lib/newsletterApi";
 
@@ -86,11 +85,6 @@ export function Footer() {
             )}
           </motion.div>
 
-          {/* Instagram Live Feed */}
-          <motion.div variants={itemVariants}>
-            <InstagramFeed />
-          </motion.div>
-
         </div>
 
         {/* Bottom Section: Links & Info */}
@@ -148,7 +142,6 @@ export function Footer() {
            <motion.div variants={itemVariants}>
               <h4 className="font-bold uppercase tracking-widest text-sm mb-6 text-brand-400">Resources</h4>
               <ul className="space-y-3 text-foreground/70">
-                 <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2 font-medium hover:translate-x-2 transform duration-300"><ArrowUpRight size={14} className="text-brand-400"/> Client Portal</a></li>
                  <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2 font-medium hover:translate-x-2 transform duration-300"><ArrowUpRight size={14} className="text-brand-400"/> Download Pricing PDF</a></li>
                  <li><Link href="/faq" className="hover:text-white transition-colors flex items-center gap-2 font-medium hover:translate-x-2 transform duration-300"><ArrowUpRight size={14} className="text-brand-400"/> FAQ & Booking Guide</Link></li>
               </ul>

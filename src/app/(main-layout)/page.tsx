@@ -2,35 +2,36 @@ import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/hero-section";
 
 export const metadata: Metadata = {
-  title: "Visual Studios & Events | Photography | Videography",
+  title: "South Asian & Muslim Wedding Photographer NYC | Visual Studio",
   description:
-    "Visual Studios & Events is a professional photography and videography studio capturing weddings, events, portraits, and brand stories with cinematic quality. Book your session today.",
+    "Bengali, Pakistani, Indian, and Muslim wedding photography and cinematography in NYC. Female crew available. Serving all five boroughs, Long Island, NJ, CT, and destination worldwide.",
   keywords: [
-    "Visual Studios & Events",
-    "photography studio",
-    "professional photographer",
-    "wedding photography",
-    "event photography",
-    "portrait photography",
-    "videography studio",
-    "cinematic video",
+    "south asian wedding photographer nyc",
+    "muslim wedding photographer nyc",
+    "bengali wedding photographer",
+    "pakistani wedding photographer",
+    "indian wedding photographer nyc",
+    "female wedding photographer",
+    "nikkah photographer nyc",
+    "holud photographer",
+    "cinematic wedding film nyc",
+    "wedding photographer brooklyn",
+    "wedding photographer queens",
     "visualstudioslens",
-    "book photography session",
-    "creative photography",
-    "event videographer",
   ],
-  alternates: { canonical: "/" },
+  alternates: { canonical: "https://www.visualstudioslens.com" },
   openGraph: {
-    title: "Visual Studios & Events | Photography | Videography",
+    title: "South Asian & Muslim Wedding Photographer NYC | Visual Studio",
     description:
-      "Capturing weddings, events, portraits, and brand stories with cinematic quality. Book your session today.",
-    url: "https://visualstudioslens.com",
+      "Bengali, Pakistani, Indian, and Muslim wedding photography and cinematography in NYC. Female crew available.",
+    url: "https://www.visualstudioslens.com",
   },
 };
 import { ExpertiseSection } from "@/components/home/expertise-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { BookingSection } from "@/components/home/booking-section";
 import { FaqSection } from "@/components/home/faq-section";
+import { InstagramSection } from "@/components/home/instagram-section";
 
 export default function Home() {
   return (
@@ -40,6 +41,7 @@ export default function Home() {
       <TestimonialsSection />
       <BookingSection />
       <FaqSection />
+      <InstagramSection />
     </div>
   );
 }
