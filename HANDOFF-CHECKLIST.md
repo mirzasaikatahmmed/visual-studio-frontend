@@ -90,28 +90,12 @@
 
 > None of these currently exist in the homepage component tree.
 
-- [ ] **"Cultures We Serve"** section — place above Portfolio teaser
-  - 6 culture tiles each with a sample photo:
-    - Bengali Weddings — Gaye Holud, Akht, Bou Bhat
-    - Pakistani Weddings — Mayun, Mehndi, Baraat, Walima
-    - Indian Weddings — Sangeet, Pheras, Vidaai
-    - Sikh Weddings — Anand Karaj, Doli
-    - Arab & Afghan Weddings — Nikkah, Henna Night, Zaffa
-    - Multi-Cultural & Fusion Weddings
+- [x] **"Cultures We Serve"** section — ✅ Built at `src/components/home/cultures-section.tsx`, wired into homepage
+  - 6 culture tiles each with a sample photo (Unsplash — replace with real photos when available)
   - CTA: `"View Full Portfolio →"`
-- [ ] **"Female Crew Available"** callout banner
-  - Heading: `"Female Photographers & Videographers — Available On Request"`
-  - Body copy: explain importance for Muslim/conservative families for getting-ready, Mehndi, ladies-only events
-  - CTA: `"Book a Consultation →"`
-- [ ] **"What's Included"** section — 3-column grid
-  - Column 1 — Photography: lead + 2nd shooter, full-day coverage, 600–1,000+ edited photos, private online gallery, print rights
-  - Column 2 — Cinematography (Add-On): 4K cinematic film, highlight reel (3–5 min), full ceremony edit, drone coverage, same-day edit option
-  - Column 3 — Extras: engagement & Nikkah-only sessions, custom albums & prints, USB delivery, rush turnaround, destination travel
-- [ ] **Trust signals strip** — horizontal bar above footer with 4 icon badges:
-  - ✓ Fully Insured (COI Available)
-  - ✓ Female Crew Available
-  - ✓ 5+ Years Experience *(confirm exact number with Sakib)*
-  - ✓ NYC, NJ, CT, & Destination
+- [x] **"Female Crew Available"** callout banner — ✅ Built at `src/components/home/female-crew-section.tsx`, wired into homepage
+- [x] **"What's Included"** section — ✅ Built at `src/components/home/whats-included-section.tsx`, wired into homepage
+- [x] **Trust signals strip** — ✅ Built at `src/components/home/trust-signals-section.tsx`, wired above footer *(⚠️ "5+ Years" — confirm exact years/weddings count with Sakib)*
 
 ---
 
@@ -173,6 +157,10 @@
 | 13 | Embed Instagram feed on homepage (6 posts) | ✅ Done |
 | 14 | Fix WhatsApp button icon + size | ✅ Done |
 | 15 | Audit alt text across all public pages | ✅ Done |
+| 16 | Build "Cultures We Serve" homepage section | ✅ Done |
+| 17 | Build "Female Crew Available" callout banner | ✅ Done |
+| 18 | Build "What's Included" 3-column section | ✅ Done |
+| 19 | Build Trust signals strip above footer | ✅ Done |
 
 ---
 
@@ -181,12 +169,10 @@
 | Priority | Task | Blocked by |
 |----------|------|------------|
 | 1 | Fix "Download Pricing PDF" `href="#"` in footer | Needs PDF URL from Sakib |
-| 2 | Build **"Cultures We Serve"** homepage section | Needs sample photos per culture |
-| 3 | Build **"Female Crew Available"** callout banner | Ready to build |
-| 4 | Build **"What's Included"** 3-column section | Ready to build |
-| 5 | Build **Trust signals strip** above footer | Needs years/weddings count from Sakib |
-| 6 | Fill FAQ placeholders (price, retainer %, timings) | Needs info from Sakib |
-| 7 | Update starting price in hero from `$2,500` to real value | Needs confirmation from Sakib |
+| 2 | Fill FAQ placeholders (price, retainer %, timings) | Needs info from Sakib |
+| 3 | Update starting price in hero from `$2,500` to real value | Needs confirmation from Sakib |
+| 4 | Replace culture tile Unsplash images with real photos | Needs photos from Sakib |
+| 5 | Confirm "5+ Years Experience" count in trust signals | Needs confirmation from Sakib |
 
 ---
 

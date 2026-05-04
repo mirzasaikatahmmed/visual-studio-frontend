@@ -28,20 +28,28 @@ export const metadata: Metadata = {
   },
 };
 import { ExpertiseSection } from "@/components/home/expertise-section";
+import { CulturesSection } from "@/components/home/cultures-section";
+import { FemaleCrewSection } from "@/components/home/female-crew-section";
+import { WhatsIncludedSection } from "@/components/home/whats-included-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { BookingSection } from "@/components/home/booking-section";
 import { FaqSection } from "@/components/home/faq-section";
 import { InstagramSection } from "@/components/home/instagram-section";
+import { TrustSignalsSection } from "@/components/home/trust-signals-section";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <HeroSection />
       <ExpertiseSection />
+      <CulturesSection />
+      <FemaleCrewSection />
+      <WhatsIncludedSection />
       <TestimonialsSection />
       <BookingSection />
       <FaqSection />
       <InstagramSection />
+      <TrustSignalsSection />
     </div>
   );
 }
