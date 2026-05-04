@@ -89,14 +89,13 @@ export function HeroSection() {
           Cinematic storytelling for every culture, every love, every moment.
         </motion.p>
 
-        {/* Starting price — update value once confirmed by Sakib */}
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.6 }}
           className="text-white/50 text-xs md:text-sm tracking-widest uppercase mb-8 md:mb-12"
         >
-          Packages from $2,500 · Free 15-min consultation
+          Packages from $499 · Free 15-min consultation
         </motion.p>
         
         <motion.div 

@@ -30,13 +30,13 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "a2",
         question: "How much does wedding photography cost?",
         answer:
-          "Wedding photography packages at Visual Studio start at [STARTING PRICE — contact us for details] for half-day coverage and scale based on hours, number of shooters, cinematography add-ons, and album options. We send a full pricing guide after a free 15-minute consultation so we can match the right package to your wedding's scope.",
+          "Wedding photography packages at Visual Studio start at $499 and scale based on hours of coverage, number of shooters, cinematography add-ons, and album options. We send a full pricing guide after a free 15-minute consultation so we can match the right package to your wedding's scope.",
       },
       {
         id: "a3",
         question: "How do I reserve my date?",
         answer:
-          "Your date is locked in with a signed contract and a non-refundable retainer. The remaining balance is due closer to the event date. We accept Zelle, bank transfer, and major credit cards.",
+          "Your date is locked in with a signed contract and a non-refundable retainer of 30%–50% of the total package. The remaining balance is due closer to the event date. We accept Zelle, bank transfer, and major credit cards.",
       },
       {
         id: "a4",
@@ -112,13 +112,13 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "c1",
         question: "When do I get sneak peeks for social media?",
         answer:
-          "We deliver 15–25 sneak peek photos within 48–72 hours of your wedding so you can post while the buzz is fresh. Same-day edit highlight videos are available as an add-on.",
+          "We deliver 15–25 sneak peek photos within 78 hours of your wedding so you can post while the buzz is fresh. Same-day edit highlight videos are available as an add-on.",
       },
       {
         id: "c2",
         question: "What's the full turnaround time for the gallery and wedding film?",
         answer:
-          "Full edited photo galleries are delivered in 4–6 weeks. Cinematic wedding films are delivered in 8–10 weeks. Rush delivery is available as an add-on.",
+          "Full edited photo galleries are delivered in 3–4 weeks. Cinematic wedding films are delivered in 1–2 months. Rush delivery is available as an add-on.",
       },
       {
         id: "c3",
@@ -159,7 +159,7 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "d3",
         question: "Are you insured? Can you provide a Certificate of Insurance for my venue?",
         answer:
-          "Yes. We carry full liability insurance and provide Certificates of Insurance to venues on request at no extra charge.",
+          "We carry liability insurance. A Certificate of Insurance for your venue is available on request — reach out at the time of booking and we'll confirm the details.",
       },
       {
         id: "d4",

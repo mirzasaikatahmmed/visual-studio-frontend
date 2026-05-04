@@ -141,7 +141,7 @@ export function Footer() {
            <motion.div variants={itemVariants}>
               <h4 className="font-bold uppercase tracking-widest text-sm mb-6 text-brand-400">Resources</h4>
               <ul className="space-y-3 text-foreground/70">
-                 <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2 font-medium hover:translate-x-2 transform duration-300"><ArrowUpRight size={14} className="text-brand-400"/> Download Pricing PDF</a></li>
+                 <li className="flex items-center gap-2 font-medium opacity-40 cursor-not-allowed"><ArrowUpRight size={14} className="text-brand-400"/> Download Pricing PDF <span className="text-[9px] uppercase tracking-widest border border-current px-1.5 py-0.5">Soon</span></li>
                  <li><Link href="/faq" className="hover:text-white transition-colors flex items-center gap-2 font-medium hover:translate-x-2 transform duration-300"><ArrowUpRight size={14} className="text-brand-400"/> FAQ & Booking Guide</Link></li>
               </ul>
            </motion.div>
