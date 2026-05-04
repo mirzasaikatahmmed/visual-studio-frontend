@@ -36,7 +36,6 @@ import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { BookingSection } from "@/components/home/booking-section";
 import { FaqSection } from "@/components/home/faq-section";
 import { InstagramSection } from "@/components/home/instagram-section";
-import { TrustSignalsSection } from "@/components/home/trust-signals-section";
 
 export default function Home() {
   return (
@@ -51,7 +50,6 @@ export default function Home() {
       <BookingSection />
       <FaqSection />
       <InstagramSection />
-      <TrustSignalsSection />
     </div>
   );
 }
