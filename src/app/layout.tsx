@@ -95,7 +95,7 @@ export const metadata: Metadata = {
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "PhotographyBusiness",
   "@id": "https://www.visualstudioslens.com",
   "name": "Visual Studio",
   "alternateName": "Visual Studios & Events",
@@ -126,6 +126,25 @@ const localBusinessSchema = {
     { "@type": "State", "name": "Connecticut" },
   ],
   "description": "South Asian and Muslim wedding photography and cinematography studio based in Brooklyn, NY. Bengali, Pakistani, Indian, Sikh, and Arab weddings. Female crew available on request.",
+  "makesOffer": {
+    "@type": "Offer",
+    "name": "Photography Sessions",
+    "price": "499.00",
+    "priceCurrency": "USD",
+  },
+  "knowsAbout": [
+    "Muslim Weddings",
+    "South Asian Weddings",
+    "Bengali Weddings",
+    "Pakistani Weddings",
+    "Indian Weddings",
+    "Sikh Weddings",
+    "Afghan Weddings",
+    "Arab Weddings",
+    "Nikkah Photography",
+    "Mehndi Photography",
+    "Walima Photography",
+  ],
   "sameAs": [
     "https://www.instagram.com/visualstudioofficial/",
   ],

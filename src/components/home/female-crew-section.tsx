@@ -22,15 +22,16 @@ export function FemaleCrewSection() {
 
           {/* Heading */}
           <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tighter mb-6 leading-tight">
-            Female Photographers &amp; Videographers —{" "}
+            Female Crews &amp; Female Editors —{" "}
             <span className="opacity-60">Available On Request</span>
           </h2>
 
           {/* Body */}
           <p className="text-background/70 text-sm md:text-base max-w-2xl mx-auto leading-relaxed mb-10">
-            We understand that for many Muslim and conservative families, having a female crew for the
-            bride&apos;s getting-ready, Mehndi, and ladies-only events isn&apos;t optional — it&apos;s essential.
-            Just let us know when you book, and we&apos;ll confirm a female lead for your date.
+            For Hijabi brides, conservative families, and any couple who needs it, we offer
+            end-to-end female-only workflows: female photographers and videographers on the day,
+            AND female editors handling all your photos and footage afterward. Your modesty is
+            protected from capture to delivery. Just let us know when you book.
           </p>
 
           {/* CTA */}

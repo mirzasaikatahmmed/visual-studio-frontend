@@ -27,6 +27,7 @@ export const metadata: Metadata = {
     url: "https://www.visualstudioslens.com",
   },
 };
+import { UspStrip } from "@/components/home/usp-strip";
 import { ExpertiseSection } from "@/components/home/expertise-section";
 import { CulturesSection } from "@/components/home/cultures-section";
 import { FemaleCrewSection } from "@/components/home/female-crew-section";
@@ -41,6 +42,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <HeroSection />
+      <UspStrip />
       <ExpertiseSection />
       <CulturesSection />
       <FemaleCrewSection />

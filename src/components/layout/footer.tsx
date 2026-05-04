@@ -122,7 +122,7 @@ export function Footer() {
                  <li>
                    <a href="https://www.google.com/maps/place/Visual+Studios+%26+Events+%7C+Photography+%7C+Videography/@40.678613,-73.868806,17z/data=!3m1!4b1!4m6!3m5!1s0x89c25d96f51665f1:0x244b25616269adcb!8m2!3d40.678613!4d-73.868806!16s%2Fg%2F11t_prw046" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-white transition-colors group cursor-pointer">
                      <MapPin size={18} className="shrink-0 mt-1 group-hover:text-brand-400 transition-colors" />
-                     <span>Liberty Avenue Brooklyn, 1097<br/>New York, NY 11208</span>
+                     <span>1097 Liberty Avenue, Brooklyn, NY 11208</span>
                    </a>
                  </li>
                  <li>

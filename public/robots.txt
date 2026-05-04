@@ -1,3 +1,9 @@
+# -----------------------------------------------
+# Visual Studio — robots.txt
+# https://www.visualstudioslens.com
+# -----------------------------------------------
+
+# All crawlers — allow public pages, block private paths
 User-agent: *
 Allow: /
 Disallow: /api/
@@ -6,17 +12,140 @@ Disallow: /admin/
 Disallow: /login
 Disallow: /register
 
-# AI crawlers — explicitly allowed
+# -----------------------------------------------
+# Search Engines
+# -----------------------------------------------
+
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# -----------------------------------------------
+# AI Assistants & Training Crawlers
+# -----------------------------------------------
+
+# OpenAI (ChatGPT, GPT-4)
 User-agent: GPTBot
 Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
 
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Anthropic (Claude)
 User-agent: ClaudeBot
 Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
 
-User-agent: PerplexityBot
+User-agent: anthropic-ai
 Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
 
+# Google (Gemini / AI Overviews)
 User-agent: Google-Extended
 Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
 
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Apple
+User-agent: Applebot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Microsoft Copilot
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# You.com
+User-agent: YouBot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Amazon Alexa / Bedrock
+User-agent: Amazonbot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Common Crawl (used by many AI training datasets)
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Diffbot
+User-agent: Diffbot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# ByteDance / TikTok
+User-agent: Bytespider
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# -----------------------------------------------
 Sitemap: https://www.visualstudioslens.com/sitemap.xml

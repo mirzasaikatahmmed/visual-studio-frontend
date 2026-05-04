@@ -160,7 +160,7 @@ export default function PrivacyPolicyPage() {
             <ul className="list-disc pl-[22px] mb-[18px] space-y-[7px]">
               <li><strong className="font-semibold text-foreground">Email:</strong> <Link href="mailto:lens@visualstudioslens.com" className="text-foreground hover:underline">lens@visualstudioslens.com</Link></li>
               <li><strong className="font-semibold text-foreground">Phone:</strong> <Link href="tel:+13473066637" className="text-foreground hover:underline">+1 (347) 306-6637</Link></li>
-              <li><strong className="font-semibold text-foreground">Address:</strong> Liberty Avenue Brooklyn, 1097 · New York, NY 11208</li>
+              <li><strong className="font-semibold text-foreground">Address:</strong> 1097 Liberty Avenue, Brooklyn, NY 11208</li>
               <li><strong className="font-semibold text-foreground">Website:</strong> <Link href="/contact" className="text-foreground hover:underline">visualstudioslens.com/contact</Link></li>
             </ul>
             <p className="mb-4">We aim to respond to all privacy-related inquiries within <strong className="font-semibold text-foreground">5 business days</strong>.</p>

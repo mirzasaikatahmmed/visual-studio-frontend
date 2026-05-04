@@ -36,9 +36,22 @@ export function HeroSection() {
       }} />
       
       <div className="container relative z-[2] mx-auto px-4 flex flex-col items-center text-center">
-        
-        {/* Animated Hover Mask Title */}
-        <div className="relative group cursor-default mx-auto inline-block text-center flex-col items-center justify-start max-w-[90vw]">
+
+        {/* SEO H1 — visible but subtle, Google-readable */}
+        <motion.h1
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-white/40 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-5"
+        >
+          Premier South Asian &amp; Muslim Wedding Photographers in NYC
+        </motion.h1>
+
+        {/* Brand line H2 — animated hover mask */}
+        <h2
+          role="presentation"
+          className="relative group cursor-default mx-auto inline-block text-center flex-col items-center justify-start max-w-[90vw]"
+        >
           {/* Background Masked Layer (Fades IN on hover) */}
           <div 
             className="absolute inset-0 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6 uppercase flex flex-col items-center justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-0 pointer-events-none"
@@ -78,8 +91,8 @@ export function HeroSection() {
               ))}
             </div>
           </motion.div>
-        </div>
-        
+        </h2>
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
