@@ -35,7 +35,7 @@ const faqSchema = {
       "name": "How much does wedding photography cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Wedding photography packages at Visual Studio are priced based on hours of coverage, number of shooters, and add-ons such as cinematography and drone. We send a full pricing guide after a free 15-minute consultation.",
+        "text": "Wedding photography packages at Visual Studio start at $499 and scale based on hours of coverage, number of shooters, and add-ons such as cinematography and drone. We send a full pricing guide after a free 15-minute consultation.",
       },
     },
     {
@@ -59,7 +59,7 @@ const faqSchema = {
       "name": "When do I get sneak peeks for social media?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We deliver 15–25 sneak peek photos within 48–72 hours of your wedding so you can post while the buzz is fresh. Same-day edit highlight videos are available as an add-on.",
+        "text": "We deliver 15–25 sneak peek photos within 78 hours of your wedding so you can post while the buzz is fresh. Same-day edit highlight videos are available as an add-on.",
       },
     },
     {
@@ -67,7 +67,7 @@ const faqSchema = {
       "name": "What's the full turnaround time for the gallery and wedding film?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Full edited photo galleries are delivered in 4–6 weeks. Cinematic wedding films are delivered in 8–10 weeks. Rush delivery is available as an add-on.",
+        "text": "Full edited photo galleries are delivered in 3–4 weeks. Cinematic wedding films are delivered in 1–2 months. Rush delivery is available as an add-on.",
       },
     },
     {
@@ -83,7 +83,7 @@ const faqSchema = {
       "name": "Are you insured?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. We carry full liability insurance and provide Certificates of Insurance to venues on request at no extra charge.",
+        "text": "We carry liability insurance. A Certificate of Insurance for your venue is available on request — reach out at the time of booking and we'll confirm the details.",
       },
     },
     {

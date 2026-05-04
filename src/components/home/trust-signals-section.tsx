@@ -17,7 +17,7 @@ const SIGNALS = [
   {
     icon: Star,
     label: "5+ Years Experience",
-    sub: "100s of Weddings",
+    sub: "1,000+ Weddings",
   },
   {
     icon: MapPin,
