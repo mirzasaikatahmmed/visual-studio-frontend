@@ -112,8 +112,7 @@ export function Footer() {
               <ul className="space-y-3 text-foreground/70">
                  <li><Link href="/portfolio" className="hover:text-white transition-colors hover:translate-x-2 inline-block transform duration-300">Portfolio</Link></li>
                  <li><Link href="/visual-marketing" className="hover:text-white transition-colors hover:translate-x-2 inline-block transform duration-300">Visual Marketing</Link></li>
-                 <li><Link href="/events" className="hover:text-white transition-colors hover:translate-x-2 inline-block transform duration-300">Events & Decor</Link></li>
-                 <li><Link href="/store" className="hover:text-white transition-colors hover:translate-x-2 inline-block transform duration-300">Print Store</Link></li>
+<li><Link href="/store" className="hover:text-white transition-colors hover:translate-x-2 inline-block transform duration-300">Print Store</Link></li>
               </ul>
            </motion.div>
            
