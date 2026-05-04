@@ -8,39 +8,33 @@ import Link from "next/link";
 const FAQS = [
   {
     id: 1,
-    question: "What's included in your wedding photography packages?",
+    question: "Do you offer female-only photography and videography teams?",
     answer:
-      "Every package includes a lead photographer, a second shooter, full-day coverage, a pre-wedding consultation, and professionally edited high-resolution photos delivered through a private online gallery with printing rights. Cinematography, drone coverage, and same-day edits are available as add-ons.",
+      "Yes. We provide all-female crews and female editors on request — for the bride's getting-ready, Mehndi, ladies-only events, and end-to-end editing of your photos and footage.",
   },
   {
     id: 2,
-    question: "Do you have female photographers and videographers available?",
+    question: "Our wedding spans 3 days (Mehndi, Baraat, Walima). Do you offer multi-day packages?",
     answer:
-      "Yes. We have female photographers and videographers available on request for the bride's getting-ready, Mehndi, Holud, ladies-only Sangeet, and any segment of the wedding where a female crew is required. Please mention this when you book so we can confirm availability for your date.",
+      "Absolutely. We specialize in multi-day South Asian weddings and offer custom packages to cover all your events seamlessly.",
   },
   {
     id: 3,
-    question: "Which South Asian and Muslim wedding traditions do you cover?",
+    question: "How soon will we receive our photos and videos?",
     answer:
-      "We regularly photograph and film Bengali, Pakistani, Indian, Sikh, Afghan, and Arab weddings. Our team is fluent in capturing Nikkah, Holud, Sangeet, Baraat, Vidaai, Rukhsati, Walima, Anand Karaj, and reception traditions. We know the rhythm of these events — from when not to shoot during Nikkah to where to stand during Rukhsati.",
+      "Sneak peeks within 78 hours. Full edited photo gallery in 3–4 weeks. Cinematic wedding film in 1–2 months.",
   },
   {
     id: 4,
-    question: "Do you travel for destination weddings?",
+    question: "Do you know our specific cultural traditions?",
     answer:
-      "Yes. We cover the full tri-state area (NY, NJ, CT) at no travel charge, and we travel internationally and across the US for destination weddings. Travel and lodging costs are billed at cost with no markup.",
+      "Yes. With 1,000+ weddings shot, our team is fluent in Bengali, Pakistani, Indian, Sikh, Afghan, and Arab traditions — Nikkah, Mehndi, Holud, Sangeet, Baraat, Vidaai, Walima, and Anand Karaj.",
   },
   {
     id: 5,
-    question: "When will I receive my photos and videos?",
+    question: "What is the deposit, and do you offer venue insurance?",
     answer:
-      "You'll receive 15–25 sneak peek photos within 48–72 hours. Full edited galleries are delivered in 4–6 weeks. Cinematic wedding films are delivered in 8–10 weeks. Rush delivery is available as an add-on.",
-  },
-  {
-    id: 6,
-    question: "Are you insured? Can you provide a Certificate of Insurance for my venue?",
-    answer:
-      "Yes. We carry full liability insurance and provide Certificates of Insurance to venues on request at no extra charge.",
+      "We require a 30%–50% deposit to secure your date. Liability coverage is available on request — let us know your venue's COI requirements when you book.",
   },
 ];
 
@@ -145,7 +139,7 @@ export function FaqSection() {
             href="/faq"
             className="font-bold uppercase tracking-widest text-xs underline underline-offset-4 hover:text-muted-foreground transition-colors"
           >
-            See All Questions →
+            View All FAQs →
           </Link>
           <span className="hidden sm:block text-border">|</span>
           <Link

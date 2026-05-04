@@ -89,7 +89,7 @@ export default function SettingsAdminPage() {
   // Contact
   const [email, setEmail] = useState("lens@visualstudioslens.com");
   const [phone, setPhone] = useState("+1 (347) 306-6637");
-  const [address, setAddress] = useState("Liberty Avenue Brooklyn, 1097\nNew York, NY 11208");
+  const [address, setAddress] = useState("1097 Liberty Avenue, Brooklyn, NY 11208");
   const [mapEmbed, setMapEmbed] = useState("https://www.google.com/maps/embed?pb=...");
   const [businessHours, setBusinessHours] = useState("Mon–Fri: 10am – 7pm\nSat–Sun: By appointment");
 

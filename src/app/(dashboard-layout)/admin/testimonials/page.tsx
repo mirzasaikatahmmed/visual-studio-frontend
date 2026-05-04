@@ -17,14 +17,7 @@ type Testimonial = {
 
 const displayLocations = ["Homepage", "Events Page", "Visual Marketing", "Portfolio Page", "Store Page"];
 
-const initialTestimonials: Testimonial[] = [
-  { id: 1, name: "Emily & David", role: "Wedding Clients", text: "Visual Studio captured our wedding beautifully. The album they delivered is breathtaking — a true masterpiece that we will treasure forever.", rating: 5, location: "Homepage", featured: true, avatarUrl: "https://i.pravatar.cc/150?img=47" },
-  { id: 2, name: "Atlas Tech Corp", role: "Corporate Client", text: "Incredible corporate headshots and event coverages. Our marketing materials look 10x better now. Highly recommend for any business.", rating: 5, location: "Visual Marketing", featured: true, avatarUrl: "https://logo.clearbit.com/atlassian.com" },
-  { id: 3, name: "Sarah & Michael", role: "Wedding Clients", text: "Dreams Decor completely blew us away. They took our vague ideas and Pinterest boards and created a venue that looked like it was out of a magazine.", rating: 5, location: "Events Page", featured: false, avatarUrl: "https://i.pravatar.cc/150?img=45" },
-  { id: 4, name: "Sophia R.", role: "Portrait Client", text: "I booked the studio photoshoot package and was blown away by the professionalism and artistry. The photos are stunning. Worth every penny!", rating: 5, location: "Homepage", featured: true, avatarUrl: "https://i.pravatar.cc/150?img=5" },
-  { id: 5, name: "James & Sarah", role: "Maternity Clients", text: "The maternity session was an incredible experience. They made us feel so comfortable and the results were beyond gorgeous. We cried happy tears.", rating: 5, location: "Portfolio Page", featured: false, avatarUrl: "https://i.pravatar.cc/150?img=12" },
-  { id: 6, name: "The Grand Hotel", role: "Corporate Client", text: "Professional, creative, and timely. They documented our annual gala perfectly. Our social media engagement tripled after using their photos.", rating: 4, location: "Visual Marketing", featured: false, avatarUrl: "https://logo.clearbit.com/hilton.com" },
-];
+const initialTestimonials: Testimonial[] = [];
 
 const blankTestimonial = (): Omit<Testimonial, "id"> => ({
   name: "", role: "", text: "", rating: 5, location: "Homepage", featured: false, avatarUrl: ""

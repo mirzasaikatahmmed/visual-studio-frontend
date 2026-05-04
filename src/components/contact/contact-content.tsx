@@ -107,7 +107,7 @@ export function ContactContent() {
                       </div>
                       <div className="flex flex-col justify-center">
                         <h4 className="font-bold uppercase tracking-widest text-sm mb-1 group-hover:text-brand-400 transition-colors">Studio Location</h4>
-                        <p className="text-muted-foreground">Liberty Avenue Brooklyn, 1097<br/>New York, NY 11208</p>
+                        <p className="text-muted-foreground">1097 Liberty Avenue, Brooklyn, NY 11208</p>
                       </div>
                    </motion.div>
                 </div>
