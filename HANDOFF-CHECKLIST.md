@@ -9,7 +9,7 @@
 ## 🔴 URGENT — Broken on Live Site Right Now
 
 - [x] **`/faq` returns 404** — ✅ Page built at `src/app/(main-layout)/faq/page.tsx`
-- [ ] **"Download Pricing PDF" is `href="#"`** — `footer.tsx:152`. Replace with real PDF URL or hide until ready
+- [x] **"Download Pricing PDF" is `href="#"`** — ✅ Replaced with disabled "Coming Soon" badge in footer; no broken link
 - [x] **"Client Portal" is `href="#"`** — ✅ Removed from footer
 - [x] **Homepage FAQ section shows no questions** — ✅ Rewritten as static component with 6 curated Q&As from the handoff PDF; links to `/faq` for full list
 
@@ -123,16 +123,15 @@
 
 ## ⚪ Waiting on Sakib — Client Must Provide
 
-> These are `[INSERT]` placeholders in the FAQ copy. Pages cannot go live without them.
-
-- [ ] **Starting price** — lowest package price to publicly advertise (e.g. `$2,500`)
-- [ ] **Retainer %** — deposit percentage required to lock the date (e.g. `30%`)
-- [ ] **Sneak peek timing** — 48 hours? 72 hours? What is realistic for editing workflow?
-- [ ] **Full gallery turnaround** — 4–6 weeks? Longer?
-- [ ] **Wedding film turnaround** — 8–10 weeks? Longer?
-- [ ] **Years in business / weddings shot count** — for the Trust signals strip
-- [ ] **Certificate of Insurance** — does he have one ready to send venues, or needs to set up first?
-- [ ] **Pricing PDF URL** — once finalized, replaces the `#` placeholder in `footer.tsx:152` and homepage CTA
+- [x] **Starting price** — ✅ `$499` — updated in hero section + FAQ
+- [x] **Retainer %** — ✅ `30%–50%` — updated in FAQ section A
+- [x] **Sneak peek timing** — ✅ `78 hours` — updated in FAQ section C + JSON-LD schema
+- [x] **Full gallery turnaround** — ✅ `3–4 weeks` — updated in FAQ section C + JSON-LD schema
+- [x] **Wedding film turnaround** — ✅ `1–2 months` — updated in FAQ section C + JSON-LD schema
+- [x] **Years in business / weddings shot count** — ✅ `5+ years / 1,000+ weddings` — updated in trust signals strip
+- [x] **Certificate of Insurance** — ✅ Listed as "available on request" in FAQ section D
+- [ ] **Pricing PDF URL** — ⏳ Footer marked "Coming Soon" — update when Sakib sends the link
+- [ ] **Real culture/wedding photos** — ⏳ Culture tiles using Unsplash placeholders — replace when Sakib provides photos
 
 ---
 
@@ -161,6 +160,11 @@
 | 17 | Build "Female Crew Available" callout banner | ✅ Done |
 | 18 | Build "What's Included" 3-column section | ✅ Done |
 | 19 | Build Trust signals strip above footer | ✅ Done |
+| 20 | Fill FAQ placeholders (price $499, retainer 30–50%, timings) | ✅ Done |
+| 21 | Update starting price in hero to $499 | ✅ Done |
+| 22 | Update trust signals weddings count to 1,000+ | ✅ Done |
+| 23 | Update COI answer to "available on request" | ✅ Done |
+| 24 | Mark "Download Pricing PDF" as Coming Soon in footer | ✅ Done |
 
 ---
 
@@ -168,11 +172,8 @@
 
 | Priority | Task | Blocked by |
 |----------|------|------------|
-| 1 | Fix "Download Pricing PDF" `href="#"` in footer | Needs PDF URL from Sakib |
-| 2 | Fill FAQ placeholders (price, retainer %, timings) | Needs info from Sakib |
-| 3 | Update starting price in hero from `$2,500` to real value | Needs confirmation from Sakib |
-| 4 | Replace culture tile Unsplash images with real photos | Needs photos from Sakib |
-| 5 | Confirm "5+ Years Experience" count in trust signals | Needs confirmation from Sakib |
+| 1 | Replace "Download Pricing PDF" Coming Soon with real PDF URL | Needs PDF from Sakib |
+| 2 | Replace culture tile Unsplash images with real photos | Needs photos from Sakib |
 
 ---
 
@@ -180,11 +181,5 @@
 
 | Item | Used in |
 |------|---------|
-| Starting package price | Hero section, FAQ |
-| Retainer % | FAQ section A |
-| Sneak peek timing | FAQ section C |
-| Full gallery turnaround | FAQ section C |
-| Wedding film turnaround | FAQ section C |
-| Years in business / weddings shot | Trust signals strip |
-| Certificate of Insurance status | FAQ section D |
-| Pricing PDF URL | Footer link, Booking section |
+| Pricing PDF URL | Footer link (currently "Coming Soon") |
+| Real culture/wedding photos | Cultures We Serve section (currently Unsplash placeholders) |
