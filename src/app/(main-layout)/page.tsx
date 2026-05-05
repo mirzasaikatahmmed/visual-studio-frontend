@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/hero-section";
 
 export const metadata: Metadata = {
-  title: { absolute: "South Asian & Muslim Wedding Photographer NY | Visual Studio" },
+  title: { absolute: "South Asian & Muslim Wedding Photographer NY | Visual Studios & Events" },
   description:
     "Bengali, Pakistani, Indian & Muslim wedding photography in NY. Female crew available. All five boroughs, Long Island, NJ, CT and destination.",
   keywords: [
@@ -21,13 +21,13 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://www.visualstudioslens.com" },
   openGraph: {
-    title: "South Asian & Muslim Wedding Photographer NY | Visual Studio",
+    title: "South Asian & Muslim Wedding Photographer NY | Visual Studios & Events",
     description:
       "Bengali, Pakistani, Indian & Muslim wedding photography in NY. Female crew available.",
     url: "https://www.visualstudioslens.com",
   },
   twitter: {
-    title: "South Asian & Muslim Wedding Photographer NY | Visual Studio",
+    title: "South Asian & Muslim Wedding Photographer NY | Visual Studios & Events",
     description:
       "Bengali, Pakistani, Indian & Muslim wedding photography in NY. Female crew available. All five boroughs, Long Island, NJ & CT.",
   },

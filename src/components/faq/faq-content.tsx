@@ -30,7 +30,7 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "a2",
         question: "How much does wedding photography cost?",
         answer:
-          "Wedding photography packages at Visual Studio start at $499 and scale based on hours of coverage, number of shooters, cinematography add-ons, and album options. We send a full pricing guide after a free 15-minute consultation so we can match the right package to your wedding's scope.",
+          "Wedding photography packages at Visual Studios & Events start at $499 and scale based on hours of coverage, number of shooters, cinematography add-ons, and album options. We send a full pricing guide after a free 15-minute consultation so we can match the right package to your wedding's scope.",
       },
       {
         id: "a3",
@@ -244,7 +244,7 @@ export function FaqContent() {
           transition={{ duration: 0.6 }}
           className="text-center text-muted-foreground mb-16 text-sm md:text-base"
         >
-          Everything you need to know about booking Visual Studio for your wedding, engagement, or event.{" "}
+          Everything you need to know about booking Visual Studios & Events for your wedding, engagement, or event.{" "}
           Don&apos;t see your question?{" "}
           <Link href="/contact" className="font-semibold underline underline-offset-4 hover:text-foreground transition-colors">
             Contact us

@@ -4,8 +4,8 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description:
-    "Read the terms and conditions governing the use of Visual Studio's photography, videography, and print services.",
-  keywords: ["terms and conditions", "Visual Studio terms", "service agreement", "photography terms"],
+    "Read the terms and conditions governing the use of Visual Studios & Events' photography, videography, and print services.",
+  keywords: ["terms and conditions", "Visual Studios & Events terms", "service agreement", "photography terms"],
   alternates: { canonical: "/terms-of-service" },
   robots: { index: false, follow: false },
 };
@@ -46,16 +46,16 @@ export default function TermsOfServicePage() {
         <div className="text-[14.5px] md:text-[15px] leading-[1.75] text-foreground/80">
           <div className="mb-11">
             <h3 className="text-[14.5px] font-bold text-foreground mb-1.5">Notice of Terms of Service</h3>
-            <p>These Terms are effective immediately for new clients as of April 26, 2026, and apply to all services provided by Visual Studio & Events. By booking, paying, or engaging our services in any way, you agree to be bound by these Terms in their entirety.</p>
+            <p>These Terms are effective immediately for new clients as of April 26, 2026, and apply to all services provided by Visual Studios & Events & Events. By booking, paying, or engaging our services in any way, you agree to be bound by these Terms in their entirety.</p>
           </div>
 
           {/* 01 */}
           <div className="mb-11">
             <span className="inline-block text-[10.5px] font-bold tracking-[0.2em] uppercase text-[#b07d4a] mb-1">01</span>
             <h2 className="font-serif text-[26px] font-bold text-foreground leading-[1.25] mb-3.5 mt-0">Acceptance of Terms</h2>
-            <p className="mb-4">These Terms of Service (&quot;Terms&quot;) constitute a legally binding agreement between you (&quot;Client&quot;) and Visual Studio & Events, a creative photography and videography studio operating under <strong className="font-semibold text-foreground">Visual Ink LLC</strong>, headquartered in New York, NY.</p>
-            <p className="mb-4">These Terms apply to all services rendered by Visual Studio, including but not limited to wedding photography, event videography, portrait sessions, corporate media, visual marketing productions, and any related deliverables.</p>
-            <p className="mb-4">By accessing our website at <Link href="https://www.visualstudioslens.com" className="text-foreground hover:underline">visualstudioslens.com</Link>, submitting a booking inquiry, signing a service contract, or making any payment to Visual Studio, you confirm that you have read, understood, and agreed to be bound by these Terms in their entirety.</p>
+            <p className="mb-4">These Terms of Service (&quot;Terms&quot;) constitute a legally binding agreement between you (&quot;Client&quot;) and Visual Studios & Events & Events, a creative photography and videography studio operating under <strong className="font-semibold text-foreground">Visual Ink LLC</strong>, headquartered in New York, NY.</p>
+            <p className="mb-4">These Terms apply to all services rendered by Visual Studios & Events, including but not limited to wedding photography, event videography, portrait sessions, corporate media, visual marketing productions, and any related deliverables.</p>
+            <p className="mb-4">By accessing our website at <Link href="https://www.visualstudioslens.com" className="text-foreground hover:underline">visualstudioslens.com</Link>, submitting a booking inquiry, signing a service contract, or making any payment to Visual Studios & Events, you confirm that you have read, understood, and agreed to be bound by these Terms in their entirety.</p>
             <p className="mb-4">We reserve the right to update these Terms at any time. Continued use of our website or services following any update constitutes your acceptance of the revised Terms. The most current version will always be available at <Link href="/terms-of-service" className="text-foreground hover:underline">visualstudioslens.com/terms</Link>.</p>
           </div>
 
@@ -65,7 +65,7 @@ export default function TermsOfServicePage() {
           <div className="mb-11">
             <span className="inline-block text-[10.5px] font-bold tracking-[0.2em] uppercase text-[#b07d4a] mb-1">02</span>
             <h2 className="font-serif text-[26px] font-bold text-foreground leading-[1.25] mb-3.5">Services Overview</h2>
-            <p className="mb-4">Visual Studio provides professional photography, videography, and creative media services. Our current offerings include:</p>
+            <p className="mb-4">Visual Studios & Events provides professional photography, videography, and creative media services. Our current offerings include:</p>
             <ul className="list-disc pl-[22px] mb-[18px] space-y-[7px]">
               <li><strong className="font-semibold text-foreground">Wedding & Event Photography and Videography</strong> — Full-day or partial coverage of ceremonies, receptions, and cultural celebrations</li>
               <li><strong className="font-semibold text-foreground">Portrait & Lifestyle Sessions</strong> — Individual, couple, family, and professional headshot sessions</li>
@@ -83,7 +83,7 @@ export default function TermsOfServicePage() {
           <div className="mb-11">
             <span className="inline-block text-[10.5px] font-bold tracking-[0.2em] uppercase text-[#b07d4a] mb-1">03</span>
             <h2 className="font-serif text-[26px] font-bold text-foreground leading-[1.25] mb-3.5">Booking & Payment</h2>
-            <p className="mb-4"><strong className="font-semibold text-foreground">Retainer Fee:</strong> A non-refundable retainer of 50% of the total package price is required to secure your date. Your date is not reserved until this retainer is received and confirmed in writing by Visual Studio.</p>
+            <p className="mb-4"><strong className="font-semibold text-foreground">Retainer Fee:</strong> A non-refundable retainer of 50% of the total package price is required to secure your date. Your date is not reserved until this retainer is received and confirmed in writing by Visual Studios & Events.</p>
             <p className="mb-4"><strong className="font-semibold text-foreground">Final Balance:</strong> The remaining balance is due no later than 14 days before the event or session date. Failure to pay the final balance by the due date may result in cancellation of services without refund of the retainer.</p>
             <p className="mb-4"><strong className="font-semibold text-foreground">Accepted Payment Methods:</strong></p>
             <ul className="list-disc pl-[22px] mb-[18px] space-y-[7px]">
@@ -113,7 +113,7 @@ export default function TermsOfServicePage() {
               <li><strong className="font-semibold text-foreground">Day-of cancellation:</strong> Full contract value is due; no exceptions</li>
             </ul>
             <p className="mb-4"><strong className="font-semibold text-foreground">Rescheduling:</strong> One complimentary rescheduling is permitted with at least 30 days&apos; notice, subject to availability. Additional rescheduling requests may incur a $150 administrative fee.</p>
-            <p className="mb-4"><strong className="font-semibold text-foreground">Cancellation by Visual Studio:</strong> In the unlikely event that Visual Studio must cancel due to circumstances beyond our control, we will make every effort to provide a qualified replacement of equal caliber. If no replacement is secured, all payments made will be refunded in full within 14 business days.</p>
+            <p className="mb-4"><strong className="font-semibold text-foreground">Cancellation by Visual Studios & Events:</strong> In the unlikely event that Visual Studios & Events must cancel due to circumstances beyond our control, we will make every effort to provide a qualified replacement of equal caliber. If no replacement is secured, all payments made will be refunded in full within 14 business days.</p>
           </div>
 
           <hr className="border-t border-foreground/10 my-11" />
@@ -122,18 +122,18 @@ export default function TermsOfServicePage() {
           <div className="mb-11">
             <span className="inline-block text-[10.5px] font-bold tracking-[0.2em] uppercase text-[#b07d4a] mb-1">05</span>
             <h2 className="font-serif text-[26px] font-bold text-foreground leading-[1.25] mb-3.5">Intellectual Property & Usage Rights</h2>
-            <p className="mb-4">All photographs, video footage, edits, and creative works produced by Visual Studio are and shall remain the <strong className="font-semibold text-foreground">exclusive intellectual property of Visual Studio</strong>, protected under United States copyright law.</p>
+            <p className="mb-4">All photographs, video footage, edits, and creative works produced by Visual Studios & Events are and shall remain the <strong className="font-semibold text-foreground">exclusive intellectual property of Visual Studios & Events</strong>, protected under United States copyright law.</p>
             <p className="mb-4"><strong className="font-semibold text-foreground">Client License:</strong> Upon full payment, the Client is granted a non-exclusive, non-transferable, perpetual personal license to use the delivered content for personal, non-commercial purposes, including printing and sharing on personal social media.</p>
-            <p className="mb-4">The following are <strong className="font-semibold text-foreground">prohibited without prior written consent</strong> from Visual Studio:</p>
+            <p className="mb-4">The following are <strong className="font-semibold text-foreground">prohibited without prior written consent</strong> from Visual Studios & Events:</p>
             <ul className="list-disc pl-[22px] mb-[18px] space-y-[7px]">
               <li>Selling, licensing, or commercially distributing our work</li>
               <li>Applying filters, heavy edits, or overlays that materially alter the original work</li>
-              <li>Removing or obscuring Visual Studio watermarks or credits</li>
+              <li>Removing or obscuring Visual Studios & Events watermarks or credits</li>
               <li>Using delivered content in third-party commercial campaigns or advertisements</li>
             </ul>
             <div className="border-l-[3px] border-[#b07d4a] bg-[#b07d4a]/5 dark:bg-[#b07d4a]/10 p-[15px_20px] my-[18px]">
               <div className="text-[10.5px] font-bold tracking-[0.18em] uppercase text-[#b07d4a] mb-[7px]">Portfolio Use</div>
-              <p className="text-[13.5px] text-foreground/70 m-0 leading-[1.7]">Visual Studio reserves the right to use any delivered work in our portfolio, website, social media, and marketing materials unless a written confidentiality agreement has been executed prior to the event. Commercial licensing upgrades available at <Link href="mailto:lens@visualstudioslens.com" className="text-[#b07d4a] hover:underline">lens@visualstudioslens.com</Link>.</p>
+              <p className="text-[13.5px] text-foreground/70 m-0 leading-[1.7]">Visual Studios & Events reserves the right to use any delivered work in our portfolio, website, social media, and marketing materials unless a written confidentiality agreement has been executed prior to the event. Commercial licensing upgrades available at <Link href="mailto:lens@visualstudioslens.com" className="text-[#b07d4a] hover:underline">lens@visualstudioslens.com</Link>.</p>
             </div>
           </div>
 
@@ -151,7 +151,7 @@ export default function TermsOfServicePage() {
               <li>Refrain from directing or interfering with our team&apos;s creative process during coverage</li>
               <li>Ensure all relevant guests and subjects are informed that photography and videography will occur</li>
             </ul>
-            <p className="mb-4">Visual Studio reserves the right to refuse or terminate services at any event where our team is subjected to harassment, unsafe conditions, or conduct that prevents professional performance. In such cases, no refund will be issued.</p>
+            <p className="mb-4">Visual Studios & Events reserves the right to refuse or terminate services at any event where our team is subjected to harassment, unsafe conditions, or conduct that prevents professional performance. In such cases, no refund will be issued.</p>
           </div>
 
           <hr className="border-t border-foreground/10 my-11" />
@@ -160,8 +160,8 @@ export default function TermsOfServicePage() {
           <div className="mb-11">
             <span className="inline-block text-[10.5px] font-bold tracking-[0.2em] uppercase text-[#b07d4a] mb-1">07</span>
             <h2 className="font-serif text-[26px] font-bold text-foreground leading-[1.25] mb-3.5">Limitation of Liability</h2>
-            <p className="mb-4">Visual Studio will exercise the highest degree of professional care and skill in all engagements. However, in the event of equipment failure, data corruption, acts of nature, or circumstances beyond our reasonable control, our total liability shall not exceed the <strong className="font-semibold text-foreground">total amount paid</strong> to us by the Client for the services in question.</p>
-            <p className="mb-4">Visual Studio is not liable for:</p>
+            <p className="mb-4">Visual Studios & Events will exercise the highest degree of professional care and skill in all engagements. However, in the event of equipment failure, data corruption, acts of nature, or circumstances beyond our reasonable control, our total liability shall not exceed the <strong className="font-semibold text-foreground">total amount paid</strong> to us by the Client for the services in question.</p>
+            <p className="mb-4">Visual Studios & Events is not liable for:</p>
             <ul className="list-disc pl-[22px] mb-[18px] space-y-[7px]">
               <li>Loss or damage caused by venue restrictions or third-party interference</li>
               <li>Footage or images impaired by poor lighting conditions outside our reasonable control</li>
@@ -171,7 +171,7 @@ export default function TermsOfServicePage() {
             </ul>
             <div className="border-l-[3px] border-[#b07d4a] bg-[#b07d4a]/5 dark:bg-[#b07d4a]/10 p-[15px_20px] my-[18px]">
               <div className="text-[10.5px] font-bold tracking-[0.18em] uppercase text-[#b07d4a] mb-[7px]">File Backup Notice</div>
-              <p className="text-[13.5px] text-foreground/70 m-0 leading-[1.7]">Visual Studio maintains raw file backups for 60 days following delivery. After this period, files may be permanently deleted. Clients are strongly encouraged to back up all delivered files immediately upon receipt.</p>
+              <p className="text-[13.5px] text-foreground/70 m-0 leading-[1.7]">Visual Studios & Events maintains raw file backups for 60 days following delivery. After this period, files may be permanently deleted. Clients are strongly encouraged to back up all delivered files immediately upon receipt.</p>
             </div>
           </div>
 
@@ -199,8 +199,8 @@ export default function TermsOfServicePage() {
           <div className="mb-11">
             <span className="inline-block text-[10.5px] font-bold tracking-[0.2em] uppercase text-[#b07d4a] mb-1">09</span>
             <h2 className="font-serif text-[26px] font-bold text-foreground leading-[1.25] mb-3.5">Privacy & Data Use</h2>
-            <p className="mb-4">Visual Studio collects only the personal information necessary to provide and improve our services, including name, contact details, event information, and payment data. We do not sell or rent your personal information to third parties.</p>
-            <p className="mb-4">By engaging our services, you consent to Visual Studio storing your contact and event details for the purpose of fulfilling your booking, communicating service updates, and sending occasional promotional materials. You may opt out of marketing communications at any time by contacting us directly.</p>
+            <p className="mb-4">Visual Studios & Events collects only the personal information necessary to provide and improve our services, including name, contact details, event information, and payment data. We do not sell or rent your personal information to third parties.</p>
+            <p className="mb-4">By engaging our services, you consent to Visual Studios & Events storing your contact and event details for the purpose of fulfilling your booking, communicating service updates, and sending occasional promotional materials. You may opt out of marketing communications at any time by contacting us directly.</p>
             <p className="mb-4">For full details, please review our <Link href="/privacy-policy" className="text-foreground hover:underline">Privacy Policy</Link>.</p>
           </div>
 
@@ -212,7 +212,7 @@ export default function TermsOfServicePage() {
             <h2 className="font-serif text-[26px] font-bold text-foreground leading-[1.25] mb-3.5">Governing Law & Dispute Resolution</h2>
             <p className="mb-4">These Terms shall be governed by and construed in accordance with the laws of the <strong className="font-semibold text-foreground">State of New York</strong>, without regard to conflict of law principles.</p>
             <p className="mb-4">In the event of any dispute arising from these Terms or the services provided, both parties agree to first attempt resolution through good-faith negotiation. If no resolution is reached within 30 days, disputes shall be submitted to binding arbitration in <strong className="font-semibold text-foreground">Queens County, New York</strong>, in accordance with the rules of the American Arbitration Association.</p>
-            <p className="mb-4">Visual Studio reserves the right to seek injunctive or other equitable relief in any court of competent jurisdiction to protect its intellectual property or confidential information.</p>
+            <p className="mb-4">Visual Studios & Events reserves the right to seek injunctive or other equitable relief in any court of competent jurisdiction to protect its intellectual property or confidential information.</p>
             <p className="text-[13.5px] font-semibold text-foreground leading-[1.7] my-[18px]">PLEASE READ THESE TERMS CAREFULLY, AS THEY CONTAIN AN AGREEMENT TO ARBITRATE DISPUTES AND OTHER IMPORTANT INFORMATION REGARDING YOUR LEGAL RIGHTS, REMEDIES, AND OBLIGATIONS. BY BOOKING OR PAYING FOR OUR SERVICES, YOU AGREE TO RESOLVE ANY DISPUTES THROUGH BINDING ARBITRATION RATHER THAN IN COURT, EXCEPT AS PROVIDED HEREIN.</p>
           </div>
 
