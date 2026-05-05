@@ -19,7 +19,7 @@ const faqSchema = {
       "name": "How much does wedding photography cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Wedding photography packages at Visual Studio start at $499 and scale based on hours of coverage, number of shooters, cinematography add-ons, and album options. We send a full pricing guide after a free 15-minute consultation so we can match the right package to your wedding's scope.",
+        "text": "Wedding photography packages at Visual Studios & Events start at $499 and scale based on hours of coverage, number of shooters, cinematography add-ons, and album options. We send a full pricing guide after a free 15-minute consultation so we can match the right package to your wedding's scope.",
       },
     },
     {
@@ -202,9 +202,9 @@ const faqSchema = {
 };
 
 export const metadata: Metadata = {
-  title: { absolute: "Photography FAQ — Pricing & Female Crew | Visual Studio" },
+  title: { absolute: "Photography FAQ — Pricing & Female Crew | Visual Studios & Events" },
   description:
-    "Everything about booking Visual Studio for your South Asian or Muslim wedding — pricing, female crew, coverage area, and delivery timelines.",
+    "Everything about booking Visual Studios & Events for your South Asian or Muslim wedding — pricing, female crew, coverage area, and delivery timelines.",
   keywords: [
     "wedding photography FAQ",
     "south asian wedding photographer questions",
@@ -219,15 +219,15 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/faq" },
   openGraph: {
-    title: "Photography FAQ — Pricing & Female Crew | Visual Studio",
+    title: "Photography FAQ — Pricing & Female Crew | Visual Studios & Events",
     description:
-      "Everything you need to know about booking Visual Studio for your South Asian or Muslim wedding.",
+      "Everything you need to know about booking Visual Studios & Events for your South Asian or Muslim wedding.",
     url: "https://www.visualstudioslens.com/faq",
   },
   twitter: {
-    title: "Photography FAQ — Pricing & Female Crew | Visual Studio",
+    title: "Photography FAQ — Pricing & Female Crew | Visual Studios & Events",
     description:
-      "Pricing, female crew availability, coverage area, delivery timelines — everything about booking Visual Studio for your wedding.",
+      "Pricing, female crew availability, coverage area, delivery timelines — everything about booking Visual Studios & Events for your wedding.",
   },
 };
 
@@ -248,7 +248,7 @@ export default function FaqPage() {
             </span>
           </>
         }
-        desc="Everything you need to know about booking Visual Studio for your wedding, engagement, or event."
+        desc="Everything you need to know about booking Visual Studios & Events for your wedding, engagement, or event."
         image="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2000&auto=format&fit=crop"
       />
       <FaqContent />

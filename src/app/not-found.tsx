@@ -30,7 +30,7 @@ export default function NotFound() {
           <Link href="/" className="inline-block">
             <Image 
               src="/logo.png" 
-              alt="Visual Studio Logo" 
+              alt="Visual Studios & Events Logo" 
               width={80} 
               height={80} 
               className="w-16 h-16 md:w-20 md:h-20 object-contain drop-shadow-2xl"

@@ -4,9 +4,9 @@ import { StoreCategoryGrid } from "@/components/store/store-grid";
 import { fetchCategories, fetchSettings } from "@/lib/storeApi";
 
 export const metadata: Metadata = {
-  title: { absolute: "Wedding Photo Albums & Prints | Visual Studio" },
+  title: { absolute: "Wedding Photo Albums & Prints | Visual Studios & Events" },
   description:
-    "Premium wedding photo albums, canvas wall art, and fine art prints from Visual Studio. Heirloom albums for South Asian & Muslim wedding memories.",
+    "Premium wedding photo albums, canvas wall art, and fine art prints from Visual Studios & Events. Heirloom albums for South Asian & Muslim wedding memories.",
   keywords: [
     "wedding photo album ny",
     "south asian wedding album",
@@ -19,15 +19,15 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/store" },
   openGraph: {
-    title: "Wedding Photo Albums & Prints | Visual Studio",
+    title: "Wedding Photo Albums & Prints | Visual Studios & Events",
     description:
-      "Premium wedding photo albums, canvas wall art, and fine art prints. Custom heirloom albums from Visual Studio NY.",
+      "Premium wedding photo albums, canvas wall art, and fine art prints. Custom heirloom albums from Visual Studios & Events NY.",
     url: "https://www.visualstudioslens.com/store",
   },
   twitter: {
-    title: "Wedding Photo Albums & Prints | Visual Studio",
+    title: "Wedding Photo Albums & Prints | Visual Studios & Events",
     description:
-      "Premium wedding albums, canvas wall art, and fine art prints for South Asian & Muslim weddings. Heirloom quality from Visual Studio NY.",
+      "Premium wedding albums, canvas wall art, and fine art prints for South Asian & Muslim weddings. Heirloom quality from Visual Studios & Events NY.",
   },
 };
 

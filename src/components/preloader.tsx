@@ -54,14 +54,14 @@ export function Preloader() {
             {/* Custom Logo */}
             <Image
               src="/logo.png"
-              alt="Visual Studio Logo"
+              alt="Visual Studios & Events Logo"
               width={96}
               height={96}
               priority
               className="w-20 h-20 md:w-24 md:h-24 object-contain invert dark:invert-0 drop-shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_0_20px_rgba(255,255,255,0.1)]"
             />
             <p className="text-xs font-bold tracking-[0.4em] uppercase">
-              Visual Studio
+              Visual Studios & Events
             </p>
           </motion.div>
         </motion.div>

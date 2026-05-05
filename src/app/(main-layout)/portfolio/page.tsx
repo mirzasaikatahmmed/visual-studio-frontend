@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Yellowtail } from "next/font/google";
 import { fetchPortfolios, fetchCategories, type Portfolio, type PortfolioCategory } from "@/lib/portfolioApi";
 import { StayInspiredPopup } from "@/components/stay-inspired-popup";
+import Link from "next/link";
 
 const yellowtail = Yellowtail({
   weight: "400",
@@ -290,6 +291,71 @@ export default function PortfolioPage() {
             >
               Explore Gallery <ExternalLink size={18} />
             </motion.a>
+          </div>
+        </motion.div>
+
+        {/* Behind the Scenes CTA */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
+          className="mt-16 relative overflow-hidden rounded-[3rem] border border-white/10 grid grid-cols-1 md:grid-cols-2 min-h-[360px]"
+        >
+          {/* Dark background */}
+          <div className="absolute inset-0 bg-[#0a0a0a]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/60 via-black/80 to-zinc-900/40" />
+          <div className="absolute -top-20 -left-20 w-80 h-80 bg-white/5 blur-[100px] rounded-full" />
+
+          {/* Left: Text */}
+          <div className="relative z-10 flex flex-col justify-center p-10 md:p-14">
+            <motion.span
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+              className="text-[11px] font-bold uppercase tracking-widest text-white/40 mb-4 block"
+            >
+              Unfiltered
+            </motion.span>
+            <motion.h2
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
+              className="text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase tracking-tighter text-white mb-5 leading-tight"
+            >
+              Behind the<br />Scenes
+            </motion.h2>
+            <motion.p
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
+              className="text-white/50 text-sm md:text-base leading-relaxed mb-8 max-w-xs"
+            >
+              Meet our crew, female team members, and see the real moments that happen behind the lens.
+            </motion.p>
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}
+            >
+              <Link
+                href="/behind-the-scenes"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold tracking-widest uppercase text-xs rounded-full hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all duration-300"
+              >
+                Go Behind the Scenes
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* Right: Photo grid preview */}
+          <div className="relative z-10 grid grid-cols-2 gap-2 p-4 md:p-6">
+            {[
+              "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=400&auto=format&fit=crop",
+              "https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=400&auto=format&fit=crop",
+              "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=400&auto=format&fit=crop",
+              "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=400&auto=format&fit=crop",
+            ].map((src, i) => (
+              <motion.div
+                key={i}
+                variants={{ hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.5, delay: i * 0.08 } } }}
+                className="relative overflow-hidden rounded-2xl aspect-square bg-muted"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={src} alt="" className="w-full h-full object-cover opacity-70" />
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>

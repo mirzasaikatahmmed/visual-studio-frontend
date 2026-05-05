@@ -49,16 +49,6 @@ export function HeroSection() {
       
       <div className="container relative z-[2] mx-auto px-4 flex flex-col items-center text-center">
 
-        {/* SEO H1 — visible but subtle, Google-readable */}
-        <motion.h1
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-white/40 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-5"
-        >
-          Premier South Asian &amp; Muslim Wedding Photographers in NY
-        </motion.h1>
-
         {/* Brand line H2 — animated hover mask */}
         <h2
           role="presentation"
@@ -104,6 +94,16 @@ export function HeroSection() {
             </div>
           </motion.div>
         </h2>
+
+        {/* SEO H1 — visible but subtle, Google-readable */}
+        <motion.h1
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-white/40 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-5"
+        >
+          Premier South Asian &amp; Muslim Wedding Photographers in NY
+        </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
