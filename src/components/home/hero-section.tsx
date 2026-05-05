@@ -145,9 +145,9 @@ export function HeroSection() {
                   transition={{ type: "spring", stiffness: 300, damping: 24 }}
                   className="absolute top-full left-1/2 -translate-x-1/2 mt-3 z-20 pointer-events-none"
                 >
-                  <div className="relative bg-black/85 backdrop-blur-sm text-white text-[10px] font-semibold tracking-widest uppercase px-3 py-1.5 rounded-full whitespace-nowrap border border-white/10">
+                  <div className="relative bg-background/90 backdrop-blur-sm text-foreground text-[10px] font-semibold tracking-widest uppercase px-3 py-1.5 rounded-full whitespace-nowrap border border-border shadow-md">
                     {/* triangle pointer */}
-                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-black/85" />
+                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-border" />
                     Check out our latest work
                   </div>
                 </motion.div>
