@@ -23,6 +23,11 @@ export const metadata: Metadata = {
       "Meet the Visual Studio team — South Asian & Muslim wedding photographers in Brooklyn, NY. Fluent in Bengali, Pakistani, Indian, and Arab traditions.",
     url: "https://www.visualstudioslens.com/about",
   },
+  twitter: {
+    title: "About Visual Studio | South Asian Wedding Photographers NY",
+    description:
+      "Meet the Visual Studio team — South Asian & Muslim wedding photographers in Brooklyn, NY. Fluent in Bengali, Pakistani, Indian, and Arab traditions.",
+  },
 };
 
 export default async function AboutPage() {

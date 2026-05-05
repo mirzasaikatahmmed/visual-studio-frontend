@@ -1,9 +1,21 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, ChevronUp, ChevronDown } from "lucide-react";
 export function HeroSection() {
+  const [showSuggestion, setShowSuggestion] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    const showTimer = setTimeout(() => setShowSuggestion(true), 2500);
+    const hideTimer = setTimeout(() => setShowSuggestion(false), 7500);
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    };
+  }, []);
   const line1 = "Capturing Moments.";
   const line2 = "Creating Experiences.";
 
@@ -118,7 +130,29 @@ export function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 w-full px-10 sm:w-auto sm:px-0 mt-4"
         >
           {/* Primary CTA: View Portfolio */}
-          <div className="relative w-full sm:w-auto">
+          <div
+            className="relative w-full sm:w-auto"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <AnimatePresence>
+              {(isHovered || showSuggestion) && (
+                <motion.div
+                  key="suggestion"
+                  initial={{ opacity: 0, y: -6, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -6, scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 z-20 pointer-events-none"
+                >
+                  <div className="relative bg-black/85 backdrop-blur-sm text-white text-[10px] font-semibold tracking-widest uppercase px-3 py-1.5 rounded-full whitespace-nowrap border border-white/10">
+                    {/* triangle pointer */}
+                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-black/85" />
+                    Check out our latest work
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
             <motion.div
               whileHover={{ scale: 1.04, boxShadow: "0 8px 40px rgba(255,255,255,0.18), 0 2px 12px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.35)" }}
               whileTap={{ scale: 0.97 }}

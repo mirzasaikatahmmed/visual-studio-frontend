@@ -26,6 +26,11 @@ export const metadata: Metadata = {
       "Bengali, Pakistani, Indian & Muslim wedding photography in NY. Female crew available.",
     url: "https://www.visualstudioslens.com",
   },
+  twitter: {
+    title: "South Asian & Muslim Wedding Photographer NY | Visual Studio",
+    description:
+      "Bengali, Pakistani, Indian & Muslim wedding photography in NY. Female crew available. All five boroughs, Long Island, NJ & CT.",
+  },
 };
 import { UspStrip } from "@/components/home/usp-strip";
 import { ExpertiseSection } from "@/components/home/expertise-section";

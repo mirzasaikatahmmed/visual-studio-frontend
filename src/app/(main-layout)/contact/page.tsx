@@ -5,7 +5,7 @@ import { ContactContent } from "@/components/contact/contact-content";
 export const metadata: Metadata = {
   title: { absolute: "Book Your Wedding Photographer NY | Visual Studio" },
   description:
-    "Book Visual Studio for your South Asian or Muslim wedding in NY. Check availability, get a free consultation, or ask about our packages.",
+    "Book Visual Studio for your South Asian or Muslim wedding in NY. Check availability, get a free consultation, or ask about our photography packages.",
   keywords: [
     "book wedding photographer ny",
     "south asian wedding photographer contact",
@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     description:
       "Contact Visual Studio to book your South Asian or Muslim wedding in NY. Free consultation — check availability today.",
     url: "https://www.visualstudioslens.com/contact",
+  },
+  twitter: {
+    title: "Book Your Wedding Photographer NY | Visual Studio",
+    description:
+      "Book Visual Studio for your South Asian or Muslim wedding in NY. Free consultation — check availability today.",
   },
 };
 

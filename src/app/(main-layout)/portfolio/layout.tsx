@@ -53,6 +53,11 @@ export const metadata: Metadata = {
       "Cinematic wedding photography portfolio featuring Bengali, Pakistani, Indian, Sikh, and Muslim weddings across NY and the tri-state area.",
     url: "https://www.visualstudioslens.com/portfolio",
   },
+  twitter: {
+    title: "South Asian Wedding Photography Portfolio | Visual Studio",
+    description:
+      "Bengali, Pakistani, Indian, Sikh & Muslim wedding photography portfolio. Cinematic and documentary style — Visual Studio NY.",
+  },
 };
 
 export default function PortfolioLayout({ children }: { children: React.ReactNode }) {
