@@ -7,7 +7,7 @@ import {
   LayoutDashboard, MessageSquare, Camera, Video,
   Menu, X, ExternalLink,
   Bell, LogOut, Aperture, Info,
-  HelpCircle, Image, Grid, ShoppingBag, FileImage, Sparkles, Rss, Activity
+  HelpCircle, Image, Grid, ShoppingBag, FileImage, Sparkles, Rss, Activity, Calculator
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,6 +18,7 @@ import { fetchInquiries, type Inquiry } from "@/lib/inquiriesApi";
 const navLinks = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard },
   { href: "/admin/inquiries", label: "Inquiries", icon: MessageSquare },
+  { href: "/admin/quotes", label: "Quotes", icon: Calculator },
   { href: "/admin/portfolios", label: "Portfolios", icon: Camera },
   { href: "/admin/media", label: "Media Library", icon: FileImage },
   { href: "/admin/videos", label: "Videos", icon: Video },
