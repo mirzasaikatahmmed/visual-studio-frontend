@@ -77,7 +77,7 @@ function LoginForm() {
             <Aperture size={24} className="text-white" />
           </div>
           <div className="text-center">
-            <p className="font-bold text-sm uppercase tracking-[0.2em] leading-tight">Visual Studio</p>
+            <p className="font-bold text-sm uppercase tracking-[0.2em] leading-tight">Visual Studios & Events</p>
             <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground mt-0.5">Photography Studio</p>
           </div>
         </div>

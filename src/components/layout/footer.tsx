@@ -93,13 +93,13 @@ export function Footer() {
               <Link href="/" className="flex items-center gap-3 mb-6 w-fit">
                 <Image 
                   src="/logo.png" 
-                  alt="Visual Studio Logo" 
+                  alt="Visual Studios & Events Logo" 
                   width={40} 
                   height={40} 
                   className="w-10 h-10 object-contain"
                 />
                 <span className="text-2xl font-bold tracking-tighter uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-white/70">
-                  Visual Studio
+                  Visual Studios
                 </span>
               </Link>
               <p className="text-foreground/60 text-sm max-w-xs">
@@ -120,9 +120,8 @@ export function Footer() {
               <h4 className="font-bold uppercase tracking-widest text-sm mb-6 text-brand-400">Contact</h4>
               <ul className="space-y-4 text-foreground/70">
                  <li>
-                   <a href="https://www.google.com/maps/place/Visual+Studios+%26+Events+%7C+Photography+%7C+Videography/@40.678613,-73.868806,17z/data=!3m1!4b1!4m6!3m5!1s0x89c25d96f51665f1:0x244b25616269adcb!8m2!3d40.678613!4d-73.868806!16s%2Fg%2F11t_prw046" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-white transition-colors group cursor-pointer">
-                     <MapPin size={18} className="shrink-0 mt-1 group-hover:text-brand-400 transition-colors" />
-                     <span>1097 Liberty Avenue, Brooklyn, NY 11208</span>
+                   <a href="tel:+13473066637" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
+                     <Phone size={18} className="group-hover:text-brand-400 transition-colors" /> +1 (347) 306-6637
                    </a>
                  </li>
                  <li>
@@ -131,8 +130,9 @@ export function Footer() {
                    </a>
                  </li>
                  <li>
-                   <a href="tel:+13473066637" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
-                     <Phone size={18} className="group-hover:text-brand-400 transition-colors" /> +1 (347) 306-6637
+                   <a href="https://www.google.com/maps/place/Visual+Studios+%26+Events+%7C+Photography+%7C+Videography/@40.678613,-73.868806,17z/data=!3m1!4b1!4m6!3m5!1s0x89c25d96f51665f1:0x244b25616269adcb!8m2!3d40.678613!4d-73.868806!16s%2Fg%2F11t_prw046" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-white transition-colors group cursor-pointer">
+                     <MapPin size={18} className="shrink-0 mt-1 group-hover:text-brand-400 transition-colors" />
+                     <span>1097 Liberty Avenue, Brooklyn, NY 11208</span>
                    </a>
                  </li>
               </ul>
@@ -149,12 +149,18 @@ export function Footer() {
 
         {/* Copyright */}
         <motion.div variants={itemVariants} className="pt-8 border-t border-foreground/20 flex flex-col md:flex-row items-center justify-between gap-4 text-xs tracking-widest uppercase text-foreground/50">
-           <p>© {new Date().getFullYear()} Visual Studio. All rights reserved.</p>
+           <p>© {new Date().getFullYear()} VISUAL INKED LLC. ALL RIGHTS RESERVED.</p>
            <div className="flex gap-6">
               <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
            </div>
         </motion.div>
+        {/* <motion.div variants={itemVariants} className="pt-4 text-center text-[10px] tracking-widest text-foreground/30">
+           Developed by{" "}
+           <a href="https://saikat.com.bd" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+             Mirza Saikat Ahmmed
+           </a>
+        </motion.div> */}
 
       </motion.div>
     </footer>

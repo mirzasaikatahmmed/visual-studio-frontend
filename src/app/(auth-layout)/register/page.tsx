@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 export const metadata = {
-  title: "Create Account | Visual Studio",
+  title: "Create Account | Visual Studios & Events",
 };
 
 export default function RegisterPage() {

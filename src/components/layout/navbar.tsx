@@ -77,13 +77,13 @@ export function Navbar() {
         <Link href="/" className="flex items-center gap-2 md:gap-3 relative z-50 text-white">
           <Image 
             src="/logo.png" 
-            alt="Visual Studio Logo" 
+            alt="Visual Studios & Events Logo" 
             width={40} 
             height={40} 
             className="w-8 h-8 md:w-10 md:h-10 object-contain"
           />
           <span className="hidden md:block text-xl md:text-2xl font-extrabold tracking-tighter uppercase">
-            Visual Studio
+            Visual Studios
           </span>
         </Link>
 

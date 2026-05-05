@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { MoreServicesGrid } from "@/components/more-services/services-grid";
-import { fetchServices } from "@/lib/servicesApi";
 
 export const metadata: Metadata = {
-  title: { absolute: "Wedding Services: Photography & Video | Visual Studio" },
+  title: { absolute: "Wedding Services: Photography & Video | Visual Studios & Events" },
   description:
-    "Visual Studio's wedding services: drone coverage, engagement sessions, same-day edits, and photo booths for South Asian & Muslim weddings in NY.",
+    "Visual Studios & Events' wedding services: drone coverage, engagement sessions, same-day edits, and photo booths for South Asian & Muslim weddings in NY.",
   keywords: [
     "south asian wedding services ny",
     "drone wedding photography ny",
@@ -20,22 +19,19 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/more-services" },
   openGraph: {
-    title: "Wedding Services: Photography & Video | Visual Studio",
+    title: "Wedding Services: Photography & Video | Visual Studios & Events",
     description:
       "Drone coverage, engagement sessions, same-day edits, and partner vendors for South Asian and Muslim weddings in NY.",
     url: "https://www.visualstudioslens.com/more-services",
   },
   twitter: {
-    title: "Wedding Services: Photography & Video | Visual Studio",
+    title: "Wedding Services: Photography & Video | Visual Studios & Events",
     description:
       "Drone coverage, engagement sessions, same-day edits, and partner vendors for South Asian & Muslim weddings in NY.",
   },
 };
 
-export default async function MoreServicesPage() {
-  const services = await fetchServices().catch(() => []);
-  const sorted = [...services].sort((a, b) => a.sortOrder - b.sortOrder);
-
+export default function MoreServicesPage() {
   return (
     <div className="flex flex-col min-h-screen pb-20">
       <HeroSection
@@ -45,14 +41,14 @@ export default async function MoreServicesPage() {
         image="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2000&auto=format&fit=crop"
       />
 
-      <MoreServicesGrid services={sorted} />
+      <MoreServicesGrid />
 
       {/* SEO content — crawlable text about non-wedding services */}
       <section className="py-20 bg-muted/20">
         <div className="container mx-auto px-4 max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">Beyond the Wedding Day</h2>
           <p className="text-foreground/80 text-lg leading-relaxed mb-10">
-            Visual Studio captures more than weddings. From the first flutter of a maternity shoot to the joyful chaos
+            Visual Studios & Events captures more than weddings. From the first flutter of a maternity shoot to the joyful chaos
             of a first birthday, we bring the same cinematic eye and cultural sensitivity to every milestone in between.
           </p>
 
@@ -79,7 +75,7 @@ export default async function MoreServicesPage() {
             <div>
               <h3 className="text-xl font-bold mb-3">Corporate Events &amp; Headshots</h3>
               <p className="text-foreground/70 leading-relaxed">
-                Looking for professional event photography or executive headshots in Brooklyn or Queens? Visual Studio
+                Looking for professional event photography or executive headshots in Brooklyn or Queens? Visual Studios & Events
                 provides polished, on-brand imagery for business conferences, product launches, company parties, and
                 LinkedIn-ready headshot sessions. Group team sessions available on location or in our studio.
               </p>

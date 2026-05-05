@@ -109,9 +109,9 @@ export default function SettingsAdminPage() {
   const [pricingPdf, setPricingPdf] = useState("pricing_guide_2026.pdf");
 
   // Brand & SEO
-  const [studioName, setStudioName] = useState("Visual Studio");
+  const [studioName, setStudioName] = useState("Visual Studios & Events");
   const [tagline, setTagline] = useState("Moments Captured. Stories Told.");
-  const [metaDesc, setMetaDesc] = useState("Visual Studio is a luxury photography and event decoration studio based in Brooklyn, NY. Specializing in weddings, corporate events, and creative portraits.");
+  const [metaDesc, setMetaDesc] = useState("Visual Studios & Events is a luxury photography and event decoration studio based in Brooklyn, NY. Specializing in weddings, corporate events, and creative portraits.");
   const [metaKeywords, setMetaKeywords] = useState("wedding photography brooklyn, event decoration ny, luxury photographer new york");
 
   // Notifications
@@ -122,7 +122,7 @@ export default function SettingsAdminPage() {
   const [notifEmail, setNotifEmail] = useState("lens@visualstudioslens.com");
 
   // Account
-  const [adminName, setAdminName] = useState("Visual Studio Admin");
+  const [adminName, setAdminName] = useState("Visual Studios & Events Admin");
   const [currentPw, setCurrentPw] = useState("");
   const [newPw, setNewPw] = useState("");
   const [confirmPw, setConfirmPw] = useState("");
@@ -421,7 +421,7 @@ export default function SettingsAdminPage() {
                   <h2 className="font-bold uppercase tracking-tight text-sm mb-4 flex items-center gap-2">
                     <Globe size={15} className="text-brand-400" /> Brand & SEO Settings
                   </h2>
-                  <InputField label="Studio Name" value={studioName} onChange={setStudioName} placeholder="Visual Studio" />
+                  <InputField label="Studio Name" value={studioName} onChange={setStudioName} placeholder="Visual Studios & Events" />
                   <InputField label="Studio Tagline" value={tagline} onChange={setTagline} placeholder="Moments Captured. Stories Told." />
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Meta Description (SEO)</label>

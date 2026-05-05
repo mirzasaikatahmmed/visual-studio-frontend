@@ -3,7 +3,61 @@
 import { motion } from "framer-motion";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import type { Service } from "@/lib/servicesApi";
+
+const WA = "https://wa.me/13473066637?text=";
+
+type Service = {
+  id: number;
+  title: string;
+  url: string | null;
+  imageUrl: string;
+  label: string;
+};
+
+const SERVICES: Service[] = [
+  {
+    id: 1,
+    title: "Stage & Decorations",
+    url: WA + encodeURIComponent("Hi Visual Studios! I'm interested in Stage & Decorations for my event. Could you share more details and pricing?"),
+    imageUrl: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2000&auto=format&fit=crop",
+    label: "Book Now",
+  },
+  {
+    id: 2,
+    title: "Henna/Mendhi",
+    url: WA + encodeURIComponent("Hi Visual Studios! I'm interested in Henna/Mendhi services for my event. Could you share more details and pricing?"),
+    imageUrl: "https://www.visualstudioslens.com/images/henna.png",
+    label: "Book Now",
+  },
+  {
+    id: 3,
+    title: "DJ & MCs",
+    url: WA + encodeURIComponent("Hi Visual Studios! I'm interested in DJ & MC services for my event. Could you share more details and pricing?"),
+    imageUrl: "https://images.unsplash.com/photo-1516873240891-4bf014598ab4?q=80&w=800&auto=format&fit=crop",
+    label: "Book Now",
+  },
+  {
+    id: 4,
+    title: "Cakes & Deserts",
+    url: WA + encodeURIComponent("Hi Visual Studios! I'm interested in Cakes & Desserts for my event. Could you share more details and pricing?"),
+    imageUrl: "https://www.visualstudioslens.com/images/cake.png",
+    label: "Book Now",
+  },
+  {
+    id: 5,
+    title: "Album Books",
+    url: "/store",
+    imageUrl: "https://www.visualstudioslens.com/images/album.png",
+    label: "Visit Store",
+  },
+  {
+    id: 6,
+    title: "360 & Photo Booths",
+    url: WA + encodeURIComponent("Hi Visual Studios! I'm interested in 360 Booth & Photo Booth services for my event. Could you share more details and pricing?"),
+    imageUrl: "https://www.visualstudioslens.com/images/photobooth.png",
+    label: "Book Now",
+  },
+];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -64,19 +118,15 @@ function ServiceCard({ service }: { service: Service }) {
   }
 
   return (
-    <Link href={service.url} passHref legacyBehavior>
-      <motion.a variants={itemVariants} className={className}>
+    <Link href={service.url} passHref>
+      <motion.div variants={itemVariants} className={className}>
         {content}
-      </motion.a>
+      </motion.div>
     </Link>
   );
 }
 
-export function MoreServicesGrid({ services }: { services: Service[] }) {
-  if (services.length === 0) {
-    return null;
-  }
-
+export function MoreServicesGrid() {
   return (
     <section className="pb-24 pt-12 overflow-hidden bg-background">
       <div className="container mx-auto px-4 max-w-7xl">
@@ -87,7 +137,7 @@ export function MoreServicesGrid({ services }: { services: Service[] }) {
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
         >
-          {services.map((service) => (
+          {SERVICES.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </motion.div>
