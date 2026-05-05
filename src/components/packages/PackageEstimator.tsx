@@ -358,6 +358,7 @@ export function PackageEstimator() {
       await submitQuote({
         coverage,
         hours: dayHours[0] ?? 6,
+        dayHours,
         days,
         addons,
         secondPhotographerHours: secondPhotoHours,
