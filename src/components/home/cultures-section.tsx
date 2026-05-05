@@ -67,7 +67,7 @@ export function CulturesSection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tighter mb-4">
-            Weddings, Across Every Tradition
+            Weddings Across Every Tradition
           </h2>
           <div className="w-24 h-1 bg-foreground mx-auto mb-6" />
           <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base">

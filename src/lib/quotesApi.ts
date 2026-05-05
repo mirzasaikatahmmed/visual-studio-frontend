@@ -34,6 +34,7 @@ export interface CreateQuotePayload {
   // Package selections
   coverage: 'photo' | 'video' | 'photo_video';
   hours: number;
+  dayHours: number[];
   days: number;
   addons: string[];
   secondPhotographerHours: number;
