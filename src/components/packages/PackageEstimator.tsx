@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle2, Plus, Minus } from "lucide-react";
+import { X, CheckCircle2, Plus, Minus, BadgeInfo } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { submitQuote } from "@/lib/quotesApi";
 
 // ─── Types ─────────────────────────────────────────────────────────────────
@@ -34,10 +33,10 @@ const BASE_PRICES: Record<number, number> = {
   12: 1650, // Full Day
 };
 
-const DAY_MULTIPLIERS: Record<number, number> = {
+const BUNDLE_FACTOR: Record<number, number> = {
   1: 1.0,
-  2: 1.8,
-  3: 2.5,
+  2: 0.9,
+  3: 0.8333,
 };
 
 const ADDON_PRICES: Record<AddonKey, { low: number; high: number }> = {
@@ -86,12 +85,43 @@ function labelAddon(a: AddonKey): string {
 
 // ─── Sub-components ────────────────────────────────────────────────────────
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, children, info }: { title: string; children: React.ReactNode; info?: React.ReactNode }) {
+  const [showInfo, setShowInfo] = useState(false);
   return (
     <div className="border-b border-border pb-8">
-      <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground mb-5">
-        {title}
-      </h3>
+      <div className="flex items-center gap-2 mb-5">
+        <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground">
+          {title}
+        </h3>
+        {info && (
+          <div className="relative">
+            <button
+              onClick={() => setShowInfo((v) => !v)}
+              onMouseEnter={() => setShowInfo(true)}
+              onMouseLeave={() => setShowInfo(false)}
+              className="flex items-center justify-center text-muted-foreground/60 hover:text-brand-500 transition-colors shrink-0"
+              aria-label="What counts as a day?"
+            >
+              <BadgeInfo size={14} />
+            </button>
+            <AnimatePresence>
+              {showInfo && (
+                <motion.div
+                  initial={{ opacity: 0, y: 4, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 4, scale: 0.97 }}
+                  transition={{ duration: 0.15 }}
+                  onMouseEnter={() => setShowInfo(true)}
+                  onMouseLeave={() => setShowInfo(false)}
+                  className="absolute left-0 top-full mt-2 z-20 bg-card border border-border rounded-xl shadow-xl p-4 w-72 text-left"
+                >
+                  {info}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
+      </div>
       {children}
     </div>
   );
@@ -200,26 +230,31 @@ function CounterRow({
 }
 
 function EstimatePanel({
-  estimate,
   selectionSummary,
+  estimate,
+  revealed,
   onGetQuote,
 }: {
-  estimate: Estimate;
   selectionSummary: string[];
+  estimate: Estimate;
+  revealed: boolean;
   onGetQuote: () => void;
 }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground mb-2">
+      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground mb-3">
         Your Estimate
       </p>
-      <p className="text-4xl font-light tabular-nums leading-tight mb-4">
+
+      <motion.p
+        animate={{ filter: revealed ? "blur(0px)" : "blur(10px)" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="text-4xl font-extrabold tracking-tight text-foreground mb-1 select-none pointer-events-none"
+      >
         {formatEstimate(estimate)}
-      </p>
+      </motion.p>
       <p className="text-xs text-muted-foreground leading-relaxed mb-5">
-        This is an estimate, not a final price. Every wedding is unique, and we
-        work with each couple to fit their vision and budget. Schedule your free
-        consultation and we&apos;ll lock in the exact package together.
+        Every wedding is unique — pricing is confirmed during your free consultation after we review your selections together.
       </p>
 
       <div className="border-t border-border/50 pt-4 mb-5">
@@ -237,7 +272,7 @@ function EstimatePanel({
         onClick={onGetQuote}
         className="w-full bg-foreground text-background font-bold py-3.5 uppercase tracking-widest rounded-full hover:opacity-90 transition text-xs"
       >
-        Get Your Custom Quote
+        See Your Estimate
       </button>
     </div>
   );
@@ -246,11 +281,17 @@ function EstimatePanel({
 // ─── Main Component ────────────────────────────────────────────────────────
 
 export function PackageEstimator() {
-  const router = useRouter();
-
   const [coverage, setCoverage] = useState<Coverage>("photo_video");
-  const [hours, setHours] = useState<number>(6);
   const [days, setDays] = useState<number>(1);
+  const [dayHours, setDayHours] = useState<number[]>([6]);
+
+  useEffect(() => {
+    setDayHours((prev) => {
+      const next = [...prev];
+      while (next.length < days) next.push(next[next.length - 1] ?? 6);
+      return next.slice(0, days);
+    });
+  }, [days]);
   const [addons, setAddons] = useState<AddonKey[]>([]);
   const [secondPhotoHours, setSecondPhotoHours] = useState(0);
   const [secondVideoHours, setSecondVideoHours] = useState(0);
@@ -266,23 +307,25 @@ export function PackageEstimator() {
   const [mNotes, setMNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [revealed, setRevealed] = useState(false);
+  const [contactSent, setContactSent] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const estimate = useMemo<Estimate>(() => {
     let low = 0;
     let high = 0;
 
-    if (coverage === "photo" || coverage === "video") {
-      low = high = BASE_PRICES[hours];
-    } else {
-      const combined = BASE_PRICES[hours] * 2;
-      low = combined - 100;
-      high = combined;
-    }
+    const factor = BUNDLE_FACTOR[days] ?? 1;
 
-    const mult = DAY_MULTIPLIERS[days];
-    low *= mult;
-    high *= mult;
+    if (coverage === "photo" || coverage === "video") {
+      const daySum = dayHours.reduce((s, h) => s + (BASE_PRICES[h] ?? 0), 0);
+      low = high = daySum * factor;
+    } else {
+      const daySum = dayHours.reduce((s, h) => s + (BASE_PRICES[h] ?? 0) * 2, 0);
+      const base = daySum * factor;
+      low = base - 100;
+      high = base;
+    }
 
     for (const a of addons) {
       low += ADDON_PRICES[a].low;
@@ -300,7 +343,7 @@ export function PackageEstimator() {
     high += printCount * 3;
 
     return { low: roundTo50(low), high: roundTo50(high) };
-  }, [coverage, hours, days, addons, secondPhotoHours, secondVideoHours, usbCount, printCount]);
+  }, [coverage, dayHours, days, addons, secondPhotoHours, secondVideoHours, usbCount, printCount]);
 
   const toggleAddon = (a: AddonKey) =>
     setAddons((prev) =>
@@ -314,7 +357,7 @@ export function PackageEstimator() {
     try {
       await submitQuote({
         coverage,
-        hours,
+        hours: dayHours[0] ?? 6,
         days,
         addons,
         secondPhotographerHours: secondPhotoHours,
@@ -331,13 +374,7 @@ export function PackageEstimator() {
         notes:        mNotes   || undefined,
       });
       setSubmitted(true);
-      setTimeout(() => {
-        const params = new URLSearchParams({
-          estimate: `${estimate.low}-${estimate.high}`,
-          ...(mWeddingDate ? { wedding_date: mWeddingDate } : {}),
-        });
-        router.push(`/contact?${params.toString()}`);
-      }, 2500);
+      setRevealed(true);
     } catch (err) {
       setSubmitError(
         err instanceof Error ? err.message : "Failed to send. Please try again."
@@ -353,15 +390,37 @@ export function PackageEstimator() {
     setShowModal(true);
   };
 
+  const resetAll = () => {
+    setCoverage("photo_video");
+    setDays(1);
+    setDayHours([6]);
+    setAddons([]);
+    setSecondPhotoHours(0);
+    setSecondVideoHours(0);
+    setCrew("standard");
+    setUsbCount(0);
+    setPrintCount(0);
+    setMName("");
+    setMEmail("");
+    setMPhone("");
+    setMWeddingDate("");
+    setMNotes("");
+    setSubmitted(false);
+    setRevealed(false);
+    setContactSent(false);
+    setShowModal(false);
+  };
+
   const selectionSummary = [
     labelCoverage(coverage),
-    labelHours(hours),
     `${days} day${days > 1 ? "s" : ""}`,
+    ...dayHours.map((h, i) => `Day ${i + 1}: ${labelHours(h)}`),
     ...addons.map(labelAddon),
     ...(secondPhotoHours > 0 ? [`2nd photographer (${secondPhotoHours} hrs)`] : []),
     ...(secondVideoHours > 0 ? [`2nd videographer (${secondVideoHours} hrs)`] : []),
     ...(usbCount > 0 ? [`${usbCount} USB drive(s)`] : []),
     ...(printCount > 0 ? [`${printCount} prints`] : []),
+    "Lighting setup (included)",
     "Online gallery (included)",
   ];
 
@@ -377,7 +436,7 @@ export function PackageEstimator() {
             Build Your Package
           </h2>
           <p className="text-muted-foreground text-lg">
-            Estimates start at $499 · Final pricing confirmed during your free consultation.
+            Configure your package and get a custom quote — final pricing confirmed during your free consultation.
           </p>
         </div>
       </section>
@@ -402,55 +461,87 @@ export function PackageEstimator() {
                 />
               </Section>
 
-              <Section title="2 · Coverage hours">
-                <ToggleGroup<number>
-                  options={[
-                    { value: 4,  label: "4 hrs" },
-                    { value: 6,  label: "6 hrs" },
-                    { value: 8,  label: "8 hrs" },
-                    { value: 10, label: "10 hrs" },
-                    { value: 12, label: "Full day" },
-                  ]}
-                  selected={hours}
-                  onChange={setHours}
-                />
-              </Section>
-
-              <Section title="3 · How many days?">
+              <Section
+                title="2 · How many days? (e.g Mehndi, Nikkah, Baraat, Walima, Reception & more)"
+                info={
+                  <div className="space-y-3 text-xs">
+                    <div>
+                      <p className="font-bold text-foreground mb-1">Day 1 — Pre-Wedding</p>
+                      <p className="text-muted-foreground leading-relaxed">
+                        Mehndi/Mehendi (Pakistani, Indian, Arab) · Gaye Holud/Holud (Bengali) · Mayun (Pakistani) · Sangeet (Indian) · Henna night (Arab/Afghan)
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-bold text-foreground mb-1">Day 2 — Main Ceremony</p>
+                      <p className="text-muted-foreground leading-relaxed">
+                        Nikkah · Akht (Bengali Muslim) · Pheras (Indian Hindu) · Anand Karaj (Sikh) · Baraat · Doodh Pilai · Vidaai/Rukhsati · Zaffa (Arab)
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-bold text-foreground mb-1">Day 3 — Post-Wedding / Reception</p>
+                      <p className="text-muted-foreground leading-relaxed">
+                        Walima · Bou Bhat (Bengali) · Reception · Doli (Sikh)
+                      </p>
+                    </div>
+                  </div>
+                }
+              >
                 <ToggleGroup<number>
                   options={[
                     { value: 1, label: "1 day" },
-                    { value: 2, label: "2 days  (e.g. Mehndi + Wedding)" },
-                    { value: 3, label: "3 days  (Mehndi + Wedding + Walima)" },
+                    { value: 2, label: "2 days" },
+                    { value: 3, label: "3 days" },
                   ]}
                   selected={days}
                   onChange={setDays}
                 />
+                <div className="mt-6 space-y-5">
+                  {dayHours.map((h, i) => (
+                    <div key={i}>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                        Day {i + 1} — Coverage hours
+                      </p>
+                      <ToggleGroup<number>
+                        options={[
+                          { value: 4,  label: "4 hrs" },
+                          { value: 6,  label: "6 hrs" },
+                          { value: 8,  label: "8 hrs" },
+                          { value: 10, label: "10 hrs" },
+                          { value: 12, label: "Full day" },
+                        ]}
+                        selected={h}
+                        onChange={(v) =>
+                          setDayHours((prev) => prev.map((x, idx) => idx === i ? v : x))
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
               </Section>
 
-              <Section title="4 · Add-ons">
+              <Section title="3 · Add-ons">
                 <MultiToggle
                   options={[
-                    { value: "drone",          label: "Drone / aerial ($200+)" },
-                    { value: "pre_wedding",    label: "Pre-wedding shoot ($300)" },
-                    { value: "post_wedding",   label: "Post-wedding shoot ($300)" },
-                    { value: "same_day_edit",  label: "Same-day edit ($250)" },
-                    { value: "cinematic_film", label: "Cinematic film ($500)" },
-                    { value: "live_stream",    label: "Live streaming ($300)" },
+                    { value: "drone",          label: "Drone / aerial" },
+                    { value: "pre_wedding",    label: "Pre-wedding shoot" },
+                    { value: "post_wedding",   label: "Post-wedding shoot" },
+                    { value: "same_day_edit",  label: "Same-day edit" },
+                    { value: "cinematic_film", label: "Cinematic film" },
+                    { value: "live_stream",    label: "Live streaming" },
                   ]}
                   selected={addons}
                   onToggle={toggleAddon}
                 />
                 <div className="mt-4 divide-y divide-border/40">
                   <CounterRow
-                    label="Second photographer ($150 / hr)"
+                    label="Second photographer"
                     value={secondPhotoHours}
                     onChange={setSecondPhotoHours}
                     max={10}
                     suffix="hrs"
                   />
                   <CounterRow
-                    label="Second videographer ($150 / hr)"
+                    label="Second videographer"
                     value={secondVideoHours}
                     onChange={setSecondVideoHours}
                     max={10}
@@ -459,7 +550,7 @@ export function PackageEstimator() {
                 </div>
               </Section>
 
-              <Section title="5 · Crew preference">
+              <Section title="4 · Crew preference">
                 <p className="text-xs text-muted-foreground mb-4 uppercase tracking-wider">
                   No price difference — available for all coverage types
                 </p>
@@ -477,46 +568,73 @@ export function PackageEstimator() {
               {/* Deliverables — no border-b since it's last */}
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground mb-5">
-                  6 · Deliverables
+                  5 · Deliverables
                 </h3>
-                <p className="text-xs text-muted-foreground mb-4 uppercase tracking-wider">
-                  Online gallery included with every package
-                </p>
                 <div className="divide-y divide-border/40">
                   <CounterRow
-                    label="USB drive ($20–$25 each)"
+                    label="USB drive"
                     value={usbCount}
                     onChange={setUsbCount}
                     max={10}
                     suffix="USB"
                   />
                   <CounterRow
-                    label="Printed 4×6 prints ($3 each)"
+                    label="Printed 4×6 prints"
                     value={printCount}
                     onChange={setPrintCount}
                     max={200}
                     suffix="prints"
-                    step={10}
+                    step={1}
                   />
                 </div>
                 <p className="text-xs text-muted-foreground mt-5">
                   Looking for a physical wedding album?{" "}
                   <Link
                     href="/contact"
-                    className="underline underline-offset-2 hover:text-foreground transition"
+                    className="font-bold underline underline-offset-2 hover:text-foreground transition"
                   >
                     Contact us for a custom quote.
                   </Link>
                 </p>
               </div>
+
+              {/* What's Already Included */}
+              <div className="rounded-2xl border border-border bg-muted/20 p-6">
+                <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-muted-foreground mb-4">
+                  What&apos;s Already Included
+                </h3>
+                <ul className="space-y-2">
+                  {[
+                    "Photo / Video Team",
+                    "Online gallery included with every package",
+                    "Flexible coverage: getting ready, ceremony, portraits, reception",
+                    "Unlimited locations within booked hours",
+                    "Pro cameras, lenses, lighting, audio",
+                    "Artistic direction and posing",
+                    "Consistent color grading",
+                    "Web + full-res digital delivery",
+                    "No watermarks",
+                    "Personal use license",
+                    "3 months cloud storage",
+                    "Planning consults (phone, email, WhatsApp)",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2.5 text-sm text-foreground/80">
+                      <CheckCircle2 size={14} className="text-brand-500 shrink-0 mt-0.5" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
             </div>
 
             {/* Estimate panel — desktop sticky */}
             <div className="hidden lg:block lg:col-span-1">
               <div className="sticky top-24">
                 <EstimatePanel
-                  estimate={estimate}
                   selectionSummary={selectionSummary}
+                  estimate={estimate}
+                  revealed={revealed}
                   onGetQuote={openModal}
                 />
               </div>
@@ -529,17 +647,14 @@ export function PackageEstimator() {
       {/* Mobile sticky bottom bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur border-t border-border px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.12)]">
         <div className="flex items-center justify-between gap-4 max-w-lg mx-auto">
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-              Your Estimate
-            </p>
-            <p className="text-xl font-light tabular-nums">{formatEstimate(estimate)}</p>
-          </div>
+          <p className="text-sm font-semibold text-muted-foreground">
+            Ready for your custom quote?
+          </p>
           <button
             onClick={openModal}
             className="px-6 py-2.5 bg-foreground text-background text-xs font-bold uppercase tracking-widest rounded-full hover:opacity-90 transition whitespace-nowrap"
           >
-            Get Quote
+            See Estimate
           </button>
         </div>
       </div>
@@ -576,10 +691,7 @@ export function PackageEstimator() {
                         Get Your Custom Quote
                       </h3>
                       <p className="text-sm text-muted-foreground mt-1">
-                        Estimate:{" "}
-                        <span className="text-foreground font-semibold">
-                          {formatEstimate(estimate)}
-                        </span>
+                        We&apos;ll confirm pricing during your free consultation.
                       </p>
                     </div>
                     <button
@@ -621,7 +733,10 @@ export function PackageEstimator() {
 
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                        Phone / WhatsApp
+                        Phone / WhatsApp{" "}
+                        <span className="font-normal normal-case tracking-normal text-muted-foreground/60">
+                          (optional)
+                        </span>
                       </label>
                       <input
                         type="tel"
@@ -633,7 +748,7 @@ export function PackageEstimator() {
 
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                        Wedding Date{" "}
+                        Event Date{" "}
                         <span className="font-normal normal-case tracking-normal text-muted-foreground/60">
                           (optional)
                         </span>
@@ -673,28 +788,78 @@ export function PackageEstimator() {
                       disabled={submitting}
                       className="w-full bg-foreground text-background font-bold py-4 uppercase tracking-widest rounded-full hover:opacity-90 transition disabled:opacity-60 text-xs"
                     >
-                      {submitting ? "Sending…" : "Send Quote Request"}
+                      {submitting ? "Sending…" : "Reveal My Estimate"}
                     </button>
                   </form>
                 </>
-              ) : (
+              ) : !contactSent ? (
+                /* ── Step 2: Estimate reveal ── */
                 <motion.div
+                  key="reveal"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4 }}
+                  className="flex flex-col items-center text-center py-6"
+                >
+                  <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center mb-6">
+                    <CheckCircle2 size={20} className="text-green-500" />
+                  </div>
+
+                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-2">
+                    Your Estimate
+                  </p>
+                  <motion.p
+                    initial={{ opacity: 0, filter: "blur(12px)", scale: 0.95 }}
+                    animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                    className="text-5xl font-extrabold tracking-tight text-foreground mb-4"
+                  >
+                    {formatEstimate(estimate)}
+                  </motion.p>
+
+                  <p className="text-sm text-muted-foreground max-w-xs leading-relaxed mb-6">
+                    Final pricing is confirmed during your free consultation.
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row gap-3 w-full">
+                    <button
+                      onClick={() => setContactSent(true)}
+                      className="flex-1 bg-foreground text-background font-bold py-3 uppercase tracking-widest rounded-full hover:opacity-90 transition text-xs"
+                    >
+                      Contact Me Back
+                    </button>
+                    <button
+                      onClick={resetAll}
+                      className="flex-1 border border-border text-foreground font-bold py-3 uppercase tracking-widest rounded-full hover:bg-muted transition text-xs"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </motion.div>
+              ) : (
+                /* ── Step 3: Contact confirmation ── */
+                <motion.div
+                  key="confirmed"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4 }}
                   className="flex flex-col items-center text-center py-8"
                 >
                   <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-5">
                     <CheckCircle2 size={32} className="text-green-500" />
                   </div>
-                  <h3 className="text-2xl font-bold uppercase tracking-tight mb-2">
+                  <h3 className="text-2xl font-bold uppercase tracking-tight mb-3">
                     Quote Sent!
                   </h3>
-                  <p className="text-muted-foreground mb-1">
-                    We&apos;ll reach out within 24 hours to confirm your package.
+                  <p className="text-muted-foreground text-sm max-w-xs leading-relaxed mb-6">
+                    We&apos;ll be in touch within 24 hours to confirm your package and schedule your free consultation.
                   </p>
-                  <p className="text-sm text-muted-foreground/60">
-                    Redirecting you to our contact page&hellip;
-                  </p>
+                  <button
+                    onClick={resetAll}
+                    className="px-10 py-3 bg-foreground text-background font-bold uppercase tracking-widest rounded-full hover:opacity-90 transition text-xs"
+                  >
+                    Done
+                  </button>
                 </motion.div>
               )}
             </motion.div>

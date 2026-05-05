@@ -79,13 +79,15 @@ export function BookingSection() {
             </div>
           </motion.div>
 
-          {/* Pricing Guide — disabled until PDF is ready */}
           <motion.div variants={rightItemVariants} className="p-8 border border-border flex flex-col items-center text-center bg-muted/20">
             <h3 className="text-3xl font-bold uppercase tracking-tight mb-4">Pricing Guide</h3>
-            <p className="text-muted-foreground mb-8 flex-1">A full breakdown of packages, add-ons, and what&apos;s included — sent after your free consultation.</p>
-            <span className="px-8 py-3 border border-border text-muted-foreground font-bold tracking-widest uppercase text-sm rounded-full cursor-not-allowed select-none">
-              Coming Soon
-            </span>
+            <p className="text-muted-foreground mb-8 flex-1">A full breakdown of packages, add-ons, and what&apos;s included — build your own and get a custom quote instantly.</p>
+            <Link
+              href="/packages"
+              className="px-8 py-3 border border-foreground text-foreground font-bold tracking-widest uppercase text-sm rounded-full hover:bg-foreground hover:text-background transition-colors"
+            >
+              Build Your Package
+            </Link>
           </motion.div>
         </motion.div>
       </div>

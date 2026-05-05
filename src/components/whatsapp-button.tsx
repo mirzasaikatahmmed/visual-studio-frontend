@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { FaWhatsapp } from "react-icons/fa";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -14,6 +15,8 @@ const POINTS = [
 export function WhatsAppButton() {
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const pathname = usePathname();
+  const isPackagesMobile = pathname === "/packages";
 
   useEffect(() => {
     if (dismissed) return;
@@ -23,12 +26,12 @@ export function WhatsAppButton() {
 
   useEffect(() => {
     if (!visible) return;
-    const t = setTimeout(() => setVisible(false), 10000);
+    const t = setTimeout(() => setVisible(false), 15000);
     return () => clearTimeout(t);
   }, [visible]);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-0">
+    <div className={`fixed bottom-6 right-6 z-50 flex flex-col items-end gap-0 ${isPackagesMobile ? "lg:flex hidden" : ""}`}>
       <AnimatePresence>
         {visible && (
           <motion.div
@@ -36,7 +39,7 @@ export function WhatsAppButton() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="relative mb-3 bg-white text-gray-800 rounded-2xl shadow-2xl px-5 py-4 w-56"
+            className="relative mb-3 bg-white text-gray-800 rounded-2xl shadow-2xl px-3 py-3 w-44 sm:px-5 sm:py-4 sm:w-56"
           >
             {/* Dismiss */}
             <button
@@ -47,20 +50,20 @@ export function WhatsAppButton() {
               <X size={14} />
             </button>
 
-            <p className="text-[11px] font-bold uppercase tracking-widest text-[#25D366] mb-3">
+            <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-[#25D366] mb-2 sm:mb-3">
               We&apos;re here for you
             </p>
 
-            <ul className="space-y-2 mb-4">
+            <ul className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
               {POINTS.map((point) => (
-                <li key={point} className="flex items-start gap-2 text-[13px] text-gray-700">
+                <li key={point} className="flex items-start gap-1.5 text-[11px] sm:text-[13px] text-gray-700">
                   <span className="mt-[3px] w-1.5 h-1.5 rounded-full bg-[#25D366] shrink-0" />
                   {point}
                 </li>
               ))}
             </ul>
 
-            <div className="flex items-center gap-1.5 text-[#25D366] font-bold text-[12px]">
+            <div className="flex items-center gap-1 text-[#25D366] font-bold text-[10px] sm:text-[12px]">
               <span>Click here to chat</span>
               <span className="text-base leading-none">↓</span>
             </div>

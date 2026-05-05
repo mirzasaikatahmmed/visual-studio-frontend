@@ -56,7 +56,7 @@ export function HeroSection() {
         >
           {/* Background Masked Layer (Fades IN on hover) */}
           <div 
-            className="absolute inset-0 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6 uppercase flex flex-col items-center justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-0 pointer-events-none"
+            className="absolute inset-0 text-2xl xs:text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6 uppercase flex flex-col items-center justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-0 pointer-events-none"
             style={{
                backgroundImage: "url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1500&auto=format&fit=crop')", // Gorgeous bright wedding details
                backgroundSize: "cover",
@@ -76,7 +76,7 @@ export function HeroSection() {
             variants={container}
             initial="hidden"
             animate="visible"
-            className="relative z-10 flex flex-col items-center justify-start text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight sm:tracking-tighter mb-4 sm:mb-6 uppercase group-hover:opacity-0 transition-opacity duration-700 pointer-events-none"
+            className="relative z-10 flex flex-col items-center justify-start text-2xl xs:text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight sm:tracking-tighter mb-4 sm:mb-6 uppercase group-hover:opacity-0 transition-opacity duration-700 pointer-events-none"
           >
             <div className="text-white w-full leading-[1.1] sm:leading-tight flex flex-wrap justify-center">
               {line1.split("").map((char, index) => (
@@ -112,15 +112,6 @@ export function HeroSection() {
           className="text-sm md:text-xl text-gray-200 max-w-2xl mb-4 font-medium px-6 md:px-4 leading-relaxed"
         >
           Cinematic storytelling for every culture, every love, every moment.
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.6 }}
-          className="text-white/50 text-xs md:text-sm tracking-widest uppercase mb-8 md:mb-12"
-        >
-          Packages from $499 · Free 15-min consultation
         </motion.p>
         
         <motion.div 
