@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { HeroSection } from "@/components/hero-section";
 import { ContactContent } from "@/components/contact/contact-content";
 
@@ -40,7 +41,9 @@ export default function ContactPage() {
         image="https://images.unsplash.com/photo-1596524430615-b46475ddff6e?q=80&w=2000&auto=format&fit=crop"
       />
 
-      <ContactContent />
+      <Suspense fallback={<div className="py-24" />}>
+        <ContactContent />
+      </Suspense>
     </div>
   );
 }

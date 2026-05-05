@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, MessageCircle, CheckCircle2 } from "lucide-react";
 import { createInquiry } from "@/lib/inquiriesApi";
@@ -33,12 +34,32 @@ const mapVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" as const } },
 };
 
+function formatEstimateParam(raw: string): string {
+  const parts = raw.split("-");
+  if (parts.length === 2) {
+    const lo = parseInt(parts[0]);
+    const hi = parseInt(parts[1]);
+    if (!isNaN(lo) && !isNaN(hi)) {
+      if (lo === hi) return `$${lo.toLocaleString()}`;
+      return `$${lo.toLocaleString()} – $${hi.toLocaleString()}`;
+    }
+  }
+  return raw;
+}
+
 export function ContactContent() {
+  const searchParams = useSearchParams();
+  const estimateParam = searchParams.get("estimate");
+  const weddingDateParam = searchParams.get("wedding_date");
+  const fromEstimator = Boolean(estimateParam);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [inquiryType, setInquiryType] = useState(INQUIRY_TYPES[0]);
-  const [eventDate, setEventDate] = useState("");
+  const [inquiryType, setInquiryType] = useState(
+    fromEstimator ? "Wedding Coverage" : INQUIRY_TYPES[0]
+  );
+  const [eventDate, setEventDate] = useState(weddingDateParam ?? "");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -160,6 +181,17 @@ export function ContactContent() {
                 className="bg-background p-8 md:p-12 border border-border shadow-[0_0_40px_rgba(0,0,0,0.05)] rounded-3xl relative"
               >
                  <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 blur-[100px] pointer-events-none rounded-full" />
+
+                 {fromEstimator && (
+                   <div className="mb-6 px-4 py-3 bg-green-500/10 border border-green-500/20 rounded-xl flex items-start gap-3 relative z-10">
+                     <CheckCircle2 size={18} className="text-green-500 shrink-0 mt-0.5" />
+                     <p className="text-sm text-foreground/80">
+                       <span className="font-semibold">Quote request received!</span> Your package estimate{" "}
+                       <span className="font-semibold text-foreground">{formatEstimateParam(estimateParam!)}</span>{" "}
+                       has been sent to our team. Use this form to reach us with any additional questions.
+                     </p>
+                   </div>
+                 )}
 
                  {submitted ? (
                    <motion.div
