@@ -4,25 +4,25 @@ import { MoreServicesGrid } from "@/components/more-services/services-grid";
 import { fetchServices } from "@/lib/servicesApi";
 
 export const metadata: Metadata = {
-  title: "Wedding Services — Photography, Cinematography & Add-Ons | Visual Studio",
+  title: { absolute: "Wedding Services — Photography & Cinematography | Visual Studio" },
   description:
-    "Explore Visual Studio's full range of wedding services — drone coverage, engagement sessions, same-day edits, photo booths, décor, and trusted partner vendors for South Asian and Muslim weddings in NYC.",
+    "Visual Studio's wedding services: drone coverage, engagement sessions, same-day edits, and photo booths for South Asian & Muslim weddings in NY.",
   keywords: [
-    "south asian wedding services nyc",
-    "drone wedding photography nyc",
+    "south asian wedding services ny",
+    "drone wedding photography ny",
     "wedding add-on services",
-    "engagement session nyc",
+    "engagement session ny",
     "same day edit wedding",
     "nikkah only coverage",
-    "photo booth wedding nyc",
-    "wedding vendor nyc",
+    "photo booth wedding ny",
+    "wedding vendor ny",
     "visualstudioslens services",
   ],
   alternates: { canonical: "/more-services" },
   openGraph: {
-    title: "Wedding Services — Photography, Cinematography & Add-Ons | Visual Studio",
+    title: "Wedding Services — Photography & Cinematography | Visual Studio",
     description:
-      "Drone coverage, engagement sessions, same-day edits, and partner vendors for South Asian and Muslim weddings in NYC.",
+      "Drone coverage, engagement sessions, same-day edits, and partner vendors for South Asian and Muslim weddings in NY.",
     url: "https://www.visualstudioslens.com/more-services",
   },
 };

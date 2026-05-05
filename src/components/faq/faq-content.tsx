@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 
@@ -177,7 +177,7 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "d6",
         question: "Where are you based and what areas do you serve?",
         answer:
-          "We're based in Brooklyn and Queens, NY, and serve the entire tri-state area — all five NYC boroughs, Long Island, Westchester, New Jersey, and Connecticut. We also travel for destination weddings worldwide.",
+          "We're based in Brooklyn and Queens, NY, and serve the entire tri-state area — all five NY boroughs, Long Island, Westchester, New Jersey, and Connecticut. We also travel for destination weddings worldwide.",
       },
     ],
   },
@@ -215,20 +215,14 @@ function AccordionItem({ item, isOpen, onToggle }: { item: FaqItem; isOpen: bool
           <ChevronDown size={20} />
         </motion.span>
       </button>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            key="answer"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.28, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <p className="text-muted-foreground pb-5 text-sm md:text-base leading-relaxed">{item.answer}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div
+        animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+        initial={{ height: 0, opacity: 0 }}
+        transition={{ duration: 0.28, ease: "easeInOut" }}
+        className="overflow-hidden"
+      >
+        <p className="text-muted-foreground pb-5 text-sm md:text-base leading-relaxed">{item.answer}</p>
+      </motion.div>
     </motion.div>
   );
 }

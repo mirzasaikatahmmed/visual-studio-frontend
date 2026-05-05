@@ -4,23 +4,23 @@ import { AboutContent } from "@/components/about/about-content";
 import { fetchAboutContent, fetchTeamMembers, type TeamMember } from "@/lib/aboutApi";
 
 export const metadata: Metadata = {
-  title: "About Visual Studio — NYC's South Asian Wedding Photographers",
+  title: { absolute: "About Visual Studio | South Asian Wedding Photographers NY" },
   description:
-    "Meet the team behind Visual Studio — South Asian and Muslim wedding photographers and cinematographers based in Brooklyn, NY. Fluent in Bengali, Pakistani, Indian, and Arab wedding traditions.",
+    "Meet the Visual Studio team — South Asian & Muslim wedding photographers in Brooklyn, NY. Fluent in Bengali, Pakistani, Indian, and Arab traditions.",
   keywords: [
-    "south asian wedding photographers nyc",
+    "south asian wedding photographers ny",
     "muslim wedding photography team",
     "bengali photographer brooklyn",
-    "about visual studio nyc",
+    "about visual studio ny",
     "female photographer available",
     "wedding photography studio brooklyn",
     "visualstudioslens about",
   ],
   alternates: { canonical: "/about" },
   openGraph: {
-    title: "About Visual Studio — NYC's South Asian Wedding Photographers",
+    title: "About Visual Studio | South Asian Wedding Photographers NY",
     description:
-      "Meet the team behind Visual Studio — South Asian and Muslim wedding photographers and cinematographers based in Brooklyn, NY.",
+      "Meet the Visual Studio team — South Asian & Muslim wedding photographers in Brooklyn, NY. Fluent in Bengali, Pakistani, Indian, and Arab traditions.",
     url: "https://www.visualstudioslens.com/about",
   },
 };

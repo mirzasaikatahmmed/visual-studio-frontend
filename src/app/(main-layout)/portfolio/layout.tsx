@@ -29,28 +29,28 @@ const serviceSchema = {
 };
 
 export const metadata: Metadata = {
-  title: "Wedding Photography Portfolio — Bengali, Pakistani & Muslim Weddings | Visual Studio",
+  title: { absolute: "South Asian Wedding Photography Portfolio | Visual Studio" },
   description:
-    "Browse Visual Studio's wedding photography portfolio — Bengali, Pakistani, Indian, Sikh, and Muslim weddings across NYC, Brooklyn, Queens, and the tri-state area. Cinematic and documentary style.",
+    "Browse Visual Studio's portfolio — Bengali, Pakistani, Indian, Sikh & Muslim weddings in NY. Cinematic and documentary wedding photography.",
   keywords: [
     "south asian wedding photography portfolio",
-    "bengali wedding photos nyc",
+    "bengali wedding photos ny",
     "pakistani wedding photography portfolio",
     "indian wedding photographer portfolio",
-    "muslim wedding photography nyc",
+    "muslim wedding photography ny",
     "sikh wedding photos",
     "holud photography",
     "nikkah photography",
-    "baraat photos nyc",
+    "baraat photos ny",
     "wedding photographer brooklyn portfolio",
     "cinematic wedding photography",
     "visualstudioslens portfolio",
   ],
   alternates: { canonical: "/portfolio" },
   openGraph: {
-    title: "Wedding Photography Portfolio — Bengali, Pakistani & Muslim Weddings | Visual Studio",
+    title: "South Asian Wedding Photography Portfolio | Visual Studio",
     description:
-      "Cinematic wedding photography portfolio featuring Bengali, Pakistani, Indian, Sikh, and Muslim weddings across NYC and the tri-state area.",
+      "Cinematic wedding photography portfolio featuring Bengali, Pakistani, Indian, Sikh, and Muslim weddings across NY and the tri-state area.",
     url: "https://www.visualstudioslens.com/portfolio",
   },
 };

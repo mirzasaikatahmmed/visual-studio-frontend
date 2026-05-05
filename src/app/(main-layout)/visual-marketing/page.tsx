@@ -3,25 +3,25 @@ import { HeroSection } from "@/components/hero-section";
 import { MarketingContent } from "@/components/visual-marketing/marketing-content";
 
 export const metadata: Metadata = {
-  title: "Visual Marketing & Brand Photography NYC | Visual Studio",
+  title: { absolute: "Visual Marketing & Brand Photography NY | Visual Studio" },
   description:
-    "Corporate branding photography, product shoots, social media content, and commercial video for NYC businesses. Visual Studio creates high-impact visual assets that elevate your brand.",
+    "Corporate branding photography, product shoots, and commercial video for NY businesses. High-impact visual assets that elevate your brand.",
   keywords: [
-    "visual marketing nyc",
-    "brand photography nyc",
-    "corporate photography nyc",
-    "product photography nyc",
+    "visual marketing ny",
+    "brand photography ny",
+    "corporate photography ny",
+    "product photography ny",
     "social media content photography",
-    "commercial video production nyc",
+    "commercial video production ny",
     "business photography brooklyn",
     "brand identity photography",
     "visualstudioslens marketing",
   ],
   alternates: { canonical: "/visual-marketing" },
   openGraph: {
-    title: "Visual Marketing & Brand Photography NYC | Visual Studio",
+    title: "Visual Marketing & Brand Photography NY | Visual Studio",
     description:
-      "Corporate branding photography, product shoots, and commercial video for NYC businesses. High-impact visual assets by Visual Studio.",
+      "Corporate branding photography, product shoots, and commercial video for NY businesses. High-impact visual assets by Visual Studio.",
     url: "https://www.visualstudioslens.com/visual-marketing",
   },
 };
