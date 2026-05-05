@@ -112,7 +112,7 @@ export default function SettingsAdminPage() {
   const [studioName, setStudioName] = useState("Visual Studio");
   const [tagline, setTagline] = useState("Moments Captured. Stories Told.");
   const [metaDesc, setMetaDesc] = useState("Visual Studio is a luxury photography and event decoration studio based in Brooklyn, NY. Specializing in weddings, corporate events, and creative portraits.");
-  const [metaKeywords, setMetaKeywords] = useState("wedding photography brooklyn, event decoration nyc, luxury photographer new york");
+  const [metaKeywords, setMetaKeywords] = useState("wedding photography brooklyn, event decoration ny, luxury photographer new york");
 
   // Notifications
   const [emailOnInquiry, setEmailOnInquiry] = useState(true);

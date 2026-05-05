@@ -21,7 +21,7 @@ const SIGNALS = [
   },
   {
     icon: MapPin,
-    label: "NYC, NJ, CT",
+    label: "NY, NJ, CT",
     sub: "& Destination",
   },
 ];

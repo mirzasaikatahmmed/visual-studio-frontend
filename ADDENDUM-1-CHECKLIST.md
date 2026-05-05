@@ -37,7 +37,7 @@
 ## Section 4 — H1 / Heading Fix for SEO
 
 - [x] **Update `hero-section.tsx`** heading structure — ✅ Done
-  - `<h1>`: `"Premier South Asian & Muslim Wedding Photographers in NYC"` — visible but subtle (white/40, xs tracking-widest), animates in with hero
+  - `<h1>`: `"Premier South Asian & Muslim Wedding Photographers in NY"` — visible but subtle (white/40, xs tracking-widest), animates in with hero
   - Brand line `"Capturing Moments. Creating Experiences."` demoted to `<h2>` (visual animation unchanged)
   - Tagline unchanged below
 

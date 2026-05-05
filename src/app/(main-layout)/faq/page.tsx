@@ -91,22 +91,22 @@ const faqSchema = {
       "name": "Where are you based and what areas do you serve?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We're based in Brooklyn and Queens, NY, and serve the entire tri-state area — all five NYC boroughs, Long Island, Westchester, New Jersey, and Connecticut. We also travel for destination weddings worldwide.",
+        "text": "We're based in Brooklyn and Queens, NY, and serve the entire tri-state area — all five NY boroughs, Long Island, Westchester, New Jersey, and Connecticut. We also travel for destination weddings worldwide.",
       },
     },
   ],
 };
 
 export const metadata: Metadata = {
-  title: "Wedding Photography FAQ — Pricing, Coverage, Female Crew | Visual Studio",
+  title: { absolute: "Wedding Photography FAQ — Pricing, Female Crew | Visual Studio" },
   description:
-    "Everything you need to know about booking Visual Studio for your South Asian or Muslim wedding. Pricing, female crew availability, coverage area, delivery timelines, and more.",
+    "Everything about booking Visual Studio for your South Asian or Muslim wedding — pricing, female crew, coverage area, and delivery timelines.",
   keywords: [
     "wedding photography FAQ",
     "south asian wedding photographer questions",
     "muslim wedding photography pricing",
-    "female photographer NYC",
-    "wedding photography packages NYC",
+    "female photographer NY",
+    "wedding photography packages NY",
     "Bengali wedding photographer",
     "Pakistani wedding photographer",
     "Indian wedding photographer",
@@ -118,7 +118,7 @@ export const metadata: Metadata = {
     title: "Wedding Photography FAQ | Visual Studio",
     description:
       "Everything you need to know about booking Visual Studio for your South Asian or Muslim wedding.",
-    url: "https://visualstudioslens.com/faq",
+    url: "https://www.visualstudioslens.com/faq",
   },
 };
 

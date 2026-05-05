@@ -4,24 +4,24 @@ import { StoreCategoryGrid } from "@/components/store/store-grid";
 import { fetchCategories, fetchSettings } from "@/lib/storeApi";
 
 export const metadata: Metadata = {
-  title: "Wedding Photo Albums & Prints | Visual Studio",
+  title: { absolute: "Wedding Photo Albums & Prints | Visual Studio" },
   description:
-    "Order premium wedding photo albums, canvas wall art, and fine art prints from Visual Studio. Custom heirloom albums crafted to preserve your South Asian or Muslim wedding memories forever.",
+    "Premium wedding photo albums, canvas wall art, and fine art prints from Visual Studio. Heirloom albums for South Asian & Muslim wedding memories.",
   keywords: [
-    "wedding photo album nyc",
+    "wedding photo album ny",
     "south asian wedding album",
     "custom photo album",
     "canvas wall art wedding",
     "fine art wedding prints",
     "heirloom wedding album",
-    "photo keepsakes nyc",
+    "photo keepsakes ny",
     "visualstudioslens store",
   ],
   alternates: { canonical: "/store" },
   openGraph: {
     title: "Wedding Photo Albums & Prints | Visual Studio",
     description:
-      "Premium wedding photo albums, canvas wall art, and fine art prints. Custom heirloom albums from Visual Studio NYC.",
+      "Premium wedding photo albums, canvas wall art, and fine art prints. Custom heirloom albums from Visual Studio NY.",
     url: "https://www.visualstudioslens.com/store",
   },
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { MessageCircleQuestion, ChevronDown } from "lucide-react";
 import Link from "next/link";
 
@@ -108,20 +108,14 @@ export function FaqSection() {
                     <ChevronDown size={22} />
                   </motion.span>
                 </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key="answer"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-muted-foreground pb-6">{faq.answer}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <motion.div
+                  animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                  initial={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden"
+                >
+                  <p className="text-muted-foreground pb-6">{faq.answer}</p>
+                </motion.div>
               </motion.div>
             );
           })}

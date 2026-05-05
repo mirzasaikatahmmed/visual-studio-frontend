@@ -3,16 +3,16 @@ import { HeroSection } from "@/components/hero-section";
 import { VideoGrid } from "@/components/video-gallery/video-grid";
 
 export const metadata: Metadata = {
-  title: "Cinematic Wedding Films NYC | Visual Studio",
+  title: { absolute: "Cinematic Wedding Films NY | Visual Studio" },
   description:
-    "Watch cinematic wedding films from Bengali, Pakistani, Indian, Sikh, and Muslim weddings across NYC and the tri-state area. Same-day edits and highlight reels available.",
+    "Watch cinematic wedding films from Bengali, Pakistani, Indian, Sikh & Muslim weddings across NY. Same-day edits and highlight reels available.",
   keywords: [
-    "cinematic wedding films nyc",
+    "cinematic wedding films ny",
     "south asian wedding videographer",
     "muslim wedding video",
     "bengali wedding film",
     "pakistani wedding videographer",
-    "wedding highlight reel nyc",
+    "wedding highlight reel ny",
     "same day edit wedding",
     "nikkah videographer",
     "wedding cinematography brooklyn",
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/video-gallery" },
   openGraph: {
-    title: "Cinematic Wedding Films NYC | Visual Studio",
+    title: "Cinematic Wedding Films NY | Visual Studio",
     description:
-      "Cinematic wedding films for South Asian and Muslim weddings in NYC. Same-day edits and highlight reels available.",
+      "Cinematic wedding films for South Asian and Muslim weddings in NY. Same-day edits and highlight reels available.",
     url: "https://www.visualstudioslens.com/video-gallery",
   },
 };

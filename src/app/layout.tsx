@@ -23,20 +23,20 @@ const greatVibes = Great_Vibes({
 
 export const metadata: Metadata = {
   title: {
-    default: "South Asian & Muslim Wedding Photographer NYC | Visual Studio",
+    default: "South Asian & Muslim Wedding Photographer NY | Visual Studio",
     template: "%s | Visual Studio",
   },
   description:
-    "Visual Studio captures Bengali, Pakistani, Indian, Sikh, and Muslim weddings in NYC and the tri-state area. Cinematic films, female crew available, destination travel. Based in Brooklyn, NY.",
+    "South Asian & Muslim wedding photographers in NY. Cinematic films, female crew available. Bengali, Pakistani, Indian, Sikh & Nikkah. Brooklyn-based.",
   keywords: [
-    "south asian wedding photographer nyc",
-    "muslim wedding photographer nyc",
+    "south asian wedding photographer ny",
+    "muslim wedding photographer ny",
     "bengali wedding photographer",
     "pakistani wedding photographer",
-    "indian wedding photographer nyc",
+    "indian wedding photographer ny",
     "sikh wedding photographer",
-    "cinematic wedding videographer nyc",
-    "female wedding photographer nyc",
+    "cinematic wedding videographer ny",
+    "female wedding photographer ny",
     "nikkah photographer",
     "holud photographer",
     "baraat photographer",
@@ -58,23 +58,23 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://www.visualstudioslens.com",
     siteName: "Visual Studio",
-    title: "South Asian & Muslim Wedding Photographer NYC | Visual Studio",
+    title: "South Asian & Muslim Wedding Photographer NY | Visual Studio",
     description:
-      "Cinematic wedding photography & videography for Bengali, Pakistani, Indian, Sikh, and Muslim weddings in NYC and the tri-state area. Female crew available.",
+      "Cinematic wedding photography & videography for Bengali, Pakistani, Indian, Sikh, and Muslim weddings in NY and the tri-state area. Female crew available.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "South Asian wedding photography by Visual Studio NYC",
+        alt: "South Asian wedding photography by Visual Studio NY",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "South Asian & Muslim Wedding Photographer NYC | Visual Studio",
+    title: "South Asian & Muslim Wedding Photographer NY | Visual Studio",
     description:
-      "Cinematic wedding photography & videography for Bengali, Pakistani, Indian, Sikh, and Muslim weddings in NYC. Female crew available.",
+      "Cinematic wedding photography & videography for Bengali, Pakistani, Indian, Sikh, and Muslim weddings in NY. Female crew available.",
     images: ["/og-image.png"],
   },
   robots: {
