@@ -56,7 +56,7 @@ export function HeroSection() {
         >
           {/* Background Masked Layer (Fades IN on hover) */}
           <div 
-            className="absolute inset-0 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6 uppercase flex flex-col items-center justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-0 pointer-events-none"
+            className="absolute inset-0 text-2xl xs:text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6 uppercase flex flex-col items-center justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-0 pointer-events-none"
             style={{
                backgroundImage: "url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1500&auto=format&fit=crop')", // Gorgeous bright wedding details
                backgroundSize: "cover",
@@ -76,7 +76,7 @@ export function HeroSection() {
             variants={container}
             initial="hidden"
             animate="visible"
-            className="relative z-10 flex flex-col items-center justify-start text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight sm:tracking-tighter mb-4 sm:mb-6 uppercase group-hover:opacity-0 transition-opacity duration-700 pointer-events-none"
+            className="relative z-10 flex flex-col items-center justify-start text-2xl xs:text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight sm:tracking-tighter mb-4 sm:mb-6 uppercase group-hover:opacity-0 transition-opacity duration-700 pointer-events-none"
           >
             <div className="text-white w-full leading-[1.1] sm:leading-tight flex flex-wrap justify-center">
               {line1.split("").map((char, index) => (
@@ -113,15 +113,6 @@ export function HeroSection() {
         >
           Cinematic storytelling for every culture, every love, every moment.
         </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.6 }}
-          className="text-white/50 text-xs md:text-sm tracking-widest uppercase mb-8 md:mb-12"
-        >
-          Packages from $499 · Free 15-min consultation
-        </motion.p>
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -145,9 +136,9 @@ export function HeroSection() {
                   transition={{ type: "spring", stiffness: 300, damping: 24 }}
                   className="absolute top-full left-1/2 -translate-x-1/2 mt-3 z-20 pointer-events-none"
                 >
-                  <div className="relative bg-black/85 backdrop-blur-sm text-white text-[10px] font-semibold tracking-widest uppercase px-3 py-1.5 rounded-full whitespace-nowrap border border-white/10">
+                  <div className="relative bg-background/90 backdrop-blur-sm text-foreground text-[10px] font-semibold tracking-widest uppercase px-3 py-1.5 rounded-full whitespace-nowrap border border-border shadow-md">
                     {/* triangle pointer */}
-                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-black/85" />
+                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-border" />
                     Check out our latest work
                   </div>
                 </motion.div>

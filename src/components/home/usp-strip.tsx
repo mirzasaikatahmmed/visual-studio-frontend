@@ -1,13 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Camera, Zap, Tag, Users } from "lucide-react";
+import { Camera, Zap, Tag, Users, Clock, MapPin } from "lucide-react";
 
 const ITEMS = [
   { icon: Camera, label: "1,000+ Weddings Photographed" },
   { icon: Zap,    label: "72-Hour Sneak Peeks" },
   { icon: Tag,    label: "Starting at $499" },
+  { icon: Clock,  label: "Free 15-min Consultation" },
   { icon: Users,  label: "Female Crews Available" },
+  { icon: MapPin, label: "NY, NJ & CT" },
 ];
 
 export function UspStrip() {
@@ -20,7 +22,7 @@ export function UspStrip() {
         viewport={{ once: true, margin: "-20px" }}
         transition={{ duration: 0.5 }}
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0 md:divide-x divide-border max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 md:gap-0 md:divide-x divide-border max-w-6xl mx-auto">
           {ITEMS.map(({ icon: Icon, label }) => (
             <div
               key={label}

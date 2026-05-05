@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 
 export function ScrollToTop() {
   const { scrollYProgress } = useScroll();
   const [isVisible, setIsVisible] = useState(false);
+  const pathname = usePathname();
+  const isPackagesMobile = pathname === "/packages";
 
   useEffect(() => {
     // Show the button when scrolling past 5% of the page
@@ -33,7 +36,7 @@ export function ScrollToTop() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 left-6 z-[60] flex items-center justify-center rounded-full bg-[#18181A]/40 backdrop-blur-xl border border-white/20 shadow-[0_8px_30px_rgba(0,0,0,0.5)] group overflow-hidden"
+          className={`fixed bottom-6 left-6 z-[60] flex items-center justify-center rounded-full bg-[#18181A]/40 backdrop-blur-xl border border-white/20 shadow-[0_8px_30px_rgba(0,0,0,0.5)] group overflow-hidden ${isPackagesMobile ? "lg:flex hidden" : ""}`}
           style={{ width: "44px", height: "44px" }}
           aria-label="Scroll to top"
         >
