@@ -5,7 +5,7 @@ import { Camera, Zap, Tag, Users } from "lucide-react";
 
 const ITEMS = [
   { icon: Camera, label: "1,000+ Weddings Photographed" },
-  { icon: Zap,    label: "48-Hour Sneak Peeks" },
+  { icon: Zap,    label: "72-Hour Sneak Peeks" },
   { icon: Tag,    label: "Starting at $499" },
   { icon: Users,  label: "Female Crews Available" },
 ];

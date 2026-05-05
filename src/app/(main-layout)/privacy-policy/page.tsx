@@ -4,8 +4,8 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Read Visual Studio's privacy policy to understand how we collect, use, and protect your personal information.",
-  keywords: ["privacy policy", "Visual Studio privacy", "data protection", "personal information"],
+    "Read Visual Studios & Events' privacy policy to understand how we collect, use, and protect your personal information.",
+  keywords: ["privacy policy", "Visual Studios & Events privacy", "data protection", "personal information"],
   alternates: { canonical: "/privacy-policy" },
   robots: { index: false, follow: false },
 };
@@ -49,7 +49,7 @@ export default function PrivacyPolicyPage() {
             <p>This Privacy Policy is effective as of April 26, 2026, for all clients and visitors. By continuing to use our website or services after this date, you agree to the updated Privacy Policy. We reserve the right to modify this policy at any time. If we make material changes, we will update the date at the top of this page.</p>
           </div>
 
-          <p className="mb-4">This Privacy Policy describes how Visual Studio & Events (operating under <strong className="font-semibold text-foreground">Visual Ink LLC</strong>) handles personal information that we collect through our website at <Link href="https://www.visualstudioslens.com" className="text-foreground hover:underline">visualstudioslens.com</Link> and through our services. Our services are designed to help clients capture and preserve their most meaningful moments.</p>
+          <p className="mb-4">This Privacy Policy describes how Visual Studios & Events & Events (operating under <strong className="font-semibold text-foreground">Visual Ink LLC</strong>) handles personal information that we collect through our website at <Link href="https://www.visualstudioslens.com" className="text-foreground hover:underline">visualstudioslens.com</Link> and through our services. Our services are designed to help clients capture and preserve their most meaningful moments.</p>
           <p className="mb-4">For purposes of applicable data protection laws, Visual Ink LLC is the controller of your personal information.</p>
 
           <hr className="border-t border-foreground/10 my-11" />
@@ -105,7 +105,7 @@ export default function PrivacyPolicyPage() {
               <li><strong className="font-semibold text-foreground">Service Partners:</strong> With trusted vendors (e.g., second photographers, editors, album printers) who are necessary to fulfill your booking and are bound by confidentiality obligations</li>
               <li><strong className="font-semibold text-foreground">Legal Requirements:</strong> When required by law, court order, subpoena, or governmental authority</li>
               <li><strong className="font-semibold text-foreground">Business Transfers:</strong> In connection with a merger, acquisition, reorganization, or sale of business assets, where your information may be transferred as part of that transaction</li>
-              <li><strong className="font-semibold text-foreground">Protection of Rights:</strong> When we believe disclosure is necessary to protect the rights, property, or safety of Visual Studio, our clients, or others</li>
+              <li><strong className="font-semibold text-foreground">Protection of Rights:</strong> When we believe disclosure is necessary to protect the rights, property, or safety of Visual Studios & Events, our clients, or others</li>
             </ul>
           </div>
 
@@ -119,7 +119,7 @@ export default function PrivacyPolicyPage() {
             <p className="mb-4">Client project files and communications are generally retained for a minimum of <strong className="font-semibold text-foreground">3 years</strong> following project completion. Raw media files are maintained for <strong className="font-semibold text-foreground">60 days</strong> after final delivery, after which they may be permanently deleted.</p>
             <div className="border-l-[3px] border-[#b07d4a] bg-[#b07d4a]/5 dark:bg-[#b07d4a]/10 p-[15px_20px] my-[18px]">
               <div className="text-[10.5px] font-bold tracking-[0.18em] uppercase text-[#b07d4a] mb-[7px]">Your Responsibility</div>
-              <p className="text-[13.5px] text-foreground/70 m-0 leading-[1.7]">Clients are solely responsible for retaining their own copies of all delivered materials after handoff. Visual Studio cannot be held responsible for files lost after the 60-day backup window has expired.</p>
+              <p className="text-[13.5px] text-foreground/70 m-0 leading-[1.7]">Clients are solely responsible for retaining their own copies of all delivered materials after handoff. Visual Studios & Events cannot be held responsible for files lost after the 60-day backup window has expired.</p>
             </div>
           </div>
 

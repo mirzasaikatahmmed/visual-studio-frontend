@@ -6,7 +6,7 @@ const serviceSchema = {
   "serviceType": "Wedding Photography and Cinematography",
   "provider": {
     "@type": "LocalBusiness",
-    "name": "Visual Studio",
+    "name": "Visual Studios & Events",
     "url": "https://www.visualstudioslens.com",
   },
   "areaServed": "New York Tri-State Area",
@@ -29,9 +29,9 @@ const serviceSchema = {
 };
 
 export const metadata: Metadata = {
-  title: { absolute: "South Asian Wedding Photography Portfolio | Visual Studio" },
+  title: { absolute: "South Asian Wedding Photography Portfolio | Visual Studios & Events" },
   description:
-    "Browse Visual Studio's portfolio — Bengali, Pakistani, Indian, Sikh & Muslim weddings in NY. Cinematic and documentary wedding photography.",
+    "Browse Visual Studios & Events' portfolio — Bengali, Pakistani, Indian, Sikh & Muslim weddings in NY. Cinematic and documentary wedding photography.",
   keywords: [
     "south asian wedding photography portfolio",
     "bengali wedding photos ny",
@@ -48,15 +48,15 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/portfolio" },
   openGraph: {
-    title: "South Asian Wedding Photography Portfolio | Visual Studio",
+    title: "South Asian Wedding Photography Portfolio | Visual Studios & Events",
     description:
       "Cinematic wedding photography portfolio featuring Bengali, Pakistani, Indian, Sikh, and Muslim weddings across NY and the tri-state area.",
     url: "https://www.visualstudioslens.com/portfolio",
   },
   twitter: {
-    title: "South Asian Wedding Photography Portfolio | Visual Studio",
+    title: "South Asian Wedding Photography Portfolio | Visual Studios & Events",
     description:
-      "Bengali, Pakistani, Indian, Sikh & Muslim wedding photography portfolio. Cinematic and documentary style — Visual Studio NY.",
+      "Bengali, Pakistani, Indian, Sikh & Muslim wedding photography portfolio. Cinematic and documentary style — Visual Studios & Events NY.",
   },
 };
 

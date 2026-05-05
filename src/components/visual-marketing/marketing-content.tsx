@@ -12,11 +12,11 @@ const CLIENT_CAT_SLUG = "client-logos";
 type FallbackItem = { title: string; tag: string; gif: string };
 
 const FALLBACK_WORK: FallbackItem[] = [
-  { title: "Product Launch — Neon Series", tag: "Brand Photography", gif: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnUxY3c4cHVuZXM1NnQxY3A1aHl4cmpvN2pldXgzdDczNTUwOXp5ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/LpEkb0XzmSdPyuhXsa/giphy.gif" },
+  { title: "Product Launch — Neon Series", tag: "Brand Photo & Video", gif: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnUxY3c4cHVuZXM1NnQxY3A1aHl4cmpvN2pldXgzdDczNTUwOXp5ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/LpEkb0XzmSdPyuhXsa/giphy.gif" },
   { title: "Campaign Visuals — Summer Drop", tag: "Campaign", gif: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWoxdTNxZmRhczBnYW5ja25kamU1YTl3czIyMGs0c3N6bGQzYjM0NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/uF7BxmaJEtkUvKKkyg/giphy.gif" },
   { title: "Social Content — Reels Pack", tag: "Social Media", gif: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzBjcmlwczl0bGJvNTc0YWQ5bDIyaWl5aTlxNWVrODl1MGk3ZHRiYiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/WgN6VKw9oNNlyir3DD/giphy.gif" },
   { title: "E-Commerce — Studio Shots", tag: "Product Shoots", gif: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnUxY3c4cHVuZXM1NnQxY3A1aHl4cmpvN2pldXgzdDczNTUwOXp5ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l7bUBv6k24xwJXYRUU/giphy.gif" },
-  { title: "Corporate Headshots — TechFirm", tag: "Brand Photography", gif: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWoxdTNxZmRhczBnYW5ja25kamU1YTl3czIyMGs0c3N6bGQzYjM0NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xT9IgjfoTrXbejHk9G/giphy.gif" },
+  { title: "Corporate Headshots — TechFirm", tag: "Brand Photo & Video", gif: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWoxdTNxZmRhczBnYW5ja25kamU1YTl3czIyMGs0c3N6bGQzYjM0NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xT9IgjfoTrXbejHk9G/giphy.gif" },
   { title: "Ad Creatives — Billboard Series", tag: "Campaign Visuals", gif: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzBjcmlwczl0bGJvNTc0YWQ5bDIyaWl5aTlxNWVrODl1MGk3ZHRiYiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/GD9MQamBYCvbotN0mA/giphy.gif" },
 ];
 

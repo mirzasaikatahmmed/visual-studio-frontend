@@ -63,7 +63,7 @@ export default function AdminDashboardPage() {
     <>
       <div className="mb-8">
         <h1 className="text-2xl font-bold uppercase tracking-tight">Dashboard Overview</h1>
-        <p className="text-muted-foreground text-sm mt-1">Welcome back. Here&apos;s what&apos;s happening with Visual Studio.</p>
+        <p className="text-muted-foreground text-sm mt-1">Welcome back. Here&apos;s what&apos;s happening with Visual Studios & Events.</p>
       </div>
 
       {/* Stat Cards */}

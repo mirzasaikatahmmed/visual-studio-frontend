@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Wedding Photo Albums & Prints — Heirloom Keepsakes from Visual Studio NY";
+export const alt = "Wedding Photo Albums & Prints — Heirloom Keepsakes from Visual Studios & Events NY";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -32,10 +32,10 @@ export default function OGImage() {
           Photo Albums & Prints
         </div>
         <div style={{ fontSize: "30px", color: "rgba(255,255,255,0.55)", maxWidth: "720px", lineHeight: 1.4 }}>
-          Premium wedding albums, wall prints & keepsakes from Visual Studio
+          Premium wedding albums, wall prints & keepsakes from Visual Studios & Events
         </div>
         <div style={{ marginTop: "auto", display: "flex", alignItems: "center", gap: "16px" }}>
-          <div style={{ fontSize: "26px", fontWeight: "bold", color: "#DD9454" }}>Visual Studio</div>
+          <div style={{ fontSize: "26px", fontWeight: "bold", color: "#DD9454" }}>Visual Studios & Events</div>
           <div style={{ color: "rgba(255,255,255,0.25)", fontSize: "26px" }}>·</div>
           <div style={{ color: "rgba(255,255,255,0.45)", fontSize: "22px" }}>visualstudioslens.com</div>
         </div>

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Visual Marketing & Brand Photography for NY Businesses — Visual Studio";
+export const alt = "Visual Marketing & Brand Photography for NY Businesses — Visual Studios & Events";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -35,7 +35,7 @@ export default function OGImage() {
           Brand photography & commercial videography for businesses in NY
         </div>
         <div style={{ marginTop: "auto", display: "flex", alignItems: "center", gap: "16px" }}>
-          <div style={{ fontSize: "26px", fontWeight: "bold", color: "#DD9454" }}>Visual Studio</div>
+          <div style={{ fontSize: "26px", fontWeight: "bold", color: "#DD9454" }}>Visual Studios & Events</div>
           <div style={{ color: "rgba(255,255,255,0.25)", fontSize: "26px" }}>·</div>
           <div style={{ color: "rgba(255,255,255,0.45)", fontSize: "22px" }}>visualstudioslens.com</div>
         </div>

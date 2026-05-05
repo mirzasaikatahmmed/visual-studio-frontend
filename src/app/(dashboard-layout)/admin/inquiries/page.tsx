@@ -383,7 +383,7 @@ export default function InquiriesPage() {
                 {savingNote ? "Saving..." : "Save Notes"}
               </button>
               <a
-                href={`mailto:${selected.email}?subject=Re: ${selected.type} Inquiry — Visual Studio`}
+                href={`mailto:${selected.email}?subject=Re: ${selected.type} Inquiry — Visual Studios & Events`}
                 className="flex-1 text-center border border-border py-3 font-bold tracking-widest uppercase text-xs hover:border-brand-400 hover:text-brand-400 transition-colors rounded-sm flex items-center justify-center"
               >
                 Reply via Email

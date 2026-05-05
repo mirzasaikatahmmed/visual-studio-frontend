@@ -64,7 +64,7 @@ export function InstagramFeed() {
                 rel="noopener noreferrer"
                 className="aspect-square bg-cover bg-center block grayscale hover:grayscale-0 transition-all hover:scale-105 duration-500 overflow-hidden"
                 style={{ backgroundImage: `url('${img.src}')` }}
-                aria-label={`View Visual Studio wedding photo on Instagram — post ${i + 1}`}
+                aria-label={`View Visual Studios & Events wedding photo on Instagram — post ${i + 1}`}
               />
             ))}
       </div>

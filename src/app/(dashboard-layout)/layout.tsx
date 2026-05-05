@@ -51,7 +51,7 @@ function SidebarContent({ pathname, onLinkClick, displayName, initials, email, o
           <Aperture size={18} className="text-white" />
         </div>
         <div>
-          <div className="font-bold text-sm uppercase tracking-widest leading-tight">Visual Studio</div>
+          <div className="font-bold text-sm uppercase tracking-widest leading-tight">Visual Studios & Events</div>
           <div className="text-[10px] text-muted-foreground uppercase tracking-widest">Admin Panel</div>
         </div>
       </div>
