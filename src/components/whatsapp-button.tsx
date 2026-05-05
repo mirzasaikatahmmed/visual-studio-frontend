@@ -17,9 +17,15 @@ export function WhatsAppButton() {
 
   useEffect(() => {
     if (dismissed) return;
-    const t = setTimeout(() => setVisible(true), 2500);
+    const t = setTimeout(() => setVisible(true), 5000);
     return () => clearTimeout(t);
   }, [dismissed]);
+
+  useEffect(() => {
+    if (!visible) return;
+    const t = setTimeout(() => setVisible(false), 10000);
+    return () => clearTimeout(t);
+  }, [visible]);
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-0">
