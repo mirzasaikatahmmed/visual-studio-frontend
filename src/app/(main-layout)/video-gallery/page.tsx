@@ -25,6 +25,11 @@ export const metadata: Metadata = {
       "Cinematic wedding films for South Asian and Muslim weddings in NY. Same-day edits and highlight reels available.",
     url: "https://www.visualstudioslens.com/video-gallery",
   },
+  twitter: {
+    title: "Cinematic Wedding Films NY | Visual Studio",
+    description:
+      "South Asian & Muslim wedding videography in NY. Cinematic highlight reels, same-day edits, and full ceremony films.",
+  },
 };
 
 export default function VideoGalleryPage() {
