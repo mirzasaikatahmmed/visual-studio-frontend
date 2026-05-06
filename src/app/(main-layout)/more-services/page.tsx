@@ -3,9 +3,15 @@ import { HeroSection } from "@/components/hero-section";
 import { MoreServicesGrid } from "@/components/more-services/services-grid";
 
 export const metadata: Metadata = {
+<<<<<<< HEAD
   title: { absolute: "Wedding Services: Photography, Makeup, Catering & More | Visual Studios & Events" },
   description:
     "Full-service wedding planning partners: bridal makeup & hair, catering, Qaris & Imams, luxury transportation, venue bookings, henna, DJ & MCs, and more for South Asian & Muslim weddings in NY.",
+=======
+  title: { absolute: "Wedding Services: Photography & Video | Visual Studios & Events" },
+  description:
+    "Visual Studios & Events' wedding services: drone coverage, engagement sessions, same-day edits, and photo booths for South Asian & Muslim weddings in NY.",
+>>>>>>> fac818696879a7d49d0c04722a97d51d8a7cbc2e
   keywords: [
     "south asian wedding services ny",
     "bridal makeup hair ny",
@@ -22,13 +28,21 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/more-services" },
   openGraph: {
+<<<<<<< HEAD
     title: "Wedding Services: Photography, Makeup, Catering & More | Visual Studios & Events",
+=======
+    title: "Wedding Services: Photography & Video | Visual Studios & Events",
+>>>>>>> fac818696879a7d49d0c04722a97d51d8a7cbc2e
     description:
       "Bridal makeup & hair, catering, Qaris & Imams, luxury transportation, venue bookings, and more wedding partner services in NY.",
     url: "https://www.visualstudioslens.com/more-services",
   },
   twitter: {
+<<<<<<< HEAD
     title: "Wedding Services: Photography, Makeup, Catering & More | Visual Studios & Events",
+=======
+    title: "Wedding Services: Photography & Video | Visual Studios & Events",
+>>>>>>> fac818696879a7d49d0c04722a97d51d8a7cbc2e
     description:
       "Bridal makeup & hair, catering, Qaris & Imams, luxury transportation, venue bookings, henna, and more for South Asian & Muslim weddings in NY.",
   },
@@ -51,8 +65,13 @@ export default function MoreServicesPage() {
         <div className="container mx-auto px-4 max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">Everything Your Wedding Needs</h2>
           <p className="text-foreground/80 text-lg leading-relaxed mb-10">
+<<<<<<< HEAD
             Visual Studios & Events is more than a photography studio — we connect you with the best wedding partners
             in New York so you can plan everything in one place, at unbeatable bundle prices.
+=======
+            Visual Studios & Events captures more than weddings. From the first flutter of a maternity shoot to the joyful chaos
+            of a first birthday, we bring the same cinematic eye and cultural sensitivity to every milestone in between.
+>>>>>>> fac818696879a7d49d0c04722a97d51d8a7cbc2e
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -123,8 +142,31 @@ export default function MoreServicesPage() {
               <h3 className="text-xl font-bold mb-3">Birthday &amp; Milestone Events</h3>
               <p className="text-foreground/70 leading-relaxed">
                 Whether it&apos;s a first birthday Ameen, a sweet sixteen, or a milestone anniversary party, we treat
+<<<<<<< HEAD
                 every event like a full production — covering décor, cake cutting, speeches, and candid moments,
                 delivered through a private online gallery with print rights included.
+=======
+                every event like a full production. We cover the décor, the cake cutting, the speeches, and the candid
+                moments in between — delivered through a private online gallery with print rights included.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold mb-3">Corporate Events &amp; Headshots</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                Looking for professional event photography or executive headshots in Brooklyn or Queens? Visual Studios & Events
+                provides polished, on-brand imagery for business conferences, product launches, company parties, and
+                LinkedIn-ready headshot sessions. Group team sessions available on location or in our studio.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold mb-3">Family &amp; Portrait Sessions</h3>
+              <p className="text-foreground/70 leading-relaxed">
+                We offer standalone family portrait sessions at locations across New York — from Prospect Park to
+                outdoor studio setups. Sessions are available year-round and can be styled around cultural dress,
+                religious attire, or a look you love. Perfect for Eid portraits, holiday cards, and family reunions.
+>>>>>>> fac818696879a7d49d0c04722a97d51d8a7cbc2e
               </p>
             </div>
           </div>

@@ -38,7 +38,11 @@ const SERVICES: Service[] = [
   },
   {
     id: 4,
+<<<<<<< HEAD
     title: "Cakes & Desserts",
+=======
+    title: "Cakes & Deserts",
+>>>>>>> fac818696879a7d49d0c04722a97d51d8a7cbc2e
     url: WA + encodeURIComponent("Hi Visual Studios! I'm interested in Cakes & Desserts for my event. Could you share more details and pricing?"),
     imageUrl: "https://www.visualstudioslens.com/images/cake.png",
     label: "Book Now",
@@ -57,6 +61,7 @@ const SERVICES: Service[] = [
     imageUrl: "https://www.visualstudioslens.com/images/photobooth.png",
     label: "Book Now",
   },
+<<<<<<< HEAD
   {
     id: 7,
     title: "Bridal Makeup & Hair",
@@ -92,6 +97,8 @@ const SERVICES: Service[] = [
     imageUrl: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2000&auto=format&fit=crop",
     label: "Book Now",
   },
+=======
+>>>>>>> fac818696879a7d49d0c04722a97d51d8a7cbc2e
 ];
 
 const containerVariants = {
