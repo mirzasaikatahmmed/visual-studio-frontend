@@ -9,6 +9,7 @@ const WA = "https://wa.me/13473066637?text=";
 type Service = {
   id: number;
   title: string;
+  subtitle?: string;
   url: string | null;
   imageUrl: string;
   label: string;
@@ -97,8 +98,6 @@ const SERVICES: Service[] = [
     imageUrl: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2000&auto=format&fit=crop",
     label: "Book Now",
   },
-=======
->>>>>>> fac818696879a7d49d0c04722a97d51d8a7cbc2e
 ];
 
 const containerVariants = {
@@ -126,6 +125,11 @@ function ServiceCard({ service }: { service: Service }) {
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tighter text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
             {service.title}
           </h3>
+          {service.subtitle && (
+            <p className="mt-2 text-white/70 text-xs md:text-sm max-w-xs mx-auto leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+              {service.subtitle}
+            </p>
+          )}
         </div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 mt-6 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center gap-2 text-black font-bold uppercase tracking-widest text-xs bg-white backdrop-blur-md px-6 py-3 rounded-full shadow-[0_0_30px_rgba(255,255,255,0.4)]">
           {service.label}
