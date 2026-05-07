@@ -40,13 +40,13 @@
 
 | Status | Item |
 |--------|------|
-| ❌ | New dedicated page `/muslim-friendly-services` does not exist |
-| ❌ | No-Music Edits service documented on page |
-| ❌ | Islamic-Touch Edits service documented |
-| ❌ | Female-Only Crew + Editor Workflow section |
-| ❌ | Modesty-Aware Coverage section |
-| ❌ | Cultural & Religious Fluency section (Nikkah, Walima, Mehndi, Holud, Akht, Bou Bhat) |
-| ❌ | Question-anchored FAQ on page ("Do you do no-music wedding edits?", "Are female photographers available for hijabi brides?") |
+| ✅ | New dedicated page `/muslim-friendly-services` — built at `src/app/(main-layout)/muslim-friendly-services/page.tsx` |
+| ✅ | No-Music Edits service card with full description |
+| ✅ | Islamic-Touch Edits service card with full description |
+| ✅ | Female-Only Crew + Editor Workflow — dark callout strip + service card |
+| ✅ | Modesty-Aware Coverage service card |
+| ✅ | Cultural & Religious Fluency section — tag cloud covers Nikkah, Walima, Mehndi, Holud, Akht, Bou Bhat, Bengali, Pakistani, Arab, Afghan weddings |
+| ✅ | Question-anchored FAQ accordion (5 Q&As: no-music edits, hijabi brides, gender separation, Islamic-touch, cultural traditions) |
 
 ### 4.3 Portfolio `/portfolio`
 
@@ -115,9 +115,10 @@
 |--------|------|
 | ⚠️ | **7.1 LocalBusiness schema** — A `PhotographyBusiness` JSON-LD exists in `layout.tsx` but it is **not** the exact `LocalBusiness` block specified (missing `alternateName`, `legalName`, `priceRange`, `sameAs` social links in the correct format) |
 | ❌ | **7.2 Organization schema** — No separate `Organization` JSON-LD block in root layout |
-| ❌ | **7.3 Service schema** — No per-service JSON-LD on homepage, `/visual-marketing`, `/muslim-friendly-services`, or `/no-photo-security` |
-| ❌ | Service schema for: Wedding Cinematography, Visual Marketing / Brand Photo & Video, Female Crew & Editor Workflow, Muslim-Friendly Editing, No-Photo Security, Custom Website Build, Business Setup / Branding |
-| ❌ | **7.4 FAQPage schema** — No FAQPage JSON-LD on homepage or `/faq` (5 existing FAQ Q&As not wrapped in schema) |
+| ⚠️ | **7.3 Service schema** — Service schema now added to `/muslim-friendly-services`; still missing on homepage, `/visual-marketing`, `/no-photo-security` |
+| ✅ | Service schema for: Muslim-Friendly Editing (no-music, Islamic touch) — added to `/muslim-friendly-services/page.tsx` |
+| ❌ | Service schema still needed for: Wedding Cinematography, Visual Marketing / Brand Photo & Video, Female Crew & Editor Workflow, No-Photo Security, Custom Website Build, Business Setup / Branding |
+| ⚠️ | **7.4 FAQPage schema** — FAQPage schema added to `/muslim-friendly-services`; still missing on homepage and `/faq` |
 | ❌ | **7.5 Review / AggregateRating schema** — Not implemented (depends on three-stream reviews module being built first) |
 | ❌ | **7.6 BreadcrumbList schema** — No breadcrumb schema on any sub-page |
 
@@ -141,7 +142,8 @@
 | Status | Item |
 |--------|------|
 | ✅ | **9.1** `/sitemap.xml` — `app/sitemap.ts` exists and auto-generates sitemap via Next.js MetadataRoute |
-| ⚠️ | Sitemap does not yet include `/muslim-friendly-services` or `/no-photo-security` (pages don't exist yet) |
+| ✅ | `/muslim-friendly-services` added to sitemap (priority 0.9) |
+| ❌ | `/no-photo-security` not yet in sitemap (page does not exist yet) |
 | ✅ | **9.2** `/robots.txt` — exists in `/public/robots.txt` with AI bot allowlist (GPTBot, ChatGPT-User, ClaudeBot, PerplexityBot, etc.) |
 | ⚠️ | `robots.ts` via Next.js `app/` not used — static `public/robots.txt` used instead (functionally equivalent, but the dynamic version would be cleaner) |
 | ❌ | **9.3** Domain verified in Google Search Console |
@@ -155,7 +157,7 @@
 
 | Status | Item |
 |--------|------|
-| ❌ | **10.1** Question-anchored content on `/muslim-friendly-services` ("Do you do no-music wedding edits?", etc.) |
+| ✅ | **10.1** Question-anchored FAQ on `/muslim-friendly-services` — 5 Q&As covering no-music edits, hijabi brides, gender separation, Islamic-touch editing, cultural traditions |
 | ❌ | **10.1** Question-anchored content on `/packages` ("How much does a 3-day Bengali wedding cost?") |
 | ❌ | **10.1** Question-anchored content on `/no-photo-security` ("Can you stop guests from taking photos?") |
 | ❌ | **10.2** `/llms.txt` file added to `/public` folder |
@@ -198,8 +200,8 @@
 
 | Status | Priority | Task |
 |--------|----------|------|
-| ❌ | P1 | Build new `/muslim-friendly-services` page (Section 4.2) |
-| ❌ | P1 | Add Service schema to all service pages — homepage, `/visual-marketing`, `/muslim-friendly-services` (Section 7.3) |
+| ✅ | P1 | Build new `/muslim-friendly-services` page (Section 4.2) |
+| ⚠️ | P1 | Add Service schema to all service pages — ✅ `/muslim-friendly-services` done; ❌ homepage and `/visual-marketing` still pending (Section 7.3) |
 | ❌ | P1 | Add "No-Photo Security" card to `/more-services` + dedicated landing page (Section 6) |
 | ❌ | P1 | Add Service schema for No-Photo Security |
 | ❌ | P1 | Replace single "Start a Project" button on `/visual-marketing` with three CTAs — Marketing Videos, Set Up My Business, Build My Website (Section 5) |
@@ -244,14 +246,16 @@
 
 ## Summary
 
+> Last updated: **2026-05-07** — Section 4.2 `/muslim-friendly-services` page completed.
+
 | Category | Done | Partial | Not Done |
 |----------|------|---------|----------|
 | Foundation (already working) | 10 | 0 | 0 |
-| Content & Pages | 4 | 3 | 22 |
-| Schema Markup (JSON-LD) | 0 | 1 | 6 |
+| Content & Pages | 11 | 3 | 15 |
+| Schema Markup (JSON-LD) | 1 | 3 | 3 |
 | Hardcoded Content Fixes | 2 | 2 | 3 |
-| Crawler Infrastructure | 2 | 2 | 4 |
-| AI Optimizations | 0 | 2 | 3 |
+| Crawler Infrastructure | 3 | 1 | 4 |
+| AI Optimizations | 1 | 2 | 2 |
 | Site-Wide Bug Fixes | 2 | 1 | 4 |
 | Validation & Testing | 0 | 0 | 7 |
-| **Total** | **20** | **11** | **49** |
+| **Total** | **30** | **12** | **38** |
