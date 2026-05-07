@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { FaqContent } from "@/components/faq/faq-content";
+import { breadcrumbSchema } from "@/lib/breadcrumb";
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -115,7 +116,7 @@ const faqSchema = {
       "name": "When do I get sneak peeks for social media?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We deliver 15–25 sneak peek photos within 78 hours of your wedding so you can post while the buzz is fresh. Same-day edit highlight videos are available as an add-on.",
+        "text": "We deliver 15–25 sneak peek photos within 72 hours of your wedding so you can post while the buzz is fresh. Same-day edit highlight videos are available as an add-on.",
       },
     },
     {
@@ -237,6 +238,10 @@ export default function FaqPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "FAQ", path: "/faq" }])) }}
       />
       <HeroSection
         subtitle="Got Questions?"

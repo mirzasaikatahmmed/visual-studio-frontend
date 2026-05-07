@@ -102,7 +102,7 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-white/40 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-5"
         >
-          Premier South Asian &amp; Muslim Wedding Photographers in NY
+          Premier South Asian &amp; Muslim Wedding Photographers in NY, NJ, CT
         </motion.h1>
 
         <motion.p

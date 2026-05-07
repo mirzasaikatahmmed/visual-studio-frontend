@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { FaWhatsapp } from "react-icons/fa";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -115,6 +116,15 @@ export function Navbar() {
         {/* Desktop CTA */}
         <div className="hidden lg:flex items-center gap-4 relative z-50">
           <ThemeToggle className="!text-white hover:!bg-white/10 hover:!text-white/80" />
+          <a
+            href="https://wa.me/13473066637"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat on WhatsApp"
+            className="flex items-center justify-center w-9 h-9 rounded-full bg-[#25D366]/15 text-[#25D366] hover:bg-[#25D366]/30 transition-colors"
+          >
+            <FaWhatsapp size={18} />
+          </a>
           <Link
             href="/contact"
             className="px-6 py-2 bg-white text-black text-xs font-bold uppercase tracking-widest rounded-full hover:opacity-80 transition-opacity"
@@ -164,6 +174,15 @@ export function Navbar() {
             >
               Book Now
             </Link>
+            <a
+              href="https://wa.me/13473066637"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-[#25D366] text-base font-bold uppercase tracking-widest hover:opacity-80 transition-opacity"
+            >
+              <FaWhatsapp size={20} />
+              WhatsApp Us
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

@@ -242,6 +242,12 @@ function EstimatePanel({
 }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+      {/* 10% off new client badge */}
+      <div className="flex items-center gap-2 mb-4 px-3 py-2 rounded-xl bg-brand-500/10 border border-brand-500/20">
+        <span className="text-brand-600 dark:text-brand-400 font-extrabold text-sm">10% OFF</span>
+        <span className="text-foreground/60 text-xs">new client discount — mention when you book</span>
+      </div>
+
       <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground mb-3">
         Your Estimate
       </p>
@@ -686,6 +692,11 @@ export function PackageEstimator() {
             >
               {!submitted ? (
                 <>
+                  <div className="flex items-center gap-2 mb-5 px-3 py-2 rounded-xl bg-brand-500/10 border border-brand-500/20">
+                    <span className="text-brand-600 dark:text-brand-400 font-extrabold text-sm">10% OFF</span>
+                    <span className="text-foreground/60 text-xs">new client discount — mention when you book</span>
+                  </div>
+
                   <div className="flex items-start justify-between mb-6">
                     <div>
                       <h3 className="text-xl font-bold uppercase tracking-tight">

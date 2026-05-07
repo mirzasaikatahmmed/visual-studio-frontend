@@ -22,7 +22,7 @@ const FAQS = [
     id: 3,
     question: "How soon will we receive our photos and videos?",
     answer:
-      "Sneak peeks within 78 hours. Full edited photo gallery in 3–4 weeks. Cinematic wedding film in 1–2 months.",
+      "Sneak peeks within 72 hours. Full edited photo gallery in 3–4 weeks. Cinematic wedding film in 1–2 months.",
   },
   {
     id: 4,

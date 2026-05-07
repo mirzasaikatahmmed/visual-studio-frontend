@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { BtsContent } from "@/components/behind-the-scenes/bts-content";
+import { breadcrumbSchema } from "@/lib/breadcrumb";
 
 export const metadata: Metadata = {
   title: { absolute: "Behind the Scenes | Visual Studios & Events" },
@@ -31,6 +32,10 @@ export const metadata: Metadata = {
 export default function BehindTheScenesPage() {
   return (
     <div className="flex flex-col min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Behind the Scenes", path: "/behind-the-scenes" }])) }}
+      />
       <HeroSection
         subtitle="The Real Us"
         title={<>Behind the <span className="text-brand-500 font-great-vibes normal-case font-normal tracking-normal text-[1.2em] md:text-[1.4em] ml-1">Scenes</span></>}

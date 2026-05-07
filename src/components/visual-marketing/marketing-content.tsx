@@ -143,27 +143,74 @@ export function MarketingContent() {
         </section>
       )}
 
-      {/* Start a Project CTA */}
+      {/* Three Ways CTA */}
       <section className="py-32 bg-foreground text-background overflow-hidden relative">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brand-800/30 via-transparent to-transparent pointer-events-none" />
-        <motion.div
-          className="container mx-auto px-4 text-center relative z-10"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-6">Ready to Start<br />a Project?</h2>
-          <p className="text-background/70 max-w-xl mx-auto mb-12 text-lg">
-            Let&apos;s create something remarkable together. Tell us about your brand and we&apos;ll take it from there.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block px-12 py-5 bg-background text-foreground font-bold rounded-full hover:scale-105 hover:shadow-2xl transition-all uppercase tracking-widest text-sm"
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
           >
-            Start a Project
-          </Link>
-        </motion.div>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-background/40 mb-4">
+              What We Build
+            </p>
+            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter">
+              Three Ways We Can<br />Help You Grow
+            </h2>
+          </motion.div>
+
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
+          >
+            {[
+              {
+                label: "Start a Project",
+                track: "Marketing Videos",
+                subtitle: "Brand video, product shoots, social content",
+                href: "/contact?type=marketing-videos",
+              },
+              {
+                label: "Set Up My Business",
+                track: "Full Build",
+                subtitle: "Branding, Google Business, systems, content",
+                href: "/contact?type=business-setup",
+              },
+              {
+                label: "Build My Website",
+                track: "Custom Site",
+                subtitle: "Custom Next.js sites with SEO & schema",
+                href: "/contact?type=website-build",
+              },
+            ].map((cta) => (
+              <motion.div
+                key={cta.track}
+                variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } } }}
+              >
+                <Link
+                  href={cta.href}
+                  className="group flex flex-col items-center text-center px-8 py-10 border border-background/20 hover:border-background/60 hover:bg-background/5 transition-all duration-300 rounded-sm"
+                >
+                  <p className="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-background/40 mb-3">
+                    {cta.track}
+                  </p>
+                  <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-background mb-3 group-hover:text-brand-400 transition-colors duration-200">
+                    {cta.label} →
+                  </h3>
+                  <p className="text-background/50 text-xs leading-relaxed">
+                    {cta.subtitle}
+                  </p>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </section>
     </>
   );

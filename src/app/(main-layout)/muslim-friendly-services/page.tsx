@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { MuslimFriendlyContent } from "@/components/muslim-friendly-services/content";
+import { breadcrumbSchema } from "@/lib/breadcrumb";
 
 export const metadata: Metadata = {
   title: {
@@ -39,6 +40,33 @@ export const metadata: Metadata = {
       "Muslim-Friendly Wedding Photography & Videography | Visual Studios & Events",
     description:
       "Female crews, no-music edits, and modesty-aware coverage for Muslim weddings in NY.",
+  },
+};
+
+const femaleCrewServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Female-Only Wedding Photography and Videography Crew",
+  "name": "Female Crew Workflow — Modesty-Aware Wedding Coverage NY",
+  "provider": { "@id": "https://www.visualstudioslens.com/#business" },
+  "areaServed": ["New York", "New Jersey", "Connecticut"],
+  "description": "End-to-end all-female photographer, videographer, and editor workflow for Muslim, hijabi, and gender-separated weddings in New York. Female crew available on all packages at no extra charge. Full modesty-aware coverage from getting-ready through reception.",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "url": "https://www.visualstudioslens.com/packages",
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Female Crew Service Options",
+    "itemListElement": [
+      { "@type": "Offer", "name": "Female Photographer — All Packages" },
+      { "@type": "Offer", "name": "Female Videographer — All Packages" },
+      { "@type": "Offer", "name": "Female Editor — Full Post-Production Workflow" },
+      { "@type": "Offer", "name": "Ladies-Only Mehndi Coverage" },
+      { "@type": "Offer", "name": "Gender-Separated Ceremony Coverage" },
+    ],
   },
 };
 
@@ -117,11 +145,19 @@ export default function MuslimFriendlyServicesPage() {
     <div className="flex flex-col min-h-screen pb-20">
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(femaleCrewServiceSchema) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Muslim-Friendly Services", path: "/muslim-friendly-services" }])) }}
       />
 
       <HeroSection
