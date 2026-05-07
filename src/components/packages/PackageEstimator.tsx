@@ -242,6 +242,12 @@ function EstimatePanel({
 }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+      {/* 10% off new client badge */}
+      <div className="flex items-center gap-2 mb-4 px-3 py-2 rounded-xl bg-brand-500/10 border border-brand-500/20">
+        <span className="text-brand-600 dark:text-brand-400 font-extrabold text-sm">10% OFF</span>
+        <span className="text-foreground/60 text-xs">new client discount — mention when you book</span>
+      </div>
+
       <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground mb-3">
         Your Estimate
       </p>
@@ -300,6 +306,11 @@ export function PackageEstimator() {
   const [printCount, setPrintCount] = useState(0);
 
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = showModal ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [showModal]);
   const [mName, setMName] = useState("");
   const [mEmail, setMEmail] = useState("");
   const [mPhone, setMPhone] = useState("");
@@ -667,7 +678,7 @@ export function PackageEstimator() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 overflow-hidden"
           >
             <motion.div
               initial={{ opacity: 0 }}
@@ -682,10 +693,15 @@ export function PackageEstimator() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="relative bg-background rounded-2xl border border-border p-6 md:p-8 w-full max-w-md max-h-[90vh] overflow-y-auto z-10 shadow-2xl"
+              className="relative bg-background rounded-2xl border border-border p-6 md:p-8 w-full max-w-md max-h-[90vh] overflow-y-auto overscroll-contain z-10 shadow-2xl"
             >
               {!submitted ? (
                 <>
+                  <div className="flex items-center gap-2 mb-5 px-3 py-2 rounded-xl bg-brand-500/10 border border-brand-500/20">
+                    <span className="text-brand-600 dark:text-brand-400 font-extrabold text-sm">10% OFF</span>
+                    <span className="text-foreground/60 text-xs">new client discount — mention when you book</span>
+                  </div>
+
                   <div className="flex items-start justify-between mb-6">
                     <div>
                       <h3 className="text-xl font-bold uppercase tracking-tight">
@@ -800,27 +816,73 @@ export function PackageEstimator() {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4 }}
-                  className="flex flex-col items-center text-center py-6"
+                  className="flex flex-col py-2"
                 >
-                  <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center mb-6">
-                    <CheckCircle2 size={20} className="text-green-500" />
+                  {/* 10% off badge */}
+                  <div className="flex items-center gap-2 mb-5 px-3 py-2 rounded-xl bg-brand-500/10 border border-brand-500/20">
+                    <span className="text-brand-600 dark:text-brand-400 font-extrabold text-sm">10% OFF</span>
+                    <span className="text-foreground/60 text-xs">new client discount — mention when you book</span>
                   </div>
 
-                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-2">
-                    Your Estimate
-                  </p>
-                  <motion.p
-                    initial={{ opacity: 0, filter: "blur(12px)", scale: 0.95 }}
-                    animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                    className="text-5xl font-extrabold tracking-tight text-foreground mb-4"
-                  >
-                    {formatEstimate(estimate)}
-                  </motion.p>
+                  {/* Price reveal */}
+                  <div className="flex flex-col items-center text-center mb-6">
+                    <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
+                      <CheckCircle2 size={20} className="text-green-500" />
+                    </div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground mb-2">
+                      Your Estimate
+                    </p>
+                    <motion.p
+                      initial={{ opacity: 0, filter: "blur(12px)", scale: 0.95 }}
+                      animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+                      transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                      className="text-5xl font-extrabold tracking-tight text-foreground mb-2"
+                    >
+                      {formatEstimate(estimate)}
+                    </motion.p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Final pricing is confirmed during your free consultation.
+                    </p>
+                  </div>
 
-                  <p className="text-sm text-muted-foreground max-w-xs leading-relaxed mb-6">
-                    Final pricing is confirmed during your free consultation.
-                  </p>
+                  {/* What you selected */}
+                  <div className="mb-4">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground mb-2">
+                      What You Selected
+                    </p>
+                    <ul className="space-y-1.5">
+                      {selectionSummary
+                        .filter((item) => !item.endsWith("(included)"))
+                        .map((item, i) => (
+                          <li key={i} className="flex items-center gap-2 text-sm text-foreground/80">
+                            <span className="w-1.5 h-1.5 rounded-full bg-brand-500 shrink-0" />
+                            {item}
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
+
+                  {/* Already included */}
+                  <div className="mb-6 rounded-xl bg-muted/30 border border-border/60 p-3">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground mb-2">
+                      Already Included
+                    </p>
+                    <ul className="space-y-1">
+                      {[
+                        "Online gallery",
+                        "Pro cameras, lenses, lighting & audio",
+                        "Artistic direction & posing",
+                        "Web + full-res digital delivery",
+                        "Personal use license",
+                        "Planning consults (phone, email, WhatsApp)",
+                      ].map((item) => (
+                        <li key={item} className="flex items-center gap-2 text-xs text-foreground/70">
+                          <CheckCircle2 size={11} className="text-brand-500 shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
                   <div className="flex flex-col sm:flex-row gap-3 w-full">
                     <button

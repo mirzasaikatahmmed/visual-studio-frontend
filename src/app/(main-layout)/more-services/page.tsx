@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { MoreServicesGrid } from "@/components/more-services/services-grid";
+import { breadcrumbSchema } from "@/lib/breadcrumb";
 
 export const metadata: Metadata = {
   title: { absolute: "Wedding Services: Photography, Makeup, Catering & More | Visual Studios & Events" },
@@ -37,6 +38,10 @@ export const metadata: Metadata = {
 export default function MoreServicesPage() {
   return (
     <div className="flex flex-col min-h-screen pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "More Services", path: "/more-services" }])) }}
+      />
       <HeroSection
         subtitle="Additional Options"
         title={<>More <span className="text-brand-500 font-great-vibes normal-case font-normal tracking-normal text-[1.2em] md:text-[1.4em] ml-1">Services</span></>}

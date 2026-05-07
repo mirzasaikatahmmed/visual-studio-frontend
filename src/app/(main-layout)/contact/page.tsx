@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { HeroSection } from "@/components/hero-section";
 import { ContactContent } from "@/components/contact/contact-content";
+import { breadcrumbSchema } from "@/lib/breadcrumb";
+import { ReviewStrip } from "@/components/reviews/review-strip";
 
 export const metadata: Metadata = {
   title: { absolute: "Book Your Wedding Photographer NY | Visual Studios & Events" },
@@ -34,7 +36,11 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen">
-      <HeroSection 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Contact", path: "/contact" }])) }}
+      />
+      <HeroSection
         subtitle="Book A Session"
         title={<>Get In <span className="text-brand-500 font-great-vibes normal-case font-normal tracking-normal text-[1.2em] md:text-[1.4em] ml-1">Touch</span></>}
         desc="Whether you're ready to book a session, need a custom quote, or just have a few questions, our team is here to help."
@@ -44,6 +50,8 @@ export default function ContactPage() {
       <Suspense fallback={<div className="py-24" />}>
         <ContactContent />
       </Suspense>
+
+      <ReviewStrip />
     </div>
   );
 }

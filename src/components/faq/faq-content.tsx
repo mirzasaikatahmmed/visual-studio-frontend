@@ -112,7 +112,7 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "c1",
         question: "When do I get sneak peeks for social media?",
         answer:
-          "We deliver 15–25 sneak peek photos within 78 hours of your wedding so you can post while the buzz is fresh. Same-day edit highlight videos are available as an add-on.",
+          "We deliver 15–25 sneak peek photos within 72 hours of your wedding so you can post while the buzz is fresh. Same-day edit highlight videos are available as an add-on.",
       },
       {
         id: "c2",

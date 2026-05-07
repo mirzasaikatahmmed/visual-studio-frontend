@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Mail, Phone, ArrowUpRight } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { subscribe } from "@/lib/newsletterApi";
@@ -122,6 +123,11 @@ export function Footer() {
                  <li>
                    <a href="tel:+13473066637" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
                      <Phone size={18} className="group-hover:text-brand-400 transition-colors" /> +1 (347) 306-6637
+                   </a>
+                 </li>
+                 <li>
+                   <a href="https://wa.me/13473066637" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
+                     <FaWhatsapp size={18} className="text-[#25D366] group-hover:text-[#25D366]/80 transition-colors" /> WhatsApp Us
                    </a>
                  </li>
                  <li>

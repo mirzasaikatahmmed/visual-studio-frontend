@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { breadcrumbSchema } from "@/lib/breadcrumb";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions",
@@ -13,7 +14,11 @@ export const metadata: Metadata = {
 export default function TermsOfServicePage() {
   return (
     <div className="min-h-screen bg-background pt-32 pb-24 selection:bg-brand-500/30 font-sans">
-      
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Terms of Service", path: "/terms-of-service" }])) }}
+      />
+
       {/* ══ PAGE HERO ══ */}
       <div className="text-center px-6">
         <h1 className="font-serif text-[clamp(46px,5.5vw,68px)] font-normal text-foreground tracking-[-0.015em] leading-[1.12]">Terms & Privacy</h1>

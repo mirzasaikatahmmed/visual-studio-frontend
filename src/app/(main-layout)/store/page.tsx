@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { StoreCategoryGrid } from "@/components/store/store-grid";
 import { fetchCategories, fetchSettings } from "@/lib/storeApi";
+import { breadcrumbSchema } from "@/lib/breadcrumb";
 
 export const metadata: Metadata = {
   title: { absolute: "Wedding Photo Albums & Prints | Visual Studios & Events" },
@@ -41,6 +42,10 @@ export default async function StorePage() {
 
   return (
     <div className="bg-background min-h-screen pb-24 selection:bg-brand-500/30">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Store", path: "/store" }])) }}
+      />
       <HeroSection
         subtitle="The Print Shop"
         title={

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ExternalLink, X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
+import { ExternalLink, X, ChevronLeft, ChevronRight, Maximize2, Play } from "lucide-react";
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Yellowtail } from "next/font/google";
@@ -13,6 +13,44 @@ const yellowtail = Yellowtail({
   weight: "400",
   subsets: ["latin"],
 });
+
+const REACTIONS = [
+  {
+    name: "Sadia & Rashed",
+    event: "Bengali Wedding · Brooklyn, NY",
+    quote: "I watched this three times in a row and cried every single time.",
+    thumb: "https://images.unsplash.com/photo-1606800052052-a08af7148866?q=80&w=400&auto=format&fit=crop",
+  },
+  {
+    name: "Ayesha & Tariq",
+    event: "Pakistani Wedding · Queens, NY",
+    quote: "My parents called it the best gift we ever gave them.",
+    thumb: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=400&auto=format&fit=crop",
+  },
+  {
+    name: "Fatima & Omar",
+    event: "Nikkah & Walima · Manhattan, NY",
+    quote: "We still watch this every year on our anniversary.",
+    thumb: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=400&auto=format&fit=crop",
+  },
+  {
+    name: "Priya & Arjun",
+    event: "Indian Wedding · New Jersey",
+    quote: "The moment they pressed play — I couldn't stop smiling.",
+    thumb: "https://images.unsplash.com/photo-1591604466107-ec97de577aff?q=80&w=400&auto=format&fit=crop",
+  },
+];
+
+const FALLBACK_CATEGORIES: PortfolioCategory[] = [
+  { id: 1, name: "Bengali Wedding",   slug: "bengali-wedding",   sortOrder: 1, count: 0, createdAt: "", updatedAt: "" },
+  { id: 2, name: "Pakistani Wedding", slug: "pakistani-wedding", sortOrder: 2, count: 0, createdAt: "", updatedAt: "" },
+  { id: 3, name: "Indian Wedding",    slug: "indian-wedding",    sortOrder: 3, count: 0, createdAt: "", updatedAt: "" },
+  { id: 4, name: "Sikh Wedding",      slug: "sikh-wedding",      sortOrder: 4, count: 0, createdAt: "", updatedAt: "" },
+  { id: 5, name: "Nikkah & Walima",   slug: "nikkah-walima",     sortOrder: 5, count: 0, createdAt: "", updatedAt: "" },
+  { id: 6, name: "Mehndi & Holud",    slug: "mehndi-holud",      sortOrder: 6, count: 0, createdAt: "", updatedAt: "" },
+  { id: 7, name: "Baraat",            slug: "baraat",            sortOrder: 7, count: 0, createdAt: "", updatedAt: "" },
+  { id: 8, name: "Events",            slug: "events",            sortOrder: 8, count: 0, createdAt: "", updatedAt: "" },
+];
 
 export default function PortfolioPage() {
   const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
@@ -27,9 +65,10 @@ export default function PortfolioPage() {
         const clientLogoCatId = cats.find(c => c.slug === "client-logos")?.id;
         const filteredCats = cats.filter(c => c.slug !== "client-logos");
         const filteredImgs = imgs.filter(i => i.categoryId !== clientLogoCatId);
-        setCategories(filteredCats);
+        const resolvedCats = filteredCats.length > 0 ? filteredCats : FALLBACK_CATEGORIES;
+        setCategories(resolvedCats);
         setPortfolios(filteredImgs);
-        if (filteredCats.length > 0) setActiveCategory(filteredCats[0].name);
+        if (resolvedCats.length > 0) setActiveCategory(resolvedCats[0].name);
       })
       .catch(console.error)
       .finally(() => setLoading(false));
@@ -157,10 +196,12 @@ export default function PortfolioPage() {
             transition={{ delay: 0.1 }}
             className="flex flex-col items-center justify-center text-center mb-8"
           >
-            <span className="text-base md:text-2xl font-semibold tracking-[0.3em] uppercase text-foreground/80 mb-[-0.6rem] z-10">
+            <h1 className="sr-only">Visual Studios Portfolio — South Asian &amp; Muslim Wedding Photography in Brooklyn, NY</h1>
+            <span aria-hidden="true" className="text-base md:text-2xl font-semibold tracking-[0.3em] uppercase text-foreground/80 mb-[-0.6rem] z-10">
               Our
             </span>
             <span
+              aria-hidden="true"
               className={`${yellowtail.className} text-6xl md:text-8xl text-foreground font-normal leading-none`}
             >
               Portfolio
@@ -294,6 +335,57 @@ export default function PortfolioPage() {
           </div>
         </motion.div>
 
+        {/* First Reactions */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="mt-16"
+        >
+          <div className="text-center mb-10">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-brand-500 mb-3 block">The Moment</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tighter mb-3">First Reactions</h2>
+            <p className="text-foreground/60 text-base max-w-md mx-auto leading-relaxed">
+              The moment families first see their wedding film. Every time, it&apos;s magic.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {REACTIONS.map((r) => (
+              <div
+                key={r.name}
+                className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-[#0f0f0f] border border-white/10 group cursor-pointer"
+              >
+                {/* Thumbnail */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={r.thumb}
+                  alt={`${r.name} first reaction — Visual Studios wedding film`}
+                  className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700"
+                />
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/20" />
+
+                {/* Play button */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-14 h-14 rounded-full bg-white/15 border border-white/30 flex items-center justify-center backdrop-blur-sm group-hover:bg-brand-500/40 group-hover:border-brand-500/50 group-hover:scale-110 transition-all duration-300">
+                    <Play size={20} className="text-white ml-0.5" fill="currentColor" />
+                  </div>
+                </div>
+
+                {/* Bottom text */}
+                <div className="absolute bottom-0 inset-x-0 p-4">
+                  <p className="text-white/70 text-[11px] leading-snug italic mb-2 line-clamp-2">
+                    &ldquo;{r.quote}&rdquo;
+                  </p>
+                  <p className="text-white font-bold text-xs tracking-wide">{r.name}</p>
+                  <p className="text-brand-400 text-[10px] font-medium tracking-wide mt-0.5">{r.event}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
         {/* Behind the Scenes CTA */}
         <motion.div
           initial="hidden"
@@ -353,7 +445,7 @@ export default function PortfolioPage() {
                 className="relative overflow-hidden rounded-2xl aspect-square bg-muted"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt="" className="w-full h-full object-cover opacity-70" />
+                <img src={src} alt={`Visual Studios crew member behind the scenes — wedding photography team in Brooklyn NY (${i + 1})`} className="w-full h-full object-cover opacity-70" />
               </motion.div>
             ))}
           </div>

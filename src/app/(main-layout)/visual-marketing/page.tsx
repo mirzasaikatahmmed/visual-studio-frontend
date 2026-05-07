@@ -1,6 +1,35 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { MarketingContent } from "@/components/visual-marketing/marketing-content";
+import { breadcrumbSchema } from "@/lib/breadcrumb";
+
+const visualMarketingServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Visual Marketing & Commercial Photo and Video",
+  "name": "Visual Marketing — Brand Photo, Video & Website Build",
+  "provider": { "@id": "https://www.visualstudioslens.com/#business" },
+  "areaServed": ["New York", "New Jersey", "Connecticut"],
+  "description": "Commercial branding photo and video, product shoots, social content, corporate headshots, and custom website builds for New York businesses.",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "url": "https://www.visualstudioslens.com/visual-marketing",
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Visual Marketing Services",
+    "itemListElement": [
+      { "@type": "Offer", "name": "Brand Photo & Video Package" },
+      { "@type": "Offer", "name": "Product Photography" },
+      { "@type": "Offer", "name": "Social Media Content (Reels, TikTok)" },
+      { "@type": "Offer", "name": "Corporate Headshots & Team Photos" },
+      { "@type": "Offer", "name": "Custom Website Build (Next.js)" },
+      { "@type": "Offer", "name": "Google Business Setup & Branding" },
+    ],
+  },
+};
 
 export const metadata: Metadata = {
   title: { absolute: "Visual Marketing & Brand Photo and Video NY | Visual Studios & Events" },
@@ -31,9 +60,79 @@ export const metadata: Metadata = {
   },
 };
 
+const websiteBuildServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Custom Website Design and Development",
+  "name": "Custom Website Build — New York Businesses",
+  "provider": { "@id": "https://www.visualstudioslens.com/#business" },
+  "areaServed": ["New York", "New Jersey", "Connecticut"],
+  "description": "Custom Next.js website builds for New York small businesses, restaurants, service providers, and event companies. SEO-optimised, mobile-first, with structured data and schema markup. Delivered alongside brand photography and video assets.",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "url": "https://www.visualstudioslens.com/visual-marketing",
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Website Build Services",
+    "itemListElement": [
+      { "@type": "Offer", "name": "Single-Page Business Website (Next.js)" },
+      { "@type": "Offer", "name": "Multi-Page Brand Website with CMS" },
+      { "@type": "Offer", "name": "E-Commerce Website (Shopify / Next.js)" },
+      { "@type": "Offer", "name": "SEO Optimisation & Schema Markup" },
+      { "@type": "Offer", "name": "Website + Brand Photo & Video Bundle" },
+    ],
+  },
+};
+
+const businessSetupServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Google Business Profile Setup and Brand Identity",
+  "name": "Google Business Setup & Branding — New York",
+  "provider": { "@id": "https://www.visualstudioslens.com/#business" },
+  "areaServed": ["New York", "New Jersey", "Connecticut"],
+  "description": "Google Business Profile setup, optimisation, and brand identity packages for New York small businesses. Includes logo design, brand color guidelines, professional business photography, and review management setup.",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "url": "https://www.visualstudioslens.com/visual-marketing",
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Business Setup Services",
+    "itemListElement": [
+      { "@type": "Offer", "name": "Google Business Profile Setup & Optimisation" },
+      { "@type": "Offer", "name": "Logo Design & Brand Identity Kit" },
+      { "@type": "Offer", "name": "Professional Business Photography" },
+      { "@type": "Offer", "name": "Review Management Setup" },
+      { "@type": "Offer", "name": "Social Media Profile Branding" },
+    ],
+  },
+};
+
 export default function VisualMarketingPage() {
   return (
     <div className="dark bg-background text-foreground flex flex-col min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(visualMarketingServiceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteBuildServiceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSetupServiceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Visual Marketing", path: "/visual-marketing" }])) }}
+      />
       <HeroSection
         subtitle="Corporate Branding"
         title={<>Visual <span className="text-transparent bg-clip-text bg-gradient-to-br from-purple-500 via-pink-500 to-rose-400 ml-1 md:ml-3">Marketing</span></>}
@@ -86,6 +185,34 @@ export default function VisualMarketingPage() {
                 polished portraits for LinkedIn profiles, company pages, and press kits. Group sessions available
                 for full teams at your office or our Brooklyn studio.
               </p>
+            </div>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div>
+              <h3 className="text-xl font-bold mb-4">What&apos;s Included in Every Commercial Project</h3>
+              <ul className="space-y-2 text-foreground/70 text-sm leading-relaxed">
+                <li>✓ Pre-production planning and shot list</li>
+                <li>✓ Professional lighting and audio setup</li>
+                <li>✓ On-site art direction</li>
+                <li>✓ Post-production editing and color grading</li>
+                <li>✓ Web-optimized and full-resolution file delivery</li>
+                <li>✓ Commercial use license</li>
+                <li>✓ Revisions included</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold mb-4">Visual Marketing Services</h3>
+              <ul className="space-y-2 text-foreground/70 text-sm leading-relaxed">
+                <li>✓ Brand photo &amp; video packages</li>
+                <li>✓ Product photography — e-commerce, lifestyle, studio</li>
+                <li>✓ Short-form social content (Reels, TikTok, YouTube Shorts)</li>
+                <li>✓ Corporate headshots &amp; team photos</li>
+                <li>✓ Testimonial video production</li>
+                <li>✓ Custom website build (Next.js, SEO &amp; schema)</li>
+                <li>✓ Google Business setup &amp; branding</li>
+              </ul>
             </div>
           </div>
         </div>

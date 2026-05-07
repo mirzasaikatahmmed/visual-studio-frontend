@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { breadcrumbSchema } from "@/lib/breadcrumb";
 
 const serviceSchema = {
   "@context": "https://schema.org",
@@ -66,6 +67,10 @@ export default function PortfolioLayout({ children }: { children: React.ReactNod
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Portfolio", path: "/portfolio" }])) }}
       />
       {children}
     </>

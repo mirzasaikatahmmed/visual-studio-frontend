@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
 import { NoPhotoSecurityContent } from "@/components/no-photo-security/content";
+import { breadcrumbSchema } from "@/lib/breadcrumb";
 
 export const metadata: Metadata = {
   title: {
@@ -114,6 +115,10 @@ export default function NoPhotoSecurityPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "No-Photo Security", path: "/no-photo-security" }])) }}
       />
 
       <HeroSection

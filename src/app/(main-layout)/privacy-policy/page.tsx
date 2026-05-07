@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { breadcrumbSchema } from "@/lib/breadcrumb";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -13,7 +14,11 @@ export const metadata: Metadata = {
 export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen bg-background pt-32 pb-24 selection:bg-brand-500/30 font-sans">
-      
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Privacy Policy", path: "/privacy-policy" }])) }}
+      />
+
       {/* ══ PAGE HERO ══ */}
       <div className="text-center px-6">
         <h1 className="font-serif text-[clamp(46px,5.5vw,68px)] font-normal text-foreground tracking-[-0.015em] leading-[1.12]">Terms & Privacy</h1>
@@ -89,7 +94,6 @@ export default function PrivacyPolicyPage() {
             <p className="mb-4">In addition, when using certain services, you will be subject to any additional terms applicable to such services that may be posted on our website from time to time, including, without limitation:</p>
             <ul className="list-disc pl-[22px] mb-[18px] space-y-[7px]">
               <li>the Terms of Service — <Link href="/terms-of-service" className="text-foreground hover:underline">visualstudioslens.com/terms-of-service</Link></li>
-              <li>the Client Portal Agreement — <Link href="#" className="text-foreground hover:underline">visualstudioslens.com/client-portal</Link></li>
             </ul>
             <p className="mb-4">All such terms are hereby incorporated by reference into this Privacy Policy.</p>
           </div>
