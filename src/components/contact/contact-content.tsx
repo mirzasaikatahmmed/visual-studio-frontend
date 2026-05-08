@@ -7,12 +7,30 @@ import { Mail, Phone, MapPin, MessageCircle, CheckCircle2 } from "lucide-react";
 import { createInquiry } from "@/lib/inquiriesApi";
 
 const INQUIRY_TYPES = [
-  "Brand Photography",
-  "Event Decoration Setup",
+  "Wedding Photography",
+  "Wedding Cinematography / Videography",
+  "Photo + Video Bundle",
+  "Multi-Day Wedding Coverage",
+  "Mehndi / Holud Coverage",
+  "Nikkah Coverage",
+  "Walima Coverage",
+  "Baraat Coverage",
+  "Female Crew Request",
+  "No-Photo Security",
   "Portrait Session",
-  "Wedding Coverage",
+  "Brand Photography",
+  "Event Photography",
+  "Visual Marketing",
+  "Website Build",
+  "Event Decoration Setup",
   "Other / General",
 ];
+
+const TYPE_PARAM_MAP: Record<string, string> = {
+  "marketing-videos": "Visual Marketing",
+  "business-setup":   "Visual Marketing",
+  "website-build":    "Website Build",
+};
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -51,13 +69,16 @@ export function ContactContent() {
   const searchParams = useSearchParams();
   const estimateParam = searchParams.get("estimate");
   const weddingDateParam = searchParams.get("wedding_date");
+  const typeParam = searchParams.get("type");
   const fromEstimator = Boolean(estimateParam);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [inquiryType, setInquiryType] = useState(
-    fromEstimator ? "Wedding Coverage" : INQUIRY_TYPES[0]
+    fromEstimator
+      ? "Wedding Photography"
+      : (typeParam && TYPE_PARAM_MAP[typeParam]) || INQUIRY_TYPES[0]
   );
   const [eventDate, setEventDate] = useState(weddingDateParam ?? "");
   const [message, setMessage] = useState("");
