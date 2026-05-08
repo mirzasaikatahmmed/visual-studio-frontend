@@ -56,6 +56,30 @@ const FAQ_SECTIONS: FaqSection[] = [
         answer:
           "The retainer is non-refundable, but we'll honor it toward a rescheduled date within 12 months at no penalty. Full details are in the contract.",
       },
+      {
+        id: "a7",
+        question: "These packages don't really fit my needs — do you offer customizable packages?",
+        answer:
+          "Absolutely. Our listed packages are a starting point, not a ceiling. Whether you need fewer hours, specific event-only coverage, extra shooters, a custom photo and video bundle, or something else entirely, we'll build a package around your day and your budget. Send us your details and we'll put together a tailored quote.",
+      },
+      {
+        id: "a8",
+        question: "How do you prefer to receive payments?",
+        answer:
+          "We accept Zelle (preferred), bank transfer, cash, and major credit cards. Zelle and bank transfer are preferred as they carry no processing fees. Credit card payments may include a small processing fee.",
+      },
+      {
+        id: "a9",
+        question: "When are payments due? Can we pay after receiving the photos and videos?",
+        answer:
+          "A retainer of 30–50% is due at booking to secure your date. The remaining balance is due 2–4 weeks before your wedding day. We do not accept final payment after the event — all balances must be settled before we arrive. Payment plans between booking and the wedding date are available on request.",
+      },
+      {
+        id: "a10",
+        question: "How much of the deposit is refundable?",
+        answer:
+          "The retainer is non-refundable, as it covers holding your date and early planning work. If you need to reschedule, we apply the retainer in full toward a new date within 12 months at no penalty. In exceptional circumstances we handle things case by case — reach out and we'll do our best to work with you.",
+      },
     ],
   },
   {
@@ -138,6 +162,18 @@ const FAQ_SECTIONS: FaqSection[] = [
         answer:
           "Through a private, password-protected online gallery (Pixieset) where you can download high-resolution files, share with family, and order prints. USB and printed albums are available as add-ons.",
       },
+      {
+        id: "c6",
+        question: "Will you send us unedited photos, or are all photos edited before delivery?",
+        answer:
+          "Every photo you receive is fully edited — color-graded, exposure-corrected, and curated for quality. We do not deliver raw or unedited files as part of our standard service. Key portraits include detailed retouching, and additional retouching is available on request.",
+      },
+      {
+        id: "c7",
+        question: "Can you make wedding films longer than 45 minutes?",
+        answer:
+          "Yes. The film lengths shown in our packages are guidelines, not hard limits. For multi-day weddings, large celebrations, or couples who want a longer documentary-style film, we can produce extended cuts. Longer edits may be available as an add-on depending on coverage hours and total footage — just let us know what you have in mind during your consultation.",
+      },
     ],
   },
   {
@@ -178,6 +214,18 @@ const FAQ_SECTIONS: FaqSection[] = [
         question: "Where are you based and what areas do you serve?",
         answer:
           "We're based in Brooklyn and Queens, NY, and serve the entire tri-state area — all five NY boroughs, Long Island, Westchester, New Jersey, and Connecticut. We also travel for destination weddings worldwide.",
+      },
+      {
+        id: "d7",
+        question: "Do you offer photo albums?",
+        answer:
+          "Yes. We offer professionally printed wedding albums as an add-on. Albums are custom-designed, printed on premium archival paper, and available in a range of sizes and finishes — from lay-flat luxury albums to classic portrait books. Pricing is based on size and page count. Ask about album options when you book.",
+      },
+      {
+        id: "d8",
+        question: "Do you charge travel fees?",
+        answer:
+          "There are no travel fees for weddings within the tri-state area (New York, New Jersey, Connecticut). For venues outside this area or destination weddings, travel and accommodation are billed at cost with no markup. We'll include a full travel breakdown in your quote so there are no surprises.",
       },
     ],
   },

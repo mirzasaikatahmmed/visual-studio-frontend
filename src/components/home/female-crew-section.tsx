@@ -36,12 +36,10 @@ export function FemaleCrewSection() {
 
           {/* CTA */}
           <Link
-            href="https://calendly.com/lens-xstudioslab/book-a-photography-session"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/muslim-friendly-services"
             className="inline-block px-8 py-4 bg-background text-foreground font-bold uppercase tracking-widest text-xs hover:opacity-80 transition-opacity"
           >
-            Book a Consultation →
+            Explore Muslim-Friendly Services →
           </Link>
 
         </div>
