@@ -8,33 +8,63 @@ import Link from "next/link";
 const FAQS = [
   {
     id: 1,
-    question: "Do you offer female-only photography and videography teams?",
+    question: "How many photos will we receive?",
     answer:
-      "Yes. We provide all-female crews and female editors on request — for the bride's getting-ready, Mehndi, ladies-only events, and end-to-end editing of your photos and footage.",
+      "The number of edited photos depends on the package you select and the length of coverage. On average, you can expect 50–75 professionally edited images per hour of shooting. For full-day weddings, this typically translates to 400–800+ final edited photos. We focus on quality over quantity — every image we deliver is carefully selected and edited to tell your story beautifully.",
   },
   {
     id: 2,
-    question: "Our wedding spans 3 days (Mehndi, Baraat, Walima). Do you offer multi-day packages?",
+    question: "These packages don't really fit my needs. Do you have any customizable packages?",
     answer:
-      "Absolutely. We specialize in multi-day South Asian weddings and offer custom packages to cover all your events seamlessly.",
+      "Absolutely. Every event is different, and we understand that our standard packages won't fit every vision or budget. We're happy to build a custom package tailored to your specific needs — whether that's adjusting coverage hours, adding a second shooter, including drone footage, or combining services in a unique way. Just reach out through our contact form and let us know what you're looking for, and we'll put together a personalized quote for you.",
   },
   {
     id: 3,
-    question: "How soon will we receive our photos and videos?",
+    question: "Will you send us unedited photos? Or are all photos sent edited?",
     answer:
-      "Sneak peeks within 72 hours. Full edited photo gallery in 3–4 weeks. Cinematic wedding film in 1–2 months.",
+      "All photos delivered to you are professionally edited — color-corrected, retouched, and polished to match our signature style. We don't release unedited or RAW files, as they don't represent the finished quality of our work. This ensures every image you receive is gallery-ready and consistent with the portfolio you booked us for.",
   },
   {
     id: 4,
-    question: "Do you know our specific cultural traditions?",
+    question: "What is the average wait time to receive photos back?",
     answer:
-      "Yes. With 1,000+ weddings shot, our team is fluent in Bengali, Pakistani, Indian, Sikh, Afghan, and Arab traditions — Nikkah, Mehndi, Holud, Sangeet, Baraat, Vidaai, Walima, and Anand Karaj.",
+      "Our standard turnaround time is 4–6 weeks for edited photos and 6–8 weeks for edited videos and films. For weddings and larger events, delivery may take up to 8–10 weeks during peak season. We also provide a sneak peek of select images within 1–2 weeks so you have something to share right away. Need it sooner? Rush delivery is available for an additional fee — just ask.",
   },
   {
     id: 5,
-    question: "What is the deposit, and do you offer venue insurance?",
+    question: "Are you able to create films longer than 45 minutes, as stated in your packages?",
     answer:
-      "We require a 30%–50% deposit to secure your date. Liability coverage is available on request — let us know your venue's COI requirements when you book.",
+      "Yes, we can. The 45-minute runtime in our standard packages reflects what most clients prefer for a polished, engaging film. However, if you'd like a longer cinematic feature, an extended documentary-style film, or full ceremony coverage, we offer this as a custom add-on. Pricing depends on the additional editing time required, and we're happy to discuss what works best for your event.",
+  },
+  {
+    id: 6,
+    question: "Do you offer photo albums?",
+    answer:
+      "Yes, we offer beautifully crafted, premium-quality photo albums and keepsake books, designed to preserve your memories for generations. Options range from classic linen-bound albums to luxury leather finishes, with various sizes and page counts available. Album design and printing are offered as add-ons to any package — please ask us for our album catalog and pricing.",
+  },
+  {
+    id: 7,
+    question: "How do you prefer payments?",
+    answer:
+      "We accept payments via Zelle, bank transfer, check, and major credit/debit cards. Zelle and bank transfers are our preferred methods, as they're the fastest and incur no processing fees. Credit card payments may include a small processing surcharge.",
+  },
+  {
+    id: 8,
+    question: "When are payments due? Can we send the payment after receiving the photos/videos?",
+    answer:
+      "To secure your booking, we require a non-refundable retainer of 30% at the time of contract signing. The remaining balance is due on or before the event date. We do not release final edited photos or videos until the full balance has been paid. This policy protects both you and us, and ensures your booking is fully reserved on our calendar.",
+  },
+  {
+    id: 9,
+    question: "How much of the deposit is refundable? With ongoing uncertainty around events, things can change quickly.",
+    answer:
+      "We completely understand that life can be unpredictable. The booking retainer (30%) is non-refundable, as it secures your date and prevents us from accepting other bookings for that time. However, in the event of a postponement — whether due to illness, emergencies, or unforeseen circumstances — we will gladly transfer your retainer to a new date within 12 months, subject to availability. We always aim to work with our clients with compassion and flexibility, so please reach out to us directly if your situation changes.",
+  },
+  {
+    id: 10,
+    question: "Do you charge traveling fees?",
+    answer:
+      "Travel within the NYC metro area (Manhattan, Brooklyn, Queens, Bronx, Staten Island) is included in all our packages at no additional cost. For events in Long Island, Westchester, New Jersey, and Connecticut, a small travel fee may apply depending on distance. For destination weddings or out-of-state events, we offer custom travel packages that include flights, accommodations, and transportation. Just let us know your event location and we'll provide a transparent quote.",
   },
 ];
 

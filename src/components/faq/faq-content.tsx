@@ -60,25 +60,25 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "a7",
         question: "These packages don't really fit my needs — do you offer customizable packages?",
         answer:
-          "Absolutely. Our listed packages are a starting point, not a ceiling. Whether you need fewer hours, specific event-only coverage, extra shooters, a custom photo and video bundle, or something else entirely, we'll build a package around your day and your budget. Send us your details and we'll put together a tailored quote.",
+          "Absolutely. Every event is different, and we understand that our standard packages won't fit every vision or budget. We're happy to build a custom package tailored to your specific needs — whether that's adjusting coverage hours, adding a second shooter, including drone footage, or combining services in a unique way. Just reach out through our contact form and let us know what you're looking for, and we'll put together a personalized quote for you.",
       },
       {
         id: "a8",
         question: "How do you prefer to receive payments?",
         answer:
-          "We accept Zelle (preferred), bank transfer, cash, and major credit cards. Zelle and bank transfer are preferred as they carry no processing fees. Credit card payments may include a small processing fee.",
+          "We accept payments via Zelle, bank transfer, check, and major credit/debit cards. Zelle and bank transfers are our preferred methods, as they're the fastest and incur no processing fees. Credit card payments may include a small processing surcharge.",
       },
       {
         id: "a9",
         question: "When are payments due? Can we pay after receiving the photos and videos?",
         answer:
-          "A retainer of 30–50% is due at booking to secure your date. The remaining balance is due 2–4 weeks before your wedding day. We do not accept final payment after the event — all balances must be settled before we arrive. Payment plans between booking and the wedding date are available on request.",
+          "To secure your booking, we require a non-refundable retainer of 30% at the time of contract signing. The remaining balance is due on or before the event date. We do not release final edited photos or videos until the full balance has been paid. This policy protects both you and us, and ensures your booking is fully reserved on our calendar.",
       },
       {
         id: "a10",
         question: "How much of the deposit is refundable?",
         answer:
-          "The retainer is non-refundable, as it covers holding your date and early planning work. If you need to reschedule, we apply the retainer in full toward a new date within 12 months at no penalty. In exceptional circumstances we handle things case by case — reach out and we'll do our best to work with you.",
+          "We completely understand that life can be unpredictable. The booking retainer (30%) is non-refundable, as it secures your date and prevents us from accepting other bookings for that time. However, in the event of a postponement — whether due to illness, emergencies, or unforeseen circumstances — we will gladly transfer your retainer to a new date within 12 months, subject to availability. We always aim to work with our clients with compassion and flexibility, so please reach out to us directly if your situation changes.",
       },
     ],
   },
@@ -142,13 +142,13 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "c2",
         question: "What's the full turnaround time for the gallery and wedding film?",
         answer:
-          "Full edited photo galleries are delivered in 3–4 weeks. Cinematic wedding films are delivered in 1–2 months. Rush delivery is available as an add-on.",
+          "Our standard turnaround time is 4–6 weeks for edited photos and 6–8 weeks for edited videos and films. For weddings and larger events, delivery may take up to 8–10 weeks during peak season. We also provide a sneak peek of select images within 1–2 weeks so you have something to share right away. Need it sooner? Rush delivery is available for an additional fee — just ask.",
       },
       {
         id: "c3",
         question: "How many edited photos will I receive?",
         answer:
-          "It depends on coverage hours, but a typical full-day wedding gallery includes 600–1,000+ professionally edited photos.",
+          "The number of edited photos depends on the package you select and the length of coverage. On average, you can expect 50–75 professionally edited images per hour of shooting. For full-day weddings, this typically translates to 400–800+ final edited photos. We focus on quality over quantity — every image we deliver is carefully selected and edited to tell your story beautifully.",
       },
       {
         id: "c4",
@@ -166,13 +166,13 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "c6",
         question: "Will you send us unedited photos, or are all photos edited before delivery?",
         answer:
-          "Every photo you receive is fully edited — color-graded, exposure-corrected, and curated for quality. We do not deliver raw or unedited files as part of our standard service. Key portraits include detailed retouching, and additional retouching is available on request.",
+          "All photos delivered to you are professionally edited — color-corrected, retouched, and polished to match our signature style. We don't release unedited or RAW files, as they don't represent the finished quality of our work. This ensures every image you receive is gallery-ready and consistent with the portfolio you booked us for.",
       },
       {
         id: "c7",
         question: "Can you make wedding films longer than 45 minutes?",
         answer:
-          "Yes. The film lengths shown in our packages are guidelines, not hard limits. For multi-day weddings, large celebrations, or couples who want a longer documentary-style film, we can produce extended cuts. Longer edits may be available as an add-on depending on coverage hours and total footage — just let us know what you have in mind during your consultation.",
+          "Yes, we can. The 45-minute runtime in our standard packages reflects what most clients prefer for a polished, engaging film. However, if you'd like a longer cinematic feature, an extended documentary-style film, or full ceremony coverage, we offer this as a custom add-on. Pricing depends on the additional editing time required, and we're happy to discuss what works best for your event.",
       },
     ],
   },
@@ -219,13 +219,13 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "d7",
         question: "Do you offer photo albums?",
         answer:
-          "Yes. We offer professionally printed wedding albums as an add-on. Albums are custom-designed, printed on premium archival paper, and available in a range of sizes and finishes — from lay-flat luxury albums to classic portrait books. Pricing is based on size and page count. Ask about album options when you book.",
+          "Yes, we offer beautifully crafted, premium-quality photo albums and keepsake books, designed to preserve your memories for generations. Options range from classic linen-bound albums to luxury leather finishes, with various sizes and page counts available. Album design and printing are offered as add-ons to any package — please ask us for our album catalog and pricing.",
       },
       {
         id: "d8",
         question: "Do you charge travel fees?",
         answer:
-          "There are no travel fees for weddings within the tri-state area (New York, New Jersey, Connecticut). For venues outside this area or destination weddings, travel and accommodation are billed at cost with no markup. We'll include a full travel breakdown in your quote so there are no surprises.",
+          "Travel within the NYC metro area (Manhattan, Brooklyn, Queens, Bronx, Staten Island) is included in all our packages at no additional cost. For events in Long Island, Westchester, New Jersey, and Connecticut, a small travel fee may apply depending on distance. For destination weddings or out-of-state events, we offer custom travel packages that include flights, accommodations, and transportation. Just let us know your event location and we'll provide a transparent quote.",
       },
     ],
   },
