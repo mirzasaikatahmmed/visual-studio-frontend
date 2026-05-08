@@ -1,13 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { ArrowUpRight, Instagram } from "lucide-react";
-
-interface InstagramPost {
-  id: string;
-  imageUrl: string;
-  permalink: string;
-}
 
 const FALLBACK_IMAGES = [
   "https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=400",
@@ -19,28 +12,10 @@ const FALLBACK_IMAGES = [
 ];
 
 export function InstagramFeed() {
-  const [posts, setPosts] = useState<InstagramPost[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("/api/instagram")
-      .then((r) => r.json())
-      .then((data) => {
-        setPosts(data.posts ?? []);
-      })
-      .catch(() => {
-        setPosts([]);
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
-  const images =
-    posts.length > 0
-      ? posts.map((p) => ({ src: p.imageUrl, href: p.permalink }))
-      : FALLBACK_IMAGES.map((src) => ({
-          src,
-          href: "https://www.instagram.com/visualstudioofficial/",
-        }));
+  const images = FALLBACK_IMAGES.map((src) => ({
+    src,
+    href: "https://www.instagram.com/visualstudioofficial/",
+  }));
 
   return (
     <div>
@@ -49,15 +24,8 @@ export function InstagramFeed() {
       </h3>
 
       <div className="grid grid-cols-3 gap-2 mt-8">
-        {loading
-          ? Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="aspect-square bg-white/10 animate-pulse"
-              />
-            ))
-          : images.map((img, i) => (
-              <a
+        {images.map((img, i) => (
+          <a
                 key={i}
                 href={img.href}
                 target="_blank"

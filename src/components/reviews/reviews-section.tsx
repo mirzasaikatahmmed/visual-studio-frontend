@@ -69,7 +69,6 @@ interface GoogleReview {
   rating: number;
 }
 
-type Tab = "stories" | "google" | "share";
 
 export const SOURCE_BADGES: Record<string, { label: string; color: string }> = {
   "Google Review": { label: "Google Review", color: "text-[#4285F4] bg-[#4285F4]/10 border-[#4285F4]/20" },
@@ -89,7 +88,6 @@ function InitialsAvatar({ name }: { name: string }) {
 
 // ── Main component ───────────────────────────────────────────────
 export function ReviewsSection() {
-  const [activeTab, setActiveTab] = useState<Tab>("stories");
   const [googleReviews, setGoogleReviews] = useState<GoogleReview[]>([]);
   const [googleRating, setGoogleRating] = useState(5);
   const [googleTotal, setGoogleTotal] = useState(0);
@@ -107,13 +105,30 @@ export function ReviewsSection() {
       .catch(() => {});
   }, []);
 
-  const duplicated = [...googleReviews, ...googleReviews, ...googleReviews];
-
-  const tabs: { id: Tab; label: string }[] = [
-    { id: "stories", label: "From Our Clients" },
-    { id: "google",  label: googleTotal > 0 ? `Google (${googleRating}★)` : "Google Reviews" },
-    { id: "share",   label: "Leave a Review" },
+  const combinedReviews = [
+    ...NAMED_TESTIMONIALS.map((t, i) => ({
+      id: `mock-${i}`,
+      name: t.name,
+      subtitle: t.event,
+      text: t.text,
+      rating: t.rating,
+      source: t.source,
+      isGoogle: false,
+      avatar: undefined,
+    })),
+    ...googleReviews.map((r, i) => ({
+      id: `google-${i}`,
+      name: r.name,
+      subtitle: r.time,
+      text: r.text,
+      rating: r.rating,
+      source: "Google Review",
+      isGoogle: true,
+      avatar: r.avatar,
+    }))
   ];
+
+  const duplicated = [...combinedReviews, ...combinedReviews, ...combinedReviews];
 
   return (
     <section className="py-24 bg-muted/20 border-y border-border overflow-hidden">
@@ -134,191 +149,126 @@ export function ReviewsSection() {
           <p className="text-foreground/60 text-lg">Real families. Real weddings. Real words.</p>
         </motion.div>
 
-        {/* Tabs */}
-        <div className="flex justify-center mb-10">
-          <div className="inline-flex rounded-full border border-border bg-muted/30 p-1 gap-1">
-            {tabs.map(t => (
-              <button
-                key={t.id}
-                onClick={() => setActiveTab(t.id)}
-                className={`px-5 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-all ${
-                  activeTab === t.id
-                    ? "bg-foreground text-background shadow"
-                    : "text-foreground/50 hover:text-foreground"
-                }`}
-              >
-                {t.label}
-              </button>
-            ))}
+        {googleTotal > 0 && (
+          <div className="text-center mb-8">
+            <p className="text-foreground/60 text-sm flex items-center justify-center gap-2">
+              <GoogleIcon className="w-4 h-4" />
+              {googleRating}.0 rating · {500}+ verified Google reviews
+            </p>
           </div>
-        </div>
+        )}
       </div>
 
-      {/* Tab content */}
-      <AnimatePresence mode="wait">
-
-        {/* ── Stream 2: Named client testimonials ── */}
-        {activeTab === "stories" && (
+      {/* ── Combined Marquee ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="w-full"
+      >
+        <div className="relative w-full overflow-hidden flex group">
+          <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-muted/20 to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-muted/20 to-transparent z-10 pointer-events-none" />
           <motion.div
-            key="stories"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="container mx-auto px-4 max-w-6xl"
+            className="flex w-max"
+            animate={{ x: ["0%", "-33.333333%"] }}
+            transition={{ ease: "linear", duration: 35, repeat: Infinity }}
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {NAMED_TESTIMONIALS.map((t, i) => {
-                const badge = SOURCE_BADGES[t.source] ?? SOURCE_BADGES["Direct"];
-                return (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.07, duration: 0.4 }}
-                    className="bg-background rounded-2xl border border-border p-6 flex flex-col gap-4 hover:shadow-md transition-shadow"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <InitialsAvatar name={t.name} />
-                        <div>
-                          <p className="font-semibold text-sm">{t.name}</p>
-                          <p className="text-xs text-foreground/50">{t.event}</p>
-                        </div>
+            {duplicated.map((r, i) => {
+              const badge = r.isGoogle 
+                ? SOURCE_BADGES["Google Review"] 
+                : (SOURCE_BADGES[r.source ?? "Direct"] ?? SOURCE_BADGES["Direct"]);
+
+              return (
+                <div
+                  key={`${r.id}-${i}`}
+                  className="w-[320px] md:w-[400px] shrink-0 p-6 bg-background rounded-2xl border border-border shadow-sm flex flex-col gap-4 mx-3 hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      {r.isGoogle && r.avatar ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img src={r.avatar} alt={r.name} width={40} height={40} className="w-10 h-10 rounded-full object-cover shrink-0" />
+                      ) : (
+                        <InitialsAvatar name={r.name} />
+                      )}
+                      <div>
+                        <p className="font-semibold text-sm">{r.name}</p>
+                        <p className="text-xs text-foreground/50">{r.subtitle}</p>
                       </div>
-                      <span className={`text-[10px] font-bold uppercase tracking-wider border px-2 py-0.5 rounded-full ${badge.color}`}>
+                    </div>
+                    {r.isGoogle ? (
+                      <GoogleIcon className="w-5 h-5 shrink-0" />
+                    ) : (
+                      <span className={`text-[10px] font-bold uppercase tracking-wider border px-2 py-0.5 rounded-full shrink-0 ${badge.color}`}>
                         {badge.label}
                       </span>
-                    </div>
-                    <div className="flex text-yellow-500 gap-0.5">
-                      {[...Array(t.rating)].map((_, j) => (
-                        <Star key={j} fill="currentColor" strokeWidth={0} size={13} />
-                      ))}
-                    </div>
-                    <p className="text-sm text-foreground/75 leading-relaxed flex-1">
-                      &ldquo;{t.text}&rdquo;
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-        )}
-
-        {/* ── Stream 1: Google Reviews marquee ── */}
-        {activeTab === "google" && (
-          <motion.div
-            key="google"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            {googleReviews.length > 0 ? (
-              <>
-                <div className="text-center mb-8">
-                  <p className="text-foreground/60 text-sm flex items-center justify-center gap-2">
-                    <GoogleIcon className="w-4 h-4" />
-                    {googleRating}.0 rating · {googleTotal}+ verified Google reviews
+                    )}
+                  </div>
+                  <div className="flex text-yellow-500 gap-0.5">
+                    {[...Array(r.rating)].map((_, j) => (
+                      <Star key={j} fill="currentColor" strokeWidth={0} size={13} />
+                    ))}
+                  </div>
+                  <p className="text-sm text-foreground/75 leading-relaxed flex-1 line-clamp-4">
+                    &ldquo;{r.text}&rdquo;
                   </p>
                 </div>
-                <div className="relative w-full overflow-hidden flex group">
-                  <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-muted/20 to-transparent z-10 pointer-events-none" />
-                  <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-muted/20 to-transparent z-10 pointer-events-none" />
-                  <motion.div
-                    className="flex w-max"
-                    animate={{ x: ["0%", "-33.333333%"] }}
-                    transition={{ ease: "linear", duration: 35, repeat: Infinity }}
-                  >
-                    {duplicated.map((r, i) => (
-                      <div key={i} className="w-[320px] md:w-[400px] shrink-0 p-6 bg-background rounded-2xl border border-border shadow-sm flex flex-col gap-4 mx-3 hover:shadow-md transition-shadow">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={r.avatar} alt={r.name} width={40} height={40} className="w-10 h-10 rounded-full object-cover" />
-                            <div>
-                              <p className="font-semibold text-sm">{r.name}</p>
-                              <p className="text-xs text-foreground/50">{r.time}</p>
-                            </div>
-                          </div>
-                          <GoogleIcon className="w-5 h-5" />
-                        </div>
-                        <div className="flex text-yellow-500 gap-0.5">
-                          {[...Array(r.rating)].map((_, j) => (
-                            <Star key={j} fill="currentColor" strokeWidth={0} size={14} />
-                          ))}
-                        </div>
-                        <p className="text-sm text-foreground/80 leading-relaxed line-clamp-4">
-                          &ldquo;{r.text}&rdquo;
-                        </p>
-                      </div>
-                    ))}
-                  </motion.div>
-                </div>
-              </>
-            ) : (
-              <div className="container mx-auto px-4 max-w-xl text-center py-12">
-                <GoogleIcon className="w-10 h-10 mx-auto mb-4" />
-                <p className="text-foreground/60 text-base">Google reviews loading…</p>
-                <p className="text-foreground/40 text-sm mt-2">Connect Google Business API to display live reviews here.</p>
-              </div>
-            )}
+              );
+            })}
           </motion.div>
-        )}
+        </div>
+      </motion.div>
 
-        {/* ── Stream 3: Leave a review CTA ── */}
-        {activeTab === "share" && (
-          <motion.div
-            key="share"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="container mx-auto px-4 max-w-2xl text-center py-4"
+      {/* ── Leave a review CTA (Now fixed below reviews) ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="container mx-auto px-4 max-w-2xl text-center pt-24 mt-12"
+      >
+        <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">
+          Your story matters to us.
+        </h3>
+        <p className="text-foreground/60 text-base mb-10 leading-relaxed">
+          If Visual Studios was part of your special day, we&apos;d be honoured if you shared your experience. It helps South Asian and Muslim families find us — and trust us.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="https://www.google.com/maps/place/Visual+Studios+%26+Events+%7C+Photography+%7C+Videography/@40.678613,-73.868806,17z/data=!3m1!4b1!4m6!3m5!1s0x89c25d96f51665f1:0x244b25616269adcb!8m2!3d40.678613!4d-73.868806!16s%2Fg%2F11t_prw046?entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-foreground text-background font-bold uppercase tracking-widest text-xs hover:opacity-80 transition-opacity rounded-xl"
           >
-            <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">
-              Your story matters to us.
-            </h3>
-            <p className="text-foreground/60 text-base mb-10 leading-relaxed">
-              If Visual Studios was part of your special day, we&apos;d be honoured if you shared your experience. It helps South Asian and Muslim families find us — and trust us.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="https://www.google.com/search?q=Visual+Studios+%26+Events+Brooklyn+NY+reviews"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-foreground text-background font-bold uppercase tracking-widest text-xs hover:opacity-80 transition-opacity rounded-xl"
-              >
-                <GoogleIcon className="w-4 h-4" />
-                Leave a Google Review
-                <ExternalLink size={14} />
-              </a>
-              <a
-                href="https://wa.me/13473066637?text=Hi%2C%20I%20wanted%20to%20share%20my%20feedback%20about%20Visual%20Studios%21"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 border border-border font-bold uppercase tracking-widest text-xs hover:bg-muted/30 transition-colors rounded-xl"
-              >
-                <MessageCircle size={14} />
-                Send via WhatsApp
-              </a>
-              <a
-                href="https://www.instagram.com/visualstudioofficial/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 border border-border font-bold uppercase tracking-widest text-xs hover:bg-muted/30 transition-colors rounded-xl"
-              >
-                <Instagram size={14} />
-                Tag us on Instagram
-              </a>
-            </div>
-            <p className="text-foreground/35 text-xs mt-8">
-              @visualstudioofficial · #VisualStudiosEvents · #VisualStudiosNY
-            </p>
-          </motion.div>
-        )}
-
-      </AnimatePresence>
+            <GoogleIcon className="w-4 h-4" />
+            Leave a Google Review
+            <ExternalLink size={14} />
+          </a>
+          <a
+            href="https://wa.me/13473066637?text=Hi%2C%20I%20wanted%20to%20share%20my%20feedback%20about%20Visual%20Studios%21"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2.5 px-7 py-4 border border-border font-bold uppercase tracking-widest text-xs hover:bg-muted/30 transition-colors rounded-xl"
+          >
+            <MessageCircle size={14} />
+            Send via WhatsApp
+          </a>
+          <a
+            href="https://www.instagram.com/visualstudioofficial/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2.5 px-7 py-4 border border-border font-bold uppercase tracking-widest text-xs hover:bg-muted/30 transition-colors rounded-xl"
+          >
+            <Instagram size={14} />
+            Tag us on Instagram
+          </a>
+        </div>
+        <p className="text-foreground/35 text-xs mt-8">
+          @visualstudioofficial · #VisualStudiosEvents · #VisualStudiosNY
+        </p>
+      </motion.div>
     </section>
   );
 }
