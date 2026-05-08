@@ -314,13 +314,13 @@ export function AboutContent() {
               <motion.div
                 key={t.label}
                 variants={itemVariants}
-                className="bg-background border border-border rounded-2xl p-6 hover:border-brand-500/40 transition-colors duration-300"
+                className="bg-background border border-border rounded-2xl p-8 hover:border-brand-500/40 transition-colors duration-300"
               >
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-500 mb-4">{t.label}</p>
-                <ul className="space-y-1.5">
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-brand-500 mb-5">{t.label}</p>
+                <ul className="space-y-3">
                   {t.items.map((item) => (
-                    <li key={item} className="text-sm text-foreground/60 flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-brand-500 shrink-0" />
+                    <li key={item} className="text-base text-foreground/75 flex items-center gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-500 shrink-0" />
                       {item}
                     </li>
                   ))}
