@@ -14,15 +14,12 @@ function InitialsAvatar({ name }: { name: string }) {
   );
 }
 
-const STRIP_PICKS = [0, 1, 3]; // Zainab (Pakistani), Fatima (Bengali), Nasheed (Nikkah)
-
 export function ReviewStrip() {
-  const reviews = STRIP_PICKS.map(i => NAMED_TESTIMONIALS[i]);
+  const duplicatedStories = [...NAMED_TESTIMONIALS, ...NAMED_TESTIMONIALS, ...NAMED_TESTIMONIALS];
 
   return (
-    <section className="py-16 bg-muted/20 border-t border-border">
+    <section className="py-16 bg-muted/20 border-t border-border overflow-hidden">
       <div className="container mx-auto px-4 max-w-5xl">
-
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <div>
             <div className="flex gap-0.5 text-yellow-500 mb-1">
@@ -38,18 +35,22 @@ export function ReviewStrip() {
             Read all reviews →
           </Link>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {reviews.map((t, i) => {
+      <div className="relative w-full overflow-hidden flex group mt-4">
+        <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-muted/20 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-muted/20 to-transparent z-10 pointer-events-none" />
+        <motion.div
+          className="flex w-max"
+          animate={{ x: ["0%", "-33.333333%"] }}
+          transition={{ ease: "linear", duration: 35, repeat: Infinity }}
+        >
+          {duplicatedStories.map((t, i) => {
             const badge = SOURCE_BADGES[t.source] ?? SOURCE_BADGES["Direct"];
             return (
-              <motion.div
-                key={t.name}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ delay: i * 0.08, duration: 0.4 }}
-                className="bg-background rounded-2xl border border-border p-5 flex flex-col gap-3"
+              <div
+                key={i}
+                className="w-[280px] md:w-[350px] shrink-0 p-5 bg-background rounded-2xl border border-border shadow-sm flex flex-col gap-3 mx-3 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
@@ -59,7 +60,7 @@ export function ReviewStrip() {
                       <p className="text-[11px] text-foreground/50 mt-0.5">{t.event}</p>
                     </div>
                   </div>
-                  <span className={`text-[9px] font-bold uppercase tracking-wider border px-1.5 py-0.5 rounded-full ${badge.color}`}>
+                  <span className={`text-[9px] font-bold uppercase tracking-wider border px-1.5 py-0.5 rounded-full ${badge.color} shrink-0`}>
                     {badge.label}
                   </span>
                 </div>
@@ -73,11 +74,10 @@ export function ReviewStrip() {
                 <p className="text-sm text-foreground/70 leading-relaxed line-clamp-3">
                   &ldquo;{t.text}&rdquo;
                 </p>
-              </motion.div>
+              </div>
             );
           })}
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );
