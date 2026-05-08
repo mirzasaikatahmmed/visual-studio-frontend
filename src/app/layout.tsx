@@ -95,7 +95,7 @@ export const metadata: Metadata = {
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
-  "@type": "PhotographyBusiness",
+  "@type": ["LocalBusiness", "ProfessionalService"],
   "@id": "https://www.visualstudioslens.com/#business",
   "name": "Visual Studios & Events",
   "legalName": "Visual Inked LLC",
