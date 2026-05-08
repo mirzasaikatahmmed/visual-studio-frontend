@@ -308,8 +308,17 @@ export function PackageEstimator() {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflow = showModal ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    }
+    return () => { 
+      document.body.style.overflow = ""; 
+      document.documentElement.style.overflow = "";
+    };
   }, [showModal]);
   const [mName, setMName] = useState("");
   const [mEmail, setMEmail] = useState("");
@@ -679,6 +688,7 @@ export function PackageEstimator() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 overflow-hidden"
+            data-lenis-prevent
           >
             <motion.div
               initial={{ opacity: 0 }}
@@ -693,8 +703,9 @@ export function PackageEstimator() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="relative bg-background rounded-2xl border border-border p-6 md:p-8 w-full max-w-md max-h-[90vh] overflow-y-auto overscroll-contain z-10 shadow-2xl"
+              className="relative bg-background rounded-2xl border border-border w-full max-w-md max-h-[90vh] z-10 shadow-2xl flex flex-col overflow-hidden"
             >
+              <div className="p-6 md:p-8 overflow-y-auto overscroll-contain h-full flex-1">
               {!submitted ? (
                 <>
                   <div className="flex items-center gap-2 mb-5 px-3 py-2 rounded-xl bg-brand-500/10 border border-brand-500/20">
@@ -925,6 +936,7 @@ export function PackageEstimator() {
                   </button>
                 </motion.div>
               )}
+              </div>
             </motion.div>
           </motion.div>
         )}
