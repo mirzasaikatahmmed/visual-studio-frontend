@@ -45,7 +45,7 @@ const packagesFaqSchema = {
       "name": "How long does it take to receive my wedding photos and videos?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Photos are typically delivered within 3–4 weeks. Cinematic wedding films take 6–8 weeks. We also offer a 72-Hour Sneak Peek of 10–15 edited photos delivered within 3 days of your wedding, and a Rush Delivery add-on for 48-hour turnaround."
+        "text": "Photos are typically delivered within 3–4 weeks. Cinematic wedding films take 6–8 weeks. We also offer a 72-Hour Sneak Peek of 10–15 edited photos delivered within 3 days of your wedding, and a Rush Delivery add-on for 72-hour turnaround."
       }
     },
     {
@@ -270,7 +270,7 @@ export default function PackagesPage() {
               },
               {
                 q: "How long does it take to receive my wedding photos and videos?",
-                a: "Photos are typically delivered within 3–4 weeks. Cinematic wedding films take 6–8 weeks. We also offer a 72-Hour Sneak Peek of 10–15 edited photos within 3 days of your wedding, and a Rush Delivery add-on for 48-hour turnaround.",
+                a: "Photos are typically delivered within 3–4 weeks. Cinematic wedding films take 6–8 weeks. We also offer a 72-Hour Sneak Peek of 10–15 edited photos within 3 days of your wedding, and a Rush Delivery add-on for 72-hour turnaround.",
               },
               {
                 q: "Do you cover Bengali, Pakistani, Indian, and Muslim wedding ceremonies?",

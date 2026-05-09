@@ -99,7 +99,7 @@ export function TestimonialsSection() {
           transition={{ ease: "linear", duration: 35, repeat: Infinity }}
         >
           {duplicatedReviews.map((review, i) => (
-            <div key={i} className="w-[320px] md:w-[400px] shrink-0 p-6 bg-background rounded-2xl border border-border shadow-sm flex flex-col gap-4 mx-3 hover:shadow-md transition-shadow">
+            <div key={i} aria-hidden={i >= reviews.length ? true : undefined} className="w-[320px] md:w-[400px] shrink-0 p-6 bg-background rounded-2xl border border-border shadow-sm flex flex-col gap-4 mx-3 hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <Image src={review.avatar} alt={review.name} width={40} height={40} className="w-10 h-10 rounded-full object-cover" />

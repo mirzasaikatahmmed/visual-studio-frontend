@@ -121,13 +121,13 @@ export function Footer() {
               <h4 className="font-bold uppercase tracking-widest text-sm mb-6 text-brand-400">Contact</h4>
               <ul className="space-y-4 text-foreground/70">
                  <li>
-                   <a href="tel:+13473066637" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
-                     <Phone size={18} className="group-hover:text-brand-400 transition-colors" /> +1 (347) 306-6637
+                   <a href="https://wa.me/13473066637" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
+                     <FaWhatsapp size={18} className="text-[#25D366] group-hover:text-[#25D366]/80 transition-colors" /> WhatsApp Us
                    </a>
                  </li>
                  <li>
-                   <a href="https://wa.me/13473066637" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
-                     <FaWhatsapp size={18} className="text-[#25D366] group-hover:text-[#25D366]/80 transition-colors" /> WhatsApp Us
+                   <a href="tel:+13473066637" className="flex items-center gap-3 hover:text-white transition-colors group cursor-pointer">
+                     <Phone size={18} className="group-hover:text-brand-400 transition-colors" /> +1 (347) 306-6637
                    </a>
                  </li>
                  <li>

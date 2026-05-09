@@ -7,8 +7,19 @@ export const metadata: Metadata = {
   description:
     "Read Visual Studios & Events' privacy policy to understand how we collect, use, and protect your personal information.",
   keywords: ["privacy policy", "Visual Studios & Events privacy", "data protection", "personal information"],
-  alternates: { canonical: "/privacy-policy" },
-  robots: { index: false, follow: false },
+  alternates: { canonical: "https://www.visualstudioslens.com/privacy-policy" },
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: "Privacy Policy | Visual Studios & Events",
+    description:
+      "Read Visual Studios & Events' privacy policy to understand how we collect, use, and protect your personal information.",
+    url: "https://www.visualstudioslens.com/privacy-policy",
+  },
+  twitter: {
+    title: "Privacy Policy | Visual Studios & Events",
+    description:
+      "Read Visual Studios & Events' privacy policy to understand how we collect, use, and protect your personal information.",
+  },
 };
 
 export default function PrivacyPolicyPage() {
@@ -54,7 +65,7 @@ export default function PrivacyPolicyPage() {
             <p>This Privacy Policy is effective as of April 26, 2026, for all clients and visitors. By continuing to use our website or services after this date, you agree to the updated Privacy Policy. We reserve the right to modify this policy at any time. If we make material changes, we will update the date at the top of this page.</p>
           </div>
 
-          <p className="mb-4">This Privacy Policy describes how Visual Studios & Events & Events (operating under <strong className="font-semibold text-foreground">Visual Ink LLC</strong>) handles personal information that we collect through our website at <Link href="https://www.visualstudioslens.com" className="text-foreground hover:underline">visualstudioslens.com</Link> and through our services. Our services are designed to help clients capture and preserve their most meaningful moments.</p>
+          <p className="mb-4">This Privacy Policy describes how Visual Studios & Events (operating under <strong className="font-semibold text-foreground">Visual Ink LLC</strong>) handles personal information that we collect through our website at <Link href="https://www.visualstudioslens.com" className="text-foreground hover:underline">visualstudioslens.com</Link> and through our services. Our services are designed to help clients capture and preserve their most meaningful moments.</p>
           <p className="mb-4">For purposes of applicable data protection laws, Visual Ink LLC is the controller of your personal information.</p>
 
           <hr className="border-t border-foreground/10 my-11" />

@@ -7,8 +7,19 @@ export const metadata: Metadata = {
   description:
     "Read the terms and conditions governing the use of Visual Studios & Events' photography, videography, and print services.",
   keywords: ["terms and conditions", "Visual Studios & Events terms", "service agreement", "photography terms"],
-  alternates: { canonical: "/terms-of-service" },
-  robots: { index: false, follow: false },
+  alternates: { canonical: "https://www.visualstudioslens.com/terms-of-service" },
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: "Terms & Conditions | Visual Studios & Events",
+    description:
+      "Read the terms and conditions governing the use of Visual Studios & Events' photography, videography, and print services.",
+    url: "https://www.visualstudioslens.com/terms-of-service",
+  },
+  twitter: {
+    title: "Terms & Conditions | Visual Studios & Events",
+    description:
+      "Read the terms and conditions governing the use of Visual Studios & Events' photography, videography, and print services.",
+  },
 };
 
 export default function TermsOfServicePage() {
@@ -51,14 +62,14 @@ export default function TermsOfServicePage() {
         <div className="text-[14.5px] md:text-[15px] leading-[1.75] text-foreground/80">
           <div className="mb-11">
             <h3 className="text-[14.5px] font-bold text-foreground mb-1.5">Notice of Terms of Service</h3>
-            <p>These Terms are effective immediately for new clients as of April 26, 2026, and apply to all services provided by Visual Studios & Events & Events. By booking, paying, or engaging our services in any way, you agree to be bound by these Terms in their entirety.</p>
+            <p>These Terms are effective immediately for new clients as of April 26, 2026, and apply to all services provided by Visual Studios & Events. By booking, paying, or engaging our services in any way, you agree to be bound by these Terms in their entirety.</p>
           </div>
 
           {/* 01 */}
           <div className="mb-11">
             <span className="inline-block text-[10.5px] font-bold tracking-[0.2em] uppercase text-[#b07d4a] mb-1">01</span>
             <h2 className="font-serif text-[26px] font-bold text-foreground leading-[1.25] mb-3.5 mt-0">Acceptance of Terms</h2>
-            <p className="mb-4">These Terms of Service (&quot;Terms&quot;) constitute a legally binding agreement between you (&quot;Client&quot;) and Visual Studios & Events & Events, a creative photography and videography studio operating under <strong className="font-semibold text-foreground">Visual Ink LLC</strong>, headquartered in New York, NY.</p>
+            <p className="mb-4">These Terms of Service (&quot;Terms&quot;) constitute a legally binding agreement between you (&quot;Client&quot;) and Visual Studios & Events, a creative photography and videography studio operating under <strong className="font-semibold text-foreground">Visual Ink LLC</strong>, headquartered in New York, NY.</p>
             <p className="mb-4">These Terms apply to all services rendered by Visual Studios & Events, including but not limited to wedding photography, event videography, portrait sessions, corporate media, visual marketing productions, and any related deliverables.</p>
             <p className="mb-4">By accessing our website at <Link href="https://www.visualstudioslens.com" className="text-foreground hover:underline">visualstudioslens.com</Link>, submitting a booking inquiry, signing a service contract, or making any payment to Visual Studios & Events, you confirm that you have read, understood, and agreed to be bound by these Terms in their entirety.</p>
             <p className="mb-4">We reserve the right to update these Terms at any time. Continued use of our website or services following any update constitutes your acceptance of the revised Terms. The most current version will always be available at <Link href="/terms-of-service" className="text-foreground hover:underline">visualstudioslens.com/terms</Link>.</p>
