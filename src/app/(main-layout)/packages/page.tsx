@@ -45,7 +45,7 @@ const packagesFaqSchema = {
       "name": "How long does it take to receive my wedding photos and videos?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Photos are typically delivered within 3–4 weeks. Cinematic wedding films take 6–8 weeks. We also offer a 72-Hour Sneak Peek of 10–15 edited photos delivered within 3 days of your wedding, and a Rush Delivery add-on for 48-hour turnaround."
+        "text": "Photos are typically delivered within 3–4 weeks. Cinematic wedding films take 6–8 weeks. We also offer a 72-Hour Sneak Peek of 10–15 edited photos delivered within 3 days of your wedding, and a Rush Delivery add-on for 72-hour turnaround."
       }
     },
     {
@@ -162,49 +162,6 @@ export default function PackagesPage() {
       {/* Static pricing block — crawlable without JS */}
       <section className="py-20 bg-muted/20 border-t border-border">
         <div className="container mx-auto px-4 max-w-5xl">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Wedding Photography &amp; Videography Pricing — New York
-          </h2>
-          <p className="text-foreground/70 text-lg leading-relaxed mb-10">
-            Visual Studios &amp; Events offers custom wedding photography and videography packages for events
-            across New York, New Jersey, and Connecticut. All prices shown are starting-from estimates;
-            final pricing is confirmed during your free consultation based on your event details.
-          </p>
-
-          <div className="overflow-x-auto mb-12">
-            <table className="w-full text-left border-collapse text-sm">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="py-3 pr-6 font-bold uppercase tracking-wider text-xs text-muted-foreground">Package Tier</th>
-                  <th className="py-3 pr-6 font-bold uppercase tracking-wider text-xs text-muted-foreground">Coverage</th>
-                  <th className="py-3 font-bold uppercase tracking-wider text-xs text-muted-foreground">Starting From</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                <tr>
-                  <td className="py-4 pr-6 font-semibold">Event Session</td>
-                  <td className="py-4 pr-6 text-foreground/70">Portrait, engagement, small events (4 hrs)</td>
-                  <td className="py-4 font-bold text-brand-500">$499</td>
-                </tr>
-                <tr>
-                  <td className="py-4 pr-6 font-semibold">1-Day Wedding</td>
-                  <td className="py-4 pr-6 text-foreground/70">Single-day full wedding coverage (8–12 hrs)</td>
-                  <td className="py-4 font-bold text-brand-500">$1,400</td>
-                </tr>
-                <tr>
-                  <td className="py-4 pr-6 font-semibold">Multi-Day Wedding</td>
-                  <td className="py-4 pr-6 text-foreground/70">Mehndi, Baraat, Walima — 2 to 3 days</td>
-                  <td className="py-4 font-bold text-brand-500">$3,500</td>
-                </tr>
-                <tr>
-                  <td className="py-4 pr-6 font-semibold">Cinematic Film Add-On</td>
-                  <td className="py-4 pr-6 text-foreground/70">Full cinematic wedding film, professionally scored</td>
-                  <td className="py-4 font-bold text-brand-500">$800</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div>
               <h3 className="text-xl font-bold mb-4">What&apos;s Included in Every Package</h3>
@@ -270,7 +227,7 @@ export default function PackagesPage() {
               },
               {
                 q: "How long does it take to receive my wedding photos and videos?",
-                a: "Photos are typically delivered within 3–4 weeks. Cinematic wedding films take 6–8 weeks. We also offer a 72-Hour Sneak Peek of 10–15 edited photos within 3 days of your wedding, and a Rush Delivery add-on for 48-hour turnaround.",
+                a: "Photos are typically delivered within 3–4 weeks. Cinematic wedding films take 6–8 weeks. We also offer a 72-Hour Sneak Peek of 10–15 edited photos within 3 days of your wedding, and a Rush Delivery add-on for 72-hour turnaround.",
               },
               {
                 q: "Do you cover Bengali, Pakistani, Indian, and Muslim wedding ceremonies?",

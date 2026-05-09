@@ -282,7 +282,7 @@ export const metadata: Metadata = {
     "wedding photography turnaround",
     "visualstudioslens FAQ",
   ],
-  alternates: { canonical: "/faq" },
+  alternates: { canonical: "https://www.visualstudioslens.com/faq" },
   openGraph: {
     title: "Photography FAQ — Pricing & Female Crew | Visual Studios & Events",
     description:

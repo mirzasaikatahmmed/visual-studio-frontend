@@ -385,7 +385,7 @@ export function AboutContent() {
             <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-400 mb-6">Our Team</p>
 
             <p className="text-2xl md:text-3xl font-light leading-relaxed text-background/90 mb-6">
-              A focused team of dedicated creatives united by a passion for visual storytelling.
+              Founded by a husband-and-wife team — built on trust, shared vision, and a deep commitment to our community.
             </p>
 
             <p className="text-lg md:text-xl font-light leading-relaxed text-background/70 mb-6 max-w-3xl">
