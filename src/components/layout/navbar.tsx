@@ -12,7 +12,7 @@ import { FaWhatsapp } from "react-icons/fa";
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Portfolio", href: "/portfolio" },
-  { name: "Gallery", href: "/video-gallery" },
+  { name: "Film", href: "/video-gallery" },
   { name: "Marketing", href: "/visual-marketing" },
   { name: "More Services", href: "/more-services" },
   { name: "Store", href: "/store" },
