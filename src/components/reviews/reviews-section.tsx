@@ -169,7 +169,7 @@ export function ReviewsSection() {
           <div className="text-center mb-8">
             <p className="text-foreground/60 text-sm flex items-center justify-center gap-2">
               <GoogleIcon className="w-4 h-4" />
-              {googleRating}.0 rating · {500}+ verified Google reviews
+              {googleRating}.0 rating · 1000+ verified reviews across platforms
             </p>
           </div>
         )}
