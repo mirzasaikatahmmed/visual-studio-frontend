@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
-import { PackageTabs } from "@/components/packages/PackageTabs";
-import { PackageEstimator } from "@/components/packages/PackageEstimator";
+import { PackagePageTabs } from "@/components/packages/PackagePageTabs";
 import { breadcrumbSchema } from "@/lib/breadcrumb";
 
 const packagesFaqSchema = {
@@ -125,9 +124,7 @@ export default function PackagesPage() {
         image="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2000&auto=format&fit=crop"
       />
 
-      <PackageTabs />
-
-      <PackageEstimator />
+      <PackagePageTabs />
 
       {/* Pricing disclaimer */}
       <section className="py-14 bg-brand-500/5 border-y border-brand-500/20">
@@ -159,44 +156,6 @@ export default function PackagesPage() {
         </div>
       </section>
 
-      {/* Static pricing block — crawlable without JS */}
-      <section className="py-20 bg-muted/20 border-t border-border">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div>
-              <h3 className="text-xl font-bold mb-4">What&apos;s Included in Every Package</h3>
-              <ul className="space-y-2 text-foreground/70 text-sm leading-relaxed">
-                <li>✓ Professional photo and/or video team</li>
-                <li>✓ Online gallery with web &amp; full-resolution digital files</li>
-                <li>✓ Flexible coverage — getting ready, ceremony, portraits, reception</li>
-                <li>✓ Unlimited locations within booked hours</li>
-                <li>✓ Pro cameras, lenses, lighting, and audio equipment</li>
-                <li>✓ Artistic direction and posing guidance</li>
-                <li>✓ Consistent color grading</li>
-                <li>✓ No watermarks — personal use license</li>
-                <li>✓ 3 months cloud storage</li>
-                <li>✓ Planning consultations via phone, email, and WhatsApp</li>
-                <li className="font-semibold text-brand-500">✓ Free pre-wedding couple session — 1 hour, booked before your wedding day</li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-bold mb-4">Popular Add-Ons</h3>
-              <ul className="space-y-2 text-foreground/70 text-sm leading-relaxed">
-                <li>✓ Drone / aerial coverage</li>
-                <li>✓ Pre-wedding or engagement shoot</li>
-                <li>✓ Post-wedding shoot</li>
-                <li>✓ Same-day highlight edit</li>
-                <li>✓ Live streaming</li>
-                <li>✓ 2nd photographer or videographer</li>
-                <li>✓ USB drive delivery</li>
-                <li>✓ Fine art prints</li>
-                <li>✓ Female-only crew &amp; editor</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Question-anchored FAQ — AI crawler optimized */}
       <section className="py-20 bg-background border-t border-border">

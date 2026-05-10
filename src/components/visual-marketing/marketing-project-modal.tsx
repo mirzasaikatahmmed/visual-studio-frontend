@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -111,7 +112,10 @@ interface Props {
 export function MarketingProjectModal({ open, onClose }: Props) {
   const [form, setForm] = useState<FormData>(EMPTY);
   const [submitted, setSubmitted] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     if (open) document.body.style.overflow = "hidden";
@@ -153,9 +157,11 @@ export function MarketingProjectModal({ open, onClose }: Props) {
   const inputCls =
     "w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:outline-none focus:border-brand-500 transition-colors";
   const labelCls =
-    "block text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-1.5";
+    "block text-xs font-bold uppercase tracking-widest text-black dark:text-white/50 mb-1.5";
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -178,11 +184,11 @@ export function MarketingProjectModal({ open, onClose }: Props) {
             <div className="sticky top-0 z-10 bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 px-8 py-5 flex items-center justify-between rounded-t-3xl">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-500 mb-0.5">Marketing Videos</p>
-                <h2 className="text-xl font-bold uppercase tracking-tight text-zinc-900 dark:text-zinc-100">Start a Project</h2>
+                <h2 className="text-xl font-bold uppercase tracking-tight text-black dark:text-white">Start a Project</h2>
               </div>
               <button
                 onClick={handleClose}
-                className="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors text-zinc-600 dark:text-zinc-300"
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors text-zinc-500 dark:text-zinc-400"
               >
                 <X size={16} />
               </button>
@@ -199,13 +205,13 @@ export function MarketingProjectModal({ open, onClose }: Props) {
                   <div className="w-14 h-14 rounded-full bg-brand-500/10 border border-brand-500/30 flex items-center justify-center mx-auto mb-5">
                     <span className="text-2xl">✓</span>
                   </div>
-                  <h3 className="text-2xl font-bold uppercase tracking-tight mb-3 text-zinc-900 dark:text-zinc-100">Project Submitted!</h3>
+                  <h3 className="text-2xl font-bold uppercase tracking-tight mb-3 text-black dark:text-white">Project Submitted!</h3>
                   <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed max-w-sm mx-auto mb-8">
                     Thank you! We will review your project brief and get back to you within 24 hours.
                   </p>
                   <button
                     onClick={handleClose}
-                    className="px-8 py-3 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-bold uppercase tracking-widest text-xs rounded-xl hover:opacity-80 transition-opacity"
+                    className="px-8 py-3 bg-foreground text-background font-bold uppercase tracking-widest text-xs rounded-xl hover:opacity-80 transition-opacity"
                   >
                     Close
                   </button>
@@ -316,7 +322,7 @@ export function MarketingProjectModal({ open, onClose }: Props) {
                   {/* Submit */}
                   <button
                     type="submit"
-                    className="w-full py-4 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-bold uppercase tracking-widest text-sm rounded-xl hover:opacity-80 transition-opacity mt-2"
+                    className="w-full py-4 bg-foreground text-background font-bold uppercase tracking-widest text-sm rounded-xl hover:opacity-80 transition-opacity mt-2"
                   >
                     Submit Project Brief →
                   </button>
@@ -327,6 +333,7 @@ export function MarketingProjectModal({ open, onClose }: Props) {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -102,7 +103,10 @@ interface Props {
 export function BusinessSetupModal({ open, onClose }: Props) {
   const [form, setForm] = useState<FormData>(EMPTY);
   const [submitted, setSubmitted] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     if (open) document.body.style.overflow = "hidden";
@@ -144,9 +148,11 @@ export function BusinessSetupModal({ open, onClose }: Props) {
   const inputCls =
     "w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:outline-none focus:border-brand-500 transition-colors";
   const labelCls =
-    "block text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-1.5";
+    "block text-xs font-bold uppercase tracking-widest text-black dark:text-white/50 mb-1.5";
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -169,11 +175,11 @@ export function BusinessSetupModal({ open, onClose }: Props) {
             <div className="sticky top-0 z-10 bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 px-8 py-5 flex items-center justify-between rounded-t-3xl">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-500 mb-0.5">Full Build</p>
-                <h2 className="text-xl font-bold uppercase tracking-tight text-zinc-900 dark:text-zinc-100">Set Up My Business</h2>
+                <h2 className="text-xl font-bold uppercase tracking-tight text-black dark:text-white">Set Up My Business</h2>
               </div>
               <button
                 onClick={handleClose}
-                className="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors text-zinc-600 dark:text-zinc-300"
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors text-zinc-500 dark:text-zinc-400"
               >
                 <X size={16} />
               </button>
@@ -191,7 +197,7 @@ export function BusinessSetupModal({ open, onClose }: Props) {
                     <span className="text-2xl">✓</span>
                   </div>
                   <h3 className="text-2xl font-bold uppercase tracking-tight mb-3">Inquiry Sent!</h3>
-                  <p className="text-foreground/55 text-sm leading-relaxed max-w-sm mx-auto mb-8">
+                  <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed max-w-sm mx-auto mb-8">
                     Thank you! We will review your business brief and get back to you within 24 hours to discuss next steps.
                   </p>
                   <button
@@ -218,7 +224,7 @@ export function BusinessSetupModal({ open, onClose }: Props) {
 
                   {/* Contact */}
                   <div>
-                    <label className={labelCls}>Phone / WhatsApp <span className="text-foreground/30 font-normal normal-case tracking-normal">(optional)</span></label>
+                    <label className={labelCls}>Phone / WhatsApp <span className="text-zinc-400 dark:text-zinc-500 font-normal normal-case tracking-normal">(optional)</span></label>
                     <input type="tel" value={form.contact} onChange={set("contact")} placeholder="+1 (347) 000 0000" className={inputCls} />
                   </div>
 
@@ -316,6 +322,7 @@ export function BusinessSetupModal({ open, onClose }: Props) {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
