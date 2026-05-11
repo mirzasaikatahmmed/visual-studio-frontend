@@ -171,7 +171,7 @@ export function ContactContent() {
                         <MessageCircle size={20} /> WhatsApp
                       </a>
                       <a
-                        href="https://www.instagram.com/direct/t/18031756004609454/"
+                        href="https://ig.me/m/visualstudioofficial"
                         target="_blank" rel="noopener noreferrer"
                         className="flex items-center justify-center gap-2 w-full py-4 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white font-bold uppercase tracking-widest hover:opacity-90 hover:scale-105 hover:shadow-[0_0_30px_rgba(253,29,29,0.3)] transition-all rounded-full text-sm"
                       >
