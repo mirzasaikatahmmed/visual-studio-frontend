@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import Marquee from "react-fast-marquee";
 import { fetchWorks, type VisualMarketingWork } from "@/lib/visualMarketingApi";
 import { fetchPortfolios, fetchCategories, type Portfolio } from "@/lib/portfolioApi";
+import { WebsiteInquiryModal } from "./website-inquiry-modal";
+import { BusinessSetupModal } from "./business-setup-modal";
+import { MarketingProjectModal } from "./marketing-project-modal";
 
 const CLIENT_CAT_SLUG = "client-logos";
 
@@ -33,6 +35,9 @@ const itemVariants = {
 export function MarketingContent() {
   const [workItems, setWorkItems] = useState<VisualMarketingWork[]>([]);
   const [brands, setBrands] = useState<Portfolio[]>([]);
+  const [websiteModalOpen, setWebsiteModalOpen] = useState(false);
+  const [businessModalOpen, setBusinessModalOpen] = useState(false);
+  const [projectModalOpen, setProjectModalOpen] = useState(false);
 
   useEffect(() => {
     fetchWorks().then(setWorkItems).catch(() => {});
@@ -169,49 +174,73 @@ export function MarketingContent() {
             viewport={{ once: true, margin: "-60px" }}
             variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
           >
-            {[
-              {
-                label: "Start a Project",
-                track: "Marketing Videos",
-                subtitle: "Brand video, product shoots, social content",
-                href: "/contact?type=marketing-videos",
-              },
-              {
-                label: "Set Up My Business",
-                track: "Full Build",
-                subtitle: "Branding, Google Business, systems, content",
-                href: "/contact?type=business-setup",
-              },
-              {
-                label: "Build My Website",
-                track: "Custom Site",
-                subtitle: "Custom Next.js sites with SEO & schema",
-                href: "/contact?type=website-build",
-              },
-            ].map((cta) => (
-              <motion.div
-                key={cta.track}
-                variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } } }}
+            {/* Start a Project — opens modal */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } } }}
+            >
+              <button
+                onClick={() => setProjectModalOpen(true)}
+                className="group w-full flex flex-col items-center text-center px-8 py-10 border border-background/20 hover:border-background/60 hover:bg-background/5 transition-all duration-300 rounded-sm"
               >
-                <Link
-                  href={cta.href}
-                  className="group flex flex-col items-center text-center px-8 py-10 border border-background/20 hover:border-background/60 hover:bg-background/5 transition-all duration-300 rounded-sm"
-                >
-                  <p className="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-background/40 mb-3">
-                    {cta.track}
-                  </p>
-                  <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-background mb-3 group-hover:text-brand-400 transition-colors duration-200">
-                    {cta.label} →
-                  </h3>
-                  <p className="text-background/50 text-xs leading-relaxed">
-                    {cta.subtitle}
-                  </p>
-                </Link>
-              </motion.div>
-            ))}
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-background/40 mb-3">
+                  Marketing Videos
+                </p>
+                <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-background mb-3 group-hover:text-brand-400 transition-colors duration-200">
+                  Start a Project →
+                </h3>
+                <p className="text-background/50 text-xs leading-relaxed">
+                  Brand video, product shoots, social content
+                </p>
+              </button>
+            </motion.div>
+
+            {/* Set Up My Business — opens modal */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } } }}
+            >
+              <button
+                onClick={() => setBusinessModalOpen(true)}
+                className="group w-full flex flex-col items-center text-center px-8 py-10 border border-background/20 hover:border-background/60 hover:bg-background/5 transition-all duration-300 rounded-sm"
+              >
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-background/40 mb-3">
+                  Full Build
+                </p>
+                <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-background mb-3 group-hover:text-brand-400 transition-colors duration-200">
+                  Set Up My Business →
+                </h3>
+                <p className="text-background/50 text-xs leading-relaxed">
+                  Branding, Google Business, systems, content
+                </p>
+              </button>
+            </motion.div>
+
+            {/* Build My Website — opens modal */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } } }}
+            >
+              <button
+                onClick={() => setWebsiteModalOpen(true)}
+                className="group w-full flex flex-col items-center text-center px-8 py-10 border border-background/20 hover:border-background/60 hover:bg-background/5 transition-all duration-300 rounded-sm"
+              >
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-background/40 mb-3">
+                  Custom Site
+                </p>
+                <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-background mb-3 group-hover:text-brand-400 transition-colors duration-200">
+                  Build My Website →
+                </h3>
+                <p className="text-background/50 text-xs leading-relaxed">
+                  Custom Next.js sites with SEO &amp; schema
+                </p>
+              </button>
+            </motion.div>
+
           </motion.div>
         </div>
       </section>
+
+      <MarketingProjectModal open={projectModalOpen} onClose={() => setProjectModalOpen(false)} />
+      <BusinessSetupModal open={businessModalOpen} onClose={() => setBusinessModalOpen(false)} />
+      <WebsiteInquiryModal open={websiteModalOpen} onClose={() => setWebsiteModalOpen(false)} />
     </>
   );
 }

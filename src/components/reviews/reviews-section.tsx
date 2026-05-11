@@ -169,7 +169,7 @@ export function ReviewsSection() {
           <div className="text-center mb-8">
             <p className="text-foreground/60 text-sm flex items-center justify-center gap-2">
               <GoogleIcon className="w-4 h-4" />
-              {googleRating}.0 rating · {500}+ verified Google reviews
+              {googleRating}.0 rating · 1000+ verified reviews across platforms
             </p>
           </div>
         )}
@@ -231,6 +231,22 @@ export function ReviewsSection() {
             })}
           </motion.div>
         </div>
+      </motion.div>
+
+      {/* ── View All Testimonials ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.5, delay: 0.15 }}
+        className="flex justify-center pt-12"
+      >
+        <a
+          href="/testimonials"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-background font-bold uppercase tracking-widest text-xs hover:opacity-80 transition-opacity rounded-full"
+        >
+          View All Testimonials →
+        </a>
       </motion.div>
 
       {/* ── Leave a review CTA (Now fixed below reviews) ── */}

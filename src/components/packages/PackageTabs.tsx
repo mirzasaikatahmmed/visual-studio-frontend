@@ -75,6 +75,12 @@ const TABS: Tab[] = [
     ],
     addons: [
       "Extra hour of coverage",
+      "Drone / aerial coverage",
+      "Pre-wedding or engagement shoot",
+      "Post-wedding shoot",
+      "Same-day highlight edit",
+      "2nd photographer",
+      "Female-only crew & editor",
       "Magazine-style booklet (12 pages)",
       "Engagement photoshoot session",
       "Wedding photo puzzle",
@@ -83,7 +89,9 @@ const TABS: Tab[] = [
       "Framed print (16×20 inches)",
       "Rush delivery (48-hr turnaround)",
       "Canvas wall art (20×30 inches)",
-      "Second shooter",
+      "USB drive delivery",
+      "Fine art prints",
+      "Live streaming",
     ],
     deliveryNote: "All photos delivered via your private Pixieset gallery with high-resolution digital download access.",
   },
@@ -142,13 +150,17 @@ const TABS: Tab[] = [
     ],
     addons: [
       "Extra hour of coverage",
-      "Live stream setup",
-      "Drone aerial footage",
-      "USB keepsake (all final videos)",
+      "Drone / aerial coverage",
+      "Pre-wedding or engagement shoot",
+      "Post-wedding shoot",
+      "Same-day highlight edit",
+      "Live streaming",
+      "2nd videographer",
+      "Female-only crew & editor",
+      "USB drive delivery",
       "Reception edit (separate cut)",
       "QR code table cards for video links",
       "Teaser reel for social media",
-      "Second videographer",
     ],
     deliveryNote: "All films delivered via private secure link provided after editing is complete.",
   },
@@ -215,13 +227,19 @@ const TABS: Tab[] = [
     ],
     addons: [
       "Extra hour of coverage",
-      "Drone aerial footage",
+      "Drone / aerial coverage",
+      "Pre-wedding or engagement shoot",
+      "Post-wedding shoot",
+      "Same-day highlight edit",
+      "Live streaming",
+      "2nd photographer or videographer",
+      "Female-only crew & editor",
+      "USB drive delivery",
+      "Fine art prints",
       "Engagement photo + video session",
       "Teaser reel for social media",
       "Premium hardcover photo album",
-      "Live stream setup",
       "Framed print (16×20 inches)",
-      "USB keepsake (all final videos)",
       "Canvas wall art (20×30 inches)",
       "QR code table cards (gallery + video)",
       "Magazine-style booklet (12 pages)",
@@ -234,6 +252,21 @@ const TABS: Tab[] = [
 export function PackageTabs() {
   const [activeTab, setActiveTab] = useState("photography");
   const [addonsOpen, setAddonsOpen] = useState(false);
+  const [includesOpen, setIncludesOpen] = useState(false);
+
+  const WHATS_INCLUDED = [
+    "Professional photo and/or video team",
+    "Online gallery with web & full-resolution digital files",
+    "Flexible coverage — getting ready, ceremony, portraits, reception",
+    "Unlimited locations within booked hours",
+    "Pro cameras, lenses, lighting, and audio equipment",
+    "Artistic direction and posing guidance",
+    "Consistent color grading",
+    "No watermarks — personal use license",
+    "3 months cloud storage",
+    "Planning consultations via phone, email, and WhatsApp",
+    "Free pre-wedding couple session — 1 hour, booked before your wedding day",
+  ];
 
   const tab = TABS.find((t) => t.id === activeTab)!;
 
@@ -394,6 +427,41 @@ export function PackageTabs() {
 
             {/* Delivery note */}
             <p className="text-center text-foreground/40 text-xs mb-8">{tab.deliveryNote}</p>
+
+            {/* What's Included accordion */}
+            <div className="rounded-2xl border border-border overflow-hidden mb-3">
+              <button
+                onClick={() => setIncludesOpen((o) => !o)}
+                className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-muted/30 transition-colors"
+              >
+                <span className="text-xs font-extrabold uppercase tracking-widest">What&apos;s Included in Every Package</span>
+                <ChevronDown
+                  size={17}
+                  className="transition-transform duration-200 text-foreground/50"
+                  style={includesOpen ? { transform: "rotate(180deg)" } : {}}
+                />
+              </button>
+              <AnimatePresence>
+                {includesOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden border-t border-border"
+                  >
+                    <div className="px-6 py-5 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5">
+                      {WHATS_INCLUDED.map((item) => (
+                        <div key={item} className="flex items-start gap-2 text-sm text-foreground/70">
+                          <span className="font-bold mt-px leading-none text-brand-500">✓</span>
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             {/* Add-ons accordion */}
             <div className="rounded-2xl border border-border overflow-hidden">

@@ -7,6 +7,7 @@ import { ArrowRight, ChevronUp, ChevronDown } from "lucide-react";
 export function HeroSection() {
   const [showSuggestion, setShowSuggestion] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [glowActive, setGlowActive] = useState(false);
 
   useEffect(() => {
     const showTimer = setTimeout(() => setShowSuggestion(true), 2500);
@@ -49,34 +50,17 @@ export function HeroSection() {
       
       <div className="container relative z-[2] mx-auto px-4 flex flex-col items-center text-center">
 
-        {/* Brand line H2 — animated hover mask */}
+        {/* Brand line H2 */}
         <h2
           role="presentation"
-          className="relative group cursor-default mx-auto inline-block text-center flex-col items-center justify-start max-w-[90vw]"
+          className="relative cursor-default mx-auto inline-block text-center flex-col items-center justify-start max-w-[90vw]"
         >
-          {/* Background Masked Layer (Fades IN on hover) */}
-          <div 
-            className="absolute inset-0 text-2xl xs:text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6 uppercase flex flex-col items-center justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-0 pointer-events-none"
-            style={{
-               backgroundImage: "url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1500&auto=format&fit=crop')", // Gorgeous bright wedding details
-               backgroundSize: "cover",
-               backgroundPosition: "center",
-               backgroundClip: "text",
-               WebkitBackgroundClip: "text",
-               WebkitTextFillColor: "transparent",
-               color: "transparent"
-            }}
-          >
-            <div className="w-full leading-[1.1] sm:leading-tight">Capturing Moments.</div>
-            <div className="w-full leading-[1.1] sm:leading-tight">Creating Experiences.</div>
-          </div>
-
-          {/* Foreground Animated Layer (Fades OUT on hover) */}
-          <motion.div 
+          {/* Animated text layer */}
+          <motion.div
             variants={container}
             initial="hidden"
             animate="visible"
-            className="relative z-10 flex flex-col items-center justify-start text-2xl xs:text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight sm:tracking-tighter mb-4 sm:mb-6 uppercase group-hover:opacity-0 transition-opacity duration-700 pointer-events-none"
+            className="relative z-10 flex flex-col items-center justify-start text-2xl xs:text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight sm:tracking-tighter mb-4 sm:mb-6 uppercase"
           >
             <div className="text-white w-full leading-[1.1] sm:leading-tight flex flex-wrap justify-center">
               {line1.split("").map((char, index) => (
@@ -85,7 +69,18 @@ export function HeroSection() {
                 </motion.span>
               ))}
             </div>
-            <div className="text-white opacity-80 w-full leading-[1.1] sm:leading-tight flex flex-wrap justify-center mt-1 sm:mt-0">
+            <div
+              className="w-full leading-[1.1] sm:leading-tight flex flex-wrap justify-center mt-1 sm:mt-0 cursor-default"
+              onMouseEnter={() => setGlowActive(true)}
+              onMouseLeave={() => setGlowActive(false)}
+              style={{
+                color: "rgba(255,255,255,0.8)",
+                textShadow: glowActive
+                  ? "0 0 15px rgba(255,210,80,0.45), 0 0 35px rgba(255,180,40,0.2)"
+                  : "none",
+                transition: "color 0.4s ease, text-shadow 0.4s ease",
+              }}
+            >
               {line2.split("").map((char, index) => (
                 <motion.span variants={letterAnim} key={`l2-${index}`} className="inline-block whitespace-pre">
                   {char}
