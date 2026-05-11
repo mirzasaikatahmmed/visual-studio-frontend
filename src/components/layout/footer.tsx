@@ -161,12 +161,12 @@ export function Footer() {
               <Link href="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
            </div>
         </motion.div>
-        {/* <motion.div variants={itemVariants} className="pt-4 text-center text-[10px] tracking-widest text-foreground/30">
+        <motion.div variants={itemVariants} className="pt-4 text-center text-[10px] tracking-widest text-foreground/30">
            Developed by{" "}
            <a href="https://saikat.com.bd" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
              Mirza Saikat Ahmmed
            </a>
-        </motion.div> */}
+        </motion.div>
 
       </motion.div>
     </footer>
