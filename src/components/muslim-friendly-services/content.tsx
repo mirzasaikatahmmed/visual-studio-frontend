@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ChevronDown,
@@ -9,11 +9,20 @@ import {
   Users,
   Shield,
   Globe,
+  LockKeyhole,
   MessageCircleQuestion,
 } from "lucide-react";
 import Link from "next/link";
 
-const SERVICE_TRACKS = [
+type ServiceTrack = {
+  id: number;
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  href?: string;
+};
+
+const SERVICE_TRACKS: ServiceTrack[] = [
   {
     id: 1,
     icon: VolumeX,
@@ -48,6 +57,14 @@ const SERVICE_TRACKS = [
     title: "Cultural & Religious Fluency",
     description:
       "1,000+ weddings covered across Bengali, Pakistani, Indian, Arab, and Afghan Muslim traditions — Nikkah, Walima, Mehndi, Holud, Akht, Bou Bhat, and multi-day sequences. Our team knows the key moments, prayers, and cultural cues that matter most.",
+  },
+  {
+    id: 6,
+    icon: LockKeyhole,
+    title: "No Photo Security",
+    description:
+      "Your photos are delivered exclusively to you — never shared publicly, never posted without your permission. Password-protected private gallery, watermark-free files, and zero third-party access. Full control of your memories from delivery day onward.",
+    href: "/no-photo-security",
   },
 ];
 
@@ -242,16 +259,30 @@ export function MuslimFriendlyContent() {
           >
             {SERVICE_TRACKS.map((track) => {
               const Icon = track.icon;
-              return (
+              const card = (
                 <motion.div
                   key={track.id}
                   variants={itemVariants}
-                  className="border border-border rounded-sm p-8 hover:border-foreground/40 transition-colors duration-300"
+                  className={`border border-border rounded-sm p-8 transition-colors duration-300 ${
+                    track.href
+                      ? "hover:border-brand-500/60 hover:bg-brand-500/5 cursor-pointer group"
+                      : "hover:border-foreground/40"
+                  }`}
                 >
                   <Icon className="mb-5 text-brand-500" size={28} strokeWidth={1.5} />
                   <h3 className="text-lg font-bold uppercase tracking-tight mb-3">{track.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{track.description}</p>
+                  {track.href && (
+                    <span className="inline-block mt-4 text-[11px] font-bold uppercase tracking-widest text-brand-500 group-hover:underline underline-offset-2">
+                      Learn More →
+                    </span>
+                  )}
                 </motion.div>
+              );
+              return track.href ? (
+                <Link key={track.id} href={track.href}>{card}</Link>
+              ) : (
+                <React.Fragment key={track.id}>{card}</React.Fragment>
               );
             })}
           </motion.div>

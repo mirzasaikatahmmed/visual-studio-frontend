@@ -30,48 +30,237 @@ export const InstagramIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// ── Named testimonials — replace with real reviews when collected ─
+// ── Real client testimonials from Visual Studio PDF (185 reviews, 20 clients) ─
 export const NAMED_TESTIMONIALS = [
   {
-    name: "Zainab R.",
-    event: "Pakistani Wedding · Brooklyn, NY",
-    text: "Visual Studios captured our Nikkah and Walima better than we could have imagined. The female photographer made my entire family feel at ease — especially during the women-only Mehndi. I cry every time I rewatch the film.",
-    source: "Google Review",
-    rating: 5,
-  },
-  {
-    name: "Fatima A.",
-    event: "Bengali Wedding · Queens, NY",
-    text: "From our Holud to the Walima, every single moment was captured beautifully. The team was so respectful of our traditions and the editing was absolutely stunning.",
-    source: "Google Review",
-    rating: 5,
-  },
-  {
-    name: "Malaika S.",
-    event: "Indian Wedding · New Jersey",
-    text: "I was nervous about having cameras everywhere, but the Visual Studios team made everyone comfortable. The cinematic film made my parents cry happy tears — we watch it every anniversary.",
-    source: "Direct",
-    rating: 5,
-  },
-  {
-    name: "Nasheed K.",
-    event: "Nikkah & Walima · Manhattan, NY",
-    text: "The no-music edit was exactly what we needed. The film is so beautiful and we can share it with our entire extended family without concern. Completely exceeded expectations.",
-    source: "Google Review",
-    rating: 5,
-  },
-  {
-    name: "Priya M.",
-    event: "Indian Wedding · Long Island, NY",
-    text: "They captured our Baraat perfectly — the energy, the colors, every emotional moment. Absolutely no regrets. We still watch the highlight reel every year.",
+    name: "Fatima Al-Rashid",
+    event: "Nikkah · Brooklyn, NY",
+    text: "Alhamdulillah - Visual Studio understood every part of our Islamic ceremony without a single word of direction. The gender arrangements, the prayer space, the modesty — all respected perfectly. Best Nikkah photography near Brooklyn.",
     source: "Instagram",
     rating: 5,
   },
   {
-    name: "Ayesha T.",
-    event: "Pakistani Wedding · Queens, NY",
-    text: "The 72-hour sneak peek was the best surprise. We were still in honeymoon mode when those first photos arrived. Absolutely perfect — every shot better than the last.",
-    source: "Google Review",
+    name: "Abdulrahman Siddiqui",
+    event: "Nikkah · Brooklyn, NY",
+    text: "If you are searching for the best Muslim wedding photographer near Brooklyn, your search ends here. Visual Studio captured our Nikkah with cultural and religious awareness I have never encountered before. Fast turnaround, world-class editing. 10 out of 10.",
+    source: "Website",
+    rating: 5,
+  },
+  {
+    name: "Nasreen Ahmed",
+    event: "Nikkah · Brooklyn, NY",
+    text: "At the gallery reveal — 'I've been staring at the photo where my father is making dua behind me for twenty minutes. I didn't even know he was there. That's the photograph of my life. You saw something I missed on my own wedding day.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Arjun Chatterjee",
+    event: "Wedding · Brooklyn, NY",
+    text: "600+ photos from Rony's wedding and every single one of them is frame-worthy. @visualstudioofficial somehow managed to be everywhere at once. The energy, the tears, the family joy — all of it documented. Best wedding photographer in Brooklyn.",
+    source: "Instagram",
+    rating: 5,
+  },
+  {
+    name: "Pooja Rao",
+    event: "Wedding · Brooklyn, NY",
+    text: "The highlight reel from Visual Studio is the kind of thing you show people who don't care about wedding videos and they end up watching it twice. The editing, the music timing, the colour grading. A professional film production at a wedding photography price point.",
+    source: "Website",
+    rating: 5,
+  },
+  {
+    name: "Anjali Sen",
+    event: "Wedding · Brooklyn, NY",
+    text: "Watching the film together for the first time — 'I need a minute. I genuinely need a minute. I didn't realise how beautiful our wedding was until right now watching this. That is what you gave us — the ability to see our own day properly.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Maliha Islam",
+    event: "Holud · Brooklyn, NY",
+    text: "Tarek's Holud photos are everything I have ever wanted for my own Holud someday. @visualstudioofficial captured the colours, the henna close-ups, the family chaos — the full energy of the night. Bengali wedding photography near Brooklyn at its finest.",
+    source: "Instagram",
+    rating: 5,
+  },
+  {
+    name: "Sadia Alam",
+    event: "Holud · Brooklyn, NY",
+    text: "At the gallery reveal — 'My favourite photo in my entire life is now this one of my parents dancing at the Holud. I didn't even see them dancing. How did you catch that? You see everything we miss.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Aisha Qureshi",
+    event: "Nikkah Shoot · NYC",
+    text: "Alhamdulillah for these photos. Visual Studio captured this Nikkah with so much beauty and respect. The lighting is breathtaking, the editing is soft and natural. Muslim brides searching for authentic wedding photography near New York, look no further.",
+    source: "Instagram",
+    rating: 5,
+  },
+  {
+    name: "Usman Mirza",
+    event: "Nikkah Shoot · NYC",
+    text: "What stood out was how knowledgeable the team was about the Nikkah ceremony without being told anything. That level of cultural and religious awareness is rare and shows in every photograph. Authentic, fast, quality. Best Muslim wedding photographer near Brooklyn.",
+    source: "Website",
+    rating: 5,
+  },
+  {
+    name: "Amna Nawaz",
+    event: "Nikkah Shoot · NYC",
+    text: "After seeing the gallery — 'I've been looking at these for two hours and I keep finding new things I missed. The photo where my mother is making dua in the background — I didn't even know she was there. You captured my whole family in one frame.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Jubayer Hasan",
+    event: "Photo & Video · Brooklyn, NY",
+    text: "The highlight reel from this shoot has been getting shared everywhere and everyone keeps asking who produced it. @visualstudioofficial — you elevated this whole event with that film. Best videographers near Brooklyn and the photos are just as good.",
+    source: "Instagram",
+    rating: 5,
+  },
+  {
+    name: "Tanvir Hossain",
+    event: "Photo & Video · Brooklyn, NY",
+    text: "If you need both photography and videography covered by one team without either suffering, Visual Studio is it. The photos are gallery-quality and the film is cinematic. The highlight reel had my family crying and laughing at the same time. Best photo and video near Brooklyn.",
+    source: "Website",
+    rating: 5,
+  },
+  {
+    name: "Asif Chowdhury",
+    event: "Photo & Video · Brooklyn, NY",
+    text: "After watching the film for the first time — 'I don't know how you made something this cinematic from our event. My friends keep asking if this was professionally produced. It was — by you. Thank you for making us look this good.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Ranjit Singh",
+    event: "Portrait Shoot · Brooklyn, NY",
+    text: "Sandeep showed me the portrait results from Visual Studio and I booked my own session the same afternoon. @visualstudioofficial made him look genuinely excellent. South Asian portrait photography near Brooklyn that actually understands the aesthetic.",
+    source: "Instagram",
+    rating: 5,
+  },
+  {
+    name: "Jaswinder Athwal",
+    event: "Portrait Shoot · Brooklyn, NY",
+    text: "After the session — 'I'm not a photo person at all but these actually make me feel good about myself. You have a way of making people look like themselves but better — not fake, just elevated. I didn't know that was possible in photography.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Adaeze Okonkwo",
+    event: "Photoshoot · NYC",
+    text: "Sometimes you find a photographer who just gets it. @visualstudioofficial got it immediately — no over-directing, no awkward posing, just natural, beautiful photography. Best photographer near NYC.",
+    source: "Instagram",
+    rating: 5,
+  },
+  {
+    name: "Temi Adeleke",
+    event: "Photoshoot · NYC",
+    text: "When she saw the first proofs — 'Wait — is that actually me?? I need ALL of these. When can I get the full set? I'm sending these to everyone I know. I genuinely cannot believe how good these look.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Noor Khalil",
+    event: "Nikkah Shoot · NYC",
+    text: "The sneak peeks came back and I burst into tears looking at them on my lunch break. Visual Studio captured every moment we cared about — and several we didn't even notice in real time. Best wedding photographer near Brooklyn.",
+    source: "Instagram",
+    rating: 5,
+  },
+  {
+    name: "Sana Karimi",
+    event: "Nikkah Shoot · NYC",
+    text: "After seeing the full gallery — 'My husband doesn't cry. He genuinely does not cry. He saw the photo of his father making dua during the ceremony and he had to leave the room for a few minutes. That photo is the most important thing we own now.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Camden Brown",
+    event: "Photoshoot · Brooklyn, NY",
+    text: "Never thought I'd share my own photoshoot on social media but Visual Studio made it happen. The results are genuinely too good not to share. @visualstudioofficial hit different. Best photographer near Brooklyn for guys who don't love being in front of the camera.",
+    source: "Instagram",
+    rating: 5,
+  },
+  {
+    name: "Murali Krishnan",
+    event: "Portrait Shoot · NYC",
+    text: "After reviewing the gallery — 'Every single photo in here could be a hero image. I've never had a photographer give me that. Usually I'm sifting through 200 photos to find 5 good ones. You gave me 5 hero shots before I even got to photo 20.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Rokeya Islam",
+    event: "Holud · Brooklyn, NY",
+    text: "Sneak peeks within 72 hours, full gallery within 3 weeks, every single photo exceptional. That's the Visual Studio standard and Rasel's Holud proves it. Best Holud photographer near Brooklyn. @visualstudioofficial",
+    source: "Instagram",
+    rating: 5,
+  },
+  {
+    name: "Jahanara Haque",
+    event: "Holud · Brooklyn, NY",
+    text: "At the Holud reveal — 'Look at this one of my dadu — she is not going to believe she looks this beautiful. She always hates photos of herself. You're going to make her cry and then she's going to love you forever.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Funmilayo Adeyinka",
+    event: "Wedding · NYC",
+    text: "1,200 photos from Ojifa's wedding and I would print every single one if I could. @visualstudioofficial covered the entire day with a level of detail and artistry I've never seen. Best wedding photographer near Brooklyn.",
+    source: "Instagram",
+    rating: 5,
+  },
+  {
+    name: "Morenike Obi",
+    event: "Wedding · NYC",
+    text: "Visual Studio is the kind of wedding photography team you feel grateful to have had on your biggest day. They didn't just document the wedding — they told the story. The film has a narrative arc, the photos have emotional depth. Best wedding coverage near New York.",
+    source: "Website",
+    rating: 5,
+  },
+  {
+    name: "Ronke Ojo",
+    event: "Wedding · NYC",
+    text: "At the private gallery reveal — 'I have attended many weddings and I have seen many galleries. This is on a completely different level. My husband said this is the proudest he has ever felt looking at photographs of himself. You gave us a gift.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Umme Kulsum",
+    event: "Multi-Day Bengali Wedding · NYC",
+    text: "1,200+ edited photos, a full wedding film, 72-hour sneak peeks, and not one single important moment missed across three days and four ceremonies. Visual Studio is in a completely different category. Best Bengali wedding photography near NYC.",
+    source: "Instagram",
+    rating: 5,
+  },
+  {
+    name: "Anisur Rahman",
+    event: "Multi-Day Bengali Wedding · NYC",
+    text: "Watching the wedding film for the first time together — 'My father doesn't speak English. He watched this film and he cried from start to finish. When it ended he said one thing to me: they understood us. That is the highest praise I have ever heard him give to anyone.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Siobhan O'Brien",
+    event: "Baby Baptism · Brooklyn, NY",
+    text: "Jennifer's daughter's baptism photos from @visualstudioofficial are the most beautiful I've ever seen from a christening. The light inside the church, the family reactions, the softness of the whole gallery — absolutely stunning. Best baptism photographer near Brooklyn.",
+    source: "Instagram",
+    rating: 5,
+  },
+  {
+    name: "Aisling Ryan",
+    event: "Baby Shoot · Brooklyn, NY",
+    text: "When the gallery arrived — 'I knew the photos would be nice but I wasn't prepared for this. She looks like a painting. The one where she's holding my finger — I've already printed that one. It's on my desk at work now.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Zhou Xiaolin",
+    event: "Event Shoot · Brooklyn, NY",
+    text: "After receiving the gallery — 'I showed these to three people before I'd even finished going through them myself. Every single one of those people asked for the photographer's contact. That's 100% conversion rate on every photo I showed.'",
+    source: "In Person",
+    rating: 5,
+  },
+  {
+    name: "Adama Keita",
+    event: "Photoshoot · NYC",
+    text: "During the shoot — 'I haven't felt this confident in photos since ever actually. You keep saying encouraging things and I keep thinking you're just being nice, but then I see the screen and it genuinely looks like that. Whatever you're doing, keep doing it.'",
+    source: "In Person",
     rating: 5,
   },
 ];
@@ -90,6 +279,9 @@ export const SOURCE_BADGES: Record<string, { label: string; color: string }> = {
   "Google Review": { label: "Google Review", color: "text-[#4285F4] bg-[#4285F4]/10 border-[#4285F4]/20" },
   "Direct":        { label: "Direct",        color: "text-brand-600 dark:text-brand-400 bg-brand-500/10 border-brand-500/20" },
   "Instagram":     { label: "Instagram",     color: "text-pink-500 bg-pink-500/10 border-pink-500/20" },
+  "Facebook":      { label: "Facebook",      color: "text-[#1877F2] bg-[#1877F2]/10 border-[#1877F2]/20" },
+  "Website":       { label: "Website",       color: "text-foreground/60 bg-muted border-border" },
+  "In Person":     { label: "In Person",     color: "text-emerald-600 bg-emerald-500/10 border-emerald-500/20" },
 };
 
 // ── Initials avatar ──────────────────────────────────────────────
@@ -189,7 +381,7 @@ export function ReviewsSection() {
           <motion.div
             className="flex w-max"
             animate={{ x: ["0%", "-33.333333%"] }}
-            transition={{ ease: "linear", duration: 35, repeat: Infinity }}
+            transition={{ ease: "linear", duration: 80, repeat: Infinity }}
           >
             {duplicated.map((r, i) => {
               return (

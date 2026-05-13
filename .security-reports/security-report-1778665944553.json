@@ -1,0 +1,70 @@
+{
+  "timestamp": "2026-05-13T09:52:24.551Z",
+  "passed": true,
+  "secrets": [],
+  "vulnerabilities": {
+    "total": 1,
+    "critical": 0,
+    "high": 1,
+    "moderate": 0,
+    "low": 0,
+    "info": 0,
+    "packages": [
+      {
+        "name": "next",
+        "severity": "high",
+        "via": [
+          "Next.js Vulnerable to Denial of Service with Server Components",
+          "Next.js vulnerable to cross-site scripting in App Router applications using CSP nonces",
+          "Next.js vulnerable to cache poisoning via collisions in React Server Component cache-busting",
+          "Next.js has cross-site scripting in beforeInteractive scripts with untrusted input",
+          "Next.js vulnerable to Denial of Service via connection exhaustion in applications using Cache Components",
+          "Next.js has a Denial of Service in the Image Optimization API",
+          "Next.js vulnerable to server-side request forgery in applications using WebSocket upgrades",
+          "Next.js has a Middleware / Proxy bypass through dynamic route parameter injection",
+          "Next.js vulnerable to cache poisoning in React Server Component responses",
+          "Next.js has a Middleware / Proxy bypass in App Router applications via segment-prefetch routes",
+          "Next.js has a Middleware / Proxy bypass in Pages Router applications using i18n",
+          "Next.js's Middleware / Proxy redirects can be cache-poisoned",
+          "Next.js has a Middleware / Proxy bypass in App Router applications via segment-prefetch routes - Incomplete Fix Follow-Up"
+        ],
+        "fixAvailable": true
+      }
+    ],
+    "languages": [
+      {
+        "language": "Node.js",
+        "icon": "🟢",
+        "detected": true,
+        "toolAvailable": true,
+        "total": 1,
+        "critical": 0,
+        "high": 1,
+        "moderate": 0,
+        "low": 0,
+        "packages": [
+          {
+            "name": "next",
+            "severity": "high",
+            "via": [
+              "Next.js Vulnerable to Denial of Service with Server Components",
+              "Next.js vulnerable to cross-site scripting in App Router applications using CSP nonces",
+              "Next.js vulnerable to cache poisoning via collisions in React Server Component cache-busting",
+              "Next.js has cross-site scripting in beforeInteractive scripts with untrusted input",
+              "Next.js vulnerable to Denial of Service via connection exhaustion in applications using Cache Components",
+              "Next.js has a Denial of Service in the Image Optimization API",
+              "Next.js vulnerable to server-side request forgery in applications using WebSocket upgrades",
+              "Next.js has a Middleware / Proxy bypass through dynamic route parameter injection",
+              "Next.js vulnerable to cache poisoning in React Server Component responses",
+              "Next.js has a Middleware / Proxy bypass in App Router applications via segment-prefetch routes",
+              "Next.js has a Middleware / Proxy bypass in Pages Router applications using i18n",
+              "Next.js's Middleware / Proxy redirects can be cache-poisoned",
+              "Next.js has a Middleware / Proxy bypass in App Router applications via segment-prefetch routes - Incomplete Fix Follow-Up"
+            ],
+            "fixAvailable": true
+          }
+        ]
+      }
+    ]
+  }
+}
