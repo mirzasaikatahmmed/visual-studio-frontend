@@ -647,6 +647,16 @@ export function PackageEstimator() {
                 </ul>
               </div>
 
+              {/* Mobile — Estimate Panel */}
+              <div className="lg:hidden mt-6">
+                <EstimatePanel
+                  selectionSummary={selectionSummary}
+                  estimate={estimate}
+                  revealed={revealed}
+                  onGetQuote={openModal}
+                />
+              </div>
+
             </div>
 
             {/* Estimate panel — desktop sticky */}
@@ -665,20 +675,6 @@ export function PackageEstimator() {
         </div>
       </section>
 
-      {/* Mobile sticky bottom bar */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur border-t border-border px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.12)]">
-        <div className="flex items-center justify-between gap-4 max-w-lg mx-auto">
-          <p className="text-sm font-semibold text-muted-foreground">
-            Ready for your custom quote?
-          </p>
-          <button
-            onClick={openModal}
-            className="px-6 py-2.5 bg-foreground text-background text-xs font-bold uppercase tracking-widest rounded-full hover:opacity-90 transition whitespace-nowrap"
-          >
-            See Estimate
-          </button>
-        </div>
-      </div>
 
       {/* Quote request modal */}
       <AnimatePresence>

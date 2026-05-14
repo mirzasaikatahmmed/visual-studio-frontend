@@ -199,30 +199,25 @@ export function MoreServicesGrid() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="mt-10 lg:mt-14"
         >
-          <Link href="/packages" className="group block relative overflow-hidden rounded-[2rem] border border-brand-500/30 bg-gradient-to-br from-brand-500/10 via-background to-background dark:from-brand-950/80 dark:via-[#161616] dark:to-background p-10 md:p-16 text-center hover:border-brand-500/60 transition-colors duration-500">
-            {/* decorative glow */}
-            <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-              <div className="absolute inset-x-0 -top-20 h-48 bg-brand-500/10 blur-3xl rounded-full mx-auto w-3/4" />
-            </div>
-
+          <Link href="/packages" className="group block relative overflow-hidden rounded-[2rem] bg-foreground text-background p-10 md:p-16 text-center hover:opacity-95 transition-opacity duration-300">
             <div className="relative z-10 flex flex-col items-center gap-6">
-              <div className="w-16 h-16 rounded-2xl bg-brand-500/15 border border-brand-500/30 flex items-center justify-center group-hover:bg-brand-500/25 transition-colors duration-300">
-                <Calculator size={28} className="text-brand-500" />
+              <div className="w-16 h-16 rounded-2xl bg-background/10 border border-background/20 flex items-center justify-center group-hover:bg-background/20 transition-colors duration-300">
+                <Calculator size={28} className="text-background" />
               </div>
 
               <div>
-                <p className="text-brand-500 text-xs font-bold uppercase tracking-[0.25em] mb-3">
+                <p className="text-background/50 text-xs font-bold uppercase tracking-[0.25em] mb-3">
                   Package Estimator
                 </p>
-                <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-foreground leading-tight mb-4">
+                <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-background leading-tight mb-4">
                   Build Your Package
                 </h2>
-                <p className="text-muted-foreground text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+                <p className="text-background/70 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
                   Mix and match coverage, hours, add-ons, and deliverables — and get an instant price estimate before you even reach out.
                 </p>
               </div>
 
-              <div className="inline-flex items-center gap-3 bg-brand-500 text-white font-bold uppercase tracking-widest text-sm px-8 py-4 rounded-full group-hover:bg-brand-400 transition-colors duration-300 shadow-lg shadow-brand-500/20">
+              <div className="inline-flex items-center gap-3 bg-background text-foreground font-bold uppercase tracking-widest text-sm px-8 py-4 rounded-full group-hover:opacity-80 transition-opacity duration-300">
                 Start Estimating
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
               </div>

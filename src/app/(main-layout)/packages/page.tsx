@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/hero-section";
-import { PackageTabs } from "@/components/packages/PackageTabs";
-import { PackageEstimator } from "@/components/packages/PackageEstimator";
+import { PackagePageTabs } from "@/components/packages/PackagePageTabs";
 import { breadcrumbSchema } from "@/lib/breadcrumb";
 
 const packagesFaqSchema = {
@@ -21,7 +20,7 @@ const packagesFaqSchema = {
       "name": "What is included in Visual Studios' wedding photography packages?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "All photography packages include a professional photographer, pre-shoot consultation, backdrop and lighting setup, and high-resolution digital delivery via a private Pixieset gallery. The Signature 12-hour package adds an on-site assistant and client proofing. The Elite 16-hour package includes a 2-photographer team."
+        "text": "All packages include a professional photographer or videographer, pre-shoot consultation, backdrop and lighting setup, digital delivery via Pixieset gallery or private video link, and a free 1-hour pre-wedding couple session. The Signature 12-hour package adds an on-site assistant. The Elite 16-hour package includes a 2-photographer team plus the Elite-exclusive Fine Art Hardcover Album (20×20, 40 pages)."
       }
     },
     {
@@ -29,7 +28,7 @@ const packagesFaqSchema = {
       "name": "How many photos do I receive from a 12-hour wedding?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The Signature 12-hour photography package delivers 60 professionally edited high-resolution photos. The Elite 16-hour package delivers 100 photos. Photo + Video Bundle packages deliver 150 edited photos at 12 hours and 200 at 16 hours."
+        "text": "The Signature 12-hour photography package delivers 900 professionally edited high-resolution photos (plus 225 hand-retouched portraits). The Elite 16-hour package delivers 1,200 edited photos (plus 300 hand-retouched portraits). Photo + Video Bundle packages deliver the same photo counts as photo-only — we use a dedicated photographer alongside the videographer."
       }
     },
     {
@@ -45,7 +44,7 @@ const packagesFaqSchema = {
       "name": "How long does it take to receive my wedding photos and videos?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Photos are typically delivered within 3–4 weeks. Cinematic wedding films take 6–8 weeks. We also offer a 72-Hour Sneak Peek of 10–15 edited photos delivered within 3 days of your wedding, and a Rush Delivery add-on for 48-hour turnaround."
+        "text": "Photos are typically delivered within 3–4 weeks. Cinematic wedding films take 6–8 weeks. We also offer a 72-Hour Sneak Peek of 10–15 edited photos delivered within 3 days of your wedding, and a Rush Delivery add-on for 72-hour turnaround."
       }
     },
     {
@@ -125,9 +124,7 @@ export default function PackagesPage() {
         image="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2000&auto=format&fit=crop"
       />
 
-      <PackageTabs />
-
-      <PackageEstimator />
+      <PackagePageTabs />
 
       {/* Pricing disclaimer */}
       <section className="py-14 bg-brand-500/5 border-y border-brand-500/20">
@@ -151,7 +148,7 @@ export default function PackagesPage() {
               href="https://wa.me/13473066637?text=Hi%2C%20I%27d%20like%20to%20get%20a%20custom%20quote%20for%20my%20wedding."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-brand-500/30 text-brand-500 text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-brand-500/10 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[#25D366] text-[#25D366] text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-[#25D366]/10 transition-colors"
             >
               Chat on WhatsApp
             </a>
@@ -159,87 +156,6 @@ export default function PackagesPage() {
         </div>
       </section>
 
-      {/* Static pricing block — crawlable without JS */}
-      <section className="py-20 bg-muted/20 border-t border-border">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Wedding Photography &amp; Videography Pricing — New York
-          </h2>
-          <p className="text-foreground/70 text-lg leading-relaxed mb-10">
-            Visual Studios &amp; Events offers custom wedding photography and videography packages for events
-            across New York, New Jersey, and Connecticut. All prices shown are starting-from estimates;
-            final pricing is confirmed during your free consultation based on your event details.
-          </p>
-
-          <div className="overflow-x-auto mb-12">
-            <table className="w-full text-left border-collapse text-sm">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="py-3 pr-6 font-bold uppercase tracking-wider text-xs text-muted-foreground">Package Tier</th>
-                  <th className="py-3 pr-6 font-bold uppercase tracking-wider text-xs text-muted-foreground">Coverage</th>
-                  <th className="py-3 font-bold uppercase tracking-wider text-xs text-muted-foreground">Starting From</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                <tr>
-                  <td className="py-4 pr-6 font-semibold">Event Session</td>
-                  <td className="py-4 pr-6 text-foreground/70">Portrait, engagement, small events (4 hrs)</td>
-                  <td className="py-4 font-bold text-brand-500">$499</td>
-                </tr>
-                <tr>
-                  <td className="py-4 pr-6 font-semibold">1-Day Wedding</td>
-                  <td className="py-4 pr-6 text-foreground/70">Single-day full wedding coverage (8–12 hrs)</td>
-                  <td className="py-4 font-bold text-brand-500">$1,400</td>
-                </tr>
-                <tr>
-                  <td className="py-4 pr-6 font-semibold">Multi-Day Wedding</td>
-                  <td className="py-4 pr-6 text-foreground/70">Mehndi, Baraat, Walima — 2 to 3 days</td>
-                  <td className="py-4 font-bold text-brand-500">$3,500</td>
-                </tr>
-                <tr>
-                  <td className="py-4 pr-6 font-semibold">Cinematic Film Add-On</td>
-                  <td className="py-4 pr-6 text-foreground/70">Full cinematic wedding film, professionally scored</td>
-                  <td className="py-4 font-bold text-brand-500">$800</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div>
-              <h3 className="text-xl font-bold mb-4">What&apos;s Included in Every Package</h3>
-              <ul className="space-y-2 text-foreground/70 text-sm leading-relaxed">
-                <li>✓ Professional photo and/or video team</li>
-                <li>✓ Online gallery with web &amp; full-resolution digital files</li>
-                <li>✓ Flexible coverage — getting ready, ceremony, portraits, reception</li>
-                <li>✓ Unlimited locations within booked hours</li>
-                <li>✓ Pro cameras, lenses, lighting, and audio equipment</li>
-                <li>✓ Artistic direction and posing guidance</li>
-                <li>✓ Consistent color grading</li>
-                <li>✓ No watermarks — personal use license</li>
-                <li>✓ 3 months cloud storage</li>
-                <li>✓ Planning consultations via phone, email, and WhatsApp</li>
-                <li className="font-semibold text-brand-500">✓ Free pre-wedding couple session — 1 hour, booked before your wedding day</li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-bold mb-4">Popular Add-Ons</h3>
-              <ul className="space-y-2 text-foreground/70 text-sm leading-relaxed">
-                <li>✓ Drone / aerial coverage</li>
-                <li>✓ Pre-wedding or engagement shoot</li>
-                <li>✓ Post-wedding shoot</li>
-                <li>✓ Same-day highlight edit</li>
-                <li>✓ Live streaming</li>
-                <li>✓ 2nd photographer or videographer</li>
-                <li>✓ USB drive delivery</li>
-                <li>✓ Fine art prints</li>
-                <li>✓ Female-only crew &amp; editor</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Question-anchored FAQ — AI crawler optimized */}
       <section className="py-20 bg-background border-t border-border">
@@ -258,11 +174,11 @@ export default function PackagesPage() {
               },
               {
                 q: "What is included in every photography or videography package?",
-                a: "All packages include a professional photographer or videographer, pre-shoot consultation, backdrop and lighting setup, and digital delivery via Pixieset gallery or private video link. The Signature 12-hour package adds an on-site assistant. The Elite 16-hour package includes a 2-photographer team.",
+                a: "All packages include a professional photographer or videographer, pre-shoot consultation, backdrop and lighting setup, digital delivery via Pixieset gallery or private video link, and a free 1-hour pre-wedding couple session. The Signature 12-hour package adds an on-site assistant. The Elite 16-hour package includes a 2-photographer team plus the Elite-exclusive Fine Art Hardcover Album (20×20, 40 pages).",
               },
               {
                 q: "How many photos do I receive from a 12-hour wedding?",
-                a: "The Signature 12-hour photography package delivers 60 professionally edited high-resolution photos. The Elite 16-hour package delivers 100. Photo + Video Bundle packages deliver 150 edited photos at 12 hours and 200 at 16 hours.",
+                a: "The Signature 12-hour photography package delivers 900 professionally edited high-resolution photos (plus 225 hand-retouched portraits). The Elite 16-hour package delivers 1,200 edited photos (plus 300 hand-retouched portraits). Photo + Video Bundle packages deliver the same photo counts as photo-only — we use a dedicated photographer alongside the videographer.",
               },
               {
                 q: "Is a female photographer or videographer available for Muslim or hijabi brides?",
@@ -270,7 +186,7 @@ export default function PackagesPage() {
               },
               {
                 q: "How long does it take to receive my wedding photos and videos?",
-                a: "Photos are typically delivered within 3–4 weeks. Cinematic wedding films take 6–8 weeks. We also offer a 72-Hour Sneak Peek of 10–15 edited photos within 3 days of your wedding, and a Rush Delivery add-on for 48-hour turnaround.",
+                a: "Photos are typically delivered within 3–4 weeks. Cinematic wedding films take 6–8 weeks. We also offer a 72-Hour Sneak Peek of 10–15 edited photos within 3 days of your wedding, and a Rush Delivery add-on for 72-hour turnaround.",
               },
               {
                 q: "Do you cover Bengali, Pakistani, Indian, and Muslim wedding ceremonies?",

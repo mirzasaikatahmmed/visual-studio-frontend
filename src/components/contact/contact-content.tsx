@@ -3,16 +3,35 @@
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, MessageCircle, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, MessageCircle, CheckCircle2, Instagram } from "lucide-react";
 import { createInquiry } from "@/lib/inquiriesApi";
 
 const INQUIRY_TYPES = [
-  "Brand Photography",
-  "Event Decoration Setup",
+  "Wedding Photography",
+  "Wedding Cinematography / Videography",
+  "Photo + Video Bundle",
+  "Multi-Day Wedding Coverage",
+  "Mehndi / Holud Coverage",
+  "Nikkah Coverage",
+  "Walima Coverage",
+  "Baraat Coverage",
+  "Female Crew Request",
+  "No-Photo Security",
   "Portrait Session",
-  "Wedding Coverage",
+  "Brand Photography",
+  "Event Photography",
+  "Visual Marketing",
+  "Website Build",
+  "Event Decoration Setup",
   "Other / General",
+  "Feedback",
 ];
+
+const TYPE_PARAM_MAP: Record<string, string> = {
+  "marketing-videos": "Visual Marketing",
+  "business-setup":   "Visual Marketing",
+  "website-build":    "Website Build",
+};
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -51,13 +70,16 @@ export function ContactContent() {
   const searchParams = useSearchParams();
   const estimateParam = searchParams.get("estimate");
   const weddingDateParam = searchParams.get("wedding_date");
+  const typeParam = searchParams.get("type");
   const fromEstimator = Boolean(estimateParam);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [inquiryType, setInquiryType] = useState(
-    fromEstimator ? "Wedding Coverage" : INQUIRY_TYPES[0]
+    fromEstimator
+      ? "Wedding Photography"
+      : (typeParam && TYPE_PARAM_MAP[typeParam]) || INQUIRY_TYPES[0]
   );
   const [eventDate, setEventDate] = useState(weddingDateParam ?? "");
   const [message, setMessage] = useState("");
@@ -139,14 +161,23 @@ export function ContactContent() {
                   <div className="p-10 border border-border bg-muted/30 rounded-3xl relative overflow-hidden group hover:border-[#25D366]/50 transition-colors shadow-[0_0_30px_rgba(0,0,0,0.05)]">
                     <div className="absolute -right-10 -top-10 w-40 h-40 bg-[#25D366]/10 rounded-full blur-3xl group-hover:bg-[#25D366]/20 transition-colors" />
                     <h3 className="text-2xl font-bold mb-4 relative z-10">Fastest Response</h3>
-                    <p className="text-muted-foreground mb-8 text-lg relative z-10">Text our team directly on WhatsApp for quick answers and simple bookings.</p>
-                    <a
-                      href="https://wa.me/13473066637"
-                      target="_blank" rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-3 w-full py-5 bg-[#25D366] text-white font-bold uppercase tracking-widest hover:bg-[#20bd5a] hover:scale-105 hover:shadow-[0_0_30px_rgba(37,211,102,0.4)] transition-all rounded-full relative z-10"
-                    >
-                      <MessageCircle size={24} /> Message on WhatsApp
-                    </a>
+                    <p className="text-muted-foreground mb-8 text-lg relative z-10">Text or DM our team directly for quick answers and simple bookings.</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 relative z-10">
+                      <a
+                        href="https://wa.me/13473066637"
+                        target="_blank" rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 w-full py-4 bg-[#25D366] text-white font-bold uppercase tracking-widest hover:bg-[#20bd5a] hover:scale-105 hover:shadow-[0_0_30px_rgba(37,211,102,0.4)] transition-all rounded-full text-sm"
+                      >
+                        <MessageCircle size={20} /> WhatsApp
+                      </a>
+                      <a
+                        href="https://ig.me/m/visualstudioofficial"
+                        target="_blank" rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 w-full py-4 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white font-bold uppercase tracking-widest hover:opacity-90 hover:scale-105 hover:shadow-[0_0_30px_rgba(253,29,29,0.3)] transition-all rounded-full text-sm"
+                      >
+                        <Instagram size={20} /> Instagram
+                      </a>
+                    </div>
                   </div>
 
                   {/* Calendly Appointment */}

@@ -6,8 +6,8 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard, MessageSquare, Camera, Video,
   Menu, X, ExternalLink,
-  Bell, LogOut, Aperture, Info,
-  HelpCircle, Image, Grid, ShoppingBag, FileImage, Sparkles, Rss, Activity, Calculator
+  Bell, LogOut, Aperture,
+  FileImage, Rss, Activity, Calculator, Sparkles
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { motion, AnimatePresence } from "framer-motion";
@@ -22,14 +22,14 @@ const navLinks = [
   { href: "/admin/portfolios", label: "Portfolios", icon: Camera },
   { href: "/admin/media", label: "Media Library", icon: FileImage },
   { href: "/admin/videos", label: "Videos", icon: Video },
-  { href: "/admin/store", label: "Store", icon: ShoppingBag },
-  { href: "/admin/visual-marketing", label: "Visual Mktg", icon: Image },
-  { href: "/admin/more-services", label: "Services", icon: Grid },
-  { href: "/admin/about", label: "About Us", icon: Info },
+  // { href: "/admin/store", label: "Store", icon: ShoppingBag },
+  // { href: "/admin/visual-marketing", label: "Visual Mktg", icon: Image },
+  // { href: "/admin/more-services", label: "Services", icon: Grid },
+  // { href: "/admin/about", label: "About Us", icon: Info },
   { href: "/admin/vision-craft", label: "Vision & Craft", icon: Sparkles },
   { href: "/admin/stay-inspired", label: "Stay Inspired", icon: Rss },
   { href: "/admin/traffic", label: "Live Traffic", icon: Activity },
-  { href: "/admin/faq", label: "FAQ", icon: HelpCircle },
+  // { href: "/admin/faq", label: "FAQ", icon: HelpCircle },
   // { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
@@ -154,16 +154,33 @@ function relativeTime(iso: string): string {
 }
 
 const UNREAD_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
+const READ_NOTIFS_KEY = "vs_read_notifications";
 
-function toNotification(iq: Inquiry): Notification {
+function getReadIds(): Set<number> {
+  try {
+    const raw = localStorage.getItem(READ_NOTIFS_KEY);
+    return new Set(raw ? (JSON.parse(raw) as number[]) : []);
+  } catch {
+    return new Set();
+  }
+}
+
+function saveReadIds(ids: Set<number>) {
+  try {
+    localStorage.setItem(READ_NOTIFS_KEY, JSON.stringify([...ids]));
+  } catch {}
+}
+
+function toNotification(iq: Inquiry, readIds: Set<number>): Notification {
   const isNew = Date.now() - new Date(iq.createdAt).getTime() < UNREAD_WINDOW_MS;
+  const naturallyRead = !(iq.status === "Pending" && isNew);
   return {
     id: iq.id,
     type: iq.status === "Booked" ? "booking" : "inquiry",
     title: iq.status === "Booked" ? "Booking Confirmed" : "New Inquiry",
     message: `${iq.name} submitted a ${iq.type.toLowerCase()} inquiry.`,
     time: relativeTime(iq.createdAt),
-    read: !(iq.status === "Pending" && isNew),
+    read: naturallyRead || readIds.has(iq.id),
   };
 }
 
@@ -202,7 +219,8 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
         const sorted = [...inquiries].sort(
           (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
         );
-        setNotifications(sorted.slice(0, 20).map(toNotification));
+        const readIds = getReadIds();
+        setNotifications(sorted.slice(0, 20).map(iq => toNotification(iq, readIds)));
         setPendingCount(inquiries.filter(i => i.status === "Pending").length);
       } catch {
         // silently fail — user may not be authenticated yet
@@ -221,8 +239,23 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const markAllRead = () => setNotifications(prev => prev.map(n => ({ ...n, read: true })));
-  const markRead = (id: number) => setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
+  const markAllRead = () => {
+    setNotifications(prev => {
+      const updated = prev.map(n => ({ ...n, read: true }));
+      saveReadIds(new Set(updated.map(n => n.id)));
+      return updated;
+    });
+  };
+
+  const markRead = (id: number) => {
+    setNotifications(prev => {
+      const updated = prev.map(n => n.id === id ? { ...n, read: true } : n);
+      const readIds = getReadIds();
+      readIds.add(id);
+      saveReadIds(readIds);
+      return updated;
+    });
+  };
   const dismiss = (id: number) => setNotifications(prev => prev.filter(n => n.id !== id));
 
   return (

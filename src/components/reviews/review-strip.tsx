@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star, Globe } from "lucide-react";
 import Link from "next/link";
-import { NAMED_TESTIMONIALS, SOURCE_BADGES } from "./reviews-section";
+import { NAMED_TESTIMONIALS, GoogleIcon, InstagramIcon } from "./reviews-section";
 
 function InitialsAvatar({ name }: { name: string }) {
   const initials = name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
@@ -43,10 +43,9 @@ export function ReviewStrip() {
         <motion.div
           className="flex w-max"
           animate={{ x: ["0%", "-33.333333%"] }}
-          transition={{ ease: "linear", duration: 35, repeat: Infinity }}
+          transition={{ ease: "linear", duration: 80, repeat: Infinity }}
         >
           {duplicatedStories.map((t, i) => {
-            const badge = SOURCE_BADGES[t.source] ?? SOURCE_BADGES["Direct"];
             return (
               <div
                 key={i}
@@ -60,9 +59,13 @@ export function ReviewStrip() {
                       <p className="text-[11px] text-foreground/50 mt-0.5">{t.event}</p>
                     </div>
                   </div>
-                  <span className={`text-[9px] font-bold uppercase tracking-wider border px-1.5 py-0.5 rounded-full ${badge.color} shrink-0`}>
-                    {badge.label}
-                  </span>
+                  {t.source === "Google Review" ? (
+                    <GoogleIcon className="w-4 h-4 shrink-0" />
+                  ) : t.source === "Instagram" ? (
+                    <InstagramIcon className="w-4 h-4 shrink-0" />
+                  ) : (
+                    <Globe size={16} className="shrink-0 text-brand-500 dark:text-brand-400" />
+                  )}
                 </div>
 
                 <div className="flex text-yellow-500 gap-0.5">

@@ -12,8 +12,8 @@ import { FaWhatsapp } from "react-icons/fa";
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Portfolio", href: "/portfolio" },
-  { name: "Video Gallery", href: "/video-gallery" },
-  { name: "Visual Marketing", href: "/visual-marketing" },
+  { name: "Film", href: "/video-gallery" },
+  { name: "Marketing", href: "/visual-marketing" },
   { name: "More Services", href: "/more-services" },
   { name: "Store", href: "/store" },
   { name: "About", href: "/about" },

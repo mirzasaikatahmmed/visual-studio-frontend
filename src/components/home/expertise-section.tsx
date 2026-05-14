@@ -38,6 +38,8 @@ export function ExpertiseSection() {
       ? "grid-cols-1 sm:grid-cols-2"
       : items.length === 3
       ? "grid-cols-1 sm:grid-cols-3"
+      : items.length === 5
+      ? "grid-cols-2 md:grid-cols-5"
       : "grid-cols-2 md:grid-cols-4";
 
   return (

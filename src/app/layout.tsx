@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "South Asian & Muslim Wedding Photographer NY | Visual Studios & Events",
     description:
       "Cinematic wedding photography & videography for Bengali, Pakistani, Indian, Sikh, and Muslim weddings in NY. Female crew available.",
@@ -95,7 +95,7 @@ export const metadata: Metadata = {
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
-  "@type": "PhotographyBusiness",
+  "@type": ["LocalBusiness", "ProfessionalService"],
   "@id": "https://www.visualstudioslens.com/#business",
   "name": "Visual Studios & Events",
   "legalName": "Visual Inked LLC",

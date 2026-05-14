@@ -39,3 +39,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 config.bat
+visual_studio_project-requirements_vs_implementation.md
+EXTRA_WORK.md

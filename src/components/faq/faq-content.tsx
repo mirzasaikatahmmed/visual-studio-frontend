@@ -56,6 +56,30 @@ const FAQ_SECTIONS: FaqSection[] = [
         answer:
           "The retainer is non-refundable, but we'll honor it toward a rescheduled date within 12 months at no penalty. Full details are in the contract.",
       },
+      {
+        id: "a7",
+        question: "These packages don't really fit my needs — do you offer customizable packages?",
+        answer:
+          "Absolutely. Every event is different, and we understand that our standard packages won't fit every vision or budget. We're happy to build a custom package tailored to your specific needs — whether that's adjusting coverage hours, adding a second shooter, including drone footage, or combining services in a unique way. Just reach out through our contact form and let us know what you're looking for, and we'll put together a personalized quote for you.",
+      },
+      {
+        id: "a8",
+        question: "How do you prefer to receive payments?",
+        answer:
+          "We accept payments via Zelle, bank transfer, check, and major credit/debit cards. Zelle and bank transfers are our preferred methods, as they're the fastest and incur no processing fees. Credit card payments may include a small processing surcharge.",
+      },
+      {
+        id: "a9",
+        question: "When are payments due? Can we pay after receiving the photos and videos?",
+        answer:
+          "To secure your booking, we require a non-refundable retainer of 30% at the time of contract signing. The remaining balance is due on or before the event date. We do not release final edited photos or videos until the full balance has been paid. This policy protects both you and us, and ensures your booking is fully reserved on our calendar.",
+      },
+      {
+        id: "a10",
+        question: "How much of the deposit is refundable?",
+        answer:
+          "We completely understand that life can be unpredictable. The booking retainer (30%) is non-refundable, as it secures your date and prevents us from accepting other bookings for that time. However, in the event of a postponement — whether due to illness, emergencies, or unforeseen circumstances — we will gladly transfer your retainer to a new date within 12 months, subject to availability. We always aim to work with our clients with compassion and flexibility, so please reach out to us directly if your situation changes.",
+      },
     ],
   },
   {
@@ -118,13 +142,13 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "c2",
         question: "What's the full turnaround time for the gallery and wedding film?",
         answer:
-          "Full edited photo galleries are delivered in 3–4 weeks. Cinematic wedding films are delivered in 1–2 months. Rush delivery is available as an add-on.",
+          "Our standard turnaround time is 4–6 weeks for edited photos and 6–8 weeks for edited videos and films. For weddings and larger events, delivery may take up to 8–10 weeks during peak season. We also provide a sneak peek of select images within 1–2 weeks so you have something to share right away. Need it sooner? Rush delivery is available for an additional fee — just ask.",
       },
       {
         id: "c3",
         question: "How many edited photos will I receive?",
         answer:
-          "It depends on coverage hours, but a typical full-day wedding gallery includes 600–1,000+ professionally edited photos.",
+          "The number of edited photos depends on the package you select and the length of coverage. On average, you can expect 50–75 professionally edited images per hour of shooting. For full-day weddings, this typically translates to 400–800+ final edited photos. We focus on quality over quantity — every image we deliver is carefully selected and edited to tell your story beautifully.",
       },
       {
         id: "c4",
@@ -137,6 +161,18 @@ const FAQ_SECTIONS: FaqSection[] = [
         question: "How will I receive my photos and videos?",
         answer:
           "Through a private, password-protected online gallery (Pixieset) where you can download high-resolution files, share with family, and order prints. USB and printed albums are available as add-ons.",
+      },
+      {
+        id: "c6",
+        question: "Will you send us unedited photos, or are all photos edited before delivery?",
+        answer:
+          "All photos delivered to you are professionally edited — color-corrected, retouched, and polished to match our signature style. We don't release unedited or RAW files, as they don't represent the finished quality of our work. This ensures every image you receive is gallery-ready and consistent with the portfolio you booked us for.",
+      },
+      {
+        id: "c7",
+        question: "Can you make wedding films longer than 45 minutes?",
+        answer:
+          "Yes, we can. The 45-minute runtime in our standard packages reflects what most clients prefer for a polished, engaging film. However, if you'd like a longer cinematic feature, an extended documentary-style film, or full ceremony coverage, we offer this as a custom add-on. Pricing depends on the additional editing time required, and we're happy to discuss what works best for your event.",
       },
     ],
   },
@@ -178,6 +214,18 @@ const FAQ_SECTIONS: FaqSection[] = [
         question: "Where are you based and what areas do you serve?",
         answer:
           "We're based in Brooklyn and Queens, NY, and serve the entire tri-state area — all five NY boroughs, Long Island, Westchester, New Jersey, and Connecticut. We also travel for destination weddings worldwide.",
+      },
+      {
+        id: "d7",
+        question: "Do you offer photo albums?",
+        answer:
+          "Yes, we offer beautifully crafted, premium-quality photo albums and keepsake books, designed to preserve your memories for generations. Options range from classic linen-bound albums to luxury leather finishes, with various sizes and page counts available. Album design and printing are offered as add-ons to any package — please ask us for our album catalog and pricing.",
+      },
+      {
+        id: "d8",
+        question: "Do you charge travel fees?",
+        answer:
+          "Travel within the NYC metro area (Manhattan, Brooklyn, Queens, Bronx, Staten Island) is included in all our packages at no additional cost. For events in Long Island, Westchester, New Jersey, and Connecticut, a small travel fee may apply depending on distance. For destination weddings or out-of-state events, we offer custom travel packages that include flights, accommodations, and transportation. Just let us know your event location and we'll provide a transparent quote.",
       },
     ],
   },
