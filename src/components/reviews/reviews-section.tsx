@@ -42,7 +42,7 @@ export const NAMED_TESTIMONIALS = [
   {
     name: "Abdulrahman Siddiqui",
     event: "Nikkah · Brooklyn, NY",
-    text: "If you are searching for the best Muslim wedding photographer near Brooklyn, your search ends here. Visual Studio captured our Nikkah with cultural and religious awareness I have never encountered before. Fast turnaround, world-class editing. 10 out of 10.",
+    text: "Visual Studio captured our Nikkah with cultural and religious awareness I have never encountered before. Fast turnaround, world-class editing. 10 out of 10.",
     source: "Website",
     rating: 5,
   },
@@ -77,7 +77,7 @@ export const NAMED_TESTIMONIALS = [
   {
     name: "Maliha Islam",
     event: "Holud · Brooklyn, NY",
-    text: "Tarek's Holud photos are everything I have ever wanted for my own Holud someday. @visualstudioofficial captured the colours, the henna close-ups, the family chaos — the full energy of the night. Bengali wedding photography near Brooklyn at its finest.",
+    text: "Tarek's Holud photos are everything I have ever wanted for my own Holud someday. @visualstudioofficial captured the colours, the henna close-ups, the family chaos — the full energy of the night. I have never seen a Holud documented this beautifully.",
     source: "Instagram",
     rating: 5,
   },
@@ -91,7 +91,7 @@ export const NAMED_TESTIMONIALS = [
   {
     name: "Aisha Qureshi",
     event: "Nikkah Shoot · NYC",
-    text: "Alhamdulillah for these photos. Visual Studio captured this Nikkah with so much beauty and respect. The lighting is breathtaking, the editing is soft and natural. Muslim brides searching for authentic wedding photography near New York, look no further.",
+    text: "Alhamdulillah for these photos. Visual Studio captured this Nikkah with so much beauty and respect. The lighting is breathtaking, the editing is soft and natural. We are so grateful.",
     source: "Instagram",
     rating: 5,
   },
@@ -112,14 +112,14 @@ export const NAMED_TESTIMONIALS = [
   {
     name: "Jubayer Hasan",
     event: "Photo & Video · Brooklyn, NY",
-    text: "The highlight reel from this shoot has been getting shared everywhere and everyone keeps asking who produced it. @visualstudioofficial — you elevated this whole event with that film. Best videographers near Brooklyn and the photos are just as good.",
+    text: "The highlight reel from this shoot has been getting shared everywhere and everyone keeps asking who produced it. @visualstudioofficial — you elevated this whole event with that film. The photography matched the same level.",
     source: "Instagram",
     rating: 5,
   },
   {
     name: "Tanvir Hossain",
     event: "Photo & Video · Brooklyn, NY",
-    text: "If you need both photography and videography covered by one team without either suffering, Visual Studio is it. The photos are gallery-quality and the film is cinematic. The highlight reel had my family crying and laughing at the same time. Best photo and video near Brooklyn.",
+    text: "If you need both photography and videography covered by one team without either suffering, Visual Studio is it. The photos are gallery-quality and the film is cinematic. The highlight reel had my family crying and laughing at the same time.",
     source: "Website",
     rating: 5,
   },
@@ -147,7 +147,7 @@ export const NAMED_TESTIMONIALS = [
   {
     name: "Adaeze Okonkwo",
     event: "Photoshoot · NYC",
-    text: "Sometimes you find a photographer who just gets it. @visualstudioofficial got it immediately — no over-directing, no awkward posing, just natural, beautiful photography. Best photographer near NYC.",
+    text: "Sometimes you find a photographer who just gets it. @visualstudioofficial got it immediately — no over-directing, no awkward posing, just natural, beautiful photography.",
     source: "Instagram",
     rating: 5,
   },
@@ -175,7 +175,7 @@ export const NAMED_TESTIMONIALS = [
   {
     name: "Camden Brown",
     event: "Photoshoot · Brooklyn, NY",
-    text: "Never thought I'd share my own photoshoot on social media but Visual Studio made it happen. The results are genuinely too good not to share. @visualstudioofficial hit different. Best photographer near Brooklyn for guys who don't love being in front of the camera.",
+    text: "Never thought I'd share my own photoshoot on social media but Visual Studio made it happen. The results are genuinely too good not to share. @visualstudioofficial hit different.",
     source: "Instagram",
     rating: 5,
   },
@@ -203,14 +203,14 @@ export const NAMED_TESTIMONIALS = [
   {
     name: "Funmilayo Adeyinka",
     event: "Wedding · NYC",
-    text: "1,200 photos from Ojifa's wedding and I would print every single one if I could. @visualstudioofficial covered the entire day with a level of detail and artistry I've never seen. Best wedding photographer near Brooklyn.",
+    text: "1,200 photos from Ojifa's wedding and I would print every single one if I could. @visualstudioofficial covered the entire day with a level of detail and artistry I've never seen.",
     source: "Instagram",
     rating: 5,
   },
   {
     name: "Morenike Obi",
     event: "Wedding · NYC",
-    text: "Visual Studio is the kind of wedding photography team you feel grateful to have had on your biggest day. They didn't just document the wedding — they told the story. The film has a narrative arc, the photos have emotional depth. Best wedding coverage near New York.",
+    text: "Visual Studio is the kind of wedding photography team you feel grateful to have had on your biggest day. They didn't just document the wedding — they told the story. The film has a narrative arc, the photos have emotional depth.",
     source: "Website",
     rating: 5,
   },
@@ -238,7 +238,7 @@ export const NAMED_TESTIMONIALS = [
   {
     name: "Siobhan O'Brien",
     event: "Baby Baptism · Brooklyn, NY",
-    text: "Jennifer's daughter's baptism photos from @visualstudioofficial are the most beautiful I've ever seen from a christening. The light inside the church, the family reactions, the softness of the whole gallery — absolutely stunning. Best baptism photographer near Brooklyn.",
+    text: "Jennifer's daughter's baptism photos from @visualstudioofficial are the most beautiful I've ever seen from a christening. The light inside the church, the family reactions, the softness of the whole gallery — absolutely stunning.",
     source: "Instagram",
     rating: 5,
   },

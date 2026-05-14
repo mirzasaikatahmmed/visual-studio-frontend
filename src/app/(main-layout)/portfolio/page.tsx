@@ -298,7 +298,7 @@ export default function PortfolioPage() {
           </div>
         )}
 
-        {/* Cinematic Pixieset Call to Action */}
+        {/* Cinematic Gallery Call to Action */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -320,7 +320,7 @@ export default function PortfolioPage() {
               Full Client <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-400">Galleries</span>
             </motion.h2>
             <motion.p variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} className="text-white/60 text-lg mb-10 leading-relaxed font-medium">
-              We deliver all our final, high-resolution masterpieces through beautiful, private online galleries powered by Pixieset.
+              We deliver all our final, high-resolution masterpieces through beautiful, private digital galleries.
               View our complete, uncurated stories to witness our true consistency across entire events.
             </motion.p>
             <motion.a

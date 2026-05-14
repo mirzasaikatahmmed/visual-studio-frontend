@@ -36,7 +36,7 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "a3",
         question: "How do I reserve my date?",
         answer:
-          "Your date is locked in with a signed contract and a non-refundable retainer of 30%–50% of the total package. The remaining balance is due closer to the event date. We accept Zelle, bank transfer, and major credit cards.",
+          "Your date is locked in with a signed contract and a non-refundable retainer of 30% of the total package. The remaining balance is due closer to the event date. We accept Zelle, bank transfer, and major credit cards.",
       },
       {
         id: "a4",
@@ -142,7 +142,7 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "c2",
         question: "What's the full turnaround time for the gallery and wedding film?",
         answer:
-          "Our standard turnaround time is 4–6 weeks for edited photos and 6–8 weeks for edited videos and films. For weddings and larger events, delivery may take up to 8–10 weeks during peak season. We also provide a sneak peek of select images within 1–2 weeks so you have something to share right away. Need it sooner? Rush delivery is available for an additional fee — just ask.",
+          "Our standard turnaround time is 4–6 weeks for edited photos and 6–8 weeks for edited videos and films. For weddings and larger events, delivery may take up to 8–10 weeks during peak season. We also deliver a 72-hour sneak peek of 15–25 select images so you have something to share right away. Need it sooner? Rush delivery is available for an additional fee — just ask.",
       },
       {
         id: "c3",
@@ -160,7 +160,7 @@ const FAQ_SECTIONS: FaqSection[] = [
         id: "c5",
         question: "How will I receive my photos and videos?",
         answer:
-          "Through a private, password-protected online gallery (Pixieset) where you can download high-resolution files, share with family, and order prints. USB and printed albums are available as add-ons.",
+          "Through a private, password-protected digital gallery where you can download high-resolution files, share with family, and order prints. USB and printed albums are available as add-ons.",
       },
       {
         id: "c6",
