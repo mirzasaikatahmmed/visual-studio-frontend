@@ -447,17 +447,17 @@ export function AboutContent() {
                 className={`relative bg-background border border-border rounded-3xl p-8 md:p-12 flex flex-col ${member.imagePosition === "right" ? "md:flex-row-reverse" : "md:flex-row"} items-center md:items-stretch gap-8 md:gap-12`}
               >
                 {/* Photo or placeholder */}
-                <div className={`w-48 h-48 md:w-64 md:h-auto shrink-0 relative rounded-2xl overflow-hidden bg-muted/50 border border-border flex items-center justify-center ${member.imagePosition === "right" ? "md:translate-x-4" : "md:-translate-x-4"} md:-translate-y-8`}>
+                <div className={`w-full max-w-[280px] md:max-w-none md:w-80 lg:w-96 h-[320px] md:h-auto shrink-0 relative flex justify-center mx-auto md:mx-0`}>
                   {member.imageUrl ? (
                     <Image
                       src={member.imageUrl}
                       alt={member.name}
-                      width={256}
-                      height={320}
-                      className="w-full h-full object-cover object-top"
+                      width={600}
+                      height={800}
+                      className={`absolute bottom-0 md:-bottom-12 h-[calc(100%+80px)] md:h-[calc(100%+160px)] lg:h-[calc(100%+200px)] w-auto max-w-none object-contain object-bottom drop-shadow-[0_20px_30px_rgba(0,0,0,0.6)] z-10 pointer-events-none left-1/2 -translate-x-1/2 ${member.imagePosition === "right" ? "md:left-auto md:translate-x-0 md:-right-6 lg:-right-10" : "md:right-auto md:translate-x-0 md:-left-6 lg:-left-10"}`}
                     />
                   ) : (
-                    <div className="flex flex-col items-center justify-center gap-3 p-6 text-center w-full h-full min-h-[200px]">
+                    <div className="flex flex-col items-center justify-center gap-3 p-6 text-center w-full h-full min-h-[300px] bg-muted/50 border border-border rounded-2xl">
                       <div className="w-16 h-16 rounded-full bg-brand-500/10 border border-brand-500/20 flex items-center justify-center">
                         <span className="text-2xl font-black text-brand-500">
                           {member.name.split(" ").map(n => n[0]).join("").slice(0, 2)}
