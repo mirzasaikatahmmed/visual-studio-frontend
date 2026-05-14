@@ -51,7 +51,7 @@ const TABS: Tab[] = [
       {
         num: "03", name: "Signature", hours: 12, guests: "Up to 300 guests", popular: true,
         features: [
-          { label: "Coverage",   value: "12 hours of photography" },
+          { label: "Coverage",   value: "8 hours of photography" },
           { label: "Edited",     value: "900 professionally edited high-res photos" },
           { label: "Retouched",  value: "225 hand-retouched portraits" },
           { label: "Support",    value: "Professional lighting + on-site assistant" },

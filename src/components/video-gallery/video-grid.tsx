@@ -17,11 +17,11 @@ const CATEGORY_ORDER = ["Wedding", "Commercial", "Social Content", "Same-Day Edi
 
 const VIDEOS: VideoItem[] = [
   {
-    id: 1,
-    title: "Ojifa & Mohaiminul Wedding",
+    id: 4,
+    title: "Sandeep & Naina Nikkah Ceremony",
     category: "Wedding",
-    embedUrl: "https://www.youtube.com/embed/9ZqmQD_N-NI",
-    thumbnailUrl: "https://img.youtube.com/vi/9ZqmQD_N-NI/maxresdefault.jpg",
+    embedUrl: "https://www.youtube.com/embed/adBzsDSdWWw",
+    thumbnailUrl: "https://img.youtube.com/vi/adBzsDSdWWw/maxresdefault.jpg",
     featured: true,
   },
   {
@@ -33,36 +33,12 @@ const VIDEOS: VideoItem[] = [
     featured: true,
   },
   {
-    id: 3,
-    title: "Nusrat & Suvo Reception",
-    category: "Wedding",
-    embedUrl: "https://www.youtube.com/embed/v455I1JAFaM",
-    thumbnailUrl: "https://img.youtube.com/vi/v455I1JAFaM/maxresdefault.jpg",
-    featured: true,
-  },
-  {
-    id: 4,
-    title: "Sandeep & Naina Nikkah Ceremony",
-    category: "Wedding",
-    embedUrl: "https://www.youtube.com/embed/adBzsDSdWWw",
-    thumbnailUrl: "https://img.youtube.com/vi/adBzsDSdWWw/maxresdefault.jpg",
-    featured: true,
-  },
-  {
     id: 5,
     title: "Tangirul Islam & Fatema Khuda Nikah",
     category: "Wedding",
     embedUrl: "https://www.youtube.com/embed/L-Ozl-L5RnU",
     thumbnailUrl: "https://img.youtube.com/vi/L-Ozl-L5RnU/maxresdefault.jpg",
     featured: true,
-  },
-  {
-    id: 6,
-    title: "Madha & Muaz Mehendi Ceremony",
-    category: "Wedding",
-    embedUrl: "https://www.youtube.com/embed/IC8LQ0ILNJU",
-    thumbnailUrl: "https://img.youtube.com/vi/IC8LQ0ILNJU/maxresdefault.jpg",
-    featured: false,
   },
   {
     id: 7,
