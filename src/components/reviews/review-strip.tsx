@@ -43,7 +43,7 @@ export function ReviewStrip() {
         <motion.div
           className="flex w-max"
           animate={{ x: ["0%", "-33.333333%"] }}
-          transition={{ ease: "linear", duration: 35, repeat: Infinity }}
+          transition={{ ease: "linear", duration: 80, repeat: Infinity }}
         >
           {duplicatedStories.map((t, i) => {
             return (
