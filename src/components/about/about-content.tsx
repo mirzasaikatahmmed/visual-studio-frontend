@@ -57,9 +57,9 @@ const TEAM: TeamMember[] = [
   {
     id: 3,
     name: "Syed Md Mahid",
-    role: "Professional Photo Editor",
-    imageUrl: null,
-    bio: `Photographer, editor, and creative producer currently studying Information & Communication Engineering at East West University. Starting in 2017, I quickly grew from mobile photography to national recognition — including a 2019 award from Youth Club Bangladesh and UKAid.\n\nI work with FoodPanda, Kidzana, Quest Film, and Visual Studios. I serve as Secretary of Design at East West University Photography Club, known for turning ideas into visually impactful stories.`,
+    role: "Creative Operations Manager",
+    imageUrl: "/images/team/syed-md-mahid.png",
+    bio: `Syed Md Mahid is a creative professional specializing in visual storytelling, media production, and creative operations. With a strong background in photography, editing, and digital media, he plays an important role in managing creative workflows and supporting the development of the company’s production team.\n\nAt Visual Studio, he oversees creative operations including video and photo editing, team coordination, recruitment, and project management. He also collaborates with editors, designers, 3D artists, and developers to maintain creative quality and ensure efficient execution across projects.\n\nAlongside his management responsibilities, Mahid contributes to multimedia production through photography, photo editing, visual design, and content development. His ability to combine creativity with operational leadership helps the team deliver impactful and professional visual experiences.\n\nAlongside his professional career, he is currently completing his final year in Information and Communication Engineering at East West University, where he continues to explore the connection between technology, storytelling, and modern creative media.`,
     imagePosition: "left",
   },
 ];
