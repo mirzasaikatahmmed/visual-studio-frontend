@@ -366,23 +366,23 @@ export function PackageTabs() {
                   )}
 
                   {/* Package label */}
-                  <span className="text-[10px] font-extrabold uppercase tracking-widest mb-2 text-brand-500">
+                  <span className="text-xs font-extrabold uppercase tracking-widest mb-2 text-brand-500">
                     Package {pkg.num}
                   </span>
 
                   {/* Name + hours */}
-                  <h3 className="text-xl font-extrabold tracking-tight leading-tight mb-0.5">{pkg.name}</h3>
-                  <p className="text-sm text-foreground/45 mb-3">{pkg.hours}-Hour Coverage</p>
+                  <h3 className="text-2xl font-extrabold tracking-tight leading-tight mb-0.5">{pkg.name}</h3>
+                  <p className="text-base text-foreground/45 mb-3">{pkg.hours}-Hour Coverage</p>
 
                   {/* Guest count */}
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-500/8 border border-brand-500/15 text-[11px] font-semibold text-brand-600 dark:text-brand-400 mb-3">
-                    <Users size={11} strokeWidth={2.5} />
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-500/8 border border-brand-500/15 text-xs font-semibold text-brand-600 dark:text-brand-400 mb-3">
+                    <Users size={12} strokeWidth={2.5} />
                     {pkg.guests}
                   </span>
 
                   {/* Elite tagline */}
                   {pkg.tagline && (
-                    <p className="text-[11px] text-foreground/50 leading-snug italic mb-5">{pkg.tagline}</p>
+                    <p className="text-xs text-foreground/50 leading-snug italic mb-5">{pkg.tagline}</p>
                   )}
 
                   {/* Feature list */}
@@ -390,18 +390,18 @@ export function PackageTabs() {
                     {[...pkg.features, COUPLE_SESSION].map((f) => (
                       <li
                         key={f.label}
-                        className={`text-sm ${
+                        className={`text-base ${
                           f.exclusive ? "-mx-2 px-2.5 py-2 rounded-xl bg-brand-500/10 border border-brand-500/25" :
                           f.highlight  ? "mt-2 pt-3 border-t border-brand-500/20" : ""
                         }`}
                       >
                         {f.exclusive && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-brand-500 text-white text-[9px] font-extrabold uppercase tracking-widest mb-1.5">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-brand-500 text-white text-[10px] font-extrabold uppercase tracking-widest mb-1.5">
                             <Star size={8} fill="currentColor" strokeWidth={0} />
                             Elite Exclusive
                           </span>
                         )}
-                        <span className={`text-[10px] font-bold uppercase tracking-wider block leading-none mb-0.5 ${
+                        <span className={`text-xs font-bold uppercase tracking-wider block leading-none mb-0.5 ${
                           f.exclusive ? "text-brand-500" :
                           f.highlight  ? "text-brand-500" : "text-foreground/35"
                         }`}>
@@ -411,7 +411,7 @@ export function PackageTabs() {
                           f.exclusive ? "text-brand-600 dark:text-brand-400 font-semibold" :
                           f.highlight  ? "text-brand-600 dark:text-brand-400 font-medium" : "text-foreground/80"
                         }`}>
-                          {f.highlight && <Check size={13} className="text-brand-500 mt-0.5 shrink-0" strokeWidth={2.5} />}
+                          {f.highlight && <Check size={14} className="text-brand-500 mt-0.5 shrink-0" strokeWidth={2.5} />}
                           {f.value}
                         </span>
                       </li>
@@ -421,7 +421,7 @@ export function PackageTabs() {
                   {/* CTA */}
                   <Link
                     href={`/contact?package=${activeTab}&tier=${pkg.name.toLowerCase()}`}
-                    className={`block text-center py-3 rounded-xl text-[11px] font-extrabold uppercase tracking-widest transition-all hover:opacity-85 active:scale-[0.98] ${
+                    className={`block text-center py-3 rounded-xl text-xs font-extrabold uppercase tracking-widest transition-all hover:opacity-85 active:scale-[0.98] ${
                       pkg.popular
                         ? "bg-brand-500 text-white"
                         : "border border-brand-500/30 text-brand-500"
