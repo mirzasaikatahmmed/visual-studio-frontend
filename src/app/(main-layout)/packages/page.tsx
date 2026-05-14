@@ -148,7 +148,7 @@ export default function PackagesPage() {
               href="https://wa.me/13473066637?text=Hi%2C%20I%27d%20like%20to%20get%20a%20custom%20quote%20for%20my%20wedding."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-brand-500/30 text-brand-500 text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-brand-500/10 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[#25D366] text-[#25D366] text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-[#25D366]/10 transition-colors"
             >
               Chat on WhatsApp
             </a>
