@@ -24,7 +24,7 @@ const TABS: Tab[] = [
       "Professional photographer",
       "Pre-shoot consultation",
       "Backdrop & lighting setup",
-      "High-resolution digital delivery via Pixieset",
+      "High-resolution digital gallery delivery",
       "Online gallery client access",
     ],
     packages: [
@@ -35,7 +35,7 @@ const TABS: Tab[] = [
           { label: "Edited",     value: "300 professionally edited high-res photos" },
           { label: "Retouched",  value: "75 hand-retouched portraits" },
           { label: "Lighting",   value: "Professional lighting setup" },
-          { label: "Delivery",   value: "Pixieset gallery with digital download" },
+          { label: "Delivery",   value: "Digital gallery with download" },
         ],
       },
       {
@@ -45,7 +45,7 @@ const TABS: Tab[] = [
           { label: "Edited",     value: "600 professionally edited high-res photos" },
           { label: "Retouched",  value: "150 hand-retouched portraits" },
           { label: "Lighting",   value: "Professional lighting setup" },
-          { label: "Delivery",   value: "Pixieset gallery with digital download" },
+          { label: "Delivery",   value: "Digital gallery with download" },
         ],
       },
       {
@@ -55,7 +55,7 @@ const TABS: Tab[] = [
           { label: "Edited",     value: "900 professionally edited high-res photos" },
           { label: "Retouched",  value: "225 hand-retouched portraits" },
           { label: "Support",    value: "Professional lighting + on-site assistant" },
-          { label: "Gallery",    value: "Pixieset gallery with client proofing" },
+          { label: "Gallery",    value: "Digital gallery with client proofing" },
           { label: "Delivery",   value: "High-resolution digital download" },
         ],
       },
@@ -69,7 +69,7 @@ const TABS: Tab[] = [
           { label: "Retouched",  value: "300 hand-retouched portraits" },
           { label: "Team",       value: "2-photographer team + on-site assistant" },
           { label: "Lighting",   value: "Professional lighting, full cinematic style" },
-          { label: "Delivery",   value: "Priority turnaround, Pixieset gallery" },
+          { label: "Delivery",   value: "Priority turnaround, digital gallery" },
         ],
       },
     ],
@@ -93,7 +93,7 @@ const TABS: Tab[] = [
       "Fine art prints",
       "Live streaming",
     ],
-    deliveryNote: "All photos delivered via your private Pixieset gallery with high-resolution digital download access.",
+    deliveryNote: "All photos delivered via your private digital gallery with high-resolution digital download access.",
   },
   {
     id: "videography",
@@ -180,7 +180,7 @@ const TABS: Tab[] = [
       "Pre-event consultation",
       "Backdrop & lighting setup",
       "Full cinematic color grading",
-      "Pixieset gallery + private video link delivery",
+      "Digital gallery + private video link delivery",
     ],
     packages: [
       {
@@ -191,7 +191,7 @@ const TABS: Tab[] = [
           { label: "Edited",    value: "300 professionally edited high-res photos" },
           { label: "Retouched", value: "75 hand-retouched portraits" },
           { label: "Lighting",  value: "Professional lighting setup" },
-          { label: "Delivery",  value: "Pixieset gallery + private video link" },
+          { label: "Delivery",  value: "Digital gallery + private video link" },
         ],
       },
       {
@@ -203,7 +203,7 @@ const TABS: Tab[] = [
           { label: "Retouched", value: "150 hand-retouched portraits" },
           { label: "Editing",   value: "Full photo & video editing" },
           { label: "Lighting",  value: "Professional lighting setup" },
-          { label: "Delivery",  value: "Pixieset gallery + private video link" },
+          { label: "Delivery",  value: "Digital gallery + private video link" },
         ],
       },
       {
@@ -215,7 +215,7 @@ const TABS: Tab[] = [
           { label: "Retouched", value: "225 hand-retouched portraits" },
           { label: "Support",   value: "Professional lighting + on-site assistant" },
           { label: "Editing",   value: "Full photo & video editing" },
-          { label: "Delivery",  value: "Pixieset gallery + private video link" },
+          { label: "Delivery",  value: "Digital gallery + private video link" },
         ],
       },
       {
@@ -229,7 +229,7 @@ const TABS: Tab[] = [
           { label: "Retouched",  value: "300 hand-retouched portraits" },
           { label: "Team",       value: "2-photographer team + videography assistant" },
           { label: "Editing",    value: "Premium editing, cinematic coverage & lighting" },
-          { label: "Delivery",   value: "Pixieset gallery + private video link, priority delivery" },
+          { label: "Delivery",   value: "Digital gallery + private video link, priority delivery" },
         ],
       },
     ],
@@ -253,7 +253,7 @@ const TABS: Tab[] = [
       "Magazine-style booklet (12 pages)",
       "Rush delivery upgrade",
     ],
-    deliveryNote: "Photos via Pixieset gallery · Films via private secure link · Both delivered after editing is complete.",
+    deliveryNote: "Photos via private digital gallery · Films via private secure link · Both delivered after editing is complete.",
   },
 ];
 

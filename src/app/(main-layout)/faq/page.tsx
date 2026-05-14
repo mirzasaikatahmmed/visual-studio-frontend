@@ -148,7 +148,7 @@ const faqSchema = {
       "name": "How will I receive my photos and videos?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Through a private, password-protected online gallery (Pixieset) where you can download high-resolution files, share with family, and order prints. USB and printed albums are available as add-ons.",
+        "text": "Through a private, password-protected digital gallery where you can download high-resolution files, share with family, and order prints. USB and printed albums are available as add-ons.",
       },
     },
     {

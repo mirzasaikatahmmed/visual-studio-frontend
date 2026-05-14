@@ -20,7 +20,7 @@ const packagesFaqSchema = {
       "name": "What is included in Visual Studios' wedding photography packages?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "All packages include a professional photographer or videographer, pre-shoot consultation, backdrop and lighting setup, digital delivery via Pixieset gallery or private video link, and a free 1-hour pre-wedding couple session. The Signature 12-hour package adds an on-site assistant. The Elite 16-hour package includes a 2-photographer team plus the Elite-exclusive Fine Art Hardcover Album (20×20, 40 pages)."
+        "text": "All packages include a professional photographer or videographer, pre-shoot consultation, backdrop and lighting setup, digital delivery via private gallery or video link, and a free 1-hour pre-wedding couple session. The Signature 12-hour package adds an on-site assistant. The Elite 16-hour package includes a 2-photographer team plus the Elite-exclusive Fine Art Hardcover Album (20×20, 40 pages)."
       }
     },
     {
@@ -60,7 +60,7 @@ const packagesFaqSchema = {
       "name": "Can I book photography and videography together in one package?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Photo + Video Bundle packages are available starting at 4-hour Essentials coverage up to 16-hour Elite full-day coverage. Bundles include a photographer, videographer, lighting setup, cinematic color grading, and delivery via Pixieset gallery and private video link."
+        "text": "Yes. Photo + Video Bundle packages are available starting at 4-hour Essentials coverage up to 16-hour Elite full-day coverage. Bundles include a photographer, videographer, lighting setup, cinematic color grading, and delivery via private gallery and video link."
       }
     }
   ]
@@ -174,7 +174,7 @@ export default function PackagesPage() {
               },
               {
                 q: "What is included in every photography or videography package?",
-                a: "All packages include a professional photographer or videographer, pre-shoot consultation, backdrop and lighting setup, digital delivery via Pixieset gallery or private video link, and a free 1-hour pre-wedding couple session. The Signature 12-hour package adds an on-site assistant. The Elite 16-hour package includes a 2-photographer team plus the Elite-exclusive Fine Art Hardcover Album (20×20, 40 pages).",
+                a: "All packages include a professional photographer or videographer, pre-shoot consultation, backdrop and lighting setup, digital delivery via private gallery or video link, and a free 1-hour pre-wedding couple session. The Signature 12-hour package adds an on-site assistant. The Elite 16-hour package includes a 2-photographer team plus the Elite-exclusive Fine Art Hardcover Album (20×20, 40 pages).",
               },
               {
                 q: "How many photos do I receive from a 12-hour wedding?",
@@ -194,7 +194,7 @@ export default function PackagesPage() {
               },
               {
                 q: "Can I book photography and videography together as a bundle?",
-                a: "Yes. Photo + Video Bundle packages run from 4-hour Essentials to 16-hour Elite full-day coverage. Every bundle includes a photographer, videographer, lighting setup, cinematic color grading, and delivery via Pixieset gallery and private video link.",
+                a: "Yes. Photo + Video Bundle packages run from 4-hour Essentials to 16-hour Elite full-day coverage. Every bundle includes a photographer, videographer, lighting setup, cinematic color grading, and delivery via private gallery and video link.",
               },
             ].map(({ q, a }) => (
               <div key={q} className="border-b border-border pb-8 last:border-b-0 last:pb-0">

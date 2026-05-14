@@ -28,7 +28,7 @@ const FAQS = [
     id: 4,
     question: "What is the average wait time to receive photos back?",
     answer:
-      "Our standard turnaround time is 4–6 weeks for edited photos and 6–8 weeks for edited videos and films. For weddings and larger events, delivery may take up to 8–10 weeks during peak season. We also provide a sneak peek of select images within 1–2 weeks so you have something to share right away. Need it sooner? Rush delivery is available for an additional fee — just ask.",
+      "Our standard turnaround time is 4–6 weeks for edited photos and 6–8 weeks for edited videos and films. For weddings and larger events, delivery may take up to 8–10 weeks during peak season. We also deliver a 72-hour sneak peek of 15–25 select images so you have something to share right away. Need it sooner? Rush delivery is available for an additional fee — just ask.",
   },
   {
     id: 5,
