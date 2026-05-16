@@ -26,15 +26,16 @@ export async function loginApi(
     body: JSON.stringify({ email, password }),
   });
 
+  const body = await res.json().catch(() => ({}));
+
   if (!res.ok) {
-    const body = await res.json().catch(() => ({}));
     const msg = Array.isArray(body?.message)
       ? body.message[0]
       : (body?.message ?? 'Invalid credentials');
     throw new Error(msg);
   }
 
-  return res.json() as Promise<LoginResponse>;
+  return (body?.data ?? body) as LoginResponse;
 }
 
 export function saveAuth(token: string, user: AuthUser): void {

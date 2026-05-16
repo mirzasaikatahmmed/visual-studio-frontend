@@ -11,14 +11,14 @@ function authHeaders(): HeadersInit {
 }
 
 async function handle<T>(res: Response): Promise<T> {
+  const body = await res.json().catch(() => ({}));
   if (!res.ok) {
-    const body = await res.json().catch(() => ({}));
     const msg = Array.isArray(body?.message)
       ? body.message[0]
       : (body?.message ?? `Request failed: ${res.status}`);
     throw new Error(msg);
   }
-  return res.json() as Promise<T>;
+  return (body?.data ?? body) as T;
 }
 
 export type SettingItem = { key: string; value: string; group?: string };

@@ -11,11 +11,11 @@ function authHeaders(): HeadersInit {
 }
 
 async function handle<T>(res: Response): Promise<T> {
+  const body = await res.json().catch(() => ({}));
   if (!res.ok) {
-    const body = await res.json().catch(() => ({}));
     throw new Error(body?.message ?? `Request failed: ${res.status}`);
   }
-  return res.json() as Promise<T>;
+  return (body?.data ?? body) as T;
 }
 
 export type VisionCraftItem = {
