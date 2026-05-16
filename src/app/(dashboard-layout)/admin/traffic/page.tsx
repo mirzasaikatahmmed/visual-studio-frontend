@@ -68,14 +68,20 @@ export default function TrafficPage() {
   const loadStats = useCallback(async () => {
     try {
       const res = await fetch(`${BASE}/visitors/stats`, { headers: authHeaders() });
-      if (res.ok) setStats(await res.json());
+      if (res.ok) {
+        const json = await res.json();
+        setStats(json?.data ?? json);
+      }
     } catch { /* ignore */ }
   }, []);
 
   const loadSessions = useCallback(async (p: number) => {
     try {
       const res = await fetch(`${BASE}/visitors/sessions?page=${p}&limit=25`, { headers: authHeaders() });
-      if (res.ok) setSessions(await res.json());
+      if (res.ok) {
+        const json = await res.json();
+        setSessions(json?.data ?? json);
+      }
     } catch { /* ignore */ }
   }, []);
 
@@ -227,10 +233,10 @@ export default function TrafficPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border text-sm">
-                  {sessions?.data.length === 0 ? (
+                  {sessions?.data?.length === 0 ? (
                     <tr><td colSpan={7} className="p-10 text-center text-muted-foreground text-sm">No sessions yet.</td></tr>
                   ) : (
-                    sessions?.data.map((s) => (
+                    sessions?.data?.map((s) => (
                       <tr key={s.id} className="hover:bg-muted/30 transition-colors">
                         <td className="p-3 font-mono text-xs">{s.ip}</td>
                         <td className="p-3 text-xs max-w-[120px] truncate font-mono">{s.page || "/"}</td>
