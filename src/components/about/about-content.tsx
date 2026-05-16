@@ -49,9 +49,9 @@ const TEAM: TeamMember[] = [
   {
     id: 2,
     name: "Adhora Mir",
-    role: "Video Editor & Social Media Manager",
+    role: "Co-Founder & Creative Director",
     imageUrl: "/images/team/adhora-mir.png",
-    bio: `As an artist and entrepreneur, I began my creative journey making my own videos and discovered a passion for storytelling through film and design. I've created content for community and Islamic groups, managing their social media and producing videos to engage their audiences.\n\nAt Visual Studios, I focus on editing videos and films, managing social media platforms, and contributing to graphic design projects. For me it's more than a business — it's a family-driven platform where I can grow professionally while doing what I love.`,
+    bio: `As an artist and entrepreneur, I began my creative journey making my own videos and discovered a passion for storytelling through film and design. That passion grew into creating content for community and Islamic groups — managing their social media and producing videos to engage their audiences in meaningful ways.\n\nAt Visual Studios, I focus on editing videos and films, managing social media platforms, and contributing to graphic design projects. I love the craft of editing — finding the rhythm of a story and shaping moments into something people genuinely feel.\n\nAlongside Visual Studios, I also pour my creativity into Ayah & Co., my own handmade brand celebrating Islamic and Arabic art. For me, all of this is more than a business — it's a family-driven platform where I can grow professionally while doing what I love.`,
     imagePosition: "right",
   },
   {
@@ -59,7 +59,7 @@ const TEAM: TeamMember[] = [
     name: "Syed Md Mahid",
     role: "Creative Operations Manager",
     imageUrl: "/images/team/syed-md-mahid.png",
-    bio: `Syed Md Mahid is a creative professional specializing in visual storytelling, media production, and creative operations. With a strong background in photography, editing, and digital media, he plays an important role in managing creative workflows and supporting the development of the company’s production team.\n\nAt Visual Studio, he oversees creative operations including video and photo editing, team coordination, recruitment, and project management. He also collaborates with editors, designers, 3D artists, and developers to maintain creative quality and ensure efficient execution across projects.\n\nAlongside his management responsibilities, Mahid contributes to multimedia production through photography, photo editing, visual design, and content development. His ability to combine creativity with operational leadership helps the team deliver impactful and professional visual experiences.\n\nAlongside his professional career, he is currently completing his final year in Information and Communication Engineering at East West University, where he continues to explore the connection between technology, storytelling, and modern creative media.`,
+    bio: `I’m a creative professional specializing in visual storytelling, media production, and creative operations. With a strong background in photography, editing, and digital media, I play an important role in managing creative workflows and supporting the development of our company’s production team.\n\nAt Visual Studio, I oversee creative operations including video and photo editing, team coordination, recruitment, and project management. I also collaborate with editors, designers, 3D artists, and developers to maintain creative quality and ensure efficient execution across projects.\n\nAlongside my management responsibilities, I contribute to multimedia production through photography, photo editing, visual design, and content development. Combining creativity with operational leadership helps me support the team in delivering impactful and professional visual experiences.\n\nAlongside my professional career, I’m currently completing my final year in Information and Communication Engineering at East West University, where I continue to explore the connection between technology, storytelling, and modern creative media.`,
     imagePosition: "left",
   },
 ];
