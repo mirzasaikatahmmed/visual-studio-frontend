@@ -5,19 +5,26 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const CREW_PHOTOS = [
-  { id: 1, url: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=800&auto=format&fit=crop", caption: "On Set — Pre-Shoot Setup" },
-  { id: 2, url: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800&auto=format&fit=crop", caption: "Locking the Shot" },
-  { id: 3, url: "https://images.unsplash.com/photo-1542038374416-ae9bb5e50d2e?q=80&w=800&auto=format&fit=crop", caption: "Crew Coordination" },
-  { id: 4, url: "https://images.unsplash.com/photo-1533488069869-46b3e73cca28?q=80&w=800&auto=format&fit=crop", caption: "Behind the Lens" },
-  { id: 5, url: "https://images.unsplash.com/photo-1607462109225-6b64ae2dd3cb?q=80&w=800&auto=format&fit=crop", caption: "Team Briefing" },
-  { id: 6, url: "https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=800&auto=format&fit=crop", caption: "Full Crew — Event Day" },
+  { id: 1, url: "https://visualstudioslens.saikat.com.bd/api/uploads/16a39ee1-5e8a-4737-8409-815c13a868ab.PNG", caption: "On Set — Pre-Shoot Setup" },
+  { id: 2, url: "https://visualstudioslens.saikat.com.bd/api/uploads/4003aaf6-3e2e-4815-b1e2-10346e5ee34b.PNG", caption: "Locking the Shot" },
+  { id: 3, url: "https://visualstudioslens.saikat.com.bd/api/uploads/a1b7ab26-fbfe-411f-bea1-2ec5e1da459d.PNG", caption: "Crew Coordination" },
+  { id: 4, url: "https://visualstudioslens.saikat.com.bd/api/uploads/11ab3b28-13e9-4a30-aced-623120a3cad3.PNG", caption: "Behind the Lens" },
+  { id: 5, url: "https://visualstudioslens.saikat.com.bd/api/uploads/b98f8827-13eb-4dd7-b56a-467858b979b4.PNG", caption: "Team Briefing" },
+  { id: 6, url: "https://visualstudioslens.saikat.com.bd/api/uploads/86ecd491-b24d-475e-bd0d-089ca5ac0249.PNG", caption: "Full Crew — Event Day" },
+  { id: 7, url: "https://visualstudioslens.saikat.com.bd/api/uploads/d2f85c4a-fee5-4214-9003-94c3f36931dc.PNG", caption: "Setting Up the Scene" },
+  { id: 8, url: "https://visualstudioslens.saikat.com.bd/api/uploads/a28e7f0d-3e07-4dc1-847a-7a2c26c24e2c.PNG", caption: "In Action" },
+  { id: 9, url: "https://visualstudioslens.saikat.com.bd/api/uploads/2e1c3295-01ad-43fe-897c-06891c3622fc.PNG", caption: "Capturing the Moment" },
+  { id: 10, url: "https://visualstudioslens.saikat.com.bd/api/uploads/ff5da3e9-d252-483a-a73e-68718a098af3.PNG", caption: "The Creative Process" },
+  { id: 11, url: "https://visualstudioslens.saikat.com.bd/api/uploads/9c1f65cb-5139-4b80-b245-87e48e153527.jpeg", caption: "Behind the Camera" },
 ];
 
 const FEMALE_CREW_PHOTOS = [
-  { id: 1, url: "https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=800&auto=format&fit=crop", caption: "In Her Element" },
-  { id: 2, url: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=800&auto=format&fit=crop", caption: "Getting the Perfect Angle" },
-  { id: 3, url: "https://images.unsplash.com/photo-1525182008055-f88b95ff7980?q=80&w=800&auto=format&fit=crop", caption: "Framing the Moment" },
-  { id: 4, url: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=800&auto=format&fit=crop", caption: "Eye for Detail" },
+  { id: 1, url: "https://visualstudioslens.saikat.com.bd/api/uploads/04b389fd-6b90-401f-a009-75431d5d0fbd.PNG", caption: "In Her Element" },
+  { id: 2, url: "https://visualstudioslens.saikat.com.bd/api/uploads/f0e35148-6a92-49ff-a502-3b43b5bf412c.PNG", caption: "Getting the Perfect Angle" },
+  { id: 3, url: "https://visualstudioslens.saikat.com.bd/api/uploads/ad2a60a0-1ad1-4188-9735-e02861bc828c.PNG", caption: "Framing the Moment" },
+  { id: 4, url: "https://visualstudioslens.saikat.com.bd/api/uploads/657e6542-e76f-4ec8-966e-bc1996e336f3.PNG", caption: "Eye for Detail" },
+  { id: 5, url: "https://visualstudioslens.saikat.com.bd/api/uploads/3d61ffef-4b3a-4be0-936f-ef64bd14a6b1.jpeg", caption: "Behind the Lens" },
+  { id: 6, url: "https://visualstudioslens.saikat.com.bd/api/uploads/dd1623c3-62f1-4e3a-8541-6e1c912f8e1a.jpg", caption: "Capturing Every Detail" },
 ];
 
 const CUSTOMER_PHOTOS = [
