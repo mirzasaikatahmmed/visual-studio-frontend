@@ -11,7 +11,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import {
   fetchMedia, uploadMedia, updateMedia, deleteMedia, bulkDeleteMedia,
   formatSize, resolveUrl,
-  type MediaItem, type MediaType, type UpdatePayload,
+  type MediaItem, type MediaType, type MediaCounts, type UpdatePayload,
 } from "@/lib/mediaApi";
 
 type ViewMode = "grid" | "list";
@@ -44,16 +44,24 @@ function formatDate(d: string) {
   });
 }
 
+const LIMIT = 48;
+
 export default function MediaPage() {
-  const [media, setMedia] = useState<MediaItem[]>([]);
+  const [items, setItems] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [counts, setCounts] = useState<MediaCounts>({ all: 0, image: 0, video: 0, document: 0, audio: 0 });
 
   const [selected, setSelected] = useState<MediaItem | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [filterType, setFilterType] = useState<FilterType>("all");
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [bulkMode, setBulkMode] = useState(false);
   const [bulkSelected, setBulkSelected] = useState<Set<number>>(new Set());
   const [copied, setCopied] = useState(false);
@@ -65,41 +73,42 @@ export default function MediaPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const pageRef = useRef<HTMLDivElement>(null);
 
-  const load = useCallback(async () => {
-    setLoading(true);
+  // Debounce search input
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(search), 400);
+    return () => clearTimeout(t);
+  }, [search]);
+
+  const load = useCallback(async (pg: number, append: boolean) => {
+    if (pg === 1) setLoading(true); else setLoadingMore(true);
     setError(null);
     try {
-      const data = await fetchMedia();
-      setMedia(data);
+      const result = await fetchMedia({
+        type: filterType === "all" ? undefined : filterType,
+        search: debouncedSearch || undefined,
+        page: pg,
+        limit: LIMIT,
+        sortBy,
+      });
+      setItems(prev => append ? [...prev, ...result.items] : result.items);
+      setPage(pg);
+      setTotal(result.total);
+      setTotalPages(result.totalPages);
+      setCounts(result.counts);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to load media");
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
-  }, []);
+  }, [filterType, debouncedSearch, sortBy]);
 
-  useEffect(() => { load(); }, [load]);
+  // Reload from page 1 when filters/sort/search change
+  useEffect(() => { load(1, false); }, [load]);
 
-  const filtered = media
-    .filter(m => filterType === "all" || m.type === filterType)
-    .filter(m => !search || m.name.toLowerCase().includes(search.toLowerCase()) || m.title.toLowerCase().includes(search.toLowerCase()))
-    .sort((a, b) => {
-      if (sortBy === "name") return a.name.localeCompare(b.name);
-      if (sortBy === "size") return b.size - a.size;
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
+  const hasMore = page < totalPages;
 
-  const counts = {
-    all: media.length,
-    image: media.filter(m => m.type === "image").length,
-    video: media.filter(m => m.type === "video").length,
-    document: media.filter(m => m.type === "document").length,
-    audio: media.filter(m => m.type === "audio").length,
-  };
-
-  const totalSize = media.reduce((sum, m) => sum + (m.size ?? 0), 0);
-
-  const handleSelect = (item: MediaItem) => {
+  const handleSelect = useCallback((item: MediaItem) => {
     if (bulkMode) {
       setBulkSelected(prev => {
         const next = new Set(prev);
@@ -115,7 +124,7 @@ export default function MediaPage() {
       setSelected(item);
       setEditForm({ title: item.title, altText: item.altText, caption: item.caption });
     }
-  };
+  }, [bulkMode, selected]);
 
   const handleCopyUrl = () => {
     if (selected?.url) {
@@ -130,7 +139,9 @@ export default function MediaPage() {
     if (!window.confirm(`Delete "${selected.name}"?`)) return;
     try {
       await deleteMedia(selected.id);
-      setMedia(prev => prev.filter(m => m.id !== selected.id));
+      setItems(prev => prev.filter(m => m.id !== selected.id));
+      setTotal(t => t - 1);
+      setCounts(c => ({ ...c, all: c.all - 1, [selected.type]: c[selected.type] - 1 }));
       setSelected(null);
       setEditForm(null);
     } catch (e) {
@@ -143,9 +154,11 @@ export default function MediaPage() {
     if (!window.confirm(`Delete ${bulkSelected.size} item${bulkSelected.size > 1 ? "s" : ""}?`)) return;
     try {
       await bulkDeleteMedia([...bulkSelected]);
-      setMedia(prev => prev.filter(m => !bulkSelected.has(m.id)));
+      setItems(prev => prev.filter(m => !bulkSelected.has(m.id)));
       setBulkSelected(new Set());
       setBulkMode(false);
+      // Reload to get accurate counts after bulk delete
+      load(1, false);
     } catch (e) {
       alert(e instanceof Error ? e.message : "Bulk delete failed");
     }
@@ -155,7 +168,7 @@ export default function MediaPage() {
     if (!selected || !editForm) return;
     try {
       const updated = await updateMedia(selected.id, editForm);
-      setMedia(prev => prev.map(m => m.id === updated.id ? updated : m));
+      setItems(prev => prev.map(m => m.id === updated.id ? updated : m));
       setSelected(updated);
       setDetailSaved(true);
       setTimeout(() => setDetailSaved(false), 2000);
@@ -180,7 +193,15 @@ export default function MediaPage() {
         console.error(`Failed to upload ${file.name}:`, e);
       }
     }
-    if (newItems.length) setMedia(prev => [...newItems, ...prev]);
+    if (newItems.length) {
+      setItems(prev => [...newItems, ...prev]);
+      setTotal(t => t + newItems.length);
+      setCounts(c => {
+        const next = { ...c, all: c.all + newItems.length };
+        for (const item of newItems) next[item.type] = (next[item.type] ?? 0) + 1;
+        return next;
+      });
+    }
     setUploading(false);
   }, []);
 
@@ -194,7 +215,7 @@ export default function MediaPage() {
     if (e.dataTransfer.files.length) handleFileUpload(e.dataTransfer.files);
   };
 
-  const isSelected = (id: number) => bulkMode ? bulkSelected.has(id) : selected?.id === id;
+  const isSelected = useCallback((id: number) => bulkMode ? bulkSelected.has(id) : selected?.id === id, [bulkMode, bulkSelected, selected]);
 
   return (
     <div
@@ -220,16 +241,7 @@ export default function MediaPage() {
           <p className="text-muted-foreground text-sm mt-1">
             {loading ? "Loading…" : (
               <>
-                {media.length} {media.length === 1 ? "item" : "items"}
-                {totalSize > 0 && (
-                  <span className="mx-2 text-muted-foreground/40">·</span>
-                )}
-                {totalSize > 0 && (
-                  <span className="inline-flex items-center gap-1">
-                    <HardDrive size={12} className="inline text-muted-foreground/70" />
-                    {formatSize(totalSize)} total
-                  </span>
-                )}
+                {total} {total === 1 ? "item" : "items"}
                 <span className="mx-2 text-muted-foreground/40">—</span>
                 drag files onto the page to upload
               </>
@@ -251,7 +263,7 @@ export default function MediaPage() {
         <div className="flex items-center gap-3 mb-5 px-4 py-3 bg-red-500/10 border border-red-500/30 rounded-sm text-red-500">
           <AlertCircle size={16} />
           <span className="text-sm font-medium">{error}</span>
-          <button onClick={load} className="ml-auto text-xs font-bold uppercase tracking-widest underline">Retry</button>
+          <button onClick={() => load(1, false)} className="ml-auto text-xs font-bold uppercase tracking-widest underline">Retry</button>
         </div>
       )}
 
@@ -336,10 +348,10 @@ export default function MediaPage() {
             {bulkSelected.size} selected
           </span>
           <button
-            onClick={() => setBulkSelected(new Set(filtered.map(m => m.id)))}
+            onClick={() => setBulkSelected(new Set(items.map(m => m.id)))}
             className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
-            Select all ({filtered.length})
+            Select all ({items.length})
           </button>
           <button
             onClick={() => setBulkSelected(new Set())}
@@ -365,13 +377,13 @@ export default function MediaPage() {
               <Loader2 size={28} className="animate-spin mr-3" />
               <span className="text-sm font-medium">Loading media library…</span>
             </div>
-          ) : filtered.length === 0 ? (
+          ) : items.length === 0 ? (
             <div className="border-2 border-dashed border-border rounded-md py-20 text-center text-muted-foreground">
               <ImageIcon size={40} className="mx-auto mb-3 opacity-20" />
               <p className="text-sm font-medium">
-                {search ? "No media found for your search." : "No media uploaded yet."}
+                {debouncedSearch ? "No media found for your search." : "No media uploaded yet."}
               </p>
-              {!search && (
+              {!debouncedSearch && (
                 <button
                   onClick={() => setUploadOpen(true)}
                   className="mt-4 px-4 py-2 bg-brand-400 text-white text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-brand-500 transition-colors"
@@ -382,7 +394,7 @@ export default function MediaPage() {
             </div>
           ) : viewMode === "grid" ? (
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-1">
-              {filtered.map(item => (
+              {items.map(item => (
                 <GridItem
                   key={item.id}
                   item={item}
@@ -394,7 +406,7 @@ export default function MediaPage() {
             </div>
           ) : (
             <ListTable
-              items={filtered}
+              items={items}
               selected={selected}
               bulkMode={bulkMode}
               bulkSelected={bulkSelected}
@@ -402,10 +414,23 @@ export default function MediaPage() {
             />
           )}
 
-          {!loading && filtered.length > 0 && (
+          {!loading && items.length > 0 && (
             <p className="text-xs text-muted-foreground mt-4">
-              Showing {filtered.length} of {media.length} items
+              Showing {items.length} of {total} items
             </p>
+          )}
+
+          {hasMore && (
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={() => load(page + 1, true)}
+                disabled={loadingMore}
+                className="px-6 py-2.5 border border-border text-xs font-bold uppercase tracking-widest hover:border-brand-400 hover:text-brand-400 transition-colors rounded-sm disabled:opacity-50 flex items-center gap-2"
+              >
+                {loadingMore && <Loader2 size={13} className="animate-spin" />}
+                {loadingMore ? "Loading…" : `Load more (${total - items.length} remaining)`}
+              </button>
+            </div>
           )}
         </div>
 

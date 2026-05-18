@@ -42,15 +42,38 @@ async function handle<T>(res: Response): Promise<T> {
   return (body?.data ?? body) as T;
 }
 
+export type MediaCounts = {
+  all: number;
+  image: number;
+  video: number;
+  document: number;
+  audio: number;
+};
+
+export type PaginatedMedia = {
+  items: MediaItem[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  counts: MediaCounts;
+};
+
 export async function fetchMedia(params?: {
   type?: MediaType;
   search?: string;
-}): Promise<MediaItem[]> {
+  page?: number;
+  limit?: number;
+  sortBy?: 'date' | 'name' | 'size';
+}): Promise<PaginatedMedia> {
   const qs = new URLSearchParams();
   if (params?.type) qs.set('type', params.type);
   if (params?.search) qs.set('search', params.search);
+  if (params?.page) qs.set('page', String(params.page));
+  if (params?.limit) qs.set('limit', String(params.limit));
+  if (params?.sortBy) qs.set('sortBy', params.sortBy);
   const res = await fetch(`${BASE}/media?${qs}`, { cache: 'no-store' });
-  return handle<MediaItem[]>(res);
+  return handle<PaginatedMedia>(res);
 }
 
 export async function uploadMedia(
